@@ -1,0 +1,785 @@
+
+
+================================================================
+== Vitis HLS Report for 'pow_generic_double_s'
+================================================================
+* Date:           Mon May  5 03:30:33 2025
+
+* Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+* Project:        correlation
+* Solution:       solution1 (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu55c-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  5.00 ns|  3.612 ns|     1.35 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-----+-----+---------+
+    |  Latency (cycles) |  Latency (absolute) |  Interval | Pipeline|
+    |   min   |   max   |    min   |    max   | min | max |   Type  |
+    +---------+---------+----------+----------+-----+-----+---------+
+    |       40|       40|  0.200 us|  0.200 us|    1|    1|      yes|
+    +---------+---------+----------+----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        N/A
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 2
+HasVarLatency: 0
+IsPipeline: 1
+IsRtlPipelined: 1
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
++ Individual pipeline summary: 
+  * Pipeline-0: initiation interval (II) = 1, depth = 41
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 41
+* Pipeline : 1
+  Pipeline-0 : II = 1, D = 41, States = { 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 }
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 3 
+3 --> 4 
+4 --> 5 
+5 --> 6 
+6 --> 7 
+7 --> 8 
+8 --> 9 
+9 --> 10 
+10 --> 11 
+11 --> 12 
+12 --> 13 
+13 --> 14 
+14 --> 15 
+15 --> 16 
+16 --> 17 
+17 --> 18 
+18 --> 19 
+19 --> 20 
+20 --> 21 
+21 --> 22 
+22 --> 23 
+23 --> 24 
+24 --> 25 
+25 --> 26 
+26 --> 27 
+27 --> 28 
+28 --> 29 
+29 --> 30 
+30 --> 31 
+31 --> 32 
+32 --> 33 
+33 --> 34 
+34 --> 35 
+35 --> 36 
+36 --> 37 
+37 --> 38 
+38 --> 39 
+39 --> 40 
+40 --> 41 
+41 --> 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 1.60>
+ST_1 : Operation 42 [1/1] (0.00ns)   --->   "%base_read = read i64 @_ssdm_op_Read.ap_auto.double, i64 %base_r" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/src/hls/utils/x_hls_utils.h:488]   --->   Operation 42 'read' 'base_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 43 [1/1] (0.00ns)   --->   "%data_V = bitcast i64 %base_read" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/src/hls/utils/x_hls_utils.h:488]   --->   Operation 43 'bitcast' 'data_V' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 44 [1/1] (0.00ns)   --->   "%bs_exp_V = partselect i11 @_ssdm_op_PartSelect.i11.i64.i32.i32, i64 %data_V, i32 52, i32 62"   --->   Operation 44 'partselect' 'bs_exp_V' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 45 [1/1] (0.00ns)   --->   "%bs_sig_V = trunc i64 %data_V"   --->   Operation 45 'trunc' 'bs_sig_V' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 46 [1/1] (0.00ns)   --->   "%zext_ln515 = zext i11 %bs_exp_V" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/src/hls/utils/x_hls_utils.h:515]   --->   Operation 46 'zext' 'zext_ln515' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 47 [1/1] (0.73ns)   --->   "%b_exp = add i12 %zext_ln515, i12 3073" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/src/hls/utils/x_hls_utils.h:515]   --->   Operation 47 'add' 'b_exp' <Predicate = true> <Delay = 0.73> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.73> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 48 [1/1] (0.62ns)   --->   "%icmp_ln369 = icmp_eq  i12 %b_exp, i12 0" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:369]   --->   Operation 48 'icmp' 'icmp_ln369' <Predicate = true> <Delay = 0.62> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.62> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 49 [1/1] (0.98ns)   --->   "%icmp_ln1019 = icmp_eq  i52 %bs_sig_V, i52 0"   --->   Operation 49 'icmp' 'icmp_ln1019' <Predicate = true> <Delay = 0.98> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.98> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 50 [1/1] (0.12ns)   --->   "%x_is_1 = and i1 %icmp_ln369, i1 %icmp_ln1019" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:369]   --->   Operation 50 'and' 'x_is_1' <Predicate = true> <Delay = 0.12> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 51 [1/1] (0.00ns) (grouped into LUT with out node x_is_p1)   --->   "%tmp_2 = bitselect i1 @_ssdm_op_BitSelect.i1.i64.i32, i64 %data_V, i32 63"   --->   Operation 51 'bitselect' 'tmp_2' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 52 [1/1] (0.00ns) (grouped into LUT with out node x_is_p1)   --->   "%xor_ln970 = xor i1 %tmp_2, i1 1"   --->   Operation 52 'xor' 'xor_ln970' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 53 [1/1] (0.12ns) (out node of the LUT)   --->   "%x_is_p1 = and i1 %x_is_1, i1 %xor_ln970" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:370]   --->   Operation 53 'and' 'x_is_p1' <Predicate = true> <Delay = 0.12> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 54 [1/1] (0.61ns)   --->   "%icmp_ln1019_1 = icmp_eq  i11 %bs_exp_V, i11 2047"   --->   Operation 54 'icmp' 'icmp_ln1019_1' <Predicate = true> <Delay = 0.61> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.61> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 55 [1/1] (0.00ns)   --->   "%p_Result_s = bitselect i1 @_ssdm_op_BitSelect.i1.i64.i32, i64 %data_V, i32 51"   --->   Operation 55 'bitselect' 'p_Result_s' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 56 [1/1] (0.00ns)   --->   "%p_Result_12 = trunc i64 %data_V"   --->   Operation 56 'trunc' 'p_Result_12' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 57 [1/1] (0.00ns)   --->   "%index0_V = partselect i6 @_ssdm_op_PartSelect.i6.i64.i32.i32, i64 %data_V, i32 46, i32 51"   --->   Operation 57 'partselect' 'index0_V' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 58 [1/1] (0.73ns)   --->   "%b_exp_1 = add i12 %zext_ln515, i12 3074" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:515]   --->   Operation 58 'add' 'b_exp_1' <Predicate = true> <Delay = 0.73> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.73> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 59 [1/1] (0.29ns)   --->   "%b_exp_2 = select i1 %p_Result_s, i12 %b_exp_1, i12 %b_exp" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:513]   --->   Operation 59 'select' 'b_exp_2' <Predicate = true> <Delay = 0.29> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_1 : Operation 60 [1/1] (0.00ns)   --->   "%zext_ln541 = zext i6 %index0_V"   --->   Operation 60 'zext' 'zext_ln541' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 61 [1/1] (0.00ns)   --->   "%pow_reduce_anonymous_namespace_log_inverse_lut_table_pow_array_V_addr = getelementptr i6 %pow_reduce_anonymous_namespace_log_inverse_lut_table_pow_0_5_64_array_V, i64 0, i64 %zext_ln541" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:531]   --->   Operation 61 'getelementptr' 'pow_reduce_anonymous_namespace_log_inverse_lut_table_pow_array_V_addr' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 62 [2/2] (0.66ns)   --->   "%b_frac_tilde_inverse_V = load i6 %pow_reduce_anonymous_namespace_log_inverse_lut_table_pow_array_V_addr" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:531]   --->   Operation 62 'load' 'b_frac_tilde_inverse_V' <Predicate = true> <Delay = 0.66> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 0.66> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 6> <Depth = 64> <ROM>
+ST_1 : Operation 63 [1/1] (0.00ns) (grouped into LUT with out node and_ln407_1)   --->   "%xor_ln369 = xor i1 %x_is_1, i1 1" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:369]   --->   Operation 63 'xor' 'xor_ln369' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 64 [1/1] (0.61ns)   --->   "%icmp_ln407 = icmp_ne  i11 %bs_exp_V, i11 2047" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:407]   --->   Operation 64 'icmp' 'icmp_ln407' <Predicate = true> <Delay = 0.61> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.61> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 65 [1/1] (0.61ns)   --->   "%icmp_ln407_1 = icmp_ne  i11 %bs_exp_V, i11 0" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:407]   --->   Operation 65 'icmp' 'icmp_ln407_1' <Predicate = true> <Delay = 0.61> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.61> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 66 [1/1] (0.00ns) (grouped into LUT with out node and_ln407_1)   --->   "%and_ln407 = and i1 %icmp_ln407_1, i1 %xor_ln369" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:407]   --->   Operation 66 'and' 'and_ln407' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 67 [1/1] (0.12ns) (out node of the LUT)   --->   "%and_ln407_1 = and i1 %and_ln407, i1 %icmp_ln407" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:407]   --->   Operation 67 'and' 'and_ln407_1' <Predicate = true> <Delay = 0.12> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 68 [1/1] (0.61ns)   --->   "%icmp_ln407_2 = icmp_eq  i11 %bs_exp_V, i11 0" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:407]   --->   Operation 68 'icmp' 'icmp_ln407_2' <Predicate = true> <Delay = 0.61> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.61> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+
+State 2 <SV = 1> <Delay = 3.60>
+ST_2 : Operation 69 [1/1] (0.00ns)   --->   "%p_Result_13 = bitconcatenate i54 @_ssdm_op_BitConcatenate.i54.i1.i52.i1, i1 1, i52 %p_Result_12, i1 0"   --->   Operation 69 'bitconcatenate' 'p_Result_13' <Predicate = (!p_Result_s)> <Delay = 0.00>
+ST_2 : Operation 70 [1/1] (0.00ns)   --->   "%r_V_21 = bitconcatenate i53 @_ssdm_op_BitConcatenate.i53.i1.i52, i1 1, i52 %p_Result_12"   --->   Operation 70 'bitconcatenate' 'r_V_21' <Predicate = (p_Result_s)> <Delay = 0.00>
+ST_2 : Operation 71 [1/1] (0.00ns)   --->   "%zext_ln1488 = zext i53 %r_V_21"   --->   Operation 71 'zext' 'zext_ln1488' <Predicate = (p_Result_s)> <Delay = 0.00>
+ST_2 : Operation 72 [1/1] (0.26ns)   --->   "%b_frac_V_1 = select i1 %p_Result_s, i54 %zext_ln1488, i54 %p_Result_13" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:513]   --->   Operation 72 'select' 'b_frac_V_1' <Predicate = true> <Delay = 0.26> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.26> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_2 : Operation 73 [1/2] (0.66ns)   --->   "%b_frac_tilde_inverse_V = load i6 %pow_reduce_anonymous_namespace_log_inverse_lut_table_pow_array_V_addr" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:531]   --->   Operation 73 'load' 'b_frac_tilde_inverse_V' <Predicate = true> <Delay = 0.66> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 0.66> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 6> <Depth = 64> <ROM>
+ST_2 : Operation 74 [1/1] (0.00ns)   --->   "%zext_ln838 = zext i6 %b_frac_tilde_inverse_V"   --->   Operation 74 'zext' 'zext_ln838' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 75 [2/2] (2.94ns)   --->   "%mul_ln838 = mul i54 %b_frac_V_1, i54 %zext_ln838"   --->   Operation 75 'mul' 'mul_ln838' <Predicate = true> <Delay = 2.94> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 2.94> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 3 <SV = 2> <Delay = 2.94>
+ST_3 : Operation 76 [1/2] (2.94ns)   --->   "%mul_ln838 = mul i54 %b_frac_V_1, i54 %zext_ln838"   --->   Operation 76 'mul' 'mul_ln838' <Predicate = true> <Delay = 2.94> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 2.94> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 77 [1/1] (0.00ns)   --->   "%a_V = partselect i4 @_ssdm_op_PartSelect.i4.i54.i32.i32, i54 %mul_ln838, i32 50, i32 53"   --->   Operation 77 'partselect' 'a_V' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 78 [1/1] (0.00ns)   --->   "%trunc_ln813 = trunc i54 %mul_ln838"   --->   Operation 78 'trunc' 'trunc_ln813' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 79 [1/1] (0.00ns)   --->   "%tmp_7 = bitselect i1 @_ssdm_op_BitSelect.i1.i54.i32, i54 %mul_ln838, i32 53"   --->   Operation 79 'bitselect' 'tmp_7' <Predicate = true> <Delay = 0.00>
+
+State 4 <SV = 3> <Delay = 3.61>
+ST_4 : Operation 80 [1/1] (0.00ns)   --->   "%z1_V = bitconcatenate i71 @_ssdm_op_BitConcatenate.i71.i54.i17, i54 %mul_ln838, i17 0"   --->   Operation 80 'bitconcatenate' 'z1_V' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 81 [1/1] (0.00ns)   --->   "%zext_ln1271 = zext i4 %a_V"   --->   Operation 81 'zext' 'zext_ln1271' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 82 [1/1] (0.00ns)   --->   "%zext_ln1273 = zext i71 %z1_V"   --->   Operation 82 'zext' 'zext_ln1273' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 83 [2/2] (3.61ns)   --->   "%r_V_22 = mul i75 %zext_ln1273, i75 %zext_ln1271"   --->   Operation 83 'mul' 'r_V_22' <Predicate = true> <Delay = 3.61> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 3.61> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 5 <SV = 4> <Delay = 3.61>
+ST_5 : Operation 84 [1/2] (3.61ns)   --->   "%r_V_22 = mul i75 %zext_ln1273, i75 %zext_ln1271"   --->   Operation 84 'mul' 'r_V_22' <Predicate = true> <Delay = 3.61> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 3.61> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 6 <SV = 5> <Delay = 1.24>
+ST_6 : Operation 85 [1/1] (0.00ns)   --->   "%zext_ln1488_cast = bitconcatenate i75 @_ssdm_op_BitConcatenate.i75.i5.i54.i16, i5 16, i54 %mul_ln838, i16 0"   --->   Operation 85 'bitconcatenate' 'zext_ln1488_cast' <Predicate = (!tmp_7)> <Delay = 0.00>
+ST_6 : Operation 86 [1/1] (0.00ns)   --->   "%tmp_5 = bitconcatenate i76 @_ssdm_op_BitConcatenate.i76.i5.i54.i17, i5 16, i54 %mul_ln838, i17 0"   --->   Operation 86 'bitconcatenate' 'tmp_5' <Predicate = (tmp_7)> <Delay = 0.00>
+ST_6 : Operation 87 [1/1] (0.00ns)   --->   "%zext_ln1488_1 = zext i75 %zext_ln1488_cast"   --->   Operation 87 'zext' 'zext_ln1488_1' <Predicate = (!tmp_7)> <Delay = 0.00>
+ST_6 : Operation 88 [1/1] (0.35ns)   --->   "%select_ln1488 = select i1 %tmp_7, i76 %tmp_5, i76 %zext_ln1488_1"   --->   Operation 88 'select' 'select_ln1488' <Predicate = true> <Delay = 0.35> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.35> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_6 : Operation 89 [1/1] (0.00ns)   --->   "%lhs = bitconcatenate i75 @_ssdm_op_BitConcatenate.i75.i50.i25, i50 %trunc_ln813, i25 0"   --->   Operation 89 'bitconcatenate' 'lhs' <Predicate = true> <Delay = 0.00>
+ST_6 : Operation 90 [1/1] (0.00ns)   --->   "%zext_ln1347 = zext i75 %lhs"   --->   Operation 90 'zext' 'zext_ln1347' <Predicate = true> <Delay = 0.00>
+ST_6 : Operation 91 [1/1] (0.00ns) (grouped into TernaryAdder)   --->   "%ret_V_24 = add i76 %zext_ln1347, i76 %select_ln1488"   --->   Operation 91 'add' 'ret_V_24' <Predicate = true> <Delay = 0.00> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.51> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_6 : Operation 92 [1/1] (0.00ns)   --->   "%zext_ln1348 = zext i75 %r_V_22"   --->   Operation 92 'zext' 'zext_ln1348' <Predicate = true> <Delay = 0.00>
+ST_6 : Operation 93 [1/1] (0.88ns) (root node of TernaryAdder)   --->   "%ret_V_2 = sub i76 %ret_V_24, i76 %zext_ln1348"   --->   Operation 93 'sub' 'ret_V_2' <Predicate = true> <Delay = 0.88> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.51> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_6 : Operation 94 [1/1] (0.00ns)   --->   "%z2_V = partselect i73 @_ssdm_op_PartSelect.i73.i76.i32.i32, i76 %ret_V_2, i32 3, i32 75"   --->   Operation 94 'partselect' 'z2_V' <Predicate = true> <Delay = 0.00>
+ST_6 : Operation 95 [1/1] (0.00ns)   --->   "%a_V_1 = partselect i6 @_ssdm_op_PartSelect.i6.i76.i32.i32, i76 %ret_V_2, i32 70, i32 75"   --->   Operation 95 'partselect' 'a_V_1' <Predicate = true> <Delay = 0.00>
+ST_6 : Operation 96 [1/1] (0.00ns)   --->   "%tmp_6 = partselect i67 @_ssdm_op_PartSelect.i67.i76.i32.i32, i76 %ret_V_2, i32 3, i32 69"   --->   Operation 96 'partselect' 'tmp_6' <Predicate = true> <Delay = 0.00>
+
+State 7 <SV = 6> <Delay = 3.61>
+ST_7 : Operation 97 [1/1] (0.00ns)   --->   "%zext_ln1271_1 = zext i6 %a_V_1"   --->   Operation 97 'zext' 'zext_ln1271_1' <Predicate = true> <Delay = 0.00>
+ST_7 : Operation 98 [1/1] (0.00ns)   --->   "%zext_ln1273_1 = zext i73 %z2_V"   --->   Operation 98 'zext' 'zext_ln1273_1' <Predicate = true> <Delay = 0.00>
+ST_7 : Operation 99 [2/2] (3.61ns)   --->   "%r_V_23 = mul i79 %zext_ln1273_1, i79 %zext_ln1271_1"   --->   Operation 99 'mul' 'r_V_23' <Predicate = true> <Delay = 3.61> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 3.61> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 8 <SV = 7> <Delay = 3.61>
+ST_8 : Operation 100 [1/2] (3.61ns)   --->   "%r_V_23 = mul i79 %zext_ln1273_1, i79 %zext_ln1271_1"   --->   Operation 100 'mul' 'r_V_23' <Predicate = true> <Delay = 3.61> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 3.61> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 9 <SV = 8> <Delay = 0.90>
+ST_9 : Operation 101 [1/1] (0.00ns)   --->   "%zext_ln818 = zext i73 %z2_V"   --->   Operation 101 'zext' 'zext_ln818' <Predicate = true> <Delay = 0.00>
+ST_9 : Operation 102 [1/1] (0.00ns)   --->   "%eZ = bitconcatenate i81 @_ssdm_op_BitConcatenate.i81.i5.i76, i5 16, i76 %zext_ln818"   --->   Operation 102 'bitconcatenate' 'eZ' <Predicate = true> <Delay = 0.00>
+ST_9 : Operation 103 [1/1] (0.00ns)   --->   "%lhs_2 = bitconcatenate i81 @_ssdm_op_BitConcatenate.i81.i67.i14, i67 %tmp_6, i14 0"   --->   Operation 103 'bitconcatenate' 'lhs_2' <Predicate = true> <Delay = 0.00>
+ST_9 : Operation 104 [1/1] (0.00ns)   --->   "%zext_ln1347_1 = zext i81 %lhs_2"   --->   Operation 104 'zext' 'zext_ln1347_1' <Predicate = true> <Delay = 0.00>
+ST_9 : Operation 105 [1/1] (0.00ns)   --->   "%zext_ln813 = zext i81 %eZ"   --->   Operation 105 'zext' 'zext_ln813' <Predicate = true> <Delay = 0.00>
+ST_9 : Operation 106 [1/1] (0.00ns) (grouped into TernaryAdder)   --->   "%ret_V_25 = add i82 %zext_ln1347_1, i82 %zext_ln813"   --->   Operation 106 'add' 'ret_V_25' <Predicate = true> <Delay = 0.00> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.51> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_9 : Operation 107 [1/1] (0.00ns)   --->   "%rhs_3 = bitconcatenate i80 @_ssdm_op_BitConcatenate.i80.i79.i1, i79 %r_V_23, i1 0"   --->   Operation 107 'bitconcatenate' 'rhs_3' <Predicate = true> <Delay = 0.00>
+ST_9 : Operation 108 [1/1] (0.00ns)   --->   "%zext_ln1348_1 = zext i80 %rhs_3"   --->   Operation 108 'zext' 'zext_ln1348_1' <Predicate = true> <Delay = 0.00>
+ST_9 : Operation 109 [1/1] (0.90ns) (root node of TernaryAdder)   --->   "%ret_V_4 = sub i82 %ret_V_25, i82 %zext_ln1348_1"   --->   Operation 109 'sub' 'ret_V_4' <Predicate = true> <Delay = 0.90> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.51> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_9 : Operation 110 [1/1] (0.00ns)   --->   "%a_V_2 = partselect i6 @_ssdm_op_PartSelect.i6.i82.i32.i32, i82 %ret_V_4, i32 76, i32 81"   --->   Operation 110 'partselect' 'a_V_2' <Predicate = true> <Delay = 0.00>
+ST_9 : Operation 111 [1/1] (0.00ns)   --->   "%trunc_ln813_3 = trunc i82 %ret_V_4"   --->   Operation 111 'trunc' 'trunc_ln813_3' <Predicate = true> <Delay = 0.00>
+
+State 10 <SV = 9> <Delay = 3.61>
+ST_10 : Operation 112 [1/1] (0.00ns)   --->   "%z3_V = bitconcatenate i83 @_ssdm_op_BitConcatenate.i83.i82.i1, i82 %ret_V_4, i1 0"   --->   Operation 112 'bitconcatenate' 'z3_V' <Predicate = true> <Delay = 0.00>
+ST_10 : Operation 113 [1/1] (0.00ns)   --->   "%zext_ln1271_2 = zext i6 %a_V_2"   --->   Operation 113 'zext' 'zext_ln1271_2' <Predicate = true> <Delay = 0.00>
+ST_10 : Operation 114 [1/1] (0.00ns)   --->   "%zext_ln1273_2 = zext i83 %z3_V"   --->   Operation 114 'zext' 'zext_ln1273_2' <Predicate = true> <Delay = 0.00>
+ST_10 : Operation 115 [2/2] (3.61ns)   --->   "%r_V_24 = mul i89 %zext_ln1273_2, i89 %zext_ln1271_2"   --->   Operation 115 'mul' 'r_V_24' <Predicate = true> <Delay = 3.61> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 3.61> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 11 <SV = 10> <Delay = 3.61>
+ST_11 : Operation 116 [1/2] (3.61ns)   --->   "%r_V_24 = mul i89 %zext_ln1273_2, i89 %zext_ln1271_2"   --->   Operation 116 'mul' 'r_V_24' <Predicate = true> <Delay = 3.61> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 3.61> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 12 <SV = 11> <Delay = 0.97>
+ST_12 : Operation 117 [1/1] (0.00ns)   --->   "%eZ_1 = bitconcatenate i96 @_ssdm_op_BitConcatenate.i96.i13.i82.i1, i13 4096, i82 %ret_V_4, i1 0"   --->   Operation 117 'bitconcatenate' 'eZ_1' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 118 [1/1] (0.00ns)   --->   "%lhs_4 = bitconcatenate i101 @_ssdm_op_BitConcatenate.i101.i76.i25, i76 %trunc_ln813_3, i25 0"   --->   Operation 118 'bitconcatenate' 'lhs_4' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 119 [1/1] (0.00ns)   --->   "%zext_ln1347_2 = zext i101 %lhs_4"   --->   Operation 119 'zext' 'zext_ln1347_2' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 120 [1/1] (0.00ns)   --->   "%zext_ln813_1 = zext i96 %eZ_1"   --->   Operation 120 'zext' 'zext_ln813_1' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 121 [1/1] (0.00ns) (grouped into TernaryAdder)   --->   "%ret_V_26 = add i102 %zext_ln1347_2, i102 %zext_ln813_1"   --->   Operation 121 'add' 'ret_V_26' <Predicate = true> <Delay = 0.00> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.51> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_12 : Operation 122 [1/1] (0.00ns)   --->   "%rhs_6 = bitconcatenate i95 @_ssdm_op_BitConcatenate.i95.i89.i6, i89 %r_V_24, i6 0"   --->   Operation 122 'bitconcatenate' 'rhs_6' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 123 [1/1] (0.00ns)   --->   "%zext_ln1348_2 = zext i95 %rhs_6"   --->   Operation 123 'zext' 'zext_ln1348_2' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 124 [1/1] (0.97ns) (root node of TernaryAdder)   --->   "%ret_V_6 = sub i102 %ret_V_26, i102 %zext_ln1348_2"   --->   Operation 124 'sub' 'ret_V_6' <Predicate = true> <Delay = 0.97> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.51> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_12 : Operation 125 [1/1] (0.00ns)   --->   "%z4_V = partselect i92 @_ssdm_op_PartSelect.i92.i102.i32.i32, i102 %ret_V_6, i32 10, i32 101"   --->   Operation 125 'partselect' 'z4_V' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 126 [1/1] (0.00ns)   --->   "%tmp_s = partselect i86 @_ssdm_op_PartSelect.i86.i102.i32.i32, i102 %ret_V_6, i32 10, i32 95"   --->   Operation 126 'partselect' 'tmp_s' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 127 [1/1] (0.00ns)   --->   "%tmp_3 = partselect i6 @_ssdm_op_PartSelect.i6.i102.i32.i32, i102 %ret_V_6, i32 96, i32 101"   --->   Operation 127 'partselect' 'tmp_3' <Predicate = true> <Delay = 0.00>
+
+State 13 <SV = 12> <Delay = 3.61>
+ST_13 : Operation 128 [1/1] (0.00ns)   --->   "%zext_ln1271_4 = zext i6 %tmp_3"   --->   Operation 128 'zext' 'zext_ln1271_4' <Predicate = true> <Delay = 0.00>
+ST_13 : Operation 129 [1/1] (0.00ns)   --->   "%zext_ln1273_6 = zext i92 %z4_V"   --->   Operation 129 'zext' 'zext_ln1273_6' <Predicate = true> <Delay = 0.00>
+ST_13 : Operation 130 [2/2] (3.61ns)   --->   "%r_V_25 = mul i98 %zext_ln1273_6, i98 %zext_ln1271_4"   --->   Operation 130 'mul' 'r_V_25' <Predicate = true> <Delay = 3.61> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 3.61> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 14 <SV = 13> <Delay = 3.61>
+ST_14 : Operation 131 [1/2] (3.61ns)   --->   "%r_V_25 = mul i98 %zext_ln1273_6, i98 %zext_ln1271_4"   --->   Operation 131 'mul' 'r_V_25' <Predicate = true> <Delay = 3.61> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 3.61> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 15 <SV = 14> <Delay = 1.04>
+ST_15 : Operation 132 [1/1] (0.00ns)   --->   "%zext_ln818_1 = zext i92 %z4_V"   --->   Operation 132 'zext' 'zext_ln818_1' <Predicate = true> <Delay = 0.00>
+ST_15 : Operation 133 [1/1] (0.00ns)   --->   "%eZ_2 = bitconcatenate i110 @_ssdm_op_BitConcatenate.i110.i8.i102, i8 128, i102 %zext_ln818_1"   --->   Operation 133 'bitconcatenate' 'eZ_2' <Predicate = true> <Delay = 0.00>
+ST_15 : Operation 134 [1/1] (0.00ns)   --->   "%lhs_6 = bitconcatenate i120 @_ssdm_op_BitConcatenate.i120.i86.i34, i86 %tmp_s, i34 0"   --->   Operation 134 'bitconcatenate' 'lhs_6' <Predicate = true> <Delay = 0.00>
+ST_15 : Operation 135 [1/1] (0.00ns)   --->   "%zext_ln1347_3 = zext i120 %lhs_6"   --->   Operation 135 'zext' 'zext_ln1347_3' <Predicate = true> <Delay = 0.00>
+ST_15 : Operation 136 [1/1] (0.00ns)   --->   "%zext_ln813_2 = zext i110 %eZ_2"   --->   Operation 136 'zext' 'zext_ln813_2' <Predicate = true> <Delay = 0.00>
+ST_15 : Operation 137 [1/1] (0.00ns) (grouped into TernaryAdder)   --->   "%ret_V_27 = add i121 %zext_ln1347_3, i121 %zext_ln813_2"   --->   Operation 137 'add' 'ret_V_27' <Predicate = true> <Delay = 0.00> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.51> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_15 : Operation 138 [1/1] (0.00ns)   --->   "%rhs_9 = bitconcatenate i109 @_ssdm_op_BitConcatenate.i109.i98.i11, i98 %r_V_25, i11 0"   --->   Operation 138 'bitconcatenate' 'rhs_9' <Predicate = true> <Delay = 0.00>
+ST_15 : Operation 139 [1/1] (0.00ns)   --->   "%zext_ln1348_3 = zext i109 %rhs_9"   --->   Operation 139 'zext' 'zext_ln1348_3' <Predicate = true> <Delay = 0.00>
+ST_15 : Operation 140 [1/1] (1.04ns) (root node of TernaryAdder)   --->   "%ret_V_8 = sub i121 %ret_V_27, i121 %zext_ln1348_3"   --->   Operation 140 'sub' 'ret_V_8' <Predicate = true> <Delay = 1.04> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.51> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_15 : Operation 141 [1/1] (0.00ns)   --->   "%tmp_4 = partselect i87 @_ssdm_op_PartSelect.i87.i121.i32.i32, i121 %ret_V_8, i32 34, i32 120"   --->   Operation 141 'partselect' 'tmp_4' <Predicate = true> <Delay = 0.00>
+ST_15 : Operation 142 [1/1] (0.00ns)   --->   "%tmp_8 = partselect i81 @_ssdm_op_PartSelect.i81.i121.i32.i32, i121 %ret_V_8, i32 34, i32 114"   --->   Operation 142 'partselect' 'tmp_8' <Predicate = true> <Delay = 0.00>
+ST_15 : Operation 143 [1/1] (0.00ns)   --->   "%tmp_9 = partselect i6 @_ssdm_op_PartSelect.i6.i121.i32.i32, i121 %ret_V_8, i32 115, i32 120"   --->   Operation 143 'partselect' 'tmp_9' <Predicate = true> <Delay = 0.00>
+
+State 16 <SV = 15> <Delay = 3.61>
+ST_16 : Operation 144 [1/1] (0.00ns)   --->   "%zext_ln1271_5 = zext i6 %tmp_9"   --->   Operation 144 'zext' 'zext_ln1271_5' <Predicate = true> <Delay = 0.00>
+ST_16 : Operation 145 [1/1] (0.00ns)   --->   "%zext_ln1273_7 = zext i87 %tmp_4"   --->   Operation 145 'zext' 'zext_ln1273_7' <Predicate = true> <Delay = 0.00>
+ST_16 : Operation 146 [2/2] (3.61ns)   --->   "%r_V_26 = mul i93 %zext_ln1273_7, i93 %zext_ln1271_5"   --->   Operation 146 'mul' 'r_V_26' <Predicate = true> <Delay = 3.61> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 3.61> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 17 <SV = 16> <Delay = 3.61>
+ST_17 : Operation 147 [1/2] (3.61ns)   --->   "%r_V_26 = mul i93 %zext_ln1273_7, i93 %zext_ln1271_5"   --->   Operation 147 'mul' 'r_V_26' <Predicate = true> <Delay = 3.61> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 3.61> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 18 <SV = 17> <Delay = 1.06>
+ST_18 : Operation 148 [1/1] (0.00ns)   --->   "%eZ_3 = bitconcatenate i110 @_ssdm_op_BitConcatenate.i110.i23.i87, i23 4194304, i87 %tmp_4"   --->   Operation 148 'bitconcatenate' 'eZ_3' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 149 [1/1] (0.00ns)   --->   "%lhs_8 = bitconcatenate i125 @_ssdm_op_BitConcatenate.i125.i81.i44, i81 %tmp_8, i44 0"   --->   Operation 149 'bitconcatenate' 'lhs_8' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 150 [1/1] (0.00ns)   --->   "%zext_ln1347_4 = zext i125 %lhs_8"   --->   Operation 150 'zext' 'zext_ln1347_4' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 151 [1/1] (0.00ns)   --->   "%zext_ln813_3 = zext i110 %eZ_3"   --->   Operation 151 'zext' 'zext_ln813_3' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 152 [1/1] (0.00ns) (grouped into TernaryAdder)   --->   "%ret_V_28 = add i126 %zext_ln1347_4, i126 %zext_ln813_3"   --->   Operation 152 'add' 'ret_V_28' <Predicate = true> <Delay = 0.00> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.51> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_18 : Operation 153 [1/1] (0.00ns)   --->   "%rhs_12 = bitconcatenate i109 @_ssdm_op_BitConcatenate.i109.i93.i16, i93 %r_V_26, i16 0"   --->   Operation 153 'bitconcatenate' 'rhs_12' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 154 [1/1] (0.00ns)   --->   "%zext_ln1348_4 = zext i109 %rhs_12"   --->   Operation 154 'zext' 'zext_ln1348_4' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 155 [1/1] (1.06ns) (root node of TernaryAdder)   --->   "%ret_V_10 = sub i126 %ret_V_28, i126 %zext_ln1348_4"   --->   Operation 155 'sub' 'ret_V_10' <Predicate = true> <Delay = 1.06> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.51> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_18 : Operation 156 [1/1] (0.00ns)   --->   "%tmp_10 = partselect i82 @_ssdm_op_PartSelect.i82.i126.i32.i32, i126 %ret_V_10, i32 44, i32 125"   --->   Operation 156 'partselect' 'tmp_10' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 157 [1/1] (0.00ns)   --->   "%tmp_11 = partselect i76 @_ssdm_op_PartSelect.i76.i126.i32.i32, i126 %ret_V_10, i32 44, i32 119"   --->   Operation 157 'partselect' 'tmp_11' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 158 [1/1] (0.00ns)   --->   "%tmp_12 = partselect i6 @_ssdm_op_PartSelect.i6.i126.i32.i32, i126 %ret_V_10, i32 120, i32 125"   --->   Operation 158 'partselect' 'tmp_12' <Predicate = true> <Delay = 0.00>
+
+State 19 <SV = 18> <Delay = 3.61>
+ST_19 : Operation 159 [1/1] (0.00ns)   --->   "%zext_ln1271_6 = zext i6 %tmp_12"   --->   Operation 159 'zext' 'zext_ln1271_6' <Predicate = true> <Delay = 0.00>
+ST_19 : Operation 160 [1/1] (0.00ns)   --->   "%zext_ln1273_8 = zext i82 %tmp_10"   --->   Operation 160 'zext' 'zext_ln1273_8' <Predicate = true> <Delay = 0.00>
+ST_19 : Operation 161 [2/2] (3.61ns)   --->   "%r_V_27 = mul i88 %zext_ln1273_8, i88 %zext_ln1271_6"   --->   Operation 161 'mul' 'r_V_27' <Predicate = true> <Delay = 3.61> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 3.61> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 20 <SV = 19> <Delay = 3.61>
+ST_20 : Operation 162 [1/2] (3.61ns)   --->   "%r_V_27 = mul i88 %zext_ln1273_8, i88 %zext_ln1271_6"   --->   Operation 162 'mul' 'r_V_27' <Predicate = true> <Delay = 3.61> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 3.61> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 21 <SV = 20> <Delay = 1.07>
+ST_21 : Operation 163 [1/1] (0.00ns)   --->   "%eZ_4 = bitconcatenate i110 @_ssdm_op_BitConcatenate.i110.i28.i82, i28 134217728, i82 %tmp_10"   --->   Operation 163 'bitconcatenate' 'eZ_4' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 164 [1/1] (0.00ns)   --->   "%lhs_10 = bitconcatenate i130 @_ssdm_op_BitConcatenate.i130.i76.i54, i76 %tmp_11, i54 0"   --->   Operation 164 'bitconcatenate' 'lhs_10' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 165 [1/1] (0.00ns)   --->   "%zext_ln1347_5 = zext i130 %lhs_10"   --->   Operation 165 'zext' 'zext_ln1347_5' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 166 [1/1] (0.00ns)   --->   "%zext_ln813_4 = zext i110 %eZ_4"   --->   Operation 166 'zext' 'zext_ln813_4' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 167 [1/1] (0.00ns) (grouped into TernaryAdder)   --->   "%ret_V_29 = add i131 %zext_ln1347_5, i131 %zext_ln813_4"   --->   Operation 167 'add' 'ret_V_29' <Predicate = true> <Delay = 0.00> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.51> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_21 : Operation 168 [1/1] (0.00ns)   --->   "%rhs_15 = bitconcatenate i109 @_ssdm_op_BitConcatenate.i109.i88.i21, i88 %r_V_27, i21 0"   --->   Operation 168 'bitconcatenate' 'rhs_15' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 169 [1/1] (0.00ns)   --->   "%zext_ln1348_5 = zext i109 %rhs_15"   --->   Operation 169 'zext' 'zext_ln1348_5' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 170 [1/1] (1.07ns) (root node of TernaryAdder)   --->   "%ret_V_12 = sub i131 %ret_V_29, i131 %zext_ln1348_5"   --->   Operation 170 'sub' 'ret_V_12' <Predicate = true> <Delay = 1.07> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.51> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_21 : Operation 171 [1/1] (0.00ns)   --->   "%tmp_13 = partselect i77 @_ssdm_op_PartSelect.i77.i131.i32.i32, i131 %ret_V_12, i32 54, i32 130"   --->   Operation 171 'partselect' 'tmp_13' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 172 [1/1] (0.00ns)   --->   "%tmp_14 = partselect i71 @_ssdm_op_PartSelect.i71.i131.i32.i32, i131 %ret_V_12, i32 54, i32 124"   --->   Operation 172 'partselect' 'tmp_14' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 173 [1/1] (0.00ns)   --->   "%tmp_15 = partselect i6 @_ssdm_op_PartSelect.i6.i131.i32.i32, i131 %ret_V_12, i32 125, i32 130"   --->   Operation 173 'partselect' 'tmp_15' <Predicate = true> <Delay = 0.00>
+
+State 22 <SV = 21> <Delay = 3.61>
+ST_22 : Operation 174 [1/1] (0.00ns)   --->   "%zext_ln1271_7 = zext i6 %tmp_15"   --->   Operation 174 'zext' 'zext_ln1271_7' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 175 [1/1] (0.00ns)   --->   "%zext_ln1273_9 = zext i77 %tmp_13"   --->   Operation 175 'zext' 'zext_ln1273_9' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 176 [2/2] (3.61ns)   --->   "%r_V_28 = mul i83 %zext_ln1273_9, i83 %zext_ln1271_7"   --->   Operation 176 'mul' 'r_V_28' <Predicate = true> <Delay = 3.61> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 3.61> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 23 <SV = 22> <Delay = 3.61>
+ST_23 : Operation 177 [1/1] (0.00ns)   --->   "%zext_ln541_8 = zext i6 %tmp_3"   --->   Operation 177 'zext' 'zext_ln541_8' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 178 [1/1] (0.00ns)   --->   "%pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_17_6_64_array_V_addr = getelementptr i92 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_17_6_64_array_V, i64 0, i64 %zext_ln541_8" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 178 'getelementptr' 'pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_17_6_64_array_V_addr' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 179 [2/2] (0.73ns)   --->   "%logn_V_3 = load i6 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_17_6_64_array_V_addr" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 179 'load' 'logn_V_3' <Predicate = true> <Delay = 0.73> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 0.73> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 92> <Depth = 64> <ROM>
+ST_23 : Operation 180 [1/1] (0.00ns)   --->   "%zext_ln541_9 = zext i6 %tmp_9"   --->   Operation 180 'zext' 'zext_ln541_9' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 181 [1/1] (0.00ns)   --->   "%pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_22_6_64_array_V_addr = getelementptr i87 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_22_6_64_array_V, i64 0, i64 %zext_ln541_9" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 181 'getelementptr' 'pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_22_6_64_array_V_addr' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 182 [2/2] (0.73ns)   --->   "%logn_V_4 = load i6 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_22_6_64_array_V_addr" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 182 'load' 'logn_V_4' <Predicate = true> <Delay = 0.73> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 0.73> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 87> <Depth = 64> <ROM>
+ST_23 : Operation 183 [1/1] (0.00ns)   --->   "%zext_ln541_10 = zext i6 %tmp_12"   --->   Operation 183 'zext' 'zext_ln541_10' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 184 [1/1] (0.00ns)   --->   "%pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_27_6_64_array_V_addr = getelementptr i82 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_27_6_64_array_V, i64 0, i64 %zext_ln541_10" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 184 'getelementptr' 'pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_27_6_64_array_V_addr' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 185 [2/2] (0.73ns)   --->   "%logn_V_5 = load i6 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_27_6_64_array_V_addr" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 185 'load' 'logn_V_5' <Predicate = true> <Delay = 0.73> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 0.73> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 82> <Depth = 64> <ROM>
+ST_23 : Operation 186 [1/2] (3.61ns)   --->   "%r_V_28 = mul i83 %zext_ln1273_9, i83 %zext_ln1271_7"   --->   Operation 186 'mul' 'r_V_28' <Predicate = true> <Delay = 3.61> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 3.61> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+ST_23 : Operation 187 [1/1] (0.00ns)   --->   "%zext_ln541_11 = zext i6 %tmp_15"   --->   Operation 187 'zext' 'zext_ln541_11' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 188 [1/1] (0.00ns)   --->   "%pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_32_6_64_array_V_addr = getelementptr i77 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_32_6_64_array_V, i64 0, i64 %zext_ln541_11" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 188 'getelementptr' 'pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_32_6_64_array_V_addr' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 189 [2/2] (0.73ns)   --->   "%logn_V_6 = load i6 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_32_6_64_array_V_addr" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 189 'load' 'logn_V_6' <Predicate = true> <Delay = 0.73> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 0.73> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 77> <Depth = 64> <ROM>
+
+State 24 <SV = 23> <Delay = 3.61>
+ST_24 : Operation 190 [1/1] (0.00ns)   --->   "%sext_ln813 = sext i12 %b_exp_2"   --->   Operation 190 'sext' 'sext_ln813' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 191 [2/2] (3.61ns)   --->   "%Elog2_V = mul i90 %sext_ln813, i90 418981761686000620659953"   --->   Operation 191 'mul' 'Elog2_V' <Predicate = true> <Delay = 3.61> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 3.61> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+ST_24 : Operation 192 [1/1] (0.00ns)   --->   "%pow_reduce_anonymous_namespace_log0_lut_table_array_V_addr = getelementptr i109 %pow_reduce_anonymous_namespace_log0_lut_table_array_V, i64 0, i64 %zext_ln541" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:533]   --->   Operation 192 'getelementptr' 'pow_reduce_anonymous_namespace_log0_lut_table_array_V_addr' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 193 [2/2] (0.73ns)   --->   "%log_sum_V = load i6 %pow_reduce_anonymous_namespace_log0_lut_table_array_V_addr" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:533]   --->   Operation 193 'load' 'log_sum_V' <Predicate = true> <Delay = 0.73> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 0.73> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 109> <Depth = 64> <ROM>
+ST_24 : Operation 194 [1/1] (0.00ns)   --->   "%zext_ln541_1 = zext i4 %a_V"   --->   Operation 194 'zext' 'zext_ln541_1' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 195 [1/1] (0.00ns)   --->   "%pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_4_4_16_array_V_addr = getelementptr i105 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_4_4_16_array_V, i64 0, i64 %zext_ln541_1" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 195 'getelementptr' 'pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_4_4_16_array_V_addr' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 196 [2/2] (0.73ns)   --->   "%logn_V = load i4 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_4_4_16_array_V_addr" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 196 'load' 'logn_V' <Predicate = true> <Delay = 0.73> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 0.73> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 105> <Depth = 16> <ROM>
+ST_24 : Operation 197 [1/1] (0.00ns)   --->   "%zext_ln541_6 = zext i6 %a_V_1"   --->   Operation 197 'zext' 'zext_ln541_6' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 198 [1/1] (0.00ns)   --->   "%pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_7_6_64_array_V_addr = getelementptr i102 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_7_6_64_array_V, i64 0, i64 %zext_ln541_6" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 198 'getelementptr' 'pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_7_6_64_array_V_addr' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 199 [2/2] (0.73ns)   --->   "%logn_V_1 = load i6 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_7_6_64_array_V_addr" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 199 'load' 'logn_V_1' <Predicate = true> <Delay = 0.73> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 0.73> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 102> <Depth = 64> <ROM>
+ST_24 : Operation 200 [1/1] (0.00ns)   --->   "%zext_ln541_7 = zext i6 %a_V_2"   --->   Operation 200 'zext' 'zext_ln541_7' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 201 [1/1] (0.00ns)   --->   "%pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_12_6_64_array_V_addr = getelementptr i97 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_12_6_64_array_V, i64 0, i64 %zext_ln541_7" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 201 'getelementptr' 'pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_12_6_64_array_V_addr' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 202 [2/2] (0.73ns)   --->   "%logn_V_2 = load i6 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_12_6_64_array_V_addr" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 202 'load' 'logn_V_2' <Predicate = true> <Delay = 0.73> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 0.73> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 97> <Depth = 64> <ROM>
+ST_24 : Operation 203 [1/2] (0.73ns)   --->   "%logn_V_3 = load i6 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_17_6_64_array_V_addr" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 203 'load' 'logn_V_3' <Predicate = true> <Delay = 0.73> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 0.73> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 92> <Depth = 64> <ROM>
+ST_24 : Operation 204 [1/1] (0.00ns)   --->   "%zext_ln223_3 = zext i92 %logn_V_3" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:223->/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:548]   --->   Operation 204 'zext' 'zext_ln223_3' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 205 [1/2] (0.73ns)   --->   "%logn_V_4 = load i6 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_22_6_64_array_V_addr" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 205 'load' 'logn_V_4' <Predicate = true> <Delay = 0.73> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 0.73> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 87> <Depth = 64> <ROM>
+ST_24 : Operation 206 [1/1] (0.00ns)   --->   "%zext_ln223_4 = zext i87 %logn_V_4" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:223->/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:548]   --->   Operation 206 'zext' 'zext_ln223_4' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 207 [1/2] (0.73ns)   --->   "%logn_V_5 = load i6 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_27_6_64_array_V_addr" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 207 'load' 'logn_V_5' <Predicate = true> <Delay = 0.73> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 0.73> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 82> <Depth = 64> <ROM>
+ST_24 : Operation 208 [1/1] (0.00ns)   --->   "%zext_ln223_5 = zext i82 %logn_V_5" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:223->/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:548]   --->   Operation 208 'zext' 'zext_ln223_5' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 209 [1/1] (0.00ns)   --->   "%eZ_5 = bitconcatenate i110 @_ssdm_op_BitConcatenate.i110.i33.i77, i33 4294967296, i77 %tmp_13"   --->   Operation 209 'bitconcatenate' 'eZ_5' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 210 [1/1] (0.00ns)   --->   "%lhs_12 = bitconcatenate i135 @_ssdm_op_BitConcatenate.i135.i71.i64, i71 %tmp_14, i64 0"   --->   Operation 210 'bitconcatenate' 'lhs_12' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 211 [1/1] (0.00ns)   --->   "%zext_ln1347_6 = zext i135 %lhs_12"   --->   Operation 211 'zext' 'zext_ln1347_6' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 212 [1/1] (0.00ns)   --->   "%zext_ln813_5 = zext i110 %eZ_5"   --->   Operation 212 'zext' 'zext_ln813_5' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 213 [1/1] (0.00ns) (grouped into TernaryAdder)   --->   "%ret_V_30 = add i136 %zext_ln1347_6, i136 %zext_ln813_5"   --->   Operation 213 'add' 'ret_V_30' <Predicate = true> <Delay = 0.00> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.51> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_24 : Operation 214 [1/1] (0.00ns)   --->   "%rhs_18 = bitconcatenate i109 @_ssdm_op_BitConcatenate.i109.i83.i26, i83 %r_V_28, i26 0"   --->   Operation 214 'bitconcatenate' 'rhs_18' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 215 [1/1] (0.00ns)   --->   "%zext_ln1348_6 = zext i109 %rhs_18"   --->   Operation 215 'zext' 'zext_ln1348_6' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 216 [1/1] (1.09ns) (root node of TernaryAdder)   --->   "%ret_V_14 = sub i136 %ret_V_30, i136 %zext_ln1348_6"   --->   Operation 216 'sub' 'ret_V_14' <Predicate = true> <Delay = 1.09> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.51> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_24 : Operation 217 [1/2] (0.73ns)   --->   "%logn_V_6 = load i6 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_32_6_64_array_V_addr" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 217 'load' 'logn_V_6' <Predicate = true> <Delay = 0.73> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 0.73> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 77> <Depth = 64> <ROM>
+ST_24 : Operation 218 [1/1] (0.00ns)   --->   "%zext_ln223_6 = zext i77 %logn_V_6" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:223->/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:548]   --->   Operation 218 'zext' 'zext_ln223_6' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 219 [1/1] (0.00ns) (grouped into TernaryAdder)   --->   "%add_ln813_3 = add i93 %zext_ln223_3, i93 %zext_ln223_4"   --->   Operation 219 'add' 'add_ln813_3' <Predicate = true> <Delay = 0.00> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.51> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_24 : Operation 220 [1/1] (1.24ns)   --->   "%add_ln813_4 = add i83 %zext_ln223_5, i83 %zext_ln223_6"   --->   Operation 220 'add' 'add_ln813_4' <Predicate = true> <Delay = 1.24> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 1.24> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_24 : Operation 221 [1/1] (0.00ns)   --->   "%zext_ln813_7 = zext i83 %add_ln813_4"   --->   Operation 221 'zext' 'zext_ln813_7' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 222 [1/1] (0.94ns) (root node of TernaryAdder)   --->   "%add_ln813_5 = add i93 %zext_ln813_7, i93 %add_ln813_3"   --->   Operation 222 'add' 'add_ln813_5' <Predicate = true> <Delay = 0.94> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.51> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_24 : Operation 223 [1/1] (0.00ns)   --->   "%tmp_16 = partselect i72 @_ssdm_op_PartSelect.i72.i136.i32.i32, i136 %ret_V_14, i32 64, i32 135"   --->   Operation 223 'partselect' 'tmp_16' <Predicate = true> <Delay = 0.00>
+ST_24 : Operation 224 [1/1] (0.00ns)   --->   "%tmp_17 = partselect i40 @_ssdm_op_PartSelect.i40.i136.i32.i32, i136 %ret_V_14, i32 96, i32 135"   --->   Operation 224 'partselect' 'tmp_17' <Predicate = true> <Delay = 0.00>
+
+State 25 <SV = 24> <Delay = 3.61>
+ST_25 : Operation 225 [1/2] (3.61ns)   --->   "%Elog2_V = mul i90 %sext_ln813, i90 418981761686000620659953"   --->   Operation 225 'mul' 'Elog2_V' <Predicate = true> <Delay = 3.61> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 3.61> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+ST_25 : Operation 226 [1/2] (0.73ns)   --->   "%log_sum_V = load i6 %pow_reduce_anonymous_namespace_log0_lut_table_array_V_addr" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:533]   --->   Operation 226 'load' 'log_sum_V' <Predicate = true> <Delay = 0.73> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 0.73> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 109> <Depth = 64> <ROM>
+ST_25 : Operation 227 [1/2] (0.73ns)   --->   "%logn_V = load i4 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_4_4_16_array_V_addr" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 227 'load' 'logn_V' <Predicate = true> <Delay = 0.73> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 0.73> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 105> <Depth = 16> <ROM>
+ST_25 : Operation 228 [1/1] (0.00ns)   --->   "%zext_ln223 = zext i105 %logn_V" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:223->/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:548]   --->   Operation 228 'zext' 'zext_ln223' <Predicate = true> <Delay = 0.00>
+ST_25 : Operation 229 [1/2] (0.73ns)   --->   "%logn_V_1 = load i6 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_7_6_64_array_V_addr" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 229 'load' 'logn_V_1' <Predicate = true> <Delay = 0.73> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 0.73> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 102> <Depth = 64> <ROM>
+ST_25 : Operation 230 [1/1] (0.00ns)   --->   "%zext_ln223_1 = zext i102 %logn_V_1" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:223->/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:548]   --->   Operation 230 'zext' 'zext_ln223_1' <Predicate = true> <Delay = 0.00>
+ST_25 : Operation 231 [1/2] (0.73ns)   --->   "%logn_V_2 = load i6 %pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_12_6_64_array_V_addr" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:75]   --->   Operation 231 'load' 'logn_V_2' <Predicate = true> <Delay = 0.73> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 0.73> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 97> <Depth = 64> <ROM>
+ST_25 : Operation 232 [1/1] (0.00ns)   --->   "%zext_ln223_2 = zext i97 %logn_V_2" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:223->/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:548]   --->   Operation 232 'zext' 'zext_ln223_2' <Predicate = true> <Delay = 0.00>
+ST_25 : Operation 233 [1/1] (1.39ns)   --->   "%add_ln813 = add i109 %zext_ln223, i109 %log_sum_V"   --->   Operation 233 'add' 'add_ln813' <Predicate = true> <Delay = 1.39> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 1.39> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_25 : Operation 234 [1/1] (1.35ns)   --->   "%add_ln813_1 = add i103 %zext_ln223_1, i103 %zext_ln223_2"   --->   Operation 234 'add' 'add_ln813_1' <Predicate = true> <Delay = 1.35> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 1.35> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_25 : Operation 235 [1/1] (0.00ns)   --->   "%zext_ln813_6 = zext i103 %add_ln813_1"   --->   Operation 235 'zext' 'zext_ln813_6' <Predicate = true> <Delay = 0.00>
+ST_25 : Operation 236 [1/1] (0.00ns) (grouped into TernaryAdder)   --->   "%add_ln813_2 = add i109 %zext_ln813_6, i109 %add_ln813"   --->   Operation 236 'add' 'add_ln813_2' <Predicate = true> <Delay = 0.00> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.51> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_25 : Operation 237 [1/1] (0.00ns)   --->   "%zext_ln813_8 = zext i93 %add_ln813_5"   --->   Operation 237 'zext' 'zext_ln813_8' <Predicate = true> <Delay = 0.00>
+ST_25 : Operation 238 [1/1] (1.00ns) (root node of TernaryAdder)   --->   "%log_sum_V_1 = add i109 %zext_ln813_8, i109 %add_ln813_2"   --->   Operation 238 'add' 'log_sum_V_1' <Predicate = true> <Delay = 1.00> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.51> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_25 : Operation 239 [1/1] (0.00ns)   --->   "%zext_ln1270_2 = zext i40 %tmp_17"   --->   Operation 239 'zext' 'zext_ln1270_2' <Predicate = true> <Delay = 0.00>
+ST_25 : Operation 240 [1/1] (3.38ns)   --->   "%r_V_29 = mul i80 %zext_ln1270_2, i80 %zext_ln1270_2"   --->   Operation 240 'mul' 'r_V_29' <Predicate = true> <Delay = 3.38> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 0> <II = 1> <Delay = 3.38> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+ST_25 : Operation 241 [1/1] (0.00ns)   --->   "%rhs_s = partselect i79 @_ssdm_op_PartSelect.i79.i80.i32.i32, i80 %r_V_29, i32 1, i32 79"   --->   Operation 241 'partselect' 'rhs_s' <Predicate = true> <Delay = 0.00>
+
+State 26 <SV = 25> <Delay = 3.47>
+ST_26 : Operation 242 [1/1] (0.00ns)   --->   "%lhs_V = bitconcatenate i117 @_ssdm_op_BitConcatenate.i117.i72.i45, i72 %tmp_16, i45 0"   --->   Operation 242 'bitconcatenate' 'lhs_V' <Predicate = true> <Delay = 0.00>
+ST_26 : Operation 243 [1/1] (0.00ns)   --->   "%zext_ln1348_7 = zext i117 %lhs_V"   --->   Operation 243 'zext' 'zext_ln1348_7' <Predicate = true> <Delay = 0.00>
+ST_26 : Operation 244 [1/1] (0.00ns)   --->   "%zext_ln1348_8 = zext i79 %rhs_s"   --->   Operation 244 'zext' 'zext_ln1348_8' <Predicate = true> <Delay = 0.00>
+ST_26 : Operation 245 [1/1] (1.43ns)   --->   "%ret_V = sub i118 %zext_ln1348_7, i118 %zext_ln1348_8"   --->   Operation 245 'sub' 'ret_V' <Predicate = true> <Delay = 1.43> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 1.43> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_26 : Operation 246 [1/1] (0.00ns)   --->   "%trunc_ln1 = partselect i73 @_ssdm_op_PartSelect.i73.i118.i32.i32, i118 %ret_V, i32 45, i32 117"   --->   Operation 246 'partselect' 'trunc_ln1' <Predicate = true> <Delay = 0.00>
+ST_26 : Operation 247 [1/1] (0.00ns)   --->   "%lhs_V_2 = bitconcatenate i120 @_ssdm_op_BitConcatenate.i120.i90.i30, i90 %Elog2_V, i30 0"   --->   Operation 247 'bitconcatenate' 'lhs_V_2' <Predicate = true> <Delay = 0.00>
+ST_26 : Operation 248 [1/1] (0.00ns)   --->   "%sext_ln1347 = sext i109 %log_sum_V_1"   --->   Operation 248 'sext' 'sext_ln1347' <Predicate = true> <Delay = 0.00>
+ST_26 : Operation 249 [1/1] (0.00ns) (grouped into TernaryAdder)   --->   "%ret_V_15 = add i120 %lhs_V_2, i120 %sext_ln1347"   --->   Operation 249 'add' 'ret_V_15' <Predicate = true> <Delay = 0.00> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.51> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_26 : Operation 250 [1/1] (0.00ns)   --->   "%sext_ln1347_1 = sext i73 %trunc_ln1"   --->   Operation 250 'sext' 'sext_ln1347_1' <Predicate = true> <Delay = 0.00>
+ST_26 : Operation 251 [1/1] (1.03ns) (root node of TernaryAdder)   --->   "%ret_V_16 = add i120 %ret_V_15, i120 %sext_ln1347_1"   --->   Operation 251 'add' 'ret_V_16' <Predicate = true> <Delay = 1.03> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.51> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_26 : Operation 252 [1/1] (0.00ns)   --->   "%m_fix_hi_V = partselect i16 @_ssdm_op_PartSelect.i16.i120.i32.i32, i120 %ret_V_16, i32 104, i32 119"   --->   Operation 252 'partselect' 'm_fix_hi_V' <Predicate = true> <Delay = 0.00>
+ST_26 : Operation 253 [1/1] (0.00ns)   --->   "%p_Result_14 = bitselect i1 @_ssdm_op_BitSelect.i1.i120.i32, i120 %ret_V_16, i32 119"   --->   Operation 253 'bitselect' 'p_Result_14' <Predicate = true> <Delay = 0.00>
+ST_26 : Operation 254 [1/1] (0.00ns)   --->   "%sext_ln1271 = sext i16 %m_fix_hi_V"   --->   Operation 254 'sext' 'sext_ln1271' <Predicate = true> <Delay = 0.00>
+ST_26 : Operation 255 [3/3] (0.99ns) (grouped into DSP with root node ret_V_31)   --->   "%r_V_30 = mul i31 %sext_ln1271, i31 23637"   --->   Operation 255 'mul' 'r_V_30' <Predicate = true> <Delay = 0.99> <CoreInst = "DSP48">   --->   Core 127 'DSP48' <Latency = 3> <II = 1> <Delay = 0.53> <IPBlock> <Opcode : 'mul' 'add' 'sub' 'select'> <InPorts = 0> <OutPorts = 1> <Sync> <CReg>
+ST_26 : Operation 256 [1/1] (0.00ns)   --->   "%trunc_ln2 = partselect i59 @_ssdm_op_PartSelect.i59.i120.i32.i32, i120 %ret_V_16, i32 49, i32 107"   --->   Operation 256 'partselect' 'trunc_ln2' <Predicate = true> <Delay = 0.00>
+
+State 27 <SV = 26> <Delay = 0.99>
+ST_27 : Operation 257 [2/3] (0.99ns) (grouped into DSP with root node ret_V_31)   --->   "%r_V_30 = mul i31 %sext_ln1271, i31 23637"   --->   Operation 257 'mul' 'r_V_30' <Predicate = true> <Delay = 0.99> <CoreInst = "DSP48">   --->   Core 127 'DSP48' <Latency = 3> <II = 1> <Delay = 0.53> <IPBlock> <Opcode : 'mul' 'add' 'sub' 'select'> <InPorts = 0> <OutPorts = 1> <Sync> <CReg>
+
+State 28 <SV = 27> <Delay = 0.64>
+ST_28 : Operation 258 [1/3] (0.00ns) (grouped into DSP with root node ret_V_31)   --->   "%r_V_30 = mul i31 %sext_ln1271, i31 23637"   --->   Operation 258 'mul' 'r_V_30' <Predicate = true> <Delay = 0.00> <CoreInst = "DSP48">   --->   Core 127 'DSP48' <Latency = 3> <II = 1> <Delay = 0.53> <IPBlock> <Opcode : 'mul' 'add' 'sub' 'select'> <InPorts = 0> <OutPorts = 1> <Sync> <CReg>
+ST_28 : Operation 259 [1/1] (0.00ns)   --->   "%rhs_19 = bitconcatenate i19 @_ssdm_op_BitConcatenate.i19.i1.i18, i1 %p_Result_14, i18 131072"   --->   Operation 259 'bitconcatenate' 'rhs_19' <Predicate = true> <Delay = 0.00>
+ST_28 : Operation 260 [1/1] (0.00ns)   --->   "%sext_ln1347_2 = sext i19 %rhs_19"   --->   Operation 260 'sext' 'sext_ln1347_2' <Predicate = true> <Delay = 0.00>
+ST_28 : Operation 261 [2/2] (0.64ns) (root node of the DSP)   --->   "%ret_V_31 = add i31 %sext_ln1347_2, i31 %r_V_30"   --->   Operation 261 'add' 'ret_V_31' <Predicate = true> <Delay = 0.64> <CoreInst = "DSP48">   --->   Core 127 'DSP48' <Latency = 3> <II = 1> <Delay = 0.53> <IPBlock> <Opcode : 'mul' 'add' 'sub' 'select'> <InPorts = 0> <OutPorts = 1> <Sync> <CReg>
+
+State 29 <SV = 28> <Delay = 1.72>
+ST_29 : Operation 262 [1/2] (0.64ns) (root node of the DSP)   --->   "%ret_V_31 = add i31 %sext_ln1347_2, i31 %r_V_30"   --->   Operation 262 'add' 'ret_V_31' <Predicate = true> <Delay = 0.64> <CoreInst = "DSP48">   --->   Core 127 'DSP48' <Latency = 3> <II = 1> <Delay = 0.53> <IPBlock> <Opcode : 'mul' 'add' 'sub' 'select'> <InPorts = 0> <OutPorts = 1> <Sync> <CReg>
+ST_29 : Operation 263 [1/1] (0.00ns)   --->   "%ret_V_25_cast = partselect i13 @_ssdm_op_PartSelect.i13.i31.i32.i32, i31 %ret_V_31, i32 18, i32 30"   --->   Operation 263 'partselect' 'ret_V_25_cast' <Predicate = true> <Delay = 0.00>
+ST_29 : Operation 264 [1/1] (0.00ns) (grouped into LUT with out node ret_V_32)   --->   "%p_Result_5 = bitselect i1 @_ssdm_op_BitSelect.i1.i31.i32, i31 %ret_V_31, i32 30"   --->   Operation 264 'bitselect' 'p_Result_5' <Predicate = true> <Delay = 0.00>
+ST_29 : Operation 265 [1/1] (0.00ns)   --->   "%trunc_ln1003 = trunc i31 %ret_V_31"   --->   Operation 265 'trunc' 'trunc_ln1003' <Predicate = true> <Delay = 0.00>
+ST_29 : Operation 266 [1/1] (0.69ns)   --->   "%icmp_ln1003 = icmp_eq  i18 %trunc_ln1003, i18 0"   --->   Operation 266 'icmp' 'icmp_ln1003' <Predicate = true> <Delay = 0.69> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.69> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_29 : Operation 267 [1/1] (0.75ns)   --->   "%ret_V_18 = add i13 %ret_V_25_cast, i13 1"   --->   Operation 267 'add' 'ret_V_18' <Predicate = true> <Delay = 0.75> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.75> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_29 : Operation 268 [1/1] (0.00ns) (grouped into LUT with out node ret_V_32)   --->   "%select_ln1002 = select i1 %icmp_ln1003, i13 %ret_V_25_cast, i13 %ret_V_18"   --->   Operation 268 'select' 'select_ln1002' <Predicate = true> <Delay = 0.00> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.32> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_29 : Operation 269 [1/1] (0.32ns) (out node of the LUT)   --->   "%ret_V_32 = select i1 %p_Result_5, i13 %select_ln1002, i13 %ret_V_25_cast"   --->   Operation 269 'select' 'ret_V_32' <Predicate = true> <Delay = 0.32> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.32> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+
+State 30 <SV = 29> <Delay = 3.61>
+ST_30 : Operation 270 [1/1] (0.00ns)   --->   "%sext_ln1270 = sext i13 %ret_V_32"   --->   Operation 270 'sext' 'sext_ln1270' <Predicate = true> <Delay = 0.00>
+ST_30 : Operation 271 [2/2] (3.61ns)   --->   "%r_V_15 = mul i71 %sext_ln1270, i71 1636647506585939924452"   --->   Operation 271 'mul' 'r_V_15' <Predicate = true> <Delay = 3.61> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 3.61> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 31 <SV = 30> <Delay = 3.61>
+ST_31 : Operation 272 [1/2] (3.61ns)   --->   "%r_V_15 = mul i71 %sext_ln1270, i71 1636647506585939924452"   --->   Operation 272 'mul' 'r_V_15' <Predicate = true> <Delay = 3.61> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 3.61> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+ST_31 : Operation 273 [1/1] (0.00ns)   --->   "%trunc_ln813_1 = partselect i59 @_ssdm_op_PartSelect.i59.i71.i32.i32, i71 %r_V_15, i32 12, i32 70"   --->   Operation 273 'partselect' 'trunc_ln813_1' <Predicate = true> <Delay = 0.00>
+
+State 32 <SV = 31> <Delay = 2.27>
+ST_32 : Operation 274 [1/1] (1.08ns)   --->   "%m_diff_V = sub i59 %trunc_ln2, i59 %trunc_ln813_1"   --->   Operation 274 'sub' 'm_diff_V' <Predicate = true> <Delay = 1.08> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 1.08> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_32 : Operation 275 [1/1] (0.00ns)   --->   "%m_diff_hi_V = partselect i8 @_ssdm_op_PartSelect.i8.i59.i32.i32, i59 %m_diff_V, i32 51, i32 58"   --->   Operation 275 'partselect' 'm_diff_hi_V' <Predicate = true> <Delay = 0.00>
+ST_32 : Operation 276 [1/1] (0.00ns)   --->   "%Z2_V = partselect i8 @_ssdm_op_PartSelect.i8.i59.i32.i32, i59 %m_diff_V, i32 43, i32 50"   --->   Operation 276 'partselect' 'Z2_V' <Predicate = true> <Delay = 0.00>
+ST_32 : Operation 277 [1/1] (0.00ns)   --->   "%Z3_V = partselect i8 @_ssdm_op_PartSelect.i8.i59.i32.i32, i59 %m_diff_V, i32 35, i32 42"   --->   Operation 277 'partselect' 'Z3_V' <Predicate = true> <Delay = 0.00>
+ST_32 : Operation 278 [1/1] (0.00ns)   --->   "%Z4 = trunc i59 %m_diff_V"   --->   Operation 278 'trunc' 'Z4' <Predicate = true> <Delay = 0.00>
+ST_32 : Operation 279 [1/1] (0.00ns)   --->   "%Z4_ind = partselect i8 @_ssdm_op_PartSelect.i8.i59.i32.i32, i59 %m_diff_V, i32 27, i32 34"   --->   Operation 279 'partselect' 'Z4_ind' <Predicate = true> <Delay = 0.00>
+ST_32 : Operation 280 [1/1] (0.00ns)   --->   "%zext_ln541_3 = zext i8 %Z4_ind"   --->   Operation 280 'zext' 'zext_ln541_3' <Predicate = true> <Delay = 0.00>
+ST_32 : Operation 281 [1/1] (0.00ns)   --->   "%pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V_addr = getelementptr i26 %pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V, i64 0, i64 %zext_ln541_3"   --->   Operation 281 'getelementptr' 'pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V_addr' <Predicate = true> <Delay = 0.00>
+ST_32 : Operation 282 [2/2] (1.19ns)   --->   "%pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V_load = load i8 %pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V_addr"   --->   Operation 282 'load' 'pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V_load' <Predicate = true> <Delay = 1.19> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 1.19> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 26> <Depth = 256> <ROM>
+ST_32 : Operation 283 [1/1] (0.00ns)   --->   "%zext_ln541_4 = zext i8 %Z3_V"   --->   Operation 283 'zext' 'zext_ln541_4' <Predicate = true> <Delay = 0.00>
+ST_32 : Operation 284 [1/1] (0.00ns)   --->   "%pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V_addr_1 = getelementptr i26 %pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V, i64 0, i64 %zext_ln541_4"   --->   Operation 284 'getelementptr' 'pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V_addr_1' <Predicate = true> <Delay = 0.00>
+ST_32 : Operation 285 [2/2] (1.19ns)   --->   "%f_Z3 = load i8 %pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V_addr_1"   --->   Operation 285 'load' 'f_Z3' <Predicate = true> <Delay = 1.19> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 1.19> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 26> <Depth = 256> <ROM>
+
+State 33 <SV = 32> <Delay = 2.10>
+ST_33 : Operation 286 [1/2] (1.19ns)   --->   "%pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V_load = load i8 %pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V_addr"   --->   Operation 286 'load' 'pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V_load' <Predicate = true> <Delay = 1.19> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 1.19> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 26> <Depth = 256> <ROM>
+ST_33 : Operation 287 [1/1] (0.00ns)   --->   "%r = partselect i10 @_ssdm_op_PartSelect.i10.i26.i32.i32, i26 %pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V_load, i32 16, i32 25"   --->   Operation 287 'partselect' 'r' <Predicate = true> <Delay = 0.00>
+ST_33 : Operation 288 [1/1] (0.00ns)   --->   "%zext_ln813_9 = zext i35 %Z4"   --->   Operation 288 'zext' 'zext_ln813_9' <Predicate = true> <Delay = 0.00>
+ST_33 : Operation 289 [1/1] (0.00ns)   --->   "%zext_ln813_10 = zext i10 %r"   --->   Operation 289 'zext' 'zext_ln813_10' <Predicate = true> <Delay = 0.00>
+ST_33 : Operation 290 [1/1] (0.91ns)   --->   "%ret_V_33 = add i36 %zext_ln813_9, i36 %zext_ln813_10"   --->   Operation 290 'add' 'ret_V_33' <Predicate = true> <Delay = 0.91> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.91> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_33 : Operation 291 [1/2] (1.19ns)   --->   "%f_Z3 = load i8 %pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V_addr_1"   --->   Operation 291 'load' 'f_Z3' <Predicate = true> <Delay = 1.19> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 1.19> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 26> <Depth = 256> <ROM>
+
+State 34 <SV = 33> <Delay = 3.60>
+ST_34 : Operation 292 [1/1] (0.00ns)   --->   "%ret_V_34 = bitconcatenate i43 @_ssdm_op_BitConcatenate.i43.i8.i9.i26, i8 %Z3_V, i9 0, i26 %f_Z3"   --->   Operation 292 'bitconcatenate' 'ret_V_34' <Predicate = true> <Delay = 0.00>
+ST_34 : Operation 293 [1/1] (0.00ns)   --->   "%zext_ln1270 = zext i43 %ret_V_34"   --->   Operation 293 'zext' 'zext_ln1270' <Predicate = true> <Delay = 0.00>
+ST_34 : Operation 294 [1/1] (0.00ns)   --->   "%zext_ln1273_3 = zext i36 %ret_V_33"   --->   Operation 294 'zext' 'zext_ln1273_3' <Predicate = true> <Delay = 0.00>
+ST_34 : Operation 295 [1/1] (3.60ns)   --->   "%r_V_17 = mul i79 %zext_ln1270, i79 %zext_ln1273_3"   --->   Operation 295 'mul' 'r_V_17' <Predicate = true> <Delay = 3.60> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 0> <II = 1> <Delay = 3.60> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 296 [1/1] (0.00ns)   --->   "%trunc_ln813_s = partselect i20 @_ssdm_op_PartSelect.i20.i79.i32.i32, i79 %r_V_17, i32 59, i32 78"   --->   Operation 296 'partselect' 'trunc_ln813_s' <Predicate = true> <Delay = 0.00>
+ST_34 : Operation 297 [1/1] (0.00ns)   --->   "%zext_ln541_5 = zext i8 %Z2_V"   --->   Operation 297 'zext' 'zext_ln541_5' <Predicate = true> <Delay = 0.00>
+ST_34 : Operation 298 [1/1] (0.00ns)   --->   "%pow_reduce_anonymous_namespace_table_f_Z2_ap_ufixed_array_V_addr = getelementptr i42 %pow_reduce_anonymous_namespace_table_f_Z2_ap_ufixed_array_V, i64 0, i64 %zext_ln541_5"   --->   Operation 298 'getelementptr' 'pow_reduce_anonymous_namespace_table_f_Z2_ap_ufixed_array_V_addr' <Predicate = true> <Delay = 0.00>
+ST_34 : Operation 299 [2/2] (1.20ns)   --->   "%f_Z2_V = load i8 %pow_reduce_anonymous_namespace_table_f_Z2_ap_ufixed_array_V_addr"   --->   Operation 299 'load' 'f_Z2_V' <Predicate = true> <Delay = 1.20> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 42> <Depth = 256> <ROM>
+
+State 35 <SV = 34> <Delay = 1.88>
+ST_35 : Operation 300 [1/1] (0.00ns)   --->   "%zext_ln1347_7 = zext i43 %ret_V_34"   --->   Operation 300 'zext' 'zext_ln1347_7' <Predicate = true> <Delay = 0.00>
+ST_35 : Operation 301 [1/1] (0.00ns)   --->   "%zext_ln813_11 = zext i20 %trunc_ln813_s"   --->   Operation 301 'zext' 'zext_ln813_11' <Predicate = true> <Delay = 0.00>
+ST_35 : Operation 302 [1/1] (0.92ns)   --->   "%add_ln813_7 = add i36 %ret_V_33, i36 %zext_ln813_11"   --->   Operation 302 'add' 'add_ln813_7' <Predicate = true> <Delay = 0.92> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.92> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_35 : Operation 303 [1/1] (0.00ns)   --->   "%zext_ln813_12 = zext i36 %add_ln813_7"   --->   Operation 303 'zext' 'zext_ln813_12' <Predicate = true> <Delay = 0.00>
+ST_35 : Operation 304 [1/1] (0.96ns)   --->   "%exp_Z2P_m_1_V = add i44 %zext_ln813_12, i44 %zext_ln1347_7"   --->   Operation 304 'add' 'exp_Z2P_m_1_V' <Predicate = true> <Delay = 0.96> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.96> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_35 : Operation 305 [1/2] (1.20ns)   --->   "%f_Z2_V = load i8 %pow_reduce_anonymous_namespace_table_f_Z2_ap_ufixed_array_V_addr"   --->   Operation 305 'load' 'f_Z2_V' <Predicate = true> <Delay = 1.20> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 42> <Depth = 256> <ROM>
+ST_35 : Operation 306 [1/1] (0.00ns)   --->   "%tmp_18 = partselect i40 @_ssdm_op_PartSelect.i40.i42.i32.i32, i42 %f_Z2_V, i32 2, i32 41"   --->   Operation 306 'partselect' 'tmp_18' <Predicate = true> <Delay = 0.00>
+
+State 36 <SV = 35> <Delay = 2.93>
+ST_36 : Operation 307 [1/1] (0.00ns)   --->   "%exp_Z2_m_1_V = bitconcatenate i49 @_ssdm_op_BitConcatenate.i49.i8.i1.i40, i8 %Z2_V, i1 0, i40 %tmp_18"   --->   Operation 307 'bitconcatenate' 'exp_Z2_m_1_V' <Predicate = true> <Delay = 0.00>
+ST_36 : Operation 308 [1/1] (0.00ns)   --->   "%zext_ln1270_1 = zext i49 %exp_Z2_m_1_V"   --->   Operation 308 'zext' 'zext_ln1270_1' <Predicate = true> <Delay = 0.00>
+ST_36 : Operation 309 [1/1] (0.00ns)   --->   "%zext_ln1273_4 = zext i44 %exp_Z2P_m_1_V"   --->   Operation 309 'zext' 'zext_ln1273_4' <Predicate = true> <Delay = 0.00>
+ST_36 : Operation 310 [2/2] (2.93ns)   --->   "%r_V_19 = mul i93 %zext_ln1270_1, i93 %zext_ln1273_4"   --->   Operation 310 'mul' 'r_V_19' <Predicate = true> <Delay = 2.93> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 2.93> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 37 <SV = 36> <Delay = 2.93>
+ST_37 : Operation 311 [1/1] (0.00ns)   --->   "%zext_ln541_2 = zext i8 %m_diff_hi_V"   --->   Operation 311 'zext' 'zext_ln541_2' <Predicate = true> <Delay = 0.00>
+ST_37 : Operation 312 [1/1] (0.00ns)   --->   "%pow_reduce_anonymous_namespace_table_exp_Z1_ap_ufixed_array_V_addr = getelementptr i58 %pow_reduce_anonymous_namespace_table_exp_Z1_ap_ufixed_array_V, i64 0, i64 %zext_ln541_2" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:640]   --->   Operation 312 'getelementptr' 'pow_reduce_anonymous_namespace_table_exp_Z1_ap_ufixed_array_V_addr' <Predicate = true> <Delay = 0.00>
+ST_37 : Operation 313 [2/2] (1.20ns)   --->   "%exp_Z1_V = load i8 %pow_reduce_anonymous_namespace_table_exp_Z1_ap_ufixed_array_V_addr" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:640]   --->   Operation 313 'load' 'exp_Z1_V' <Predicate = true> <Delay = 1.20> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 58> <Depth = 256> <ROM>
+ST_37 : Operation 314 [1/2] (2.93ns)   --->   "%r_V_19 = mul i93 %zext_ln1270_1, i93 %zext_ln1273_4"   --->   Operation 314 'mul' 'r_V_19' <Predicate = true> <Delay = 2.93> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 2.93> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+ST_37 : Operation 315 [1/1] (0.00ns)   --->   "%trunc_ln813_2 = partselect i36 @_ssdm_op_PartSelect.i36.i93.i32.i32, i93 %r_V_19, i32 57, i32 92"   --->   Operation 315 'partselect' 'trunc_ln813_2' <Predicate = true> <Delay = 0.00>
+
+State 38 <SV = 37> <Delay = 1.93>
+ST_38 : Operation 316 [1/2] (1.20ns)   --->   "%exp_Z1_V = load i8 %pow_reduce_anonymous_namespace_table_exp_Z1_ap_ufixed_array_V_addr" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:640]   --->   Operation 316 'load' 'exp_Z1_V' <Predicate = true> <Delay = 1.20> <CoreInst = "ROM">   --->   Core 101 'ROM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 58> <Depth = 256> <ROM>
+ST_38 : Operation 317 [1/1] (0.00ns)   --->   "%lhs_V_4 = bitconcatenate i51 @_ssdm_op_BitConcatenate.i51.i8.i1.i40.i2, i8 %Z2_V, i1 0, i40 %tmp_18, i2 0"   --->   Operation 317 'bitconcatenate' 'lhs_V_4' <Predicate = true> <Delay = 0.00>
+ST_38 : Operation 318 [1/1] (0.00ns)   --->   "%zext_ln1347_8 = zext i51 %lhs_V_4"   --->   Operation 318 'zext' 'zext_ln1347_8' <Predicate = true> <Delay = 0.00>
+ST_38 : Operation 319 [1/1] (0.00ns)   --->   "%zext_ln813_13 = zext i36 %trunc_ln813_2"   --->   Operation 319 'zext' 'zext_ln813_13' <Predicate = true> <Delay = 0.00>
+ST_38 : Operation 320 [1/1] (0.96ns)   --->   "%add_ln813_9 = add i44 %exp_Z2P_m_1_V, i44 %zext_ln813_13"   --->   Operation 320 'add' 'add_ln813_9' <Predicate = true> <Delay = 0.96> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.96> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_38 : Operation 321 [1/1] (0.00ns)   --->   "%zext_ln813_14 = zext i44 %add_ln813_9"   --->   Operation 321 'zext' 'zext_ln813_14' <Predicate = true> <Delay = 0.00>
+ST_38 : Operation 322 [1/1] (0.97ns)   --->   "%exp_Z1P_m_1_l_V = add i52 %zext_ln813_14, i52 %zext_ln1347_8"   --->   Operation 322 'add' 'exp_Z1P_m_1_l_V' <Predicate = true> <Delay = 0.97> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.97> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_38 : Operation 323 [1/1] (0.00ns)   --->   "%exp_Z1P_m_1_V = partselect i50 @_ssdm_op_PartSelect.i50.i52.i32.i32, i52 %exp_Z1P_m_1_l_V, i32 2, i32 51"   --->   Operation 323 'partselect' 'exp_Z1P_m_1_V' <Predicate = true> <Delay = 0.00>
+ST_38 : Operation 324 [1/1] (0.00ns)   --->   "%exp_Z1_hi_V = partselect i50 @_ssdm_op_PartSelect.i50.i58.i32.i32, i58 %exp_Z1_V, i32 8, i32 57"   --->   Operation 324 'partselect' 'exp_Z1_hi_V' <Predicate = true> <Delay = 0.00>
+
+State 39 <SV = 38> <Delay = 2.93>
+ST_39 : Operation 325 [1/1] (0.00ns)   --->   "%zext_ln1271_3 = zext i50 %exp_Z1_hi_V"   --->   Operation 325 'zext' 'zext_ln1271_3' <Predicate = true> <Delay = 0.00>
+ST_39 : Operation 326 [1/1] (0.00ns)   --->   "%zext_ln1273_5 = zext i50 %exp_Z1P_m_1_V"   --->   Operation 326 'zext' 'zext_ln1273_5' <Predicate = true> <Delay = 0.00>
+ST_39 : Operation 327 [2/2] (2.93ns)   --->   "%r_V = mul i100 %zext_ln1273_5, i100 %zext_ln1271_3"   --->   Operation 327 'mul' 'r_V' <Predicate = true> <Delay = 2.93> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 2.93> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 40 <SV = 39> <Delay = 2.93>
+ST_40 : Operation 328 [1/1] (1.06ns)   --->   "%ret_V_35 = add i58 %exp_Z1_V, i58 16"   --->   Operation 328 'add' 'ret_V_35' <Predicate = true> <Delay = 1.06> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 1.06> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_40 : Operation 329 [1/2] (2.93ns)   --->   "%r_V = mul i100 %zext_ln1273_5, i100 %zext_ln1271_3"   --->   Operation 329 'mul' 'r_V' <Predicate = true> <Delay = 2.93> <CoreInst = "Multiplier">   --->   Core 3 'Multiplier' <Latency = 1> <II = 1> <Delay = 2.93> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+ST_40 : Operation 330 [1/1] (0.00ns)   --->   "%trunc_ln1347 = trunc i58 %ret_V_35"   --->   Operation 330 'trunc' 'trunc_ln1347' <Predicate = true> <Delay = 0.00>
+
+State 41 <SV = 40> <Delay = 3.25>
+ST_41 : Operation 331 [1/1] (0.00ns)   --->   "%specpipeline_ln0 = specpipeline void @_ssdm_op_SpecPipeline, i32 4294967295, i32 0, i32 0, i32 0, void @empty_4"   --->   Operation 331 'specpipeline' 'specpipeline_ln0' <Predicate = true> <Delay = 0.00>
+ST_41 : Operation 332 [1/1] (0.00ns) (grouped into LUT with out node x_is_NaN)   --->   "%xor_ln1023 = xor i1 %icmp_ln1019, i1 1"   --->   Operation 332 'xor' 'xor_ln1023' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_41 : Operation 333 [1/1] (0.12ns) (out node of the LUT)   --->   "%x_is_NaN = and i1 %icmp_ln1019_1, i1 %xor_ln1023" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_isnan.h:18]   --->   Operation 333 'and' 'x_is_NaN' <Predicate = true> <Delay = 0.12> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_41 : Operation 334 [1/1] (0.00ns) (grouped into LUT with out node select_ln407_3)   --->   "%or_ln407 = or i1 %x_is_p1, i1 %x_is_NaN" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:407]   --->   Operation 334 'or' 'or_ln407' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_41 : Operation 335 [1/1] (0.00ns) (grouped into LUT with out node select_ln407_3)   --->   "%select_ln407 = select i1 %x_is_p1, i64 1, i64 nan" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:407]   --->   Operation 335 'select' 'select_ln407' <Predicate = true> <Delay = 0.00> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.41> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_41 : Operation 336 [1/1] (0.00ns) (grouped into LUT with out node select_ln407_3)   --->   "%or_ln407_1 = or i1 %x_is_1, i1 %x_is_NaN" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:407]   --->   Operation 336 'or' 'or_ln407_1' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_41 : Operation 337 [1/1] (0.00ns) (grouped into LUT with out node select_ln407_3)   --->   "%select_ln407_1 = select i1 %or_ln407, i64 %select_ln407, i64 1" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:407]   --->   Operation 337 'select' 'select_ln407_1' <Predicate = true> <Delay = 0.00> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.41> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_41 : Operation 338 [1/1] (0.12ns)   --->   "%or_ln407_2 = or i1 %x_is_1, i1 %icmp_ln1019_1" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:407]   --->   Operation 338 'or' 'or_ln407_2' <Predicate = true> <Delay = 0.12> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_41 : Operation 339 [1/1] (0.00ns) (grouped into LUT with out node select_ln407_3)   --->   "%select_ln407_2 = select i1 %or_ln407_1, i64 %select_ln407_1, i64 inf" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:407]   --->   Operation 339 'select' 'select_ln407_2' <Predicate = true> <Delay = 0.00> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.41> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_41 : Operation 340 [1/1] (0.41ns) (out node of the LUT)   --->   "%select_ln407_3 = select i1 %or_ln407_2, i64 %select_ln407_2, i64 0" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:407]   --->   Operation 340 'select' 'select_ln407_3' <Predicate = true> <Delay = 0.41> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.41> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_41 : Operation 341 [1/1] (0.00ns)   --->   "%lhs_V_7 = bitconcatenate i107 @_ssdm_op_BitConcatenate.i107.i58.i49, i58 %ret_V_35, i49 0"   --->   Operation 341 'bitconcatenate' 'lhs_V_7' <Predicate = true> <Delay = 0.00>
+ST_41 : Operation 342 [1/1] (0.00ns)   --->   "%zext_ln1347_9 = zext i100 %r_V"   --->   Operation 342 'zext' 'zext_ln1347_9' <Predicate = true> <Delay = 0.00>
+ST_41 : Operation 343 [1/1] (0.00ns)   --->   "%zext_ln1347_10 = zext i100 %r_V"   --->   Operation 343 'zext' 'zext_ln1347_10' <Predicate = true> <Delay = 0.00>
+ST_41 : Operation 344 [1/1] (0.00ns)   --->   "%trunc_ln3 = bitconcatenate i105 @_ssdm_op_BitConcatenate.i105.i56.i49, i56 %trunc_ln1347, i49 0"   --->   Operation 344 'bitconcatenate' 'trunc_ln3' <Predicate = true> <Delay = 0.00>
+ST_41 : Operation 345 [1/1] (1.37ns)   --->   "%ret_V_23 = add i107 %lhs_V_7, i107 %zext_ln1347_9"   --->   Operation 345 'add' 'ret_V_23' <Predicate = true> <Delay = 1.37> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 1.37> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_41 : Operation 346 [1/1] (1.36ns)   --->   "%add_ln1347_1 = add i105 %trunc_ln3, i105 %zext_ln1347_10"   --->   Operation 346 'add' 'add_ln1347_1' <Predicate = true> <Delay = 1.36> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 1.36> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_41 : Operation 347 [1/1] (0.00ns)   --->   "%p_Result_8 = bitselect i1 @_ssdm_op_BitSelect.i1.i107.i32, i107 %ret_V_23, i32 106"   --->   Operation 347 'bitselect' 'p_Result_8' <Predicate = true> <Delay = 0.00>
+ST_41 : Operation 348 [1/1] (0.75ns)   --->   "%r_exp_V = add i13 %ret_V_32, i13 8191" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:653]   --->   Operation 348 'add' 'r_exp_V' <Predicate = true> <Delay = 0.75> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.75> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_41 : Operation 349 [1/1] (0.32ns)   --->   "%r_exp_V_2 = select i1 %p_Result_8, i13 %ret_V_32, i13 %r_exp_V" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:651]   --->   Operation 349 'select' 'r_exp_V_2' <Predicate = true> <Delay = 0.32> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.32> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_41 : Operation 350 [1/1] (0.00ns)   --->   "%tmp_21 = partselect i3 @_ssdm_op_PartSelect.i3.i13.i32.i32, i13 %r_exp_V_2, i32 10, i32 12"   --->   Operation 350 'partselect' 'tmp_21' <Predicate = true> <Delay = 0.00>
+ST_41 : Operation 351 [1/1] (0.49ns)   --->   "%icmp_ln1035 = icmp_sgt  i3 %tmp_21, i3 0"   --->   Operation 351 'icmp' 'icmp_ln1035' <Predicate = true> <Delay = 0.49> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.49> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_41 : Operation 352 [1/1] (0.00ns) (grouped into LUT with out node select_ln657)   --->   "%tmp_22 = bitselect i1 @_ssdm_op_BitSelect.i1.i120.i32, i120 %ret_V_16, i32 119"   --->   Operation 352 'bitselect' 'tmp_22' <Predicate = true> <Delay = 0.00>
+ST_41 : Operation 353 [1/1] (0.00ns) (grouped into LUT with out node select_ln657)   --->   "%select_ln658 = select i1 %tmp_22, i64 0, i64 inf" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:658]   --->   Operation 353 'select' 'select_ln658' <Predicate = true> <Delay = 0.00> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.41> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_41 : Operation 354 [1/1] (0.64ns)   --->   "%icmp_ln1039 = icmp_slt  i13 %r_exp_V_2, i13 7170"   --->   Operation 354 'icmp' 'icmp_ln1039' <Predicate = true> <Delay = 0.64> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.64> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_41 : Operation 355 [1/1] (0.00ns) (grouped into LUT with out node select_ln657)   --->   "%tmp = partselect i52 @_ssdm_op_PartSelect.i52.i107.i32.i32, i107 %ret_V_23, i32 54, i32 105"   --->   Operation 355 'partselect' 'tmp' <Predicate = true> <Delay = 0.00>
+ST_41 : Operation 356 [1/1] (0.00ns) (grouped into LUT with out node select_ln657)   --->   "%tmp_1 = partselect i52 @_ssdm_op_PartSelect.i52.i105.i32.i32, i105 %add_ln1347_1, i32 53, i32 104"   --->   Operation 356 'partselect' 'tmp_1' <Predicate = true> <Delay = 0.00>
+ST_41 : Operation 357 [1/1] (0.00ns) (grouped into LUT with out node select_ln657)   --->   "%tmp_24 = select i1 %p_Result_8, i52 %tmp, i52 %tmp_1" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:651]   --->   Operation 357 'select' 'tmp_24' <Predicate = true> <Delay = 0.00> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_41 : Operation 358 [1/1] (0.00ns)   --->   "%trunc_ln186 = trunc i13 %r_exp_V_2"   --->   Operation 358 'trunc' 'trunc_ln186' <Predicate = true> <Delay = 0.00>
+ST_41 : Operation 359 [1/1] (0.73ns)   --->   "%out_exp_V = add i11 %trunc_ln186, i11 1023"   --->   Operation 359 'add' 'out_exp_V' <Predicate = true> <Delay = 0.73> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.73> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_41 : Operation 360 [1/1] (0.00ns) (grouped into LUT with out node select_ln657)   --->   "%p_Result_15 = bitconcatenate i64 @_ssdm_op_BitConcatenate.i64.i1.i11.i52, i1 0, i11 %out_exp_V, i52 %tmp_24"   --->   Operation 360 'bitconcatenate' 'p_Result_15' <Predicate = true> <Delay = 0.00>
+ST_41 : Operation 361 [1/1] (0.00ns) (grouped into LUT with out node select_ln657)   --->   "%bitcast_ln526 = bitcast i64 %p_Result_15" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/src/hls/utils/x_hls_utils.h:526]   --->   Operation 361 'bitcast' 'bitcast_ln526' <Predicate = true> <Delay = 0.00>
+ST_41 : Operation 362 [1/1] (0.00ns) (grouped into LUT with out node select_ln657)   --->   "%and_ln657 = and i1 %and_ln407_1, i1 %icmp_ln1035" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:657]   --->   Operation 362 'and' 'and_ln657' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_41 : Operation 363 [1/1] (0.41ns) (out node of the LUT)   --->   "%select_ln657 = select i1 %and_ln657, i64 %select_ln658, i64 %bitcast_ln526" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:657]   --->   Operation 363 'select' 'select_ln657' <Predicate = true> <Delay = 0.41> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.41> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_41 : Operation 364 [1/1] (0.00ns) (grouped into LUT with out node select_ln1039)   --->   "%or_ln407_3 = or i1 %or_ln407_2, i1 %icmp_ln407_2" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:407]   --->   Operation 364 'or' 'or_ln407_3' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_41 : Operation 365 [1/1] (0.00ns) (grouped into LUT with out node select_ln1039)   --->   "%select_ln407_4 = select i1 %or_ln407_3, i64 %select_ln407_3, i64 %select_ln657" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:407]   --->   Operation 365 'select' 'select_ln407_4' <Predicate = true> <Delay = 0.00> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.41> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_41 : Operation 366 [1/1] (0.00ns) (grouped into LUT with out node and_ln1039_1)   --->   "%xor_ln657 = xor i1 %icmp_ln1035, i1 1" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:657]   --->   Operation 366 'xor' 'xor_ln657' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_41 : Operation 367 [1/1] (0.00ns) (grouped into LUT with out node and_ln1039_1)   --->   "%and_ln1039 = and i1 %icmp_ln1039, i1 %xor_ln657"   --->   Operation 367 'and' 'and_ln1039' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_41 : Operation 368 [1/1] (0.12ns) (out node of the LUT)   --->   "%and_ln1039_1 = and i1 %and_ln1039, i1 %and_ln407_1"   --->   Operation 368 'and' 'and_ln1039_1' <Predicate = true> <Delay = 0.12> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_41 : Operation 369 [1/1] (0.41ns) (out node of the LUT)   --->   "%select_ln1039 = select i1 %and_ln1039_1, i64 0, i64 %select_ln407_4"   --->   Operation 369 'select' 'select_ln1039' <Predicate = true> <Delay = 0.41> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.41> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_41 : Operation 370 [1/1] (0.00ns)   --->   "%ret_ln690 = ret i64 %select_ln1039" [/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:690]   --->   Operation 370 'ret' 'ret_ln690' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 5ns, clock uncertainty: 1.35ns.
+
+ <State 1>: 1.61ns
+The critical path consists of the following:
+	wire read operation ('base_read', /wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/src/hls/utils/x_hls_utils.h:488) on port 'base_r' (/wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/src/hls/utils/x_hls_utils.h:488) [15]  (0 ns)
+	'add' operation ('b_exp', /wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/src/hls/utils/x_hls_utils.h:515) [20]  (0.735 ns)
+	'icmp' operation ('icmp_ln369', /wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:369) [21]  (0.629 ns)
+	'and' operation ('x_is_1', /wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:369) [23]  (0.122 ns)
+	'and' operation ('x_is_p1', /wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:370) [26]  (0.122 ns)
+
+ <State 2>: 3.61ns
+The critical path consists of the following:
+	'load' operation ('b_frac_tilde_inverse.V', /wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:531) on array 'pow_reduce_anonymous_namespace_log_inverse_lut_table_pow_0_5_64_array_V' [50]  (0.667 ns)
+	'mul' operation ('mul_ln838') [54]  (2.94 ns)
+
+ <State 3>: 2.94ns
+The critical path consists of the following:
+	'mul' operation ('mul_ln838') [54]  (2.94 ns)
+
+ <State 4>: 3.61ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [68]  (3.61 ns)
+
+ <State 5>: 3.61ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [68]  (3.61 ns)
+
+ <State 6>: 1.24ns
+The critical path consists of the following:
+	'select' operation ('select_ln1488') [62]  (0.356 ns)
+	'add' operation ('ret.V') [65]  (0 ns)
+	'sub' operation ('ret.V') [70]  (0.885 ns)
+
+ <State 7>: 3.61ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [86]  (3.61 ns)
+
+ <State 8>: 3.61ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [86]  (3.61 ns)
+
+ <State 9>: 0.906ns
+The critical path consists of the following:
+	'add' operation ('ret.V') [83]  (0 ns)
+	'sub' operation ('ret.V') [89]  (0.906 ns)
+
+ <State 10>: 3.61ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [104]  (3.61 ns)
+
+ <State 11>: 3.61ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [104]  (3.61 ns)
+
+ <State 12>: 0.976ns
+The critical path consists of the following:
+	'add' operation ('ret.V') [101]  (0 ns)
+	'sub' operation ('ret.V') [107]  (0.976 ns)
+
+ <State 13>: 3.61ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [123]  (3.61 ns)
+
+ <State 14>: 3.61ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [123]  (3.61 ns)
+
+ <State 15>: 1.04ns
+The critical path consists of the following:
+	'add' operation ('ret.V') [119]  (0 ns)
+	'sub' operation ('ret.V') [126]  (1.04 ns)
+
+ <State 16>: 3.61ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [141]  (3.61 ns)
+
+ <State 17>: 3.61ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [141]  (3.61 ns)
+
+ <State 18>: 1.06ns
+The critical path consists of the following:
+	'add' operation ('ret.V') [137]  (0 ns)
+	'sub' operation ('ret.V') [144]  (1.06 ns)
+
+ <State 19>: 3.61ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [159]  (3.61 ns)
+
+ <State 20>: 3.61ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [159]  (3.61 ns)
+
+ <State 21>: 1.08ns
+The critical path consists of the following:
+	'add' operation ('ret.V') [155]  (0 ns)
+	'sub' operation ('ret.V') [162]  (1.08 ns)
+
+ <State 22>: 3.61ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [177]  (3.61 ns)
+
+ <State 23>: 3.61ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [177]  (3.61 ns)
+
+ <State 24>: 3.61ns
+The critical path consists of the following:
+	'mul' operation ('Elog2.V') [47]  (3.61 ns)
+
+ <State 25>: 3.61ns
+The critical path consists of the following:
+	'mul' operation ('Elog2.V') [47]  (3.61 ns)
+
+ <State 26>: 3.47ns
+The critical path consists of the following:
+	'sub' operation ('ret.V') [203]  (1.44 ns)
+	'add' operation ('ret.V') [209]  (1.04 ns)
+	'mul' operation of DSP[216] ('r.V') [213]  (0.996 ns)
+
+ <State 27>: 0.996ns
+The critical path consists of the following:
+	'mul' operation of DSP[216] ('r.V') [213]  (0.996 ns)
+
+ <State 28>: 0.645ns
+The critical path consists of the following:
+	'mul' operation of DSP[216] ('r.V') [213]  (0 ns)
+	'add' operation of DSP[216] ('ret.V') [216]  (0.645 ns)
+
+ <State 29>: 1.72ns
+The critical path consists of the following:
+	'add' operation of DSP[216] ('ret.V') [216]  (0.645 ns)
+	'add' operation ('ret.V') [221]  (0.755 ns)
+	'select' operation ('select_ln1002') [222]  (0 ns)
+	'select' operation ('ret.V') [223]  (0.321 ns)
+
+ <State 30>: 3.61ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [225]  (3.61 ns)
+
+ <State 31>: 3.61ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [225]  (3.61 ns)
+
+ <State 32>: 2.28ns
+The critical path consists of the following:
+	'sub' operation ('m_diff.V') [228]  (1.08 ns)
+	'getelementptr' operation ('pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V_addr') [238]  (0 ns)
+	'load' operation ('pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V_load') on array 'pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V' [239]  (1.2 ns)
+
+ <State 33>: 2.11ns
+The critical path consists of the following:
+	'load' operation ('pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V_load') on array 'pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V' [239]  (1.2 ns)
+	'add' operation ('ret.V') [243]  (0.911 ns)
+
+ <State 34>: 3.61ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [251]  (3.61 ns)
+
+ <State 35>: 1.88ns
+The critical path consists of the following:
+	'add' operation ('add_ln813_7') [254]  (0.922 ns)
+	'add' operation ('exp_Z2P_m_1.V') [256]  (0.962 ns)
+
+ <State 36>: 2.93ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [264]  (2.93 ns)
+
+ <State 37>: 2.93ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [264]  (2.93 ns)
+
+ <State 38>: 1.93ns
+The critical path consists of the following:
+	'add' operation ('add_ln813_9') [269]  (0.961 ns)
+	'add' operation ('exp_Z1P_m_1_l.V') [271]  (0.971 ns)
+
+ <State 39>: 2.93ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [277]  (2.93 ns)
+
+ <State 40>: 2.93ns
+The critical path consists of the following:
+	'mul' operation ('r.V') [277]  (2.93 ns)
+
+ <State 41>: 3.26ns
+The critical path consists of the following:
+	'add' operation ('ret.V') [283]  (1.38 ns)
+	'select' operation ('r_exp.V', /wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:651) [287]  (0.321 ns)
+	'add' operation ('out.exp.V') [297]  (0.735 ns)
+	'select' operation ('select_ln657', /wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:657) [306]  (0.411 ns)
+	'select' operation ('select_ln407_4', /wrk/ci/prod/2022.2.2/hls_product/continuous/139/2022.2.2/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_pow.h:407) [309]  (0 ns)
+	'select' operation ('select_ln1039') [313]  (0.411 ns)
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+	State 4
+	State 5
+	State 6
+	State 7
+	State 8
+	State 9
+	State 10
+	State 11
+	State 12
+	State 13
+	State 14
+	State 15
+	State 16
+	State 17
+	State 18
+	State 19
+	State 20
+	State 21
+	State 22
+	State 23
+	State 24
+	State 25
+	State 26
+	State 27
+	State 28
+	State 29
+	State 30
+	State 31
+	State 32
+	State 33
+	State 34
+	State 35
+	State 36
+	State 37
+	State 38
+	State 39
+	State 40
+	State 41
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

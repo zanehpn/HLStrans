@@ -1,0 +1,156 @@
+
+
+================================================================
+== Synthesis Summary Report of 'jacobi_2d'
+================================================================
++ General Information: 
+    * Date:           Mon May  5 03:22:35 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        jacobi_2d
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +--------------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----------+------------+------------+-----+
+    |                         Modules                        | Issue|      | Latency |  Latency  | Iteration|         | Trip |          |      |          |            |            |     |
+    |                         & Loops                        | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined| BRAM |    DSP   |     FF     |     LUT    | URAM|
+    +--------------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----------+------------+------------+-----+
+    |+ jacobi_2d                                             |     -|  0.32|  1860881|  9.304e+06|         -|  1860882|     -|        no|     -|  18 (~0%)|  3085 (~0%)|  3074 (~0%)|    -|
+    | o VITIS_LOOP_8_1                                       |     -|  3.65|  1860880|  9.304e+06|     46522|        -|    40|        no|     -|         -|           -|           -|    -|
+    |  + jacobi_2d_Pipeline_VITIS_LOOP_10_2_VITIS_LOOP_12_3  |     -|  0.32|    23259|  1.163e+05|         -|    23259|     -|        no|     -|   2 (~0%)|   923 (~0%)|   644 (~0%)|    -|
+    |   o VITIS_LOOP_10_2_VITIS_LOOP_12_3                    |    II|  3.65|    23257|  1.163e+05|        29|        3|  7744|       yes|     -|         -|           -|           -|    -|
+    |  + jacobi_2d_Pipeline_VITIS_LOOP_17_4_VITIS_LOOP_19_5  |     -|  0.32|    23259|  1.163e+05|         -|    23259|     -|        no|     -|   2 (~0%)|   923 (~0%)|   644 (~0%)|    -|
+    |   o VITIS_LOOP_17_4_VITIS_LOOP_19_5                    |    II|  3.65|    23257|  1.163e+05|        29|        3|  7744|       yes|     -|         -|           -|           -|    -|
+    +--------------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----------+------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_MEMORY
++------------+----------+
+| Interface  | Bitwidth |
++------------+----------+
+| A_address0 | 13       |
+| A_address1 | 13       |
+| A_d0       | 64       |
+| A_q0       | 64       |
+| A_q1       | 64       |
+| B_address0 | 13       |
+| B_address1 | 13       |
+| B_d0       | 64       |
+| B_q0       | 64       |
+| B_q1       | 64       |
++------------+----------+
+
+* Other Ports
++-----------+---------+----------+
+| Interface | Mode    | Bitwidth |
++-----------+---------+----------+
+| n         | ap_none | 32       |
+| tsteps    | ap_none | 32       |
++-----------+---------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| tsteps   | in        | int      |
+| n        | in        | int      |
+| A        | inout     | double*  |
+| B        | inout     | double*  |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+--------------+---------+----------+
+| Argument | HW Interface | HW Type | HW Usage |
++----------+--------------+---------+----------+
+| tsteps   | tsteps       | port    |          |
+| n        | n            | port    |          |
+| A        | A_address0   | port    | offset   |
+| A        | A_ce0        | port    |          |
+| A        | A_we0        | port    |          |
+| A        | A_d0         | port    |          |
+| A        | A_q0         | port    |          |
+| A        | A_address1   | port    | offset   |
+| A        | A_ce1        | port    |          |
+| A        | A_q1         | port    |          |
+| B        | B_address0   | port    | offset   |
+| B        | B_ce0        | port    |          |
+| B        | B_we0        | port    |          |
+| B        | B_d0         | port    |          |
+| B        | B_q0         | port    |          |
+| B        | B_address1   | port    | offset   |
+| B        | B_ce1        | port    |          |
+| B        | B_q1         | port    |          |
++----------+--------------+---------+----------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++-------------------------------------------------------+-----+--------+------------------------+-----+--------+---------+
+| Name                                                  | DSP | Pragma | Variable               | Op  | Impl   | Latency |
++-------------------------------------------------------+-----+--------+------------------------+-----+--------+---------+
+| + jacobi_2d                                           | 18  |        |                        |     |        |         |
+|   t_2_fu_80_p2                                        | -   |        | t_2                    | add | fabric | 0       |
+|  + jacobi_2d_Pipeline_VITIS_LOOP_10_2_VITIS_LOOP_12_3 | 2   |        |                        |     |        |         |
+|    add_ln10_fu_171_p2                                 | -   |        | add_ln10               | add | fabric | 0       |
+|    indvars_iv_next201_fu_197_p2                       | -   |        | indvars_iv_next201     | add | fabric | 0       |
+|    mul_7ns_8ns_13_1_1_U4                              | -   |        | mul_ln13               | mul | auto   | 0       |
+|    indvars_iv_next20_mid1_fu_221_p2                   | -   |        | indvars_iv_next20_mid1 | add | fabric | 0       |
+|    mac_muladd_7ns_7ns_7ns_13_4_1_U5                   | 1   |        | mul_ln13_1             | mul | dsp48  | 3       |
+|    empty_10_fu_239_p2                                 | -   |        | empty_10               | add | fabric | 0       |
+|    mac_muladd_7ns_7ns_7ns_13_4_1_U6                   | 1   |        | mul_ln13_2             | mul | dsp48  | 3       |
+|    add_ln13_2_fu_257_p2                               | -   |        | add_ln13_2             | add | fabric | 0       |
+|    mac_muladd_7ns_7ns_7ns_13_4_1_U5                   | 1   |        | add_ln13_3             | add | dsp48  | 3       |
+|    mac_muladd_7ns_7ns_7ns_13_4_1_U6                   | 1   |        | add_ln13_4             | add | dsp48  | 3       |
+|    add_ln13_fu_263_p2                                 | -   |        | add_ln13               | add | fabric | 0       |
+|    add_ln13_5_fu_273_p2                               | -   |        | add_ln13_5             | add | fabric | 0       |
+|    add_ln13_1_fu_279_p2                               | -   |        | add_ln13_1             | add | fabric | 0       |
+|    add_ln13_6_fu_289_p2                               | -   |        | add_ln13_6             | add | fabric | 0       |
+|  + jacobi_2d_Pipeline_VITIS_LOOP_17_4_VITIS_LOOP_19_5 | 2   |        |                        |     |        |         |
+|    add_ln17_fu_171_p2                                 | -   |        | add_ln17               | add | fabric | 0       |
+|    indvars_iv_next289_fu_197_p2                       | -   |        | indvars_iv_next289     | add | fabric | 0       |
+|    mul_7ns_8ns_13_1_1_U14                             | -   |        | mul_ln20               | mul | auto   | 0       |
+|    indvars_iv_next28_mid1_fu_221_p2                   | -   |        | indvars_iv_next28_mid1 | add | fabric | 0       |
+|    mac_muladd_7ns_7ns_7ns_13_4_1_U15                  | 1   |        | mul_ln20_1             | mul | dsp48  | 3       |
+|    empty_9_fu_239_p2                                  | -   |        | empty_9                | add | fabric | 0       |
+|    mac_muladd_7ns_7ns_7ns_13_4_1_U16                  | 1   |        | mul_ln20_2             | mul | dsp48  | 3       |
+|    add_ln20_2_fu_257_p2                               | -   |        | add_ln20_2             | add | fabric | 0       |
+|    mac_muladd_7ns_7ns_7ns_13_4_1_U15                  | 1   |        | add_ln20_3             | add | dsp48  | 3       |
+|    mac_muladd_7ns_7ns_7ns_13_4_1_U16                  | 1   |        | add_ln20_4             | add | dsp48  | 3       |
+|    add_ln20_fu_263_p2                                 | -   |        | add_ln20               | add | fabric | 0       |
+|    add_ln20_5_fu_273_p2                               | -   |        | add_ln20_5             | add | fabric | 0       |
+|    add_ln20_1_fu_279_p2                               | -   |        | add_ln20_1             | add | fabric | 0       |
+|    add_ln20_6_fu_289_p2                               | -   |        | add_ln20_6             | add | fabric | 0       |
++-------------------------------------------------------+-----+--------+------------------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
+  No bind storage info in design
+
+================================================================
+== Pragma Report
+================================================================
+  No pragmas found
+

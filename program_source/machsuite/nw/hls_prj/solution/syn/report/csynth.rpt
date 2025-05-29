@@ -1,0 +1,194 @@
+
+
+================================================================
+== Synthesis Summary Report of 'needwun'
+================================================================
++ General Information: 
+    * Date:           Sat Apr  5 08:32:44 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        hls_prj
+    * Solution:       solution (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----+-----------+------------+-----+
+    |            Modules           | Issue|      | Latency |  Latency  | Iteration|         | Trip |          |      |    |           |            |     |
+    |            & Loops           | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined| BRAM | DSP|     FF    |     LUT    | URAM|
+    +------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----+-----------+------------+-----+
+    |+ needwun                     |     -|  0.15|        -|          -|         -|        -|     -|        no|     -|   -|  826 (~0%)|  1828 (~0%)|    -|
+    | + needwun_Pipeline_init_row  |     -|  1.70|      131|    655.000|         -|      131|     -|        no|     -|   -|   10 (~0%)|    68 (~0%)|    -|
+    |  o init_row                  |     -|  3.65|      129|    645.000|         1|        1|   129|       yes|     -|   -|          -|           -|    -|
+    | + needwun_Pipeline_init_col  |     -|  1.61|      131|    655.000|         -|      131|     -|        no|     -|   -|   10 (~0%)|    92 (~0%)|    -|
+    |  o init_col                  |     -|  3.65|      129|    645.000|         1|        1|   129|       yes|     -|   -|          -|           -|    -|
+    | + needwun_Pipeline_trace     |     -|  1.71|        -|          -|         -|        -|     -|        no|     -|   -|  223 (~0%)|   327 (~0%)|    -|
+    |  o trace                     |     -|  3.65|        -|          -|         3|        1|     -|       yes|     -|   -|          -|           -|    -|
+    | + needwun_Pipeline_pad_a     |     -|  2.16|        -|          -|         -|        -|     -|        no|     -|   -|   34 (~0%)|    86 (~0%)|    -|
+    |  o pad_a                     |     -|  3.65|        -|          -|         1|        1|     -|       yes|     -|   -|          -|           -|    -|
+    | + needwun_Pipeline_pad_b     |     -|  2.16|        -|          -|         -|        -|     -|        no|     -|   -|   34 (~0%)|    86 (~0%)|    -|
+    |  o pad_b                     |     -|  3.65|        -|          -|         1|        1|     -|       yes|     -|   -|          -|           -|    -|
+    | o fill_out                   |     -|  3.65|    33664|  1.683e+05|       263|        -|   128|        no|     -|   -|          -|           -|    -|
+    |  + needwun_Pipeline_fill_in  |     -|  0.15|      259|  1.295e+03|         -|      259|     -|        no|     -|   -|  357 (~0%)|   575 (~0%)|    -|
+    |   o fill_in                  |    II|  3.65|      257|  1.285e+03|         4|        2|   128|       yes|     -|   -|          -|           -|    -|
+    +------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----+-----------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_MEMORY
++-------------------+----------+
+| Interface         | Bitwidth |
++-------------------+----------+
+| M_address0        | 15       |
+| M_address1        | 15       |
+| M_d0              | 32       |
+| M_q0              | 32       |
+| M_q1              | 32       |
+| SEQA_address0     | 7        |
+| SEQA_q0           | 8        |
+| SEQB_address0     | 7        |
+| SEQB_q0           | 8        |
+| alignedA_address0 | 8        |
+| alignedA_address1 | 8        |
+| alignedA_d0       | 8        |
+| alignedA_d1       | 8        |
+| alignedB_address0 | 8        |
+| alignedB_address1 | 8        |
+| alignedB_d0       | 8        |
+| alignedB_d1       | 8        |
+| ptr_address0      | 15       |
+| ptr_d0            | 8        |
+| ptr_q0            | 8        |
++-------------------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| SEQA     | in        | char*    |
+| SEQB     | in        | char*    |
+| alignedA | out       | char*    |
+| alignedB | out       | char*    |
+| M        | inout     | int*     |
+| ptr      | inout     | char*    |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+-------------------+---------+----------+
+| Argument | HW Interface      | HW Type | HW Usage |
++----------+-------------------+---------+----------+
+| SEQA     | SEQA_address0     | port    | offset   |
+| SEQA     | SEQA_ce0          | port    |          |
+| SEQA     | SEQA_q0           | port    |          |
+| SEQB     | SEQB_address0     | port    | offset   |
+| SEQB     | SEQB_ce0          | port    |          |
+| SEQB     | SEQB_q0           | port    |          |
+| alignedA | alignedA_address0 | port    | offset   |
+| alignedA | alignedA_ce0      | port    |          |
+| alignedA | alignedA_we0      | port    |          |
+| alignedA | alignedA_d0       | port    |          |
+| alignedA | alignedA_address1 | port    | offset   |
+| alignedA | alignedA_ce1      | port    |          |
+| alignedA | alignedA_we1      | port    |          |
+| alignedA | alignedA_d1       | port    |          |
+| alignedB | alignedB_address0 | port    | offset   |
+| alignedB | alignedB_ce0      | port    |          |
+| alignedB | alignedB_we0      | port    |          |
+| alignedB | alignedB_d0       | port    |          |
+| alignedB | alignedB_address1 | port    | offset   |
+| alignedB | alignedB_ce1      | port    |          |
+| alignedB | alignedB_we1      | port    |          |
+| alignedB | alignedB_d1       | port    |          |
+| M        | M_address0        | port    | offset   |
+| M        | M_ce0             | port    |          |
+| M        | M_we0             | port    |          |
+| M        | M_d0              | port    |          |
+| M        | M_q0              | port    |          |
+| M        | M_address1        | port    | offset   |
+| M        | M_ce1             | port    |          |
+| M        | M_q1              | port    |          |
+| ptr      | ptr_address0      | port    | offset   |
+| ptr      | ptr_ce0           | port    |          |
+| ptr      | ptr_we0           | port    |          |
+| ptr      | ptr_d0            | port    |          |
+| ptr      | ptr_q0            | port    |          |
++----------+-------------------+---------+----------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+  No burst in design
+
+================================================================
+== Bind Op Report
+================================================================
++------------------------------+-----+--------+------------+-----+--------+---------+
+| Name                         | DSP | Pragma | Variable   | Op  | Impl   | Latency |
++------------------------------+-----+--------+------------+-----+--------+---------+
+| + needwun                    | 0   |        |            |     |        |         |
+|   add_ln28_1_fu_214_p2       | -   |        | add_ln28_1 | add | fabric | 0       |
+|   tmp_fu_248_p2              | -   |        | tmp        | add | fabric | 0       |
+|   empty_20_fu_258_p2         | -   |        | empty_20   | add | fabric | 0       |
+|   empty_21_fu_298_p2         | -   |        | empty_21   | add | fabric | 0       |
+|   add_ln39_2_fu_344_p2       | -   |        | add_ln39_2 | add | fabric | 0       |
+|   add_ln28_fu_279_p2         | -   |        | add_ln28   | add | fabric | 0       |
+|  + needwun_Pipeline_init_row | 0   |        |            |     |        |         |
+|    add_ln20_fu_65_p2         | -   |        | add_ln20   | add | fabric | 0       |
+|    sub_ln21_fu_76_p2         | -   |        | sub_ln21   | sub | fabric | 0       |
+|  + needwun_Pipeline_init_col | 0   |        |            |     |        |         |
+|    add_ln23_fu_79_p2         | -   |        | add_ln23   | add | fabric | 0       |
+|    add_ln24_fu_105_p2        | -   |        | add_ln24   | add | fabric | 0       |
+|    sub_ln24_fu_111_p2        | -   |        | sub_ln24   | sub | fabric | 0       |
+|  + needwun_Pipeline_trace    | 0   |        |            |     |        |         |
+|    add_ln66_fu_258_p2        | -   |        | add_ln66   | add | fabric | 0       |
+|    grp_fu_162_p2             | -   |        | a_idx_3    | add | fabric | 0       |
+|    grp_fu_162_p2             | -   |        | a_idx_2    | add | fabric | 0       |
+|    grp_fu_167_p2             | -   |        | b_idx_3    | add | fabric | 0       |
+|    grp_fu_167_p2             | -   |        | b_idx_2    | add | fabric | 0       |
+|  + needwun_Pipeline_fill_in  | 0   |        |            |     |        |         |
+|    add_ln30_fu_222_p2        | -   |        | add_ln30   | add | fabric | 0       |
+|    add_ln39_fu_233_p2        | -   |        | add_ln39   | add | fabric | 0       |
+|    up_left_fu_293_p2         | -   |        | up_left    | add | fabric | 0       |
+|    add_ln40_fu_244_p2        | -   |        | add_ln40   | add | fabric | 0       |
+|    up_fu_299_p2              | -   |        | up         | add | fabric | 0       |
+|    left_fu_305_p2            | -   |        | left       | add | fabric | 0       |
+|    add_ln45_1_fu_325_p2      | -   |        | add_ln45_1 | add | fabric | 0       |
+|    add_ln45_fu_353_p2        | -   |        | add_ln45   | add | fabric | 0       |
+|    add_ln29_fu_330_p2        | -   |        | add_ln29   | add | fabric | 0       |
+|  + needwun_Pipeline_pad_a    | 0   |        |            |     |        |         |
+|    add_ln83_fu_75_p2         | -   |        | add_ln83   | add | fabric | 0       |
+|  + needwun_Pipeline_pad_b    | 0   |        |            |     |        |         |
+|    add_ln86_fu_75_p2         | -   |        | add_ln86   | add | fabric | 0       |
++------------------------------+-----+--------+------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
+  No bind storage info in design
+
+================================================================
+== Pragma Report
+================================================================
+  No pragmas found
+

@@ -1,0 +1,848 @@
+
+
+================================================================
+== Vitis HLS Report for 'syrk'
+================================================================
+* Date:           Fri Feb 21 05:32:25 2025
+
+* Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+* Project:        syrk
+* Solution:       solution1 (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu55c-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  5.00 ns|  3.517 ns|     1.35 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-------+-------+---------+
+    |  Latency (cycles) |  Latency (absolute) |    Interval   | Pipeline|
+    |   min   |   max   |    min   |    max   |  min  |  max  |   Type  |
+    +---------+---------+----------+----------+-------+-------+---------+
+    |    29023|    29023|  0.145 ms|  0.145 ms|  29024|  29024|       no|
+    +---------+---------+----------+----------+-------+-------+---------+
+
+    + Detail: 
+        * Instance: 
+        +----------------------------------------+-----------------------------+---------+---------+-----------+-----------+-------+-------+---------+
+        |                                        |                             |  Latency (cycles) |   Latency (absolute)  |    Interval   | Pipeline|
+        |                Instance                |            Module           |   min   |   max   |    min    |    max    |  min  |  max  |   Type  |
+        +----------------------------------------+-----------------------------+---------+---------+-----------+-----------+-------+-------+---------+
+        |grp_syrk_Pipeline_lprd_1_lprd_2_fu_68   |syrk_Pipeline_lprd_1_lprd_2  |     4098|     4098|  20.490 us|  20.490 us|   4098|   4098|       no|
+        |grp_syrk_Pipeline_lp1_lp2_fu_84         |syrk_Pipeline_lp1_lp2        |    16712|    16712|  83.560 us|  83.560 us|  16712|  16712|       no|
+        |grp_syrk_Pipeline_lp4_lp5_fu_93         |syrk_Pipeline_lp4_lp5        |     4108|     4108|  20.540 us|  20.540 us|   4108|   4108|       no|
+        |grp_syrk_Pipeline_lpwr_1_lpwr_2_fu_101  |syrk_Pipeline_lpwr_1_lpwr_2  |     4098|     4098|  20.490 us|  20.490 us|   4098|   4098|       no|
+        +----------------------------------------+-----------------------------+---------+---------+-----------+-----------+-------+-------+---------+
+
+        * Loop: 
+        N/A
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++---------------------+---------+------+---------+---------+-----+
+|         Name        | BRAM_18K|  DSP |    FF   |   LUT   | URAM|
++---------------------+---------+------+---------+---------+-----+
+|DSP                  |        -|     -|        -|        -|    -|
+|Expression           |        -|     -|        -|        -|    -|
+|FIFO                 |        -|     -|        -|        -|    -|
+|Instance             |        -|   128|    24929|    14957|    -|
+|Memory               |        0|     -|        0|        0|   32|
+|Multiplexer          |        -|     -|        -|      615|    -|
+|Register             |        -|     -|       12|        -|    -|
++---------------------+---------+------+---------+---------+-----+
+|Total                |        0|   128|    24941|    15572|   32|
++---------------------+---------+------+---------+---------+-----+
+|Available SLR        |     1344|  3008|   869120|   434560|  320|
++---------------------+---------+------+---------+---------+-----+
+|Utilization SLR (%)  |        0|     4|        2|        3|   10|
++---------------------+---------+------+---------+---------+-----+
+|Available            |     4032|  9024|  2607360|  1303680|  960|
++---------------------+---------+------+---------+---------+-----+
+|Utilization (%)      |        0|     1|       ~0|        1|    3|
++---------------------+---------+------+---------+---------+-----+
+
++ Detail: 
+    * Instance: 
+    +----------------------------------------+--------------------------------+---------+-----+-------+-------+-----+
+    |                Instance                |             Module             | BRAM_18K| DSP |   FF  |  LUT  | URAM|
+    +----------------------------------------+--------------------------------+---------+-----+-------+-------+-----+
+    |fadd_32ns_32ns_32_5_full_dsp_1_U68      |fadd_32ns_32ns_32_5_full_dsp_1  |        0|    2|    205|    220|    0|
+    |fmul_32ns_32ns_32_4_max_dsp_1_U69       |fmul_32ns_32ns_32_4_max_dsp_1   |        0|    3|    143|     78|    0|
+    |grp_syrk_Pipeline_lp1_lp2_fu_84         |syrk_Pipeline_lp1_lp2           |        0|  123|  24242|  14051|    0|
+    |grp_syrk_Pipeline_lp4_lp5_fu_93         |syrk_Pipeline_lp4_lp5           |        0|    0|    254|    210|    0|
+    |grp_syrk_Pipeline_lprd_1_lprd_2_fu_68   |syrk_Pipeline_lprd_1_lprd_2     |        0|    0|     42|    178|    0|
+    |grp_syrk_Pipeline_lpwr_1_lpwr_2_fu_101  |syrk_Pipeline_lpwr_1_lpwr_2     |        0|    0|     43|    220|    0|
+    +----------------------------------------+--------------------------------+---------+-----+-------+-------+-----+
+    |Total                                   |                                |        0|  128|  24929|  14957|    0|
+    +----------------------------------------+--------------------------------+---------+-----+-------+-------+-----+
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    +--------------+----------------------------+---------+---+----+-----+------+-----+------+-------------+
+    |    Memory    |           Module           | BRAM_18K| FF| LUT| URAM| Words| Bits| Banks| W*Bits*Banks|
+    +--------------+----------------------------+---------+---+----+-----+------+-----+------+-------------+
+    |buff_A0_U     |buff_A0_RAM_1WNR_AUTO_1R1W  |        0|  0|   0|   15|  4096|   32|     1|       131072|
+    |buff_A1_U     |buff_A0_RAM_1WNR_AUTO_1R1W  |        0|  0|   0|   15|  4096|   32|     1|       131072|
+    |buff_B_U      |buff_B_RAM_AUTO_1R1W        |        0|  0|   0|    1|  4096|   32|     1|       131072|
+    |buff_C_out_U  |buff_C_out_RAM_AUTO_1R1W    |        0|  0|   0|    1|  4096|   32|     1|       131072|
+    +--------------+----------------------------+---------+---+----+-----+------+-----+------+-------------+
+    |Total         |                            |        0|  0|   0|   32| 16384|  128|     4|       524288|
+    +--------------+----------------------------+---------+---+----+-----+------+-----+------+-------------+
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    N/A
+
+    * Multiplexer: 
+    +---------------------+----+-----------+-----+-----------+
+    |         Name        | LUT| Input Size| Bits| Total Bits|
+    +---------------------+----+-----------+-----+-----------+
+    |ap_NS_fsm            |  49|          9|    1|          9|
+    |buff_A0_address0     |  14|          3|   12|         36|
+    |buff_A0_ce0          |  14|          3|    1|          3|
+    |buff_A0_ce1          |   9|          2|    1|          2|
+    |buff_A0_ce10         |   9|          2|    1|          2|
+    |buff_A0_ce11         |   9|          2|    1|          2|
+    |buff_A0_ce12         |   9|          2|    1|          2|
+    |buff_A0_ce13         |   9|          2|    1|          2|
+    |buff_A0_ce14         |   9|          2|    1|          2|
+    |buff_A0_ce15         |   9|          2|    1|          2|
+    |buff_A0_ce2          |   9|          2|    1|          2|
+    |buff_A0_ce3          |   9|          2|    1|          2|
+    |buff_A0_ce4          |   9|          2|    1|          2|
+    |buff_A0_ce5          |   9|          2|    1|          2|
+    |buff_A0_ce6          |   9|          2|    1|          2|
+    |buff_A0_ce7          |   9|          2|    1|          2|
+    |buff_A0_ce8          |   9|          2|    1|          2|
+    |buff_A0_ce9          |   9|          2|    1|          2|
+    |buff_A0_we0          |   9|          2|    1|          2|
+    |buff_A1_address0     |  14|          3|   12|         36|
+    |buff_A1_ce0          |  14|          3|    1|          3|
+    |buff_A1_ce1          |   9|          2|    1|          2|
+    |buff_A1_ce10         |   9|          2|    1|          2|
+    |buff_A1_ce11         |   9|          2|    1|          2|
+    |buff_A1_ce12         |   9|          2|    1|          2|
+    |buff_A1_ce13         |   9|          2|    1|          2|
+    |buff_A1_ce14         |   9|          2|    1|          2|
+    |buff_A1_ce15         |   9|          2|    1|          2|
+    |buff_A1_ce2          |   9|          2|    1|          2|
+    |buff_A1_ce3          |   9|          2|    1|          2|
+    |buff_A1_ce4          |   9|          2|    1|          2|
+    |buff_A1_ce5          |   9|          2|    1|          2|
+    |buff_A1_ce6          |   9|          2|    1|          2|
+    |buff_A1_ce7          |   9|          2|    1|          2|
+    |buff_A1_ce8          |   9|          2|    1|          2|
+    |buff_A1_ce9          |   9|          2|    1|          2|
+    |buff_A1_we0          |   9|          2|    1|          2|
+    |buff_B_address0      |  14|          3|   12|         36|
+    |buff_B_ce0           |  14|          3|    1|          3|
+    |buff_B_we0           |   9|          2|    1|          2|
+    |buff_C_out_address0  |  26|          5|   12|         60|
+    |buff_C_out_ce0       |  26|          5|    1|          5|
+    |buff_C_out_ce1       |   9|          2|    1|          2|
+    |buff_C_out_d0        |  20|          4|   32|        128|
+    |buff_C_out_we0       |  20|          4|    1|          4|
+    |grp_fu_118_ce        |  14|          3|    1|          3|
+    |grp_fu_118_p0        |  14|          3|   32|         96|
+    |grp_fu_118_p1        |  14|          3|   32|         96|
+    |grp_fu_122_ce        |  14|          3|    1|          3|
+    |grp_fu_122_p0        |  14|          3|   32|         96|
+    |grp_fu_122_p1        |  14|          3|   32|         96|
+    +---------------------+----+-----------+-----+-----------+
+    |Total                | 615|        131|  250|        781|
+    +---------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +-----------------------------------------------------+---+----+-----+-----------+
+    |                         Name                        | FF| LUT| Bits| Const Bits|
+    +-----------------------------------------------------+---+----+-----+-----------+
+    |ap_CS_fsm                                            |  8|   0|    8|          0|
+    |grp_syrk_Pipeline_lp1_lp2_fu_84_ap_start_reg         |  1|   0|    1|          0|
+    |grp_syrk_Pipeline_lp4_lp5_fu_93_ap_start_reg         |  1|   0|    1|          0|
+    |grp_syrk_Pipeline_lprd_1_lprd_2_fu_68_ap_start_reg   |  1|   0|    1|          0|
+    |grp_syrk_Pipeline_lpwr_1_lpwr_2_fu_101_ap_start_reg  |  1|   0|    1|          0|
+    +-----------------------------------------------------+---+----+-----+-----------+
+    |Total                                                | 12|   0|   12|          0|
+    +-----------------------------------------------------+---+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++----------------+-----+-----+------------+--------------+--------------+
+|    RTL Ports   | Dir | Bits|  Protocol  | Source Object|    C Type    |
++----------------+-----+-----+------------+--------------+--------------+
+|ap_clk          |   in|    1|  ap_ctrl_hs|          syrk|  return value|
+|ap_rst          |   in|    1|  ap_ctrl_hs|          syrk|  return value|
+|ap_start        |   in|    1|  ap_ctrl_hs|          syrk|  return value|
+|ap_done         |  out|    1|  ap_ctrl_hs|          syrk|  return value|
+|ap_idle         |  out|    1|  ap_ctrl_hs|          syrk|  return value|
+|ap_ready        |  out|    1|  ap_ctrl_hs|          syrk|  return value|
+|alpha           |   in|   32|     ap_none|         alpha|        scalar|
+|beta            |   in|   32|     ap_none|          beta|        scalar|
+|A_address0      |  out|   12|   ap_memory|             A|         array|
+|A_ce0           |  out|    1|   ap_memory|             A|         array|
+|A_q0            |   in|   32|   ap_memory|             A|         array|
+|B_address0      |  out|   12|   ap_memory|             B|         array|
+|B_ce0           |  out|    1|   ap_memory|             B|         array|
+|B_q0            |   in|   32|   ap_memory|             B|         array|
+|C_out_address0  |  out|   12|   ap_memory|         C_out|         array|
+|C_out_ce0       |  out|    1|   ap_memory|         C_out|         array|
+|C_out_we0       |  out|    1|   ap_memory|         C_out|         array|
+|C_out_d0        |  out|   32|   ap_memory|         C_out|         array|
++----------------+-----+-----+------------+--------------+--------------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 1
+ResetActiveHigh: 1
+IsCombinational: 2
+IsDatapathOnly: 2
+HasWiredReturn: 1
+HasMFsm: 0
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 8
+* Pipeline : 0
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 3 
+3 --> 4 
+4 --> 5 
+5 --> 6 
+6 --> 7 
+7 --> 8 
+8 --> 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 1.64>
+ST_1 : Operation 9 [1/1] (1.64ns)   --->   "%buff_A0 = alloca i64 1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syrk/syrk.c:7]   --->   Operation 9 'alloca' 'buff_A0' <Predicate = true> <Delay = 1.64>
+ST_1 : Operation 10 [1/1] (1.64ns)   --->   "%buff_A1 = alloca i64 1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syrk/syrk.c:7]   --->   Operation 10 'alloca' 'buff_A1' <Predicate = true> <Delay = 1.64>
+ST_1 : Operation 11 [1/1] (1.64ns)   --->   "%buff_B = alloca i64 1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syrk/syrk.c:8]   --->   Operation 11 'alloca' 'buff_B' <Predicate = true> <Delay = 1.64>
+ST_1 : Operation 12 [1/1] (1.64ns)   --->   "%buff_C_out = alloca i64 1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syrk/syrk.c:9]   --->   Operation 12 'alloca' 'buff_C_out' <Predicate = true> <Delay = 1.64>
+ST_1 : Operation 13 [2/2] (0.00ns)   --->   "%call_ln0 = call void @syrk_Pipeline_lprd_1_lprd_2, i32 %A, i32 %B, i32 %buff_A0, i32 %buff_A1, i32 %buff_B, i32 %buff_C_out"   --->   Operation 13 'call' 'call_ln0' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 2 <SV = 1> <Delay = 0.00>
+ST_2 : Operation 14 [1/2] (0.00ns)   --->   "%call_ln0 = call void @syrk_Pipeline_lprd_1_lprd_2, i32 %A, i32 %B, i32 %buff_A0, i32 %buff_A1, i32 %buff_B, i32 %buff_C_out"   --->   Operation 14 'call' 'call_ln0' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 3 <SV = 2> <Delay = 0.00>
+ST_3 : Operation 15 [1/1] (0.00ns)   --->   "%alpha_read = read i32 @_ssdm_op_Read.ap_auto.float, i32 %alpha"   --->   Operation 15 'read' 'alpha_read' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 16 [2/2] (0.00ns)   --->   "%call_ln0 = call void @syrk_Pipeline_lp1_lp2, i32 %buff_A0, i32 %alpha_read, i32 %buff_A1, i32 %buff_C_out"   --->   Operation 16 'call' 'call_ln0' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 4 <SV = 3> <Delay = 0.00>
+ST_4 : Operation 17 [1/2] (0.00ns)   --->   "%call_ln0 = call void @syrk_Pipeline_lp1_lp2, i32 %buff_A0, i32 %alpha_read, i32 %buff_A1, i32 %buff_C_out"   --->   Operation 17 'call' 'call_ln0' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 5 <SV = 4> <Delay = 0.00>
+ST_5 : Operation 18 [1/1] (0.00ns)   --->   "%beta_read = read i32 @_ssdm_op_Read.ap_auto.float, i32 %beta"   --->   Operation 18 'read' 'beta_read' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 19 [2/2] (0.00ns)   --->   "%call_ln0 = call void @syrk_Pipeline_lp4_lp5, i32 %buff_B, i32 %buff_C_out, i32 %beta_read"   --->   Operation 19 'call' 'call_ln0' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 6 <SV = 5> <Delay = 0.00>
+ST_6 : Operation 20 [1/2] (0.00ns)   --->   "%call_ln0 = call void @syrk_Pipeline_lp4_lp5, i32 %buff_B, i32 %buff_C_out, i32 %beta_read"   --->   Operation 20 'call' 'call_ln0' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 7 <SV = 6> <Delay = 0.00>
+ST_7 : Operation 21 [2/2] (0.00ns)   --->   "%call_ln0 = call void @syrk_Pipeline_lpwr_1_lpwr_2, i32 %C_out, i32 %buff_C_out"   --->   Operation 21 'call' 'call_ln0' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 8 <SV = 7> <Delay = 0.00>
+ST_8 : Operation 22 [1/1] (0.00ns)   --->   "%spectopmodule_ln4 = spectopmodule void @_ssdm_op_SpecTopModule, void @empty_2" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syrk/syrk.c:4]   --->   Operation 22 'spectopmodule' 'spectopmodule_ln4' <Predicate = true> <Delay = 0.00>
+ST_8 : Operation 23 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i32 %alpha"   --->   Operation 23 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_8 : Operation 24 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i32 %alpha, void @empty, i32 0, i32 0, void @empty_0, i32 0, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 24 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_8 : Operation 25 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i32 %beta"   --->   Operation 25 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_8 : Operation 26 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i32 %beta, void @empty, i32 0, i32 0, void @empty_0, i32 0, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 26 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_8 : Operation 27 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i32 %A, void @empty_1, i32 0, i32 0, void @empty_0, i32 4294967295, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 27 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_8 : Operation 28 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i32 %A"   --->   Operation 28 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_8 : Operation 29 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i32 %B, void @empty_1, i32 0, i32 0, void @empty_0, i32 4294967295, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 29 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_8 : Operation 30 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i32 %B"   --->   Operation 30 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_8 : Operation 31 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i32 %C_out, void @empty_1, i32 0, i32 0, void @empty_0, i32 4294967295, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 31 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_8 : Operation 32 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i32 %C_out"   --->   Operation 32 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_8 : Operation 33 [1/2] (0.00ns)   --->   "%call_ln0 = call void @syrk_Pipeline_lpwr_1_lpwr_2, i32 %C_out, i32 %buff_C_out"   --->   Operation 33 'call' 'call_ln0' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_8 : Operation 34 [1/1] (0.00ns)   --->   "%ret_ln44 = ret" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syrk/syrk.c:44]   --->   Operation 34 'ret' 'ret_ln44' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+STG Binding: 
+---------------- STG Properties BEGIN ----------------
+- Is combinational: 0
+- Is one-state seq: 0
+- Is datapath-only: 0
+- Is pipelined: 0
+- Is top level: 1
+Port [ Return ] is wired: 1; IO mode=ap_ctrl_hs:ce=0
+Port [ alpha]:  wired=1; compound=0; hidden=0; nouse=0; global=0; static=0; extern=0; dir=0; type=0; pingpong=0; private_global=0; IO mode=ap_none:ce=0
+Port [ beta]:  wired=1; compound=0; hidden=0; nouse=0; global=0; static=0; extern=0; dir=0; type=0; pingpong=0; private_global=0; IO mode=ap_none:ce=0
+Port [ A]:  wired=1; compound=1; hidden=0; nouse=0; global=0; static=0; extern=0; dir=0; type=1; pingpong=0; private_global=0; MemPort=[13]; IO mode=ap_memory:ce=0
+Port [ B]:  wired=1; compound=1; hidden=0; nouse=0; global=0; static=0; extern=0; dir=0; type=1; pingpong=0; private_global=0; MemPort=[13]; IO mode=ap_memory:ce=0
+Port [ C_out]:  wired=1; compound=1; hidden=0; nouse=0; global=0; static=0; extern=0; dir=1; type=1; pingpong=0; private_global=0; MemPort=[03]; IO mode=ap_memory:ce=0
+---------------- STG Properties END ------------------
+
+---------------- Datapath Model BEGIN ----------------
+
+<LifeTime>
+<method=bitvector/>
+buff_A0           (alloca       ) [ 001110000]
+buff_A1           (alloca       ) [ 001110000]
+buff_B            (alloca       ) [ 001111100]
+buff_C_out        (alloca       ) [ 001111111]
+call_ln0          (call         ) [ 000000000]
+alpha_read        (read         ) [ 000010000]
+call_ln0          (call         ) [ 000000000]
+beta_read         (read         ) [ 000000100]
+call_ln0          (call         ) [ 000000000]
+spectopmodule_ln4 (spectopmodule) [ 000000000]
+specbitsmap_ln0   (specbitsmap  ) [ 000000000]
+specinterface_ln0 (specinterface) [ 000000000]
+specbitsmap_ln0   (specbitsmap  ) [ 000000000]
+specinterface_ln0 (specinterface) [ 000000000]
+specinterface_ln0 (specinterface) [ 000000000]
+specbitsmap_ln0   (specbitsmap  ) [ 000000000]
+specinterface_ln0 (specinterface) [ 000000000]
+specbitsmap_ln0   (specbitsmap  ) [ 000000000]
+specinterface_ln0 (specinterface) [ 000000000]
+specbitsmap_ln0   (specbitsmap  ) [ 000000000]
+call_ln0          (call         ) [ 000000000]
+ret_ln44          (ret          ) [ 000000000]
+</LifeTime>
+
+<model>
+
+<comp_list>
+<comp id="0" class="1000" name="alpha">
+<pin_list>
+<pin id="1" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="alpha"/></StgValue>
+</bind>
+</comp>
+
+<comp id="2" class="1000" name="beta">
+<pin_list>
+<pin id="3" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="beta"/></StgValue>
+</bind>
+</comp>
+
+<comp id="4" class="1000" name="A">
+<pin_list>
+<pin id="5" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="A"/><MemPortTyVec>1 3 </MemPortTyVec>
+</StgValue>
+</bind>
+</comp>
+
+<comp id="6" class="1000" name="B">
+<pin_list>
+<pin id="7" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="B"/><MemPortTyVec>1 3 </MemPortTyVec>
+</StgValue>
+</bind>
+</comp>
+
+<comp id="8" class="1000" name="C_out">
+<pin_list>
+<pin id="9" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="C_out"/><MemPortTyVec>0 3 </MemPortTyVec>
+</StgValue>
+</bind>
+</comp>
+
+<comp id="10" class="1001" name="const_10">
+<pin_list>
+<pin id="11" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name=""/></StgValue>
+</bind>
+</comp>
+
+<comp id="12" class="1001" name="const_12">
+<pin_list>
+<pin id="13" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="syrk_Pipeline_lprd_1_lprd_2"/></StgValue>
+</bind>
+</comp>
+
+<comp id="14" class="1001" name="const_14">
+<pin_list>
+<pin id="15" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="_ssdm_op_Read.ap_auto.float"/></StgValue>
+</bind>
+</comp>
+
+<comp id="16" class="1001" name="const_16">
+<pin_list>
+<pin id="17" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="syrk_Pipeline_lp1_lp2"/></StgValue>
+</bind>
+</comp>
+
+<comp id="18" class="1001" name="const_18">
+<pin_list>
+<pin id="19" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="syrk_Pipeline_lp4_lp5"/></StgValue>
+</bind>
+</comp>
+
+<comp id="20" class="1001" name="const_20">
+<pin_list>
+<pin id="21" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="syrk_Pipeline_lpwr_1_lpwr_2"/></StgValue>
+</bind>
+</comp>
+
+<comp id="22" class="1001" name="const_22">
+<pin_list>
+<pin id="23" dir="1" index="0" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="_ssdm_op_SpecTopModule"/></StgValue>
+</bind>
+</comp>
+
+<comp id="24" class="1001" name="const_24">
+<pin_list>
+<pin id="25" dir="1" index="0" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="empty_2"/></StgValue>
+</bind>
+</comp>
+
+<comp id="26" class="1001" name="const_26">
+<pin_list>
+<pin id="27" dir="1" index="0" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="_ssdm_op_SpecBitsMap"/></StgValue>
+</bind>
+</comp>
+
+<comp id="28" class="1001" name="const_28">
+<pin_list>
+<pin id="29" dir="1" index="0" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="_ssdm_op_SpecInterface"/></StgValue>
+</bind>
+</comp>
+
+<comp id="30" class="1001" name="const_30">
+<pin_list>
+<pin id="31" dir="1" index="0" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="empty"/></StgValue>
+</bind>
+</comp>
+
+<comp id="32" class="1001" name="const_32">
+<pin_list>
+<pin id="33" dir="1" index="0" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name=""/></StgValue>
+</bind>
+</comp>
+
+<comp id="34" class="1001" name="const_34">
+<pin_list>
+<pin id="35" dir="1" index="0" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="empty_0"/></StgValue>
+</bind>
+</comp>
+
+<comp id="36" class="1001" name="const_36">
+<pin_list>
+<pin id="37" dir="1" index="0" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name=""/></StgValue>
+</bind>
+</comp>
+
+<comp id="38" class="1001" name="const_38">
+<pin_list>
+<pin id="39" dir="1" index="0" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="empty_1"/></StgValue>
+</bind>
+</comp>
+
+<comp id="40" class="1004" name="buff_A0_alloca_fu_40">
+<pin_list>
+<pin id="41" dir="0" index="0" bw="1" slack="0"/>
+<pin id="42" dir="1" index="1" bw="32" slack="0"/>
+</pin_list>
+<bind>
+<opcode="alloca(26) " fcode="alloca"/>
+<opset="buff_A0/1 "/>
+</bind>
+</comp>
+
+<comp id="44" class="1004" name="buff_A1_alloca_fu_44">
+<pin_list>
+<pin id="45" dir="0" index="0" bw="1" slack="0"/>
+<pin id="46" dir="1" index="1" bw="32" slack="0"/>
+</pin_list>
+<bind>
+<opcode="alloca(26) " fcode="alloca"/>
+<opset="buff_A1/1 "/>
+</bind>
+</comp>
+
+<comp id="48" class="1004" name="buff_B_alloca_fu_48">
+<pin_list>
+<pin id="49" dir="0" index="0" bw="1" slack="0"/>
+<pin id="50" dir="1" index="1" bw="32" slack="0"/>
+</pin_list>
+<bind>
+<opcode="alloca(26) " fcode="alloca"/>
+<opset="buff_B/1 "/>
+</bind>
+</comp>
+
+<comp id="52" class="1004" name="buff_C_out_alloca_fu_52">
+<pin_list>
+<pin id="53" dir="0" index="0" bw="1" slack="0"/>
+<pin id="54" dir="1" index="1" bw="32" slack="0"/>
+</pin_list>
+<bind>
+<opcode="alloca(26) " fcode="alloca"/>
+<opset="buff_C_out/1 "/>
+</bind>
+</comp>
+
+<comp id="56" class="1004" name="alpha_read_read_fu_56">
+<pin_list>
+<pin id="57" dir="0" index="0" bw="32" slack="0"/>
+<pin id="58" dir="0" index="1" bw="32" slack="0"/>
+<pin id="59" dir="1" index="2" bw="32" slack="0"/>
+</pin_list>
+<bind>
+<opcode="read(1150) " fcode="read"/>
+<opset="alpha_read/3 "/>
+</bind>
+</comp>
+
+<comp id="62" class="1004" name="beta_read_read_fu_62">
+<pin_list>
+<pin id="63" dir="0" index="0" bw="32" slack="0"/>
+<pin id="64" dir="0" index="1" bw="32" slack="0"/>
+<pin id="65" dir="1" index="2" bw="32" slack="0"/>
+</pin_list>
+<bind>
+<opcode="read(1150) " fcode="read"/>
+<opset="beta_read/5 "/>
+</bind>
+</comp>
+
+<comp id="68" class="1004" name="grp_syrk_Pipeline_lprd_1_lprd_2_fu_68">
+<pin_list>
+<pin id="69" dir="0" index="0" bw="0" slack="0"/>
+<pin id="70" dir="0" index="1" bw="32" slack="0"/>
+<pin id="71" dir="0" index="2" bw="32" slack="0"/>
+<pin id="72" dir="0" index="3" bw="32" slack="0"/>
+<pin id="73" dir="0" index="4" bw="32" slack="0"/>
+<pin id="74" dir="0" index="5" bw="32" slack="0"/>
+<pin id="75" dir="0" index="6" bw="32" slack="0"/>
+<pin id="76" dir="1" index="7" bw="0" slack="2147483647"/>
+</pin_list>
+<bind>
+<opcode="call(48) " fcode="call"/>
+<opset="call_ln0/1 "/>
+</bind>
+</comp>
+
+<comp id="84" class="1004" name="grp_syrk_Pipeline_lp1_lp2_fu_84">
+<pin_list>
+<pin id="85" dir="0" index="0" bw="0" slack="0"/>
+<pin id="86" dir="0" index="1" bw="32" slack="2147483647"/>
+<pin id="87" dir="0" index="2" bw="32" slack="0"/>
+<pin id="88" dir="0" index="3" bw="32" slack="2147483647"/>
+<pin id="89" dir="0" index="4" bw="32" slack="2147483647"/>
+<pin id="90" dir="1" index="5" bw="0" slack="2147483647"/>
+</pin_list>
+<bind>
+<opcode="call(48) " fcode="call"/>
+<opset="call_ln0/3 "/>
+</bind>
+</comp>
+
+<comp id="93" class="1004" name="grp_syrk_Pipeline_lp4_lp5_fu_93">
+<pin_list>
+<pin id="94" dir="0" index="0" bw="0" slack="0"/>
+<pin id="95" dir="0" index="1" bw="32" slack="2147483647"/>
+<pin id="96" dir="0" index="2" bw="32" slack="2147483647"/>
+<pin id="97" dir="0" index="3" bw="32" slack="0"/>
+<pin id="98" dir="1" index="4" bw="0" slack="2147483647"/>
+</pin_list>
+<bind>
+<opcode="call(48) " fcode="call"/>
+<opset="call_ln0/5 "/>
+</bind>
+</comp>
+
+<comp id="101" class="1004" name="grp_syrk_Pipeline_lpwr_1_lpwr_2_fu_101">
+<pin_list>
+<pin id="102" dir="0" index="0" bw="0" slack="0"/>
+<pin id="103" dir="0" index="1" bw="32" slack="0"/>
+<pin id="104" dir="0" index="2" bw="32" slack="2147483647"/>
+<pin id="105" dir="1" index="3" bw="0" slack="2147483647"/>
+</pin_list>
+<bind>
+<opcode="call(48) " fcode="call"/>
+<opset="call_ln0/7 "/>
+</bind>
+</comp>
+
+<comp id="108" class="1005" name="alpha_read_reg_108">
+<pin_list>
+<pin id="109" dir="0" index="0" bw="32" slack="1"/>
+<pin id="110" dir="1" index="1" bw="32" slack="1"/>
+</pin_list>
+<bind>
+<opset="alpha_read "/>
+</bind>
+</comp>
+
+<comp id="113" class="1005" name="beta_read_reg_113">
+<pin_list>
+<pin id="114" dir="0" index="0" bw="32" slack="1"/>
+<pin id="115" dir="1" index="1" bw="32" slack="1"/>
+</pin_list>
+<bind>
+<opset="beta_read "/>
+</bind>
+</comp>
+
+<comp id="118" class="1004" name="grp_fu_118">
+<pin_list>
+<pin id="119" dir="0" index="0" bw="32" slack="2147483647"/>
+<pin id="120" dir="0" index="1" bw="32" slack="2147483647"/>
+<pin id="121" dir="1" index="2" bw="32" slack="2147483647"/>
+</pin_list>
+<bind>
+<opcode="fadd(9) " fcode="fadd"/>
+<opset="add/11 add_1/16 add_2/21 add_3/26 add1/7 "/>
+</bind>
+</comp>
+
+<comp id="122" class="1004" name="grp_fu_122">
+<pin_list>
+<pin id="123" dir="0" index="0" bw="32" slack="2147483647"/>
+<pin id="124" dir="0" index="1" bw="32" slack="2147483647"/>
+<pin id="125" dir="1" index="2" bw="32" slack="2147483647"/>
+</pin_list>
+<bind>
+<opcode="fmul(13) " fcode="fmul"/>
+<opset="mul_mid2/3 mul_15_mid2/4 mul_31_mid2/5 mul_47_mid2/6 mul1/3 "/>
+</bind>
+</comp>
+
+</comp_list>
+
+<net_list>
+<net id="43"><net_src comp="10" pin="0"/><net_sink comp="40" pin=0"/></net>
+
+<net id="47"><net_src comp="10" pin="0"/><net_sink comp="44" pin=0"/></net>
+
+<net id="51"><net_src comp="10" pin="0"/><net_sink comp="48" pin=0"/></net>
+
+<net id="55"><net_src comp="10" pin="0"/><net_sink comp="52" pin=0"/></net>
+
+<net id="60"><net_src comp="14" pin="0"/><net_sink comp="56" pin=0"/></net>
+
+<net id="61"><net_src comp="0" pin="0"/><net_sink comp="56" pin=1"/></net>
+
+<net id="66"><net_src comp="14" pin="0"/><net_sink comp="62" pin=0"/></net>
+
+<net id="67"><net_src comp="2" pin="0"/><net_sink comp="62" pin=1"/></net>
+
+<net id="77"><net_src comp="12" pin="0"/><net_sink comp="68" pin=0"/></net>
+
+<net id="78"><net_src comp="4" pin="0"/><net_sink comp="68" pin=1"/></net>
+
+<net id="79"><net_src comp="6" pin="0"/><net_sink comp="68" pin=2"/></net>
+
+<net id="80"><net_src comp="40" pin="1"/><net_sink comp="68" pin=3"/></net>
+
+<net id="81"><net_src comp="44" pin="1"/><net_sink comp="68" pin=4"/></net>
+
+<net id="82"><net_src comp="48" pin="1"/><net_sink comp="68" pin=5"/></net>
+
+<net id="83"><net_src comp="52" pin="1"/><net_sink comp="68" pin=6"/></net>
+
+<net id="91"><net_src comp="16" pin="0"/><net_sink comp="84" pin=0"/></net>
+
+<net id="92"><net_src comp="56" pin="2"/><net_sink comp="84" pin=2"/></net>
+
+<net id="99"><net_src comp="18" pin="0"/><net_sink comp="93" pin=0"/></net>
+
+<net id="100"><net_src comp="62" pin="2"/><net_sink comp="93" pin=3"/></net>
+
+<net id="106"><net_src comp="20" pin="0"/><net_sink comp="101" pin=0"/></net>
+
+<net id="107"><net_src comp="8" pin="0"/><net_sink comp="101" pin=1"/></net>
+
+<net id="111"><net_src comp="56" pin="2"/><net_sink comp="108" pin=0"/></net>
+
+<net id="112"><net_src comp="108" pin="1"/><net_sink comp="84" pin=2"/></net>
+
+<net id="116"><net_src comp="62" pin="2"/><net_sink comp="113" pin=0"/></net>
+
+<net id="117"><net_src comp="113" pin="1"/><net_sink comp="93" pin=3"/></net>
+
+</net_list>
+
+</model> 
+---------------- Datapath Model END ------------------
+
+* FSMD analyzer results:
+  - Output states:
+	Port: C_out | {7 8 }
+ - Input state : 
+	Port: syrk : alpha | {3 }
+	Port: syrk : beta | {5 }
+	Port: syrk : A | {1 2 }
+	Port: syrk : B | {1 2 }
+  - Chain level:
+	State 1
+		call_ln0 : 1
+	State 2
+	State 3
+	State 4
+	State 5
+	State 6
+	State 7
+	State 8
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+
+* Functional unit list:
+|----------|----------------------------------------|---------|---------|---------|---------|
+| Operation|             Functional Unit            |   DSP   |  Delay  |    FF   |   LUT   |
+|----------|----------------------------------------|---------|---------|---------|---------|
+|          |  grp_syrk_Pipeline_lprd_1_lprd_2_fu_68 |    0    |  0.774  |   115   |   121   |
+|   call   |     grp_syrk_Pipeline_lp1_lp2_fu_84    |   128   | 73.8727 |  19786  |   9728  |
+|          |     grp_syrk_Pipeline_lp4_lp5_fu_93    |    5    |  0.387  |   560   |   410   |
+|          | grp_syrk_Pipeline_lpwr_1_lpwr_2_fu_101 |    0    |  0.387  |   104   |   154   |
+|----------|----------------------------------------|---------|---------|---------|---------|
+|   fadd   |               grp_fu_118               |    2    |    0    |   205   |   220   |
+|----------|----------------------------------------|---------|---------|---------|---------|
+|   fmul   |               grp_fu_122               |    3    |    0    |   143   |    78   |
+|----------|----------------------------------------|---------|---------|---------|---------|
+|   read   |          alpha_read_read_fu_56         |    0    |    0    |    0    |    0    |
+|          |          beta_read_read_fu_62          |    0    |    0    |    0    |    0    |
+|----------|----------------------------------------|---------|---------|---------|---------|
+|   Total  |                                        |   138   | 75.4207 |  20913  |  10711  |
+|----------|----------------------------------------|---------|---------|---------|---------|
+
+Memories:
++----------+--------+--------+--------+--------+
+|          |  BRAM  |   FF   |   LUT  |  URAM  |
++----------+--------+--------+--------+--------+
+|  buff_A0 |    0   |    0   |    0   |   15   |
+|  buff_A1 |    0   |    0   |    0   |   15   |
+|  buff_B  |    0   |    0   |    0   |    1   |
+|buff_C_out|    0   |    0   |    0   |    1   |
++----------+--------+--------+--------+--------+
+|   Total  |    0   |    0   |    0   |   32   |
++----------+--------+--------+--------+--------+
+
+* Register list:
++------------------+--------+
+|                  |   FF   |
++------------------+--------+
+|alpha_read_reg_108|   32   |
+| beta_read_reg_113|   32   |
++------------------+--------+
+|       Total      |   64   |
++------------------+--------+
+
+* Multiplexer (MUX) list: 
+|---------------------------------|------|------|------|--------||---------||---------|
+|               Comp              |  Pin | Size |  BW  | S x BW ||  Delay  ||   LUT   |
+|---------------------------------|------|------|------|--------||---------||---------|
+| grp_syrk_Pipeline_lp1_lp2_fu_84 |  p2  |   2  |  32  |   64   ||    9    |
+| grp_syrk_Pipeline_lp4_lp5_fu_93 |  p3  |   2  |  32  |   64   ||    9    |
+|---------------------------------|------|------|------|--------||---------||---------|
+|              Total              |      |      |      |   128  ||  0.774  ||    18   |
+|---------------------------------|------|------|------|--------||---------||---------|
+
+
+
+* Summary:
++-----------+--------+--------+--------+--------+--------+--------+
+|           |  BRAM  |   DSP  |  Delay |   FF   |   LUT  |  URAM  |
++-----------+--------+--------+--------+--------+--------+--------+
+|  Function |    -   |   138  |   75   |  20913 |  10711 |    -   |
+|   Memory  |    0   |    -   |    -   |    0   |    0   |   32   |
+|Multiplexer|    -   |    -   |    0   |    -   |   18   |    -   |
+|  Register |    -   |    -   |    -   |   64   |    -   |    -   |
++-----------+--------+--------+--------+--------+--------+--------+
+|   Total   |    0   |   138  |   76   |  20977 |  10729 |   32   |
++-----------+--------+--------+--------+--------+--------+--------+

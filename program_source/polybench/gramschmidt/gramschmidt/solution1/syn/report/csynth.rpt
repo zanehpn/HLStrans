@@ -1,0 +1,227 @@
+
+
+================================================================
+== Synthesis Summary Report of 'gramschmidt'
+================================================================
++ General Information: 
+    * Date:           Tue May  6 11:36:28 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        gramschmidt
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +------------------------------------------+------+------+---------+---------+----------+---------+------+----------+------+----------+-------------+------------+-----+
+    |                  Modules                 | Issue|      | Latency | Latency | Iteration|         | Trip |          |      |          |             |            |     |
+    |                  & Loops                 | Type | Slack| (cycles)|   (ns)  |  Latency | Interval| Count| Pipelined| BRAM |    DSP   |      FF     |     LUT    | URAM|
+    +------------------------------------------+------+------+---------+---------+----------+---------+------+----------+------+----------+-------------+------------+-----+
+    |+ gramschmidt                             |     -|  0.02|        -|        -|         -|        -|     -|        no|     -|  220 (2%)|  23680 (~0%)|  18976 (1%)|    -|
+    | o VITIS_LOOP_13_1                        |     -|  3.65|        -|        -|         -|        -|     -|        no|     -|         -|            -|           -|    -|
+    |  + gramschmidt_Pipeline_VITIS_LOOP_15_2  |     -|  0.32|       89|  445.000|         -|       89|     -|        no|     -|         -|    208 (~0%)|   148 (~0%)|    -|
+    |   o VITIS_LOOP_15_2                      |    II|  3.65|       87|  435.000|        12|        4|    20|       yes|     -|         -|            -|           -|    -|
+    |  + gramschmidt_Pipeline_VITIS_LOOP_18_3  |     -|  0.33|       45|  225.000|         -|       45|     -|        no|     -|         -|    256 (~0%)|   127 (~0%)|    -|
+    |   o VITIS_LOOP_18_3                      |     -|  3.65|       43|  215.000|        25|        1|    20|       yes|     -|         -|            -|           -|    -|
+    |  + gramschmidt_Pipeline_VITIS_LOOP_20_4  |     -|  0.05|        -|        -|         -|        -|     -|        no|     -|  209 (2%)|  19865 (~0%)|  17007 (1%)|    -|
+    |   o VITIS_LOOP_20_4                      |    II|  3.65|        -|        -|       128|      118|     -|       yes|     -|         -|            -|           -|    -|
+    +------------------------------------------+------+------+---------+---------+----------+---------+------+----------+------+----------+-------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_MEMORY
++------------+----------+
+| Interface  | Bitwidth |
++------------+----------+
+| A_address0 | 10       |
+| A_address1 | 10       |
+| A_d0       | 64       |
+| A_d1       | 64       |
+| A_q0       | 64       |
+| A_q1       | 64       |
+| Q_address0 | 10       |
+| Q_address1 | 10       |
+| Q_d0       | 64       |
+| Q_q0       | 64       |
+| Q_q1       | 64       |
+| R_address0 | 10       |
+| R_d0       | 64       |
++------------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| A        | inout     | double*  |
+| R        | out       | double*  |
+| Q        | inout     | double*  |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+--------------+---------+----------+
+| Argument | HW Interface | HW Type | HW Usage |
++----------+--------------+---------+----------+
+| A        | A_address0   | port    | offset   |
+| A        | A_ce0        | port    |          |
+| A        | A_we0        | port    |          |
+| A        | A_d0         | port    |          |
+| A        | A_q0         | port    |          |
+| A        | A_address1   | port    | offset   |
+| A        | A_ce1        | port    |          |
+| A        | A_we1        | port    |          |
+| A        | A_d1         | port    |          |
+| A        | A_q1         | port    |          |
+| R        | R_address0   | port    | offset   |
+| R        | R_ce0        | port    |          |
+| R        | R_we0        | port    |          |
+| R        | R_d0         | port    |          |
+| Q        | Q_address0   | port    | offset   |
+| Q        | Q_ce0        | port    |          |
+| Q        | Q_we0        | port    |          |
+| Q        | Q_d0         | port    |          |
+| Q        | Q_q0         | port    |          |
+| Q        | Q_address1   | port    | offset   |
+| Q        | Q_ce1        | port    |          |
+| Q        | Q_q1         | port    |          |
++----------+--------------+---------+----------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++-----------------------------------------+-----+--------+-------------+-------+---------+---------+
+| Name                                    | DSP | Pragma | Variable    | Op    | Impl    | Latency |
++-----------------------------------------+-----+--------+-------------+-------+---------+---------+
+| + gramschmidt                           | 220 |        |             |       |         |         |
+|   add_ln20_fu_363_p2                    | -   |        | add_ln20    | add   | fabric  | 0       |
+|   sub_ln17_fu_399_p2                    | -   |        | sub_ln17    | sub   | fabric  | 0       |
+|   add_ln17_fu_405_p2                    | -   |        | add_ln17    | add   | fabric  | 0       |
+|   add_ln23_fu_427_p2                    | -   |        | add_ln23    | add   | fabric  | 0       |
+|   add_ln23_1_fu_441_p2                  | -   |        | add_ln23_1  | add   | fabric  | 0       |
+|   add_ln23_2_fu_452_p2                  | -   |        | add_ln23_2  | add   | fabric  | 0       |
+|   add_ln23_3_fu_466_p2                  | -   |        | add_ln23_3  | add   | fabric  | 0       |
+|   add_ln23_4_fu_477_p2                  | -   |        | add_ln23_4  | add   | fabric  | 0       |
+|   add_ln23_5_fu_488_p2                  | -   |        | add_ln23_5  | add   | fabric  | 0       |
+|   add_ln23_6_fu_498_p2                  | -   |        | add_ln23_6  | add   | fabric  | 0       |
+|   add_ln23_7_fu_515_p2                  | -   |        | add_ln23_7  | add   | fabric  | 0       |
+|   add_ln23_8_fu_526_p2                  | -   |        | add_ln23_8  | add   | fabric  | 0       |
+|   add_ln23_9_fu_537_p2                  | -   |        | add_ln23_9  | add   | fabric  | 0       |
+|   add_ln23_10_fu_547_p2                 | -   |        | add_ln23_10 | add   | fabric  | 0       |
+|   add_ln23_11_fu_557_p2                 | -   |        | add_ln23_11 | add   | fabric  | 0       |
+|   add_ln23_12_fu_567_p2                 | -   |        | add_ln23_12 | add   | fabric  | 0       |
+|   add_ln23_13_fu_581_p2                 | -   |        | add_ln23_13 | add   | fabric  | 0       |
+|   add_ln23_14_fu_595_p2                 | -   |        | add_ln23_14 | add   | fabric  | 0       |
+|   add_ln23_15_fu_625_p2                 | -   |        | add_ln23_15 | add   | fabric  | 0       |
+|   add_ln23_16_fu_635_p2                 | -   |        | add_ln23_16 | add   | fabric  | 0       |
+|   add_ln23_17_fu_645_p2                 | -   |        | add_ln23_17 | add   | fabric  | 0       |
+|   dsqrt_64ns_64ns_64_17_no_dsp_1_U77    | -   |        | tmp         | dsqrt | fabric  | 16      |
+|   dmul_64ns_64ns_64_5_max_dsp_1_U79     | -   |        | add_ln13    | add   | fabric  | 0       |
+|  + gramschmidt_Pipeline_VITIS_LOOP_15_2 | 0   |        |             |       |         |         |
+|    add_ln15_fu_115_p2                   | -   |        | add_ln15    | add   | fabric  | 0       |
+|  + gramschmidt_Pipeline_VITIS_LOOP_18_3 | 0   |        |             |       |         |         |
+|    add_ln18_fu_114_p2                   | -   |        | add_ln18    | add   | fabric  | 0       |
+|    ddiv_64ns_64ns_64_22_no_dsp_1_U6     | -   |        | div         | ddiv  | fabric  | 21      |
+|  + gramschmidt_Pipeline_VITIS_LOOP_20_4 | 209 |        |             |       |         |         |
+|    add_ln23_fu_689_p2                   | -   |        | add_ln23    | add   | fabric  | 0       |
+|    add_ln23_1_fu_708_p2                 | -   |        | add_ln23_1  | add   | fabric  | 0       |
+|    add_ln23_2_fu_719_p2                 | -   |        | add_ln23_2  | add   | fabric  | 0       |
+|    add_ln23_3_fu_733_p2                 | -   |        | add_ln23_3  | add   | fabric  | 0       |
+|    add_ln23_4_fu_744_p2                 | -   |        | add_ln23_4  | add   | fabric  | 0       |
+|    add_ln23_5_fu_755_p2                 | -   |        | add_ln23_5  | add   | fabric  | 0       |
+|    add_ln23_6_fu_765_p2                 | -   |        | add_ln23_6  | add   | fabric  | 0       |
+|    add_ln23_7_fu_792_p2                 | -   |        | add_ln23_7  | add   | fabric  | 0       |
+|    add_ln23_8_fu_803_p2                 | -   |        | add_ln23_8  | add   | fabric  | 0       |
+|    add_ln23_9_fu_824_p2                 | -   |        | add_ln23_9  | add   | fabric  | 0       |
+|    add_ln23_10_fu_834_p2                | -   |        | add_ln23_10 | add   | fabric  | 0       |
+|    add_ln23_11_fu_854_p2                | -   |        | add_ln23_11 | add   | fabric  | 0       |
+|    add_ln23_12_fu_864_p2                | -   |        | add_ln23_12 | add   | fabric  | 0       |
+|    add_ln23_13_fu_888_p2                | -   |        | add_ln23_13 | add   | fabric  | 0       |
+|    add_ln23_14_fu_902_p2                | -   |        | add_ln23_14 | add   | fabric  | 0       |
+|    add_ln23_15_fu_945_p2                | -   |        | add_ln23_15 | add   | fabric  | 0       |
+|    add_ln23_16_fu_966_p2                | -   |        | add_ln23_16 | add   | fabric  | 0       |
+|    add_ln23_17_fu_976_p2                | -   |        | add_ln23_17 | add   | fabric  | 0       |
+|    add_ln21_fu_986_p2                   | -   |        | add_ln21    | add   | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U33    | 8   |        | mul1_3      | dmul  | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U33    | 8   |        | mul1_5      | dmul  | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U33    | 8   |        | mul1_7      | dmul  | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U33    | 8   |        | mul1_9      | dmul  | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U33    | 8   |        | mul1_10     | dmul  | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U33    | 8   |        | mul1_12     | dmul  | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U33    | 8   |        | mul1_14     | dmul  | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U33    | 8   |        | mul1_16     | dmul  | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U33    | 8   |        | mul1_18     | dmul  | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U33    | 8   |        | mul2_1      | dmul  | maxdsp  | 4       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U13   | 3   |        | sub_1       | dsub  | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U34    | 8   |        | mul2_2      | dmul  | maxdsp  | 4       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U14   | 3   |        | sub_2       | dsub  | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U35    | 8   |        | mul2_3      | dmul  | maxdsp  | 4       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U15   | 3   |        | sub_3       | dsub  | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U36    | 8   |        | mul2_4      | dmul  | maxdsp  | 4       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U16   | 3   |        | sub_4       | dsub  | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U37    | 8   |        | mul2_5      | dmul  | maxdsp  | 4       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U17   | 3   |        | sub_5       | dsub  | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U38    | 8   |        | mul2_6      | dmul  | maxdsp  | 4       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U18   | 3   |        | sub_6       | dsub  | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U39    | 8   |        | mul2_7      | dmul  | maxdsp  | 4       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U19   | 3   |        | sub_7       | dsub  | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U40    | 8   |        | mul2_8      | dmul  | maxdsp  | 4       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U20   | 3   |        | sub_8       | dsub  | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U41    | 8   |        | mul2_9      | dmul  | maxdsp  | 4       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U21   | 3   |        | sub_9       | dsub  | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U42    | 8   |        | mul2_s      | dmul  | maxdsp  | 4       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U22   | 3   |        | sub_s       | dsub  | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U43    | 8   |        | mul2_10     | dmul  | maxdsp  | 4       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U23   | 3   |        | sub_10      | dsub  | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U44    | 8   |        | mul2_11     | dmul  | maxdsp  | 4       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U24   | 3   |        | sub_11      | dsub  | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U45    | 8   |        | mul2_12     | dmul  | maxdsp  | 4       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U25   | 3   |        | sub_12      | dsub  | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U46    | 8   |        | mul2_13     | dmul  | maxdsp  | 4       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U26   | 3   |        | sub_13      | dsub  | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U47    | 8   |        | mul2_14     | dmul  | maxdsp  | 4       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U27   | 3   |        | sub_14      | dsub  | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U48    | 8   |        | mul2_15     | dmul  | maxdsp  | 4       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U28   | 3   |        | sub_15      | dsub  | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U49    | 8   |        | mul2_16     | dmul  | maxdsp  | 4       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U29   | 3   |        | sub_16      | dsub  | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U50    | 8   |        | mul2_17     | dmul  | maxdsp  | 4       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U30   | 3   |        | sub_17      | dsub  | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U51    | 8   |        | mul2_18     | dmul  | maxdsp  | 4       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U31   | 3   |        | sub_18      | dsub  | fulldsp | 4       |
+|    add_ln20_fu_670_p2                   | -   |        | add_ln20    | add   | fabric  | 0       |
++-----------------------------------------+-----+--------+-------------+-------+---------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
+  No bind storage info in design
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++------+---------------------------+---------------------------------------+
+| Type | Options                   | Location                              |
++------+---------------------------+---------------------------------------+
+| top  | name = kernel_gramschmidt | gramschmidt_slow.cpp:4 in gramschmidt |
++------+---------------------------+---------------------------------------+
+
+

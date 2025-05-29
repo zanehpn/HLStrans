@@ -1,0 +1,275 @@
+
+
+================================================================
+== Vitis HLS Report for 'syr2k_Pipeline_lp7_lp8'
+================================================================
+* Date:           Fri Feb 21 05:31:02 2025
+
+* Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+* Project:        syr2k
+* Solution:       solution1 (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu55c-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  5.00 ns|  3.404 ns|     1.35 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+-----------+-----------+------+------+---------+
+    |  Latency (cycles) |   Latency (absolute)  |   Interval  | Pipeline|
+    |   min   |   max   |    min    |    max    |  min |  max |   Type  |
+    +---------+---------+-----------+-----------+------+------+---------+
+    |     4109|     4109|  20.545 us|  20.545 us|  4109|  4109|       no|
+    +---------+---------+-----------+-----------+------+------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +-----------+---------+---------+----------+-----------+-----------+------+----------+
+        |           |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        | Loop Name |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +-----------+---------+---------+----------+-----------+-----------+------+----------+
+        |- lp7_lp8  |     4107|     4107|        13|          1|          1|  4096|       yes|
+        +-----------+---------+---------+----------+-----------+-----------+------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 2
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
++ Individual pipeline summary: 
+  * Pipeline-0: initiation interval (II) = 1, depth = 13
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 13
+* Pipeline : 1
+  Pipeline-0 : II = 1, D = 13, States = { 1 2 3 4 5 6 7 8 9 10 11 12 13 }
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 3 
+3 --> 4 
+4 --> 5 
+5 --> 6 
+6 --> 7 
+7 --> 8 
+8 --> 9 
+9 --> 10 
+10 --> 11 
+11 --> 12 
+12 --> 13 
+13 --> 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 3.40>
+ST_1 : Operation 16 [1/1] (0.00ns)   --->   "%j = alloca i32 1"   --->   Operation 16 'alloca' 'j' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 17 [1/1] (0.00ns)   --->   "%i = alloca i32 1"   --->   Operation 17 'alloca' 'i' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 18 [1/1] (0.00ns)   --->   "%indvar_flatten156 = alloca i32 1"   --->   Operation 18 'alloca' 'indvar_flatten156' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 19 [1/1] (0.00ns)   --->   "%beta_read = read i32 @_ssdm_op_Read.ap_auto.float, i32 %beta"   --->   Operation 19 'read' 'beta_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 20 [1/1] (0.38ns)   --->   "%store_ln0 = store i13 0, i13 %indvar_flatten156"   --->   Operation 20 'store' 'store_ln0' <Predicate = true> <Delay = 0.38>
+ST_1 : Operation 21 [1/1] (0.38ns)   --->   "%store_ln0 = store i7 0, i7 %i"   --->   Operation 21 'store' 'store_ln0' <Predicate = true> <Delay = 0.38>
+ST_1 : Operation 22 [1/1] (0.38ns)   --->   "%store_ln0 = store i7 0, i7 %j"   --->   Operation 22 'store' 'store_ln0' <Predicate = true> <Delay = 0.38>
+ST_1 : Operation 23 [1/1] (0.00ns)   --->   "%br_ln0 = br void %for.inc146"   --->   Operation 23 'br' 'br_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 24 [1/1] (0.00ns)   --->   "%indvar_flatten156_load = load i13 %indvar_flatten156" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:45]   --->   Operation 24 'load' 'indvar_flatten156_load' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 25 [1/1] (0.00ns)   --->   "%specpipeline_ln0 = specpipeline void @_ssdm_op_SpecPipeline, i32 4294967295, i32 0, i32 1, i32 0, void @p_str"   --->   Operation 25 'specpipeline' 'specpipeline_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 26 [1/1] (0.64ns)   --->   "%icmp_ln45 = icmp_eq  i13 %indvar_flatten156_load, i13 4096" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:45]   --->   Operation 26 'icmp' 'icmp_ln45' <Predicate = true> <Delay = 0.64> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.64> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 27 [1/1] (0.75ns)   --->   "%add_ln45_1 = add i13 %indvar_flatten156_load, i13 1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:45]   --->   Operation 27 'add' 'add_ln45_1' <Predicate = true> <Delay = 0.75> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.75> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 28 [1/1] (0.00ns)   --->   "%br_ln45 = br i1 %icmp_ln45, void %for.inc149, void %for.body157.preheader.exitStub" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:45]   --->   Operation 28 'br' 'br_ln45' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 29 [1/1] (0.00ns)   --->   "%j_load = load i7 %j" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:46]   --->   Operation 29 'load' 'j_load' <Predicate = (!icmp_ln45)> <Delay = 0.00>
+ST_1 : Operation 30 [1/1] (0.00ns)   --->   "%i_load = load i7 %i" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:45]   --->   Operation 30 'load' 'i_load' <Predicate = (!icmp_ln45)> <Delay = 0.00>
+ST_1 : Operation 31 [1/1] (0.70ns)   --->   "%add_ln45 = add i7 %i_load, i7 1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:45]   --->   Operation 31 'add' 'add_ln45' <Predicate = (!icmp_ln45)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 32 [1/1] (0.59ns)   --->   "%icmp_ln46 = icmp_eq  i7 %j_load, i7 64" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:46]   --->   Operation 32 'icmp' 'icmp_ln46' <Predicate = (!icmp_ln45)> <Delay = 0.59> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.59> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 33 [1/1] (0.30ns)   --->   "%select_ln45 = select i1 %icmp_ln46, i7 0, i7 %j_load" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:45]   --->   Operation 33 'select' 'select_ln45' <Predicate = (!icmp_ln45)> <Delay = 0.30> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_1 : Operation 34 [1/1] (0.30ns)   --->   "%select_ln45_1 = select i1 %icmp_ln46, i7 %add_ln45, i7 %i_load" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:45]   --->   Operation 34 'select' 'select_ln45_1' <Predicate = (!icmp_ln45)> <Delay = 0.30> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_1 : Operation 35 [1/1] (0.00ns)   --->   "%trunc_ln48 = trunc i7 %select_ln45_1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 35 'trunc' 'trunc_ln48' <Predicate = (!icmp_ln45)> <Delay = 0.00>
+ST_1 : Operation 36 [1/1] (0.00ns)   --->   "%tmp_s = bitconcatenate i12 @_ssdm_op_BitConcatenate.i12.i6.i6, i6 %trunc_ln48, i6 0" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 36 'bitconcatenate' 'tmp_s' <Predicate = (!icmp_ln45)> <Delay = 0.00>
+ST_1 : Operation 37 [1/1] (0.00ns)   --->   "%zext_ln48 = zext i7 %select_ln45" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 37 'zext' 'zext_ln48' <Predicate = (!icmp_ln45)> <Delay = 0.00>
+ST_1 : Operation 38 [1/1] (0.74ns)   --->   "%add_ln48 = add i12 %tmp_s, i12 %zext_ln48" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 38 'add' 'add_ln48' <Predicate = (!icmp_ln45)> <Delay = 0.74> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 39 [1/1] (0.00ns)   --->   "%zext_ln48_1 = zext i12 %add_ln48" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 39 'zext' 'zext_ln48_1' <Predicate = (!icmp_ln45)> <Delay = 0.00>
+ST_1 : Operation 40 [1/1] (0.00ns)   --->   "%tmp1_addr = getelementptr i32 %tmp1, i64 0, i64 %zext_ln48_1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 40 'getelementptr' 'tmp1_addr' <Predicate = (!icmp_ln45)> <Delay = 0.00>
+ST_1 : Operation 41 [1/1] (0.00ns)   --->   "%tmp2_addr = getelementptr i32 %tmp2, i64 0, i64 %zext_ln48_1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 41 'getelementptr' 'tmp2_addr' <Predicate = (!icmp_ln45)> <Delay = 0.00>
+ST_1 : Operation 42 [2/2] (1.64ns)   --->   "%empty_11 = load i12 %tmp1_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 42 'load' 'empty_11' <Predicate = (!icmp_ln45)> <Delay = 1.64> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.64> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4096> <RAM>
+ST_1 : Operation 43 [2/2] (1.64ns)   --->   "%empty_12 = load i12 %tmp2_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 43 'load' 'empty_12' <Predicate = (!icmp_ln45)> <Delay = 1.64> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.64> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4096> <RAM>
+ST_1 : Operation 44 [1/1] (0.70ns)   --->   "%add_ln46 = add i7 %select_ln45, i7 1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:46]   --->   Operation 44 'add' 'add_ln46' <Predicate = (!icmp_ln45)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 45 [1/1] (0.38ns)   --->   "%store_ln46 = store i13 %add_ln45_1, i13 %indvar_flatten156" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:46]   --->   Operation 45 'store' 'store_ln46' <Predicate = (!icmp_ln45)> <Delay = 0.38>
+ST_1 : Operation 46 [1/1] (0.38ns)   --->   "%store_ln46 = store i7 %select_ln45_1, i7 %i" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:46]   --->   Operation 46 'store' 'store_ln46' <Predicate = (!icmp_ln45)> <Delay = 0.38>
+ST_1 : Operation 47 [1/1] (0.38ns)   --->   "%store_ln46 = store i7 %add_ln46, i7 %j" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:46]   --->   Operation 47 'store' 'store_ln46' <Predicate = (!icmp_ln45)> <Delay = 0.38>
+
+State 2 <SV = 1> <Delay = 1.64>
+ST_2 : Operation 48 [1/1] (0.00ns)   --->   "%buff_C_addr = getelementptr i32 %buff_C, i64 0, i64 %zext_ln48_1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 48 'getelementptr' 'buff_C_addr' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 49 [1/2] (1.64ns)   --->   "%empty_11 = load i12 %tmp1_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 49 'load' 'empty_11' <Predicate = true> <Delay = 1.64> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.64> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4096> <RAM>
+ST_2 : Operation 50 [1/2] (1.64ns)   --->   "%empty_12 = load i12 %tmp2_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 50 'load' 'empty_12' <Predicate = true> <Delay = 1.64> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.64> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4096> <RAM>
+ST_2 : Operation 51 [2/2] (1.64ns)   --->   "%buff_C_load = load i12 %buff_C_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 51 'load' 'buff_C_load' <Predicate = true> <Delay = 1.64> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.64> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4096> <RAM>
+
+State 3 <SV = 2> <Delay = 2.97>
+ST_3 : Operation 52 [5/5] (2.97ns)   --->   "%add1 = fadd i32 %empty_11, i32 %empty_12" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 52 'fadd' 'add1' <Predicate = true> <Delay = 2.97> <CoreInst = "FAddSub_fulldsp">   --->   Core 18 'FAddSub_fulldsp' <Latency = 4> <II = 1> <Delay = 2.97> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 53 [1/2] (1.64ns)   --->   "%buff_C_load = load i12 %buff_C_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 53 'load' 'buff_C_load' <Predicate = true> <Delay = 1.64> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.64> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4096> <RAM>
+
+State 4 <SV = 3> <Delay = 2.97>
+ST_4 : Operation 54 [4/5] (2.97ns)   --->   "%add1 = fadd i32 %empty_11, i32 %empty_12" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 54 'fadd' 'add1' <Predicate = true> <Delay = 2.97> <CoreInst = "FAddSub_fulldsp">   --->   Core 18 'FAddSub_fulldsp' <Latency = 4> <II = 1> <Delay = 2.97> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_4 : Operation 55 [4/4] (2.32ns)   --->   "%mul2 = fmul i32 %buff_C_load, i32 %beta_read" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 55 'fmul' 'mul2' <Predicate = true> <Delay = 2.32> <CoreInst = "FMul_maxdsp">   --->   Core 30 'FMul_maxdsp' <Latency = 3> <II = 1> <Delay = 2.32> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+
+State 5 <SV = 4> <Delay = 2.97>
+ST_5 : Operation 56 [3/5] (2.97ns)   --->   "%add1 = fadd i32 %empty_11, i32 %empty_12" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 56 'fadd' 'add1' <Predicate = true> <Delay = 2.97> <CoreInst = "FAddSub_fulldsp">   --->   Core 18 'FAddSub_fulldsp' <Latency = 4> <II = 1> <Delay = 2.97> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 57 [3/4] (2.32ns)   --->   "%mul2 = fmul i32 %buff_C_load, i32 %beta_read" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 57 'fmul' 'mul2' <Predicate = true> <Delay = 2.32> <CoreInst = "FMul_maxdsp">   --->   Core 30 'FMul_maxdsp' <Latency = 3> <II = 1> <Delay = 2.32> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+
+State 6 <SV = 5> <Delay = 2.97>
+ST_6 : Operation 58 [2/5] (2.97ns)   --->   "%add1 = fadd i32 %empty_11, i32 %empty_12" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 58 'fadd' 'add1' <Predicate = true> <Delay = 2.97> <CoreInst = "FAddSub_fulldsp">   --->   Core 18 'FAddSub_fulldsp' <Latency = 4> <II = 1> <Delay = 2.97> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_6 : Operation 59 [2/4] (2.32ns)   --->   "%mul2 = fmul i32 %buff_C_load, i32 %beta_read" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 59 'fmul' 'mul2' <Predicate = true> <Delay = 2.32> <CoreInst = "FMul_maxdsp">   --->   Core 30 'FMul_maxdsp' <Latency = 3> <II = 1> <Delay = 2.32> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+
+State 7 <SV = 6> <Delay = 2.97>
+ST_7 : Operation 60 [1/5] (2.97ns)   --->   "%add1 = fadd i32 %empty_11, i32 %empty_12" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 60 'fadd' 'add1' <Predicate = true> <Delay = 2.97> <CoreInst = "FAddSub_fulldsp">   --->   Core 18 'FAddSub_fulldsp' <Latency = 4> <II = 1> <Delay = 2.97> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_7 : Operation 61 [1/4] (2.32ns)   --->   "%mul2 = fmul i32 %buff_C_load, i32 %beta_read" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 61 'fmul' 'mul2' <Predicate = true> <Delay = 2.32> <CoreInst = "FMul_maxdsp">   --->   Core 30 'FMul_maxdsp' <Latency = 3> <II = 1> <Delay = 2.32> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+
+State 8 <SV = 7> <Delay = 2.97>
+ST_8 : Operation 62 [5/5] (2.97ns)   --->   "%add2 = fadd i32 %add1, i32 %mul2" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 62 'fadd' 'add2' <Predicate = true> <Delay = 2.97> <CoreInst = "FAddSub_fulldsp">   --->   Core 18 'FAddSub_fulldsp' <Latency = 4> <II = 1> <Delay = 2.97> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 9 <SV = 8> <Delay = 2.97>
+ST_9 : Operation 63 [4/5] (2.97ns)   --->   "%add2 = fadd i32 %add1, i32 %mul2" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 63 'fadd' 'add2' <Predicate = true> <Delay = 2.97> <CoreInst = "FAddSub_fulldsp">   --->   Core 18 'FAddSub_fulldsp' <Latency = 4> <II = 1> <Delay = 2.97> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 10 <SV = 9> <Delay = 2.97>
+ST_10 : Operation 64 [3/5] (2.97ns)   --->   "%add2 = fadd i32 %add1, i32 %mul2" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 64 'fadd' 'add2' <Predicate = true> <Delay = 2.97> <CoreInst = "FAddSub_fulldsp">   --->   Core 18 'FAddSub_fulldsp' <Latency = 4> <II = 1> <Delay = 2.97> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 11 <SV = 10> <Delay = 2.97>
+ST_11 : Operation 65 [2/5] (2.97ns)   --->   "%add2 = fadd i32 %add1, i32 %mul2" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 65 'fadd' 'add2' <Predicate = true> <Delay = 2.97> <CoreInst = "FAddSub_fulldsp">   --->   Core 18 'FAddSub_fulldsp' <Latency = 4> <II = 1> <Delay = 2.97> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 12 <SV = 11> <Delay = 2.97>
+ST_12 : Operation 66 [1/5] (2.97ns)   --->   "%add2 = fadd i32 %add1, i32 %mul2" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 66 'fadd' 'add2' <Predicate = true> <Delay = 2.97> <CoreInst = "FAddSub_fulldsp">   --->   Core 18 'FAddSub_fulldsp' <Latency = 4> <II = 1> <Delay = 2.97> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 74 [1/1] (0.00ns)   --->   "%ret_ln0 = ret"   --->   Operation 74 'ret' 'ret_ln0' <Predicate = (icmp_ln45)> <Delay = 0.00>
+
+State 13 <SV = 12> <Delay = 1.64>
+ST_13 : Operation 67 [1/1] (0.00ns)   --->   "%specloopname_ln0 = specloopname void @_ssdm_op_SpecLoopName, void @lp7_lp8_str"   --->   Operation 67 'specloopname' 'specloopname_ln0' <Predicate = true> <Delay = 0.00>
+ST_13 : Operation 68 [1/1] (0.00ns)   --->   "%empty = speclooptripcount i32 @_ssdm_op_SpecLoopTripCount, i64 4096, i64 4096, i64 4096"   --->   Operation 68 'speclooptripcount' 'empty' <Predicate = true> <Delay = 0.00>
+ST_13 : Operation 69 [1/1] (0.00ns)   --->   "%specpipeline_ln0 = specpipeline void @_ssdm_op_SpecPipeline, i32 4294967295, i32 0, i32 1, i32 0, void @p_str"   --->   Operation 69 'specpipeline' 'specpipeline_ln0' <Predicate = true> <Delay = 0.00>
+ST_13 : Operation 70 [1/1] (0.00ns)   --->   "%buff_D_out_addr = getelementptr i32 %buff_D_out, i64 0, i64 %zext_ln48_1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 70 'getelementptr' 'buff_D_out_addr' <Predicate = true> <Delay = 0.00>
+ST_13 : Operation 71 [1/1] (0.00ns)   --->   "%specloopname_ln5 = specloopname void @_ssdm_op_SpecLoopName, void @empty_7" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:5]   --->   Operation 71 'specloopname' 'specloopname_ln5' <Predicate = true> <Delay = 0.00>
+ST_13 : Operation 72 [1/1] (1.64ns)   --->   "%store_ln48 = store i32 %add2, i12 %buff_D_out_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48]   --->   Operation 72 'store' 'store_ln48' <Predicate = true> <Delay = 1.64> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.64> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4096> <RAM>
+ST_13 : Operation 73 [1/1] (0.00ns)   --->   "%br_ln46 = br void %for.inc146" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:46]   --->   Operation 73 'br' 'br_ln46' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 5ns, clock uncertainty: 1.35ns.
+
+ <State 1>: 3.4ns
+The critical path consists of the following:
+	'alloca' operation ('i') [7]  (0 ns)
+	'load' operation ('i_load', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:45) on local variable 'i' [22]  (0 ns)
+	'add' operation ('add_ln45', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:45) [23]  (0.706 ns)
+	'select' operation ('select_ln45_1', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:45) [28]  (0.308 ns)
+	'add' operation ('add_ln48', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48) [33]  (0.745 ns)
+	'getelementptr' operation ('tmp1_addr', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48) [37]  (0 ns)
+	'load' operation ('empty_11', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48) on array 'tmp1' [40]  (1.65 ns)
+
+ <State 2>: 1.65ns
+The critical path consists of the following:
+	'load' operation ('empty_11', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48) on array 'tmp1' [40]  (1.65 ns)
+
+ <State 3>: 2.98ns
+The critical path consists of the following:
+	'fadd' operation ('add1', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48) [42]  (2.98 ns)
+
+ <State 4>: 2.98ns
+The critical path consists of the following:
+	'fadd' operation ('add1', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48) [42]  (2.98 ns)
+
+ <State 5>: 2.98ns
+The critical path consists of the following:
+	'fadd' operation ('add1', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48) [42]  (2.98 ns)
+
+ <State 6>: 2.98ns
+The critical path consists of the following:
+	'fadd' operation ('add1', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48) [42]  (2.98 ns)
+
+ <State 7>: 2.98ns
+The critical path consists of the following:
+	'fadd' operation ('add1', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48) [42]  (2.98 ns)
+
+ <State 8>: 2.98ns
+The critical path consists of the following:
+	'fadd' operation ('add2', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48) [45]  (2.98 ns)
+
+ <State 9>: 2.98ns
+The critical path consists of the following:
+	'fadd' operation ('add2', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48) [45]  (2.98 ns)
+
+ <State 10>: 2.98ns
+The critical path consists of the following:
+	'fadd' operation ('add2', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48) [45]  (2.98 ns)
+
+ <State 11>: 2.98ns
+The critical path consists of the following:
+	'fadd' operation ('add2', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48) [45]  (2.98 ns)
+
+ <State 12>: 2.98ns
+The critical path consists of the following:
+	'fadd' operation ('add2', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48) [45]  (2.98 ns)
+
+ <State 13>: 1.65ns
+The critical path consists of the following:
+	'getelementptr' operation ('buff_D_out_addr', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48) [36]  (0 ns)
+	'store' operation ('store_ln48', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48) of variable 'add2', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/syn_dataset/polybench/syr2k/syr2k.c:48 on array 'buff_D_out' [46]  (1.65 ns)
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+	State 4
+	State 5
+	State 6
+	State 7
+	State 8
+	State 9
+	State 10
+	State 11
+	State 12
+	State 13
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

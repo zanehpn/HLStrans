@@ -1,0 +1,811 @@
+
+
+================================================================
+== Vitis HLS Report for 'aes_expandEncKey'
+================================================================
+* Date:           Fri Apr  4 01:45:01 2025
+
+* Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+* Project:        hls_prj
+* Solution:       solution (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu55c-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  5.00 ns|  3.649 ns|     1.35 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-----+-----+---------+
+    |  Latency (cycles) |  Latency (absolute) |  Interval | Pipeline|
+    |   min   |   max   |    min   |    max   | min | max |   Type  |
+    +---------+---------+----------+----------+-----+-----+---------+
+    |        ?|        ?|         ?|         ?|    ?|    ?|       no|
+    +---------+---------+----------+----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +----------+---------+---------+----------+-----------+-----------+------+----------+
+        |          |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        | Loop Name|   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +----------+---------+---------+----------+-----------+-----------+------+----------+
+        |- exp1    |        9|        9|         3|          -|          -|     3|        no|
+        |- exp2    |        9|        9|         3|          -|          -|     3|        no|
+        +----------+---------+---------+----------+-----------+-----------+------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 0
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 23
+* Pipeline : 0
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 3 
+3 --> 4 
+4 --> 5 
+5 --> 6 
+6 --> 7 
+7 --> 8 
+8 --> 9 
+9 --> 10 
+10 --> 11 13 
+11 --> 12 
+12 --> 10 
+13 --> 14 
+14 --> 15 
+15 --> 16 
+16 --> 17 
+17 --> 18 
+18 --> 19 
+19 --> 20 
+20 --> 21 
+21 --> 22 
+22 --> 23 
+23 --> 21 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 0.72>
+ST_1 : Operation 24 [1/1] (0.00ns)   --->   "%i = alloca i32 1"   --->   Operation 24 'alloca' 'i' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 25 [1/1] (0.00ns)   --->   "%empty = alloca i32 1"   --->   Operation 25 'alloca' 'empty' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 26 [1/1] (0.00ns)   --->   "%k_idx_read = read i10 @_ssdm_op_Read.ap_auto.i10, i10 %k_idx"   --->   Operation 26 'read' 'k_idx_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 27 [1/1] (0.72ns)   --->   "%add_ln114 = add i10 %k_idx_read, i10 232" [aes_tableless.c:114]   --->   Operation 27 'add' 'add_ln114' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 28 [1/1] (0.38ns)   --->   "%store_ln120 = store i5 4, i5 %i" [aes_tableless.c:120]   --->   Operation 28 'store' 'store_ln120' <Predicate = true> <Delay = 0.38>
+
+State 2 <SV = 1> <Delay = 2.99>
+ST_2 : Operation 29 [1/1] (0.00ns)   --->   "%p_read_1 = read i768 @_ssdm_op_Read.ap_auto.i768, i768 %p_read"   --->   Operation 29 'read' 'p_read_1' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 30 [1/1] (0.00ns)   --->   "%zext_ln114 = zext i10 %add_ln114" [aes_tableless.c:114]   --->   Operation 30 'zext' 'zext_ln114' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 31 [1/1] (1.44ns)   --->   "%lshr_ln114 = lshr i768 %p_read_1, i768 %zext_ln114" [aes_tableless.c:114]   --->   Operation 31 'lshr' 'lshr_ln114' <Predicate = true> <Delay = 1.44> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 32 [1/1] (0.00ns)   --->   "%trunc_ln114 = trunc i768 %lshr_ln114" [aes_tableless.c:114]   --->   Operation 32 'trunc' 'trunc_ln114' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 33 [2/2] (1.54ns)   --->   "%tmp = call i8 @rj_sbox, i8 %trunc_ln114" [aes_tableless.c:114]   --->   Operation 33 'call' 'tmp' <Predicate = true> <Delay = 1.54> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 3 <SV = 2> <Delay = 2.38>
+ST_3 : Operation 34 [1/1] (0.00ns)   --->   "%rc_read_1 = read i8 @_ssdm_op_Read.ap_auto.i8, i8 %rc_read"   --->   Operation 34 'read' 'rc_read_1' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 35 [1/2] (0.64ns)   --->   "%tmp = call i8 @rj_sbox, i8 %trunc_ln114" [aes_tableless.c:114]   --->   Operation 35 'call' 'tmp' <Predicate = true> <Delay = 0.64> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_3 : Operation 36 [1/1] (0.00ns) (grouped into LUT with out node shl_ln114_1)   --->   "%zext_ln114_1 = zext i10 %k_idx_read" [aes_tableless.c:114]   --->   Operation 36 'zext' 'zext_ln114_1' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 37 [1/1] (0.00ns)   --->   "%zext_ln114_2 = zext i10 %k_idx_read" [aes_tableless.c:114]   --->   Operation 37 'zext' 'zext_ln114_2' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 38 [1/1] (0.00ns) (grouped into LUT with out node shl_ln114_1)   --->   "%lshr_ln114_1 = lshr i768 %p_read_1, i768 %zext_ln114_1" [aes_tableless.c:114]   --->   Operation 38 'lshr' 'lshr_ln114_1' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 39 [1/1] (0.00ns) (grouped into LUT with out node shl_ln114_1)   --->   "%trunc_ln114_1 = trunc i768 %lshr_ln114_1" [aes_tableless.c:114]   --->   Operation 39 'trunc' 'trunc_ln114_1' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 40 [1/1] (0.00ns) (grouped into LUT with out node shl_ln114_1)   --->   "%xor_ln114 = xor i8 %trunc_ln114_1, i8 %rc_read_1" [aes_tableless.c:114]   --->   Operation 40 'xor' 'xor_ln114' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.22> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 41 [1/1] (0.00ns) (grouped into LUT with out node shl_ln114_1)   --->   "%xor_ln114_1 = xor i8 %xor_ln114, i8 %tmp" [aes_tableless.c:114]   --->   Operation 41 'xor' 'xor_ln114_1' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.22> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 42 [1/1] (0.00ns) (grouped into LUT with out node xor_ln114_2)   --->   "%shl_ln114 = shl i520 255, i520 %zext_ln114_2" [aes_tableless.c:114]   --->   Operation 42 'shl' 'shl_ln114' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 43 [1/1] (0.00ns) (grouped into LUT with out node xor_ln114_2)   --->   "%zext_ln114_3 = zext i520 %shl_ln114" [aes_tableless.c:114]   --->   Operation 43 'zext' 'zext_ln114_3' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 44 [1/1] (0.00ns) (grouped into LUT with out node shl_ln114_1)   --->   "%zext_ln114_4 = zext i8 %xor_ln114_1" [aes_tableless.c:114]   --->   Operation 44 'zext' 'zext_ln114_4' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 45 [1/1] (1.44ns) (out node of the LUT)   --->   "%shl_ln114_1 = shl i520 %zext_ln114_4, i520 %zext_ln114_2" [aes_tableless.c:114]   --->   Operation 45 'shl' 'shl_ln114_1' <Predicate = true> <Delay = 1.44> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 46 [1/1] (0.74ns) (out node of the LUT)   --->   "%xor_ln114_2 = xor i521 %zext_ln114_3, i521 6864797660130609714981900799081393217269435300143305409394463459185543183397656052122559640661454554977296311391480858037121987999716643812574028291115057151" [aes_tableless.c:114]   --->   Operation 46 'xor' 'xor_ln114_2' <Predicate = true> <Delay = 0.74> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 47 [1/1] (0.00ns)   --->   "%sext_ln114 = sext i521 %xor_ln114_2" [aes_tableless.c:114]   --->   Operation 47 'sext' 'sext_ln114' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 48 [1/1] (0.00ns) (grouped into LUT with out node or_ln114)   --->   "%trunc_ln114_2 = trunc i768 %p_read_1" [aes_tableless.c:114]   --->   Operation 48 'trunc' 'trunc_ln114_2' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 49 [1/1] (0.00ns) (grouped into LUT with out node or_ln114)   --->   "%trunc_ln114_3 = trunc i521 %xor_ln114_2" [aes_tableless.c:114]   --->   Operation 49 'trunc' 'trunc_ln114_3' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 50 [1/1] (0.29ns)   --->   "%and_ln114 = and i768 %sext_ln114, i768 %p_read_1" [aes_tableless.c:114]   --->   Operation 50 'and' 'and_ln114' <Predicate = true> <Delay = 0.29> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 51 [1/1] (0.00ns) (grouped into LUT with out node or_ln114)   --->   "%and_ln114_1 = and i520 %trunc_ln114_3, i520 %trunc_ln114_2" [aes_tableless.c:114]   --->   Operation 51 'and' 'and_ln114_1' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 52 [1/1] (0.29ns) (out node of the LUT)   --->   "%or_ln114 = or i520 %and_ln114_1, i520 %shl_ln114_1" [aes_tableless.c:114]   --->   Operation 52 'or' 'or_ln114' <Predicate = true> <Delay = 0.29> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 53 [1/1] (0.00ns)   --->   "%tmp_8 = partselect i248 @_ssdm_op_PartSelect.i248.i768.i32.i32, i768 %and_ln114, i32 520, i32 767" [aes_tableless.c:114]   --->   Operation 53 'partselect' 'tmp_8' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 54 [1/1] (0.72ns)   --->   "%add_ln115 = add i10 %k_idx_read, i10 240" [aes_tableless.c:115]   --->   Operation 54 'add' 'add_ln115' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 55 [1/1] (0.00ns) (grouped into LUT with out node xor_ln118)   --->   "%shl_ln118 = shl i8 %rc_read_1, i8 1" [aes_tableless.c:118]   --->   Operation 55 'shl' 'shl_ln118' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 56 [1/1] (0.00ns) (grouped into LUT with out node xor_ln118)   --->   "%tmp_17 = bitselect i1 @_ssdm_op_BitSelect.i1.i8.i32, i8 %rc_read_1, i32 7" [aes_tableless.c:118]   --->   Operation 56 'bitselect' 'tmp_17' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 57 [1/1] (0.00ns) (grouped into LUT with out node xor_ln118)   --->   "%select_ln118 = select i1 %tmp_17, i8 27, i8 0" [aes_tableless.c:118]   --->   Operation 57 'select' 'select_ln118' <Predicate = true> <Delay = 0.00> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_3 : Operation 58 [1/1] (0.29ns) (out node of the LUT)   --->   "%xor_ln118 = xor i8 %select_ln118, i8 %shl_ln118" [aes_tableless.c:118]   --->   Operation 58 'xor' 'xor_ln118' <Predicate = true> <Delay = 0.29> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.22> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+
+State 4 <SV = 3> <Delay = 2.99>
+ST_4 : Operation 59 [1/1] (0.00ns)   --->   "%or_ln = bitconcatenate i768 @_ssdm_op_BitConcatenate.i768.i248.i520, i248 %tmp_8, i520 %or_ln114" [aes_tableless.c:114]   --->   Operation 59 'bitconcatenate' 'or_ln' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 60 [1/1] (0.00ns)   --->   "%zext_ln115 = zext i10 %add_ln115" [aes_tableless.c:115]   --->   Operation 60 'zext' 'zext_ln115' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 61 [1/1] (1.44ns)   --->   "%lshr_ln115 = lshr i768 %or_ln, i768 %zext_ln115" [aes_tableless.c:115]   --->   Operation 61 'lshr' 'lshr_ln115' <Predicate = true> <Delay = 1.44> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_4 : Operation 62 [1/1] (0.00ns)   --->   "%trunc_ln115 = trunc i768 %lshr_ln115" [aes_tableless.c:115]   --->   Operation 62 'trunc' 'trunc_ln115' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 63 [2/2] (1.54ns)   --->   "%tmp_1 = call i8 @rj_sbox, i8 %trunc_ln115" [aes_tableless.c:115]   --->   Operation 63 'call' 'tmp_1' <Predicate = true> <Delay = 1.54> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 5 <SV = 4> <Delay = 2.90>
+ST_5 : Operation 64 [1/1] (0.00ns) (grouped into LUT with out node or_ln115)   --->   "%tmp_9 = partselect i8 @_ssdm_op_PartSelect.i8.i768.i32.i32, i768 %and_ln114, i32 520, i32 527" [aes_tableless.c:114]   --->   Operation 64 'partselect' 'tmp_9' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 65 [1/2] (0.64ns)   --->   "%tmp_1 = call i8 @rj_sbox, i8 %trunc_ln115" [aes_tableless.c:115]   --->   Operation 65 'call' 'tmp_1' <Predicate = true> <Delay = 0.64> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_5 : Operation 66 [1/1] (0.72ns)   --->   "%add_ln115_1 = add i10 %k_idx_read, i10 8" [aes_tableless.c:115]   --->   Operation 66 'add' 'add_ln115_1' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 67 [1/1] (0.00ns) (grouped into LUT with out node or_ln115)   --->   "%zext_ln115_1 = zext i10 %add_ln115_1" [aes_tableless.c:115]   --->   Operation 67 'zext' 'zext_ln115_1' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 68 [1/1] (0.00ns)   --->   "%zext_ln115_2 = zext i10 %add_ln115_1" [aes_tableless.c:115]   --->   Operation 68 'zext' 'zext_ln115_2' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 69 [1/1] (0.00ns) (grouped into LUT with out node or_ln115)   --->   "%lshr_ln115_1 = lshr i768 %or_ln, i768 %zext_ln115_1" [aes_tableless.c:115]   --->   Operation 69 'lshr' 'lshr_ln115_1' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 70 [1/1] (0.00ns) (grouped into LUT with out node or_ln115)   --->   "%trunc_ln115_1 = trunc i768 %lshr_ln115_1" [aes_tableless.c:115]   --->   Operation 70 'trunc' 'trunc_ln115_1' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 71 [1/1] (0.00ns) (grouped into LUT with out node or_ln115)   --->   "%xor_ln115 = xor i8 %trunc_ln115_1, i8 %tmp_1" [aes_tableless.c:115]   --->   Operation 71 'xor' 'xor_ln115' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.22> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 72 [1/1] (0.00ns) (grouped into LUT with out node xor_ln115_1)   --->   "%shl_ln115 = shl i528 255, i528 %zext_ln115_2" [aes_tableless.c:115]   --->   Operation 72 'shl' 'shl_ln115' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 73 [1/1] (0.00ns) (grouped into LUT with out node xor_ln115_1)   --->   "%zext_ln115_3 = zext i528 %shl_ln115" [aes_tableless.c:115]   --->   Operation 73 'zext' 'zext_ln115_3' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 74 [1/1] (0.00ns) (grouped into LUT with out node or_ln115)   --->   "%zext_ln115_4 = zext i8 %xor_ln115" [aes_tableless.c:115]   --->   Operation 74 'zext' 'zext_ln115_4' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 75 [1/1] (0.00ns) (grouped into LUT with out node or_ln115)   --->   "%shl_ln115_1 = shl i528 %zext_ln115_4, i528 %zext_ln115_2" [aes_tableless.c:115]   --->   Operation 75 'shl' 'shl_ln115_1' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 76 [1/1] (0.74ns) (out node of the LUT)   --->   "%xor_ln115_1 = xor i529 %zext_ln115_3, i529 1757388200993436087035366604564836663620975436836686184804982645551499054949799949343375268009332366074187855716219099657503228927927460816018951242525454630911" [aes_tableless.c:115]   --->   Operation 76 'xor' 'xor_ln115_1' <Predicate = true> <Delay = 0.74> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 77 [1/1] (0.00ns)   --->   "%sext_ln115 = sext i529 %xor_ln115_1" [aes_tableless.c:115]   --->   Operation 77 'sext' 'sext_ln115' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 78 [1/1] (0.00ns) (grouped into LUT with out node or_ln115)   --->   "%trunc_ln115_2 = trunc i529 %xor_ln115_1" [aes_tableless.c:115]   --->   Operation 78 'trunc' 'trunc_ln115_2' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 79 [1/1] (0.00ns) (grouped into LUT with out node or_ln115)   --->   "%tmp_s = bitconcatenate i528 @_ssdm_op_BitConcatenate.i528.i8.i520, i8 %tmp_9, i520 %or_ln114" [aes_tableless.c:115]   --->   Operation 79 'bitconcatenate' 'tmp_s' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 80 [1/1] (0.29ns)   --->   "%and_ln115 = and i768 %or_ln, i768 %sext_ln115" [aes_tableless.c:115]   --->   Operation 80 'and' 'and_ln115' <Predicate = true> <Delay = 0.29> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 81 [1/1] (0.00ns) (grouped into LUT with out node or_ln115)   --->   "%and_ln115_1 = and i528 %tmp_s, i528 %trunc_ln115_2" [aes_tableless.c:115]   --->   Operation 81 'and' 'and_ln115_1' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 82 [1/1] (1.44ns) (out node of the LUT)   --->   "%or_ln115 = or i528 %and_ln115_1, i528 %shl_ln115_1" [aes_tableless.c:115]   --->   Operation 82 'or' 'or_ln115' <Predicate = true> <Delay = 1.44> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 83 [1/1] (0.00ns)   --->   "%tmp_10 = partselect i240 @_ssdm_op_PartSelect.i240.i768.i32.i32, i768 %and_ln115, i32 528, i32 767" [aes_tableless.c:115]   --->   Operation 83 'partselect' 'tmp_10' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 84 [1/1] (0.72ns)   --->   "%add_ln116 = add i10 %k_idx_read, i10 248" [aes_tableless.c:116]   --->   Operation 84 'add' 'add_ln116' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+
+State 6 <SV = 5> <Delay = 2.99>
+ST_6 : Operation 85 [1/1] (0.00ns)   --->   "%or_ln1 = bitconcatenate i768 @_ssdm_op_BitConcatenate.i768.i240.i528, i240 %tmp_10, i528 %or_ln115" [aes_tableless.c:115]   --->   Operation 85 'bitconcatenate' 'or_ln1' <Predicate = true> <Delay = 0.00>
+ST_6 : Operation 86 [1/1] (0.00ns)   --->   "%zext_ln116 = zext i10 %add_ln116" [aes_tableless.c:116]   --->   Operation 86 'zext' 'zext_ln116' <Predicate = true> <Delay = 0.00>
+ST_6 : Operation 87 [1/1] (1.44ns)   --->   "%lshr_ln116 = lshr i768 %or_ln1, i768 %zext_ln116" [aes_tableless.c:116]   --->   Operation 87 'lshr' 'lshr_ln116' <Predicate = true> <Delay = 1.44> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_6 : Operation 88 [1/1] (0.00ns)   --->   "%trunc_ln116 = trunc i768 %lshr_ln116" [aes_tableless.c:116]   --->   Operation 88 'trunc' 'trunc_ln116' <Predicate = true> <Delay = 0.00>
+ST_6 : Operation 89 [2/2] (1.54ns)   --->   "%tmp_2 = call i8 @rj_sbox, i8 %trunc_ln116" [aes_tableless.c:116]   --->   Operation 89 'call' 'tmp_2' <Predicate = true> <Delay = 1.54> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 7 <SV = 6> <Delay = 2.90>
+ST_7 : Operation 90 [1/1] (0.00ns) (grouped into LUT with out node or_ln116)   --->   "%tmp_11 = partselect i8 @_ssdm_op_PartSelect.i8.i768.i32.i32, i768 %and_ln115, i32 528, i32 535" [aes_tableless.c:115]   --->   Operation 90 'partselect' 'tmp_11' <Predicate = true> <Delay = 0.00>
+ST_7 : Operation 91 [1/2] (0.64ns)   --->   "%tmp_2 = call i8 @rj_sbox, i8 %trunc_ln116" [aes_tableless.c:116]   --->   Operation 91 'call' 'tmp_2' <Predicate = true> <Delay = 0.64> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_7 : Operation 92 [1/1] (0.72ns)   --->   "%add_ln116_1 = add i10 %k_idx_read, i10 16" [aes_tableless.c:116]   --->   Operation 92 'add' 'add_ln116_1' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_7 : Operation 93 [1/1] (0.00ns) (grouped into LUT with out node or_ln116)   --->   "%zext_ln116_1 = zext i10 %add_ln116_1" [aes_tableless.c:116]   --->   Operation 93 'zext' 'zext_ln116_1' <Predicate = true> <Delay = 0.00>
+ST_7 : Operation 94 [1/1] (0.00ns)   --->   "%zext_ln116_2 = zext i10 %add_ln116_1" [aes_tableless.c:116]   --->   Operation 94 'zext' 'zext_ln116_2' <Predicate = true> <Delay = 0.00>
+ST_7 : Operation 95 [1/1] (0.00ns) (grouped into LUT with out node or_ln116)   --->   "%lshr_ln116_1 = lshr i768 %or_ln1, i768 %zext_ln116_1" [aes_tableless.c:116]   --->   Operation 95 'lshr' 'lshr_ln116_1' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_7 : Operation 96 [1/1] (0.00ns) (grouped into LUT with out node or_ln116)   --->   "%trunc_ln116_1 = trunc i768 %lshr_ln116_1" [aes_tableless.c:116]   --->   Operation 96 'trunc' 'trunc_ln116_1' <Predicate = true> <Delay = 0.00>
+ST_7 : Operation 97 [1/1] (0.00ns) (grouped into LUT with out node or_ln116)   --->   "%xor_ln116 = xor i8 %trunc_ln116_1, i8 %tmp_2" [aes_tableless.c:116]   --->   Operation 97 'xor' 'xor_ln116' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.22> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_7 : Operation 98 [1/1] (0.00ns) (grouped into LUT with out node xor_ln116_1)   --->   "%shl_ln116 = shl i536 255, i536 %zext_ln116_2" [aes_tableless.c:116]   --->   Operation 98 'shl' 'shl_ln116' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_7 : Operation 99 [1/1] (0.00ns) (grouped into LUT with out node xor_ln116_1)   --->   "%zext_ln116_3 = zext i536 %shl_ln116" [aes_tableless.c:116]   --->   Operation 99 'zext' 'zext_ln116_3' <Predicate = true> <Delay = 0.00>
+ST_7 : Operation 100 [1/1] (0.00ns) (grouped into LUT with out node or_ln116)   --->   "%zext_ln116_4 = zext i8 %xor_ln116" [aes_tableless.c:116]   --->   Operation 100 'zext' 'zext_ln116_4' <Predicate = true> <Delay = 0.00>
+ST_7 : Operation 101 [1/1] (0.00ns) (grouped into LUT with out node or_ln116)   --->   "%shl_ln116_1 = shl i536 %zext_ln116_4, i536 %zext_ln116_2" [aes_tableless.c:116]   --->   Operation 101 'shl' 'shl_ln116_1' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_7 : Operation 102 [1/1] (0.74ns) (out node of the LUT)   --->   "%xor_ln116_1 = xor i537 %zext_ln116_3, i537 449891379454319638281053850768598185886969711830191663310075557261183758067148787031904068610389085714992091063352089512320826605549429968900851518086516385513471" [aes_tableless.c:116]   --->   Operation 102 'xor' 'xor_ln116_1' <Predicate = true> <Delay = 0.74> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_7 : Operation 103 [1/1] (0.00ns)   --->   "%sext_ln116 = sext i537 %xor_ln116_1" [aes_tableless.c:116]   --->   Operation 103 'sext' 'sext_ln116' <Predicate = true> <Delay = 0.00>
+ST_7 : Operation 104 [1/1] (0.00ns) (grouped into LUT with out node or_ln116)   --->   "%trunc_ln116_2 = trunc i537 %xor_ln116_1" [aes_tableless.c:116]   --->   Operation 104 'trunc' 'trunc_ln116_2' <Predicate = true> <Delay = 0.00>
+ST_7 : Operation 105 [1/1] (0.00ns) (grouped into LUT with out node or_ln116)   --->   "%tmp_12 = bitconcatenate i536 @_ssdm_op_BitConcatenate.i536.i8.i528, i8 %tmp_11, i528 %or_ln115" [aes_tableless.c:116]   --->   Operation 105 'bitconcatenate' 'tmp_12' <Predicate = true> <Delay = 0.00>
+ST_7 : Operation 106 [1/1] (0.29ns)   --->   "%and_ln116 = and i768 %or_ln1, i768 %sext_ln116" [aes_tableless.c:116]   --->   Operation 106 'and' 'and_ln116' <Predicate = true> <Delay = 0.29> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_7 : Operation 107 [1/1] (0.00ns) (grouped into LUT with out node or_ln116)   --->   "%and_ln116_1 = and i536 %tmp_12, i536 %trunc_ln116_2" [aes_tableless.c:116]   --->   Operation 107 'and' 'and_ln116_1' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_7 : Operation 108 [1/1] (1.44ns) (out node of the LUT)   --->   "%or_ln116 = or i536 %and_ln116_1, i536 %shl_ln116_1" [aes_tableless.c:116]   --->   Operation 108 'or' 'or_ln116' <Predicate = true> <Delay = 1.44> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_7 : Operation 109 [1/1] (0.00ns)   --->   "%tmp_13 = partselect i232 @_ssdm_op_PartSelect.i232.i768.i32.i32, i768 %and_ln116, i32 536, i32 767" [aes_tableless.c:116]   --->   Operation 109 'partselect' 'tmp_13' <Predicate = true> <Delay = 0.00>
+ST_7 : Operation 110 [1/1] (0.72ns)   --->   "%add_ln117 = add i10 %k_idx_read, i10 224" [aes_tableless.c:117]   --->   Operation 110 'add' 'add_ln117' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+
+State 8 <SV = 7> <Delay = 2.99>
+ST_8 : Operation 111 [1/1] (0.00ns)   --->   "%or_ln2 = bitconcatenate i768 @_ssdm_op_BitConcatenate.i768.i232.i536, i232 %tmp_13, i536 %or_ln116" [aes_tableless.c:116]   --->   Operation 111 'bitconcatenate' 'or_ln2' <Predicate = true> <Delay = 0.00>
+ST_8 : Operation 112 [1/1] (0.00ns)   --->   "%zext_ln117 = zext i10 %add_ln117" [aes_tableless.c:117]   --->   Operation 112 'zext' 'zext_ln117' <Predicate = true> <Delay = 0.00>
+ST_8 : Operation 113 [1/1] (1.44ns)   --->   "%lshr_ln117 = lshr i768 %or_ln2, i768 %zext_ln117" [aes_tableless.c:117]   --->   Operation 113 'lshr' 'lshr_ln117' <Predicate = true> <Delay = 1.44> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_8 : Operation 114 [1/1] (0.00ns)   --->   "%trunc_ln117 = trunc i768 %lshr_ln117" [aes_tableless.c:117]   --->   Operation 114 'trunc' 'trunc_ln117' <Predicate = true> <Delay = 0.00>
+ST_8 : Operation 115 [2/2] (1.54ns)   --->   "%tmp_3 = call i8 @rj_sbox, i8 %trunc_ln117" [aes_tableless.c:117]   --->   Operation 115 'call' 'tmp_3' <Predicate = true> <Delay = 1.54> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 9 <SV = 8> <Delay = 3.29>
+ST_9 : Operation 116 [1/1] (0.00ns) (grouped into LUT with out node or_ln117)   --->   "%tmp_14 = partselect i8 @_ssdm_op_PartSelect.i8.i768.i32.i32, i768 %and_ln116, i32 536, i32 543" [aes_tableless.c:116]   --->   Operation 116 'partselect' 'tmp_14' <Predicate = true> <Delay = 0.00>
+ST_9 : Operation 117 [1/2] (0.64ns)   --->   "%tmp_3 = call i8 @rj_sbox, i8 %trunc_ln117" [aes_tableless.c:117]   --->   Operation 117 'call' 'tmp_3' <Predicate = true> <Delay = 0.64> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_9 : Operation 118 [1/1] (0.72ns)   --->   "%add_ln117_1 = add i10 %k_idx_read, i10 24" [aes_tableless.c:117]   --->   Operation 118 'add' 'add_ln117_1' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_9 : Operation 119 [1/1] (0.00ns) (grouped into LUT with out node or_ln117)   --->   "%zext_ln117_1 = zext i10 %add_ln117_1" [aes_tableless.c:117]   --->   Operation 119 'zext' 'zext_ln117_1' <Predicate = true> <Delay = 0.00>
+ST_9 : Operation 120 [1/1] (0.00ns)   --->   "%zext_ln117_2 = zext i10 %add_ln117_1" [aes_tableless.c:117]   --->   Operation 120 'zext' 'zext_ln117_2' <Predicate = true> <Delay = 0.00>
+ST_9 : Operation 121 [1/1] (0.00ns) (grouped into LUT with out node or_ln117)   --->   "%lshr_ln117_1 = lshr i768 %or_ln2, i768 %zext_ln117_1" [aes_tableless.c:117]   --->   Operation 121 'lshr' 'lshr_ln117_1' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_9 : Operation 122 [1/1] (0.00ns) (grouped into LUT with out node or_ln117)   --->   "%trunc_ln117_1 = trunc i768 %lshr_ln117_1" [aes_tableless.c:117]   --->   Operation 122 'trunc' 'trunc_ln117_1' <Predicate = true> <Delay = 0.00>
+ST_9 : Operation 123 [1/1] (0.00ns) (grouped into LUT with out node or_ln117)   --->   "%xor_ln117 = xor i8 %trunc_ln117_1, i8 %tmp_3" [aes_tableless.c:117]   --->   Operation 123 'xor' 'xor_ln117' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.22> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_9 : Operation 124 [1/1] (0.00ns) (grouped into LUT with out node xor_ln117_1)   --->   "%shl_ln117 = shl i544 255, i544 %zext_ln117_2" [aes_tableless.c:117]   --->   Operation 124 'shl' 'shl_ln117' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_9 : Operation 125 [1/1] (0.00ns) (grouped into LUT with out node xor_ln117_1)   --->   "%zext_ln117_3 = zext i544 %shl_ln117" [aes_tableless.c:117]   --->   Operation 125 'zext' 'zext_ln117_3' <Predicate = true> <Delay = 0.00>
+ST_9 : Operation 126 [1/1] (0.00ns) (grouped into LUT with out node or_ln117)   --->   "%zext_ln117_4 = zext i8 %xor_ln117" [aes_tableless.c:117]   --->   Operation 126 'zext' 'zext_ln117_4' <Predicate = true> <Delay = 0.00>
+ST_9 : Operation 127 [1/1] (0.00ns) (grouped into LUT with out node or_ln117)   --->   "%shl_ln117_1 = shl i544 %zext_ln117_4, i544 %zext_ln117_2" [aes_tableless.c:117]   --->   Operation 127 'shl' 'shl_ln117_1' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_9 : Operation 128 [1/1] (0.74ns) (out node of the LUT)   --->   "%xor_ln117_1 = xor i545 %zext_ln117_3, i545 115172193140305827399949785796761135587064246228529065807379342658863042065190089480167441564259605943037975312218134915154131611020654072038617988630148194691448831" [aes_tableless.c:117]   --->   Operation 128 'xor' 'xor_ln117_1' <Predicate = true> <Delay = 0.74> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_9 : Operation 129 [1/1] (0.00ns)   --->   "%sext_ln117 = sext i545 %xor_ln117_1" [aes_tableless.c:117]   --->   Operation 129 'sext' 'sext_ln117' <Predicate = true> <Delay = 0.00>
+ST_9 : Operation 130 [1/1] (0.00ns) (grouped into LUT with out node or_ln117)   --->   "%trunc_ln117_2 = trunc i545 %xor_ln117_1" [aes_tableless.c:117]   --->   Operation 130 'trunc' 'trunc_ln117_2' <Predicate = true> <Delay = 0.00>
+ST_9 : Operation 131 [1/1] (0.00ns) (grouped into LUT with out node or_ln117)   --->   "%tmp_15 = bitconcatenate i544 @_ssdm_op_BitConcatenate.i544.i8.i536, i8 %tmp_14, i536 %or_ln116" [aes_tableless.c:117]   --->   Operation 131 'bitconcatenate' 'tmp_15' <Predicate = true> <Delay = 0.00>
+ST_9 : Operation 132 [1/1] (0.29ns)   --->   "%and_ln117 = and i768 %or_ln2, i768 %sext_ln117" [aes_tableless.c:117]   --->   Operation 132 'and' 'and_ln117' <Predicate = true> <Delay = 0.29> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_9 : Operation 133 [1/1] (0.00ns) (grouped into LUT with out node or_ln117)   --->   "%and_ln117_1 = and i544 %tmp_15, i544 %trunc_ln117_2" [aes_tableless.c:117]   --->   Operation 133 'and' 'and_ln117_1' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_9 : Operation 134 [1/1] (1.44ns) (out node of the LUT)   --->   "%or_ln117 = or i544 %and_ln117_1, i544 %shl_ln117_1" [aes_tableless.c:117]   --->   Operation 134 'or' 'or_ln117' <Predicate = true> <Delay = 1.44> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_9 : Operation 135 [1/1] (0.00ns)   --->   "%tmp_16 = partselect i224 @_ssdm_op_PartSelect.i224.i768.i32.i32, i768 %and_ln117, i32 544, i32 767" [aes_tableless.c:117]   --->   Operation 135 'partselect' 'tmp_16' <Predicate = true> <Delay = 0.00>
+ST_9 : Operation 136 [1/1] (0.00ns)   --->   "%or_ln3 = bitconcatenate i768 @_ssdm_op_BitConcatenate.i768.i224.i544, i224 %tmp_16, i544 %or_ln117" [aes_tableless.c:117]   --->   Operation 136 'bitconcatenate' 'or_ln3' <Predicate = true> <Delay = 0.00>
+ST_9 : Operation 137 [1/1] (0.38ns)   --->   "%store_ln120 = store i768 %or_ln3, i768 %empty" [aes_tableless.c:120]   --->   Operation 137 'store' 'store_ln120' <Predicate = true> <Delay = 0.38>
+ST_9 : Operation 138 [1/1] (0.00ns)   --->   "%br_ln120 = br void %for.inc" [aes_tableless.c:120]   --->   Operation 138 'br' 'br_ln120' <Predicate = true> <Delay = 0.00>
+
+State 10 <SV = 9> <Delay = 3.16>
+ST_10 : Operation 139 [1/1] (0.00ns)   --->   "%i_7 = load i5 %i" [aes_tableless.c:120]   --->   Operation 139 'load' 'i_7' <Predicate = true> <Delay = 0.00>
+ST_10 : Operation 140 [1/1] (0.00ns)   --->   "%tmp_32 = bitselect i1 @_ssdm_op_BitSelect.i1.i5.i32, i5 %i_7, i32 4" [aes_tableless.c:120]   --->   Operation 140 'bitselect' 'tmp_32' <Predicate = true> <Delay = 0.00>
+ST_10 : Operation 141 [1/1] (0.00ns)   --->   "%empty_21 = speclooptripcount i32 @_ssdm_op_SpecLoopTripCount, i64 3, i64 3, i64 3"   --->   Operation 141 'speclooptripcount' 'empty_21' <Predicate = true> <Delay = 0.00>
+ST_10 : Operation 142 [1/1] (0.00ns)   --->   "%br_ln120 = br i1 %tmp_32, void %for.inc.split, void %for.end" [aes_tableless.c:120]   --->   Operation 142 'br' 'br_ln120' <Predicate = true> <Delay = 0.00>
+ST_10 : Operation 143 [1/1] (0.00ns)   --->   "%p_load10 = load i768 %empty" [aes_tableless.c:120]   --->   Operation 143 'load' 'p_load10' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 144 [1/1] (0.00ns)   --->   "%trunc_ln120 = trunc i5 %i_7" [aes_tableless.c:120]   --->   Operation 144 'trunc' 'trunc_ln120' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 145 [1/1] (0.70ns)   --->   "%add_ln120 = add i4 %trunc_ln120, i4 12" [aes_tableless.c:120]   --->   Operation 145 'add' 'add_ln120' <Predicate = (!tmp_32)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 146 [1/1] (0.00ns)   --->   "%shl_ln120_4 = bitconcatenate i7 @_ssdm_op_BitConcatenate.i7.i4.i3, i4 %add_ln120, i3 0" [aes_tableless.c:120]   --->   Operation 146 'bitconcatenate' 'shl_ln120_4' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 147 [1/1] (0.00ns)   --->   "%zext_ln120_2 = zext i7 %shl_ln120_4" [aes_tableless.c:120]   --->   Operation 147 'zext' 'zext_ln120_2' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 148 [1/1] (0.72ns)   --->   "%add_ln120_1 = add i10 %zext_ln120_2, i10 %k_idx_read" [aes_tableless.c:120]   --->   Operation 148 'add' 'add_ln120_1' <Predicate = (!tmp_32)> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 149 [1/1] (0.00ns) (grouped into LUT with out node shl_ln120_1)   --->   "%zext_ln120 = zext i10 %add_ln120_1" [aes_tableless.c:120]   --->   Operation 149 'zext' 'zext_ln120' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 150 [1/1] (0.00ns) (grouped into LUT with out node shl_ln120_1)   --->   "%lshr_ln120 = lshr i768 %p_load10, i768 %zext_ln120" [aes_tableless.c:120]   --->   Operation 150 'lshr' 'lshr_ln120' <Predicate = (!tmp_32)> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 151 [1/1] (0.00ns) (grouped into LUT with out node shl_ln120_1)   --->   "%trunc_ln120_1 = trunc i768 %lshr_ln120" [aes_tableless.c:120]   --->   Operation 151 'trunc' 'trunc_ln120_1' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 152 [1/1] (0.00ns)   --->   "%shl_ln120_5 = bitconcatenate i7 @_ssdm_op_BitConcatenate.i7.i4.i3, i4 %trunc_ln120, i3 0" [aes_tableless.c:120]   --->   Operation 152 'bitconcatenate' 'shl_ln120_5' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 153 [1/1] (0.00ns)   --->   "%zext_ln120_5 = zext i7 %shl_ln120_5" [aes_tableless.c:120]   --->   Operation 153 'zext' 'zext_ln120_5' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 154 [1/1] (0.72ns)   --->   "%add_ln120_2 = add i10 %zext_ln120_5, i10 %k_idx_read" [aes_tableless.c:120]   --->   Operation 154 'add' 'add_ln120_2' <Predicate = (!tmp_32)> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 155 [1/1] (0.00ns) (grouped into LUT with out node shl_ln120_1)   --->   "%zext_ln120_1 = zext i10 %add_ln120_2" [aes_tableless.c:120]   --->   Operation 155 'zext' 'zext_ln120_1' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 156 [1/1] (0.00ns)   --->   "%zext_ln120_6 = zext i10 %add_ln120_2" [aes_tableless.c:120]   --->   Operation 156 'zext' 'zext_ln120_6' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 157 [1/1] (0.00ns) (grouped into LUT with out node shl_ln120_1)   --->   "%lshr_ln120_1 = lshr i768 %p_load10, i768 %zext_ln120_1" [aes_tableless.c:120]   --->   Operation 157 'lshr' 'lshr_ln120_1' <Predicate = (!tmp_32)> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 158 [1/1] (0.00ns) (grouped into LUT with out node shl_ln120_1)   --->   "%trunc_ln120_2 = trunc i768 %lshr_ln120_1" [aes_tableless.c:120]   --->   Operation 158 'trunc' 'trunc_ln120_2' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 159 [1/1] (0.00ns) (grouped into LUT with out node shl_ln120_1)   --->   "%xor_ln120 = xor i8 %trunc_ln120_1, i8 %trunc_ln120_2" [aes_tableless.c:120]   --->   Operation 159 'xor' 'xor_ln120' <Predicate = (!tmp_32)> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.22> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 160 [1/1] (0.00ns) (grouped into LUT with out node xor_ln120_1)   --->   "%shl_ln120 = shl i640 255, i640 %zext_ln120_6" [aes_tableless.c:120]   --->   Operation 160 'shl' 'shl_ln120' <Predicate = (!tmp_32)> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 161 [1/1] (0.00ns) (grouped into LUT with out node xor_ln120_1)   --->   "%zext_ln120_7 = zext i640 %shl_ln120" [aes_tableless.c:120]   --->   Operation 161 'zext' 'zext_ln120_7' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 162 [1/1] (0.00ns) (grouped into LUT with out node shl_ln120_1)   --->   "%zext_ln120_8 = zext i8 %xor_ln120" [aes_tableless.c:120]   --->   Operation 162 'zext' 'zext_ln120_8' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 163 [1/1] (1.44ns) (out node of the LUT)   --->   "%shl_ln120_1 = shl i640 %zext_ln120_8, i640 %zext_ln120_6" [aes_tableless.c:120]   --->   Operation 163 'shl' 'shl_ln120_1' <Predicate = (!tmp_32)> <Delay = 1.44> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 164 [1/1] (0.74ns) (out node of the LUT)   --->   "%xor_ln120_1 = xor i641 %zext_ln120_7, i641 9124881235244390437282343211400582649786457014497119861158385035798550334417354773011825622634742799557284619147188814621377409442750875996505322639444428376503989348720529900165748384493207551" [aes_tableless.c:120]   --->   Operation 164 'xor' 'xor_ln120_1' <Predicate = (!tmp_32)> <Delay = 0.74> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 165 [1/1] (0.00ns)   --->   "%sext_ln120 = sext i641 %xor_ln120_1" [aes_tableless.c:120]   --->   Operation 165 'sext' 'sext_ln120' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 166 [1/1] (0.00ns) (grouped into LUT with out node or_ln120_3)   --->   "%trunc_ln120_3 = trunc i641 %xor_ln120_1" [aes_tableless.c:120]   --->   Operation 166 'trunc' 'trunc_ln120_3' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 167 [1/1] (0.00ns) (grouped into LUT with out node or_ln120_3)   --->   "%trunc_ln120_4 = trunc i768 %p_load10" [aes_tableless.c:120]   --->   Operation 167 'trunc' 'trunc_ln120_4' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 168 [1/1] (0.29ns)   --->   "%and_ln120 = and i768 %p_load10, i768 %sext_ln120" [aes_tableless.c:120]   --->   Operation 168 'and' 'and_ln120' <Predicate = (!tmp_32)> <Delay = 0.29> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 169 [1/1] (0.00ns) (grouped into LUT with out node or_ln120_3)   --->   "%and_ln120_2 = and i640 %trunc_ln120_4, i640 %trunc_ln120_3" [aes_tableless.c:120]   --->   Operation 169 'and' 'and_ln120_2' <Predicate = (!tmp_32)> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 170 [1/1] (0.29ns) (out node of the LUT)   --->   "%or_ln120_3 = or i640 %and_ln120_2, i640 %shl_ln120_1" [aes_tableless.c:120]   --->   Operation 170 'or' 'or_ln120_3' <Predicate = (!tmp_32)> <Delay = 0.29> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 171 [1/1] (0.00ns)   --->   "%tmp_18 = partselect i128 @_ssdm_op_PartSelect.i128.i768.i32.i32, i768 %and_ln120, i32 640, i32 767" [aes_tableless.c:120]   --->   Operation 171 'partselect' 'tmp_18' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 172 [1/1] (0.70ns)   --->   "%add_ln120_3 = add i4 %trunc_ln120, i4 13" [aes_tableless.c:120]   --->   Operation 172 'add' 'add_ln120_3' <Predicate = (!tmp_32)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 173 [1/1] (0.00ns)   --->   "%shl_ln120_6 = bitconcatenate i7 @_ssdm_op_BitConcatenate.i7.i4.i3, i4 %add_ln120_3, i3 0" [aes_tableless.c:120]   --->   Operation 173 'bitconcatenate' 'shl_ln120_6' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 174 [1/1] (0.00ns)   --->   "%zext_ln120_9 = zext i7 %shl_ln120_6" [aes_tableless.c:120]   --->   Operation 174 'zext' 'zext_ln120_9' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 175 [1/1] (0.72ns)   --->   "%add_ln120_4 = add i10 %zext_ln120_9, i10 %k_idx_read" [aes_tableless.c:120]   --->   Operation 175 'add' 'add_ln120_4' <Predicate = (!tmp_32)> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 176 [1/1] (0.00ns) (grouped into LUT with out node add_ln120_5)   --->   "%or_ln120_1 = or i4 %trunc_ln120, i4 1" [aes_tableless.c:120]   --->   Operation 176 'or' 'or_ln120_1' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 177 [1/1] (0.00ns) (grouped into LUT with out node add_ln120_5)   --->   "%shl_ln120_7 = bitconcatenate i7 @_ssdm_op_BitConcatenate.i7.i4.i3, i4 %or_ln120_1, i3 0" [aes_tableless.c:120]   --->   Operation 177 'bitconcatenate' 'shl_ln120_7' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 178 [1/1] (0.00ns) (grouped into LUT with out node add_ln120_5)   --->   "%zext_ln120_10 = zext i7 %shl_ln120_7" [aes_tableless.c:120]   --->   Operation 178 'zext' 'zext_ln120_10' <Predicate = (!tmp_32)> <Delay = 0.00>
+ST_10 : Operation 179 [1/1] (0.72ns) (out node of the LUT)   --->   "%add_ln120_5 = add i10 %zext_ln120_10, i10 %k_idx_read" [aes_tableless.c:120]   --->   Operation 179 'add' 'add_ln120_5' <Predicate = (!tmp_32)> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 180 [1/1] (0.70ns)   --->   "%add_ln120_6 = add i5 %i_7, i5 4" [aes_tableless.c:120]   --->   Operation 180 'add' 'add_ln120_6' <Predicate = (!tmp_32)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 181 [1/1] (0.38ns)   --->   "%store_ln120 = store i5 %add_ln120_6, i5 %i" [aes_tableless.c:120]   --->   Operation 181 'store' 'store_ln120' <Predicate = (!tmp_32)> <Delay = 0.38>
+ST_10 : Operation 182 [1/1] (0.00ns)   --->   "%i_6 = alloca i32 1"   --->   Operation 182 'alloca' 'i_6' <Predicate = (tmp_32)> <Delay = 0.00>
+ST_10 : Operation 183 [1/1] (0.00ns)   --->   "%empty_22 = alloca i32 1"   --->   Operation 183 'alloca' 'empty_22' <Predicate = (tmp_32)> <Delay = 0.00>
+ST_10 : Operation 184 [1/1] (0.72ns)   --->   "%add_ln122 = add i10 %k_idx_read, i10 96" [aes_tableless.c:122]   --->   Operation 184 'add' 'add_ln122' <Predicate = (tmp_32)> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 185 [1/1] (0.38ns)   --->   "%store_ln127 = store i6 20, i6 %i_6" [aes_tableless.c:127]   --->   Operation 185 'store' 'store_ln127' <Predicate = (tmp_32)> <Delay = 0.38>
+
+State 11 <SV = 10> <Delay = 3.47>
+ST_11 : Operation 186 [1/1] (0.00ns)   --->   "%or_ln4 = bitconcatenate i768 @_ssdm_op_BitConcatenate.i768.i128.i640, i128 %tmp_18, i640 %or_ln120_3" [aes_tableless.c:120]   --->   Operation 186 'bitconcatenate' 'or_ln4' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 187 [1/1] (0.00ns) (grouped into LUT with out node shl_ln120_3)   --->   "%zext_ln120_3 = zext i10 %add_ln120_4" [aes_tableless.c:120]   --->   Operation 187 'zext' 'zext_ln120_3' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 188 [1/1] (0.00ns) (grouped into LUT with out node shl_ln120_3)   --->   "%lshr_ln120_2 = lshr i768 %or_ln4, i768 %zext_ln120_3" [aes_tableless.c:120]   --->   Operation 188 'lshr' 'lshr_ln120_2' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 189 [1/1] (0.00ns) (grouped into LUT with out node shl_ln120_3)   --->   "%trunc_ln120_5 = trunc i768 %lshr_ln120_2" [aes_tableless.c:120]   --->   Operation 189 'trunc' 'trunc_ln120_5' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 190 [1/1] (0.00ns) (grouped into LUT with out node shl_ln120_3)   --->   "%zext_ln120_4 = zext i10 %add_ln120_5" [aes_tableless.c:120]   --->   Operation 190 'zext' 'zext_ln120_4' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 191 [1/1] (0.00ns)   --->   "%zext_ln120_11 = zext i10 %add_ln120_5" [aes_tableless.c:120]   --->   Operation 191 'zext' 'zext_ln120_11' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 192 [1/1] (0.00ns) (grouped into LUT with out node shl_ln120_3)   --->   "%lshr_ln120_3 = lshr i768 %or_ln4, i768 %zext_ln120_4" [aes_tableless.c:120]   --->   Operation 192 'lshr' 'lshr_ln120_3' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 193 [1/1] (0.00ns) (grouped into LUT with out node shl_ln120_3)   --->   "%trunc_ln120_6 = trunc i768 %lshr_ln120_3" [aes_tableless.c:120]   --->   Operation 193 'trunc' 'trunc_ln120_6' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 194 [1/1] (0.00ns) (grouped into LUT with out node shl_ln120_3)   --->   "%xor_ln120_2 = xor i8 %trunc_ln120_6, i8 %trunc_ln120_5" [aes_tableless.c:120]   --->   Operation 194 'xor' 'xor_ln120_2' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.22> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 195 [1/1] (0.00ns) (grouped into LUT with out node xor_ln120_3)   --->   "%shl_ln120_2 = shl i640 255, i640 %zext_ln120_11" [aes_tableless.c:120]   --->   Operation 195 'shl' 'shl_ln120_2' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 196 [1/1] (0.00ns) (grouped into LUT with out node xor_ln120_3)   --->   "%zext_ln120_12 = zext i640 %shl_ln120_2" [aes_tableless.c:120]   --->   Operation 196 'zext' 'zext_ln120_12' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 197 [1/1] (0.00ns) (grouped into LUT with out node shl_ln120_3)   --->   "%zext_ln120_13 = zext i8 %xor_ln120_2" [aes_tableless.c:120]   --->   Operation 197 'zext' 'zext_ln120_13' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 198 [1/1] (1.44ns) (out node of the LUT)   --->   "%shl_ln120_3 = shl i640 %zext_ln120_13, i640 %zext_ln120_11" [aes_tableless.c:120]   --->   Operation 198 'shl' 'shl_ln120_3' <Predicate = true> <Delay = 1.44> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 199 [1/1] (0.74ns) (out node of the LUT)   --->   "%xor_ln120_3 = xor i641 %zext_ln120_12, i641 9124881235244390437282343211400582649786457014497119861158385035798550334417354773011825622634742799557284619147188814621377409442750875996505322639444428376503989348720529900165748384493207551" [aes_tableless.c:120]   --->   Operation 199 'xor' 'xor_ln120_3' <Predicate = true> <Delay = 0.74> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 200 [1/1] (0.00ns)   --->   "%sext_ln120_1 = sext i641 %xor_ln120_3" [aes_tableless.c:120]   --->   Operation 200 'sext' 'sext_ln120_1' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 201 [1/1] (0.00ns) (grouped into LUT with out node or_ln120)   --->   "%trunc_ln120_7 = trunc i641 %xor_ln120_3" [aes_tableless.c:120]   --->   Operation 201 'trunc' 'trunc_ln120_7' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 202 [1/1] (0.29ns)   --->   "%and_ln120_1 = and i768 %or_ln4, i768 %sext_ln120_1" [aes_tableless.c:120]   --->   Operation 202 'and' 'and_ln120_1' <Predicate = true> <Delay = 0.29> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 203 [1/1] (0.00ns) (grouped into LUT with out node or_ln120)   --->   "%and_ln120_3 = and i640 %or_ln120_3, i640 %trunc_ln120_7" [aes_tableless.c:120]   --->   Operation 203 'and' 'and_ln120_3' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 204 [1/1] (0.29ns) (out node of the LUT)   --->   "%or_ln120 = or i640 %and_ln120_3, i640 %shl_ln120_3" [aes_tableless.c:120]   --->   Operation 204 'or' 'or_ln120' <Predicate = true> <Delay = 0.29> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 205 [1/1] (0.00ns)   --->   "%tmp_19 = partselect i128 @_ssdm_op_PartSelect.i128.i768.i32.i32, i768 %and_ln120_1, i32 640, i32 767" [aes_tableless.c:120]   --->   Operation 205 'partselect' 'tmp_19' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 206 [1/1] (0.00ns)   --->   "%or_ln120_2 = bitconcatenate i768 @_ssdm_op_BitConcatenate.i768.i128.i640, i128 %tmp_19, i640 %or_ln120" [aes_tableless.c:120]   --->   Operation 206 'bitconcatenate' 'or_ln120_2' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 207 [1/1] (0.70ns)   --->   "%add_ln121 = add i4 %trunc_ln120, i4 14" [aes_tableless.c:121]   --->   Operation 207 'add' 'add_ln121' <Predicate = true> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 208 [1/1] (0.00ns)   --->   "%shl_ln121_4 = bitconcatenate i7 @_ssdm_op_BitConcatenate.i7.i4.i3, i4 %add_ln121, i3 0" [aes_tableless.c:121]   --->   Operation 208 'bitconcatenate' 'shl_ln121_4' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 209 [1/1] (0.00ns)   --->   "%zext_ln121_2 = zext i7 %shl_ln121_4" [aes_tableless.c:121]   --->   Operation 209 'zext' 'zext_ln121_2' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 210 [1/1] (0.72ns)   --->   "%add_ln121_1 = add i10 %zext_ln121_2, i10 %k_idx_read" [aes_tableless.c:121]   --->   Operation 210 'add' 'add_ln121_1' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 211 [1/1] (0.00ns) (grouped into LUT with out node shl_ln121_1)   --->   "%zext_ln121 = zext i10 %add_ln121_1" [aes_tableless.c:121]   --->   Operation 211 'zext' 'zext_ln121' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 212 [1/1] (0.00ns) (grouped into LUT with out node shl_ln121_1)   --->   "%lshr_ln121 = lshr i768 %or_ln120_2, i768 %zext_ln121" [aes_tableless.c:121]   --->   Operation 212 'lshr' 'lshr_ln121' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 213 [1/1] (0.00ns) (grouped into LUT with out node shl_ln121_1)   --->   "%trunc_ln121 = trunc i768 %lshr_ln121" [aes_tableless.c:121]   --->   Operation 213 'trunc' 'trunc_ln121' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 214 [1/1] (0.00ns) (grouped into LUT with out node add_ln121_2)   --->   "%or_ln121 = or i4 %trunc_ln120, i4 2" [aes_tableless.c:121]   --->   Operation 214 'or' 'or_ln121' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 215 [1/1] (0.00ns) (grouped into LUT with out node add_ln121_2)   --->   "%shl_ln121_5 = bitconcatenate i7 @_ssdm_op_BitConcatenate.i7.i4.i3, i4 %or_ln121, i3 0" [aes_tableless.c:121]   --->   Operation 215 'bitconcatenate' 'shl_ln121_5' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 216 [1/1] (0.00ns) (grouped into LUT with out node add_ln121_2)   --->   "%zext_ln121_5 = zext i7 %shl_ln121_5" [aes_tableless.c:121]   --->   Operation 216 'zext' 'zext_ln121_5' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 217 [1/1] (0.72ns) (out node of the LUT)   --->   "%add_ln121_2 = add i10 %zext_ln121_5, i10 %k_idx_read" [aes_tableless.c:121]   --->   Operation 217 'add' 'add_ln121_2' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 218 [1/1] (0.00ns) (grouped into LUT with out node shl_ln121_1)   --->   "%zext_ln121_1 = zext i10 %add_ln121_2" [aes_tableless.c:121]   --->   Operation 218 'zext' 'zext_ln121_1' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 219 [1/1] (0.00ns)   --->   "%zext_ln121_6 = zext i10 %add_ln121_2" [aes_tableless.c:121]   --->   Operation 219 'zext' 'zext_ln121_6' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 220 [1/1] (0.00ns) (grouped into LUT with out node shl_ln121_1)   --->   "%lshr_ln121_1 = lshr i768 %or_ln120_2, i768 %zext_ln121_1" [aes_tableless.c:121]   --->   Operation 220 'lshr' 'lshr_ln121_1' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 221 [1/1] (0.00ns) (grouped into LUT with out node shl_ln121_1)   --->   "%trunc_ln121_1 = trunc i768 %lshr_ln121_1" [aes_tableless.c:121]   --->   Operation 221 'trunc' 'trunc_ln121_1' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 222 [1/1] (0.00ns) (grouped into LUT with out node shl_ln121_1)   --->   "%xor_ln121 = xor i8 %trunc_ln121_1, i8 %trunc_ln121" [aes_tableless.c:121]   --->   Operation 222 'xor' 'xor_ln121' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.22> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 223 [1/1] (0.00ns) (grouped into LUT with out node xor_ln121_1)   --->   "%shl_ln121 = shl i640 255, i640 %zext_ln121_6" [aes_tableless.c:121]   --->   Operation 223 'shl' 'shl_ln121' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 224 [1/1] (0.00ns) (grouped into LUT with out node xor_ln121_1)   --->   "%zext_ln121_7 = zext i640 %shl_ln121" [aes_tableless.c:121]   --->   Operation 224 'zext' 'zext_ln121_7' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 225 [1/1] (0.00ns) (grouped into LUT with out node shl_ln121_1)   --->   "%zext_ln121_8 = zext i8 %xor_ln121" [aes_tableless.c:121]   --->   Operation 225 'zext' 'zext_ln121_8' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 226 [1/1] (1.44ns) (out node of the LUT)   --->   "%shl_ln121_1 = shl i640 %zext_ln121_8, i640 %zext_ln121_6" [aes_tableless.c:121]   --->   Operation 226 'shl' 'shl_ln121_1' <Predicate = true> <Delay = 1.44> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 227 [1/1] (0.74ns) (out node of the LUT)   --->   "%xor_ln121_1 = xor i641 %zext_ln121_7, i641 9124881235244390437282343211400582649786457014497119861158385035798550334417354773011825622634742799557284619147188814621377409442750875996505322639444428376503989348720529900165748384493207551" [aes_tableless.c:121]   --->   Operation 227 'xor' 'xor_ln121_1' <Predicate = true> <Delay = 0.74> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 228 [1/1] (0.00ns)   --->   "%sext_ln121 = sext i641 %xor_ln121_1" [aes_tableless.c:121]   --->   Operation 228 'sext' 'sext_ln121' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 229 [1/1] (0.00ns) (grouped into LUT with out node or_ln121_4)   --->   "%trunc_ln121_2 = trunc i641 %xor_ln121_1" [aes_tableless.c:121]   --->   Operation 229 'trunc' 'trunc_ln121_2' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 230 [1/1] (0.29ns)   --->   "%and_ln121 = and i768 %or_ln120_2, i768 %sext_ln121" [aes_tableless.c:121]   --->   Operation 230 'and' 'and_ln121' <Predicate = true> <Delay = 0.29> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 231 [1/1] (0.00ns) (grouped into LUT with out node or_ln121_4)   --->   "%and_ln121_2 = and i640 %or_ln120, i640 %trunc_ln121_2" [aes_tableless.c:121]   --->   Operation 231 'and' 'and_ln121_2' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 232 [1/1] (0.29ns) (out node of the LUT)   --->   "%or_ln121_4 = or i640 %and_ln121_2, i640 %shl_ln121_1" [aes_tableless.c:121]   --->   Operation 232 'or' 'or_ln121_4' <Predicate = true> <Delay = 0.29> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 233 [1/1] (0.00ns)   --->   "%tmp_20 = partselect i128 @_ssdm_op_PartSelect.i128.i768.i32.i32, i768 %and_ln121, i32 640, i32 767" [aes_tableless.c:121]   --->   Operation 233 'partselect' 'tmp_20' <Predicate = true> <Delay = 0.00>
+
+State 12 <SV = 11> <Delay = 3.55>
+ST_12 : Operation 234 [1/1] (0.00ns)   --->   "%specloopname_ln112 = specloopname void @_ssdm_op_SpecLoopName, void @empty_10" [aes_tableless.c:112]   --->   Operation 234 'specloopname' 'specloopname_ln112' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 235 [1/1] (0.00ns)   --->   "%or_ln121_1 = bitconcatenate i768 @_ssdm_op_BitConcatenate.i768.i128.i640, i128 %tmp_20, i640 %or_ln121_4" [aes_tableless.c:121]   --->   Operation 235 'bitconcatenate' 'or_ln121_1' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 236 [1/1] (0.70ns)   --->   "%add_ln121_3 = add i4 %trunc_ln120, i4 15" [aes_tableless.c:121]   --->   Operation 236 'add' 'add_ln121_3' <Predicate = true> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 237 [1/1] (0.00ns)   --->   "%shl_ln121_6 = bitconcatenate i7 @_ssdm_op_BitConcatenate.i7.i4.i3, i4 %add_ln121_3, i3 0" [aes_tableless.c:121]   --->   Operation 237 'bitconcatenate' 'shl_ln121_6' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 238 [1/1] (0.00ns)   --->   "%zext_ln121_9 = zext i7 %shl_ln121_6" [aes_tableless.c:121]   --->   Operation 238 'zext' 'zext_ln121_9' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 239 [1/1] (0.72ns)   --->   "%add_ln121_4 = add i10 %zext_ln121_9, i10 %k_idx_read" [aes_tableless.c:121]   --->   Operation 239 'add' 'add_ln121_4' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 240 [1/1] (0.00ns) (grouped into LUT with out node shl_ln121_3)   --->   "%zext_ln121_3 = zext i10 %add_ln121_4" [aes_tableless.c:121]   --->   Operation 240 'zext' 'zext_ln121_3' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 241 [1/1] (0.00ns) (grouped into LUT with out node shl_ln121_3)   --->   "%lshr_ln121_2 = lshr i768 %or_ln121_1, i768 %zext_ln121_3" [aes_tableless.c:121]   --->   Operation 241 'lshr' 'lshr_ln121_2' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 242 [1/1] (0.00ns) (grouped into LUT with out node shl_ln121_3)   --->   "%trunc_ln121_3 = trunc i768 %lshr_ln121_2" [aes_tableless.c:121]   --->   Operation 242 'trunc' 'trunc_ln121_3' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 243 [1/1] (0.00ns) (grouped into LUT with out node add_ln121_5)   --->   "%or_ln121_2 = or i4 %trunc_ln120, i4 3" [aes_tableless.c:121]   --->   Operation 243 'or' 'or_ln121_2' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 244 [1/1] (0.00ns) (grouped into LUT with out node add_ln121_5)   --->   "%shl_ln121_7 = bitconcatenate i7 @_ssdm_op_BitConcatenate.i7.i4.i3, i4 %or_ln121_2, i3 0" [aes_tableless.c:121]   --->   Operation 244 'bitconcatenate' 'shl_ln121_7' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 245 [1/1] (0.00ns) (grouped into LUT with out node add_ln121_5)   --->   "%zext_ln121_10 = zext i7 %shl_ln121_7" [aes_tableless.c:121]   --->   Operation 245 'zext' 'zext_ln121_10' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 246 [1/1] (0.72ns) (out node of the LUT)   --->   "%add_ln121_5 = add i10 %zext_ln121_10, i10 %k_idx_read" [aes_tableless.c:121]   --->   Operation 246 'add' 'add_ln121_5' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 247 [1/1] (0.00ns) (grouped into LUT with out node shl_ln121_3)   --->   "%zext_ln121_4 = zext i10 %add_ln121_5" [aes_tableless.c:121]   --->   Operation 247 'zext' 'zext_ln121_4' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 248 [1/1] (0.00ns)   --->   "%zext_ln121_11 = zext i10 %add_ln121_5" [aes_tableless.c:121]   --->   Operation 248 'zext' 'zext_ln121_11' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 249 [1/1] (0.00ns) (grouped into LUT with out node shl_ln121_3)   --->   "%lshr_ln121_3 = lshr i768 %or_ln121_1, i768 %zext_ln121_4" [aes_tableless.c:121]   --->   Operation 249 'lshr' 'lshr_ln121_3' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 250 [1/1] (0.00ns) (grouped into LUT with out node shl_ln121_3)   --->   "%trunc_ln121_4 = trunc i768 %lshr_ln121_3" [aes_tableless.c:121]   --->   Operation 250 'trunc' 'trunc_ln121_4' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 251 [1/1] (0.00ns) (grouped into LUT with out node shl_ln121_3)   --->   "%xor_ln121_2 = xor i8 %trunc_ln121_4, i8 %trunc_ln121_3" [aes_tableless.c:121]   --->   Operation 251 'xor' 'xor_ln121_2' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.22> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 252 [1/1] (0.00ns) (grouped into LUT with out node xor_ln121_3)   --->   "%shl_ln121_2 = shl i640 255, i640 %zext_ln121_11" [aes_tableless.c:121]   --->   Operation 252 'shl' 'shl_ln121_2' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 253 [1/1] (0.00ns) (grouped into LUT with out node xor_ln121_3)   --->   "%zext_ln121_12 = zext i640 %shl_ln121_2" [aes_tableless.c:121]   --->   Operation 253 'zext' 'zext_ln121_12' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 254 [1/1] (0.00ns) (grouped into LUT with out node shl_ln121_3)   --->   "%zext_ln121_13 = zext i8 %xor_ln121_2" [aes_tableless.c:121]   --->   Operation 254 'zext' 'zext_ln121_13' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 255 [1/1] (1.44ns) (out node of the LUT)   --->   "%shl_ln121_3 = shl i640 %zext_ln121_13, i640 %zext_ln121_11" [aes_tableless.c:121]   --->   Operation 255 'shl' 'shl_ln121_3' <Predicate = true> <Delay = 1.44> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 256 [1/1] (0.74ns) (out node of the LUT)   --->   "%xor_ln121_3 = xor i641 %zext_ln121_12, i641 9124881235244390437282343211400582649786457014497119861158385035798550334417354773011825622634742799557284619147188814621377409442750875996505322639444428376503989348720529900165748384493207551" [aes_tableless.c:121]   --->   Operation 256 'xor' 'xor_ln121_3' <Predicate = true> <Delay = 0.74> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 257 [1/1] (0.00ns)   --->   "%sext_ln121_1 = sext i641 %xor_ln121_3" [aes_tableless.c:121]   --->   Operation 257 'sext' 'sext_ln121_1' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 258 [1/1] (0.00ns) (grouped into LUT with out node or_ln121_5)   --->   "%trunc_ln121_5 = trunc i641 %xor_ln121_3" [aes_tableless.c:121]   --->   Operation 258 'trunc' 'trunc_ln121_5' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 259 [1/1] (0.29ns)   --->   "%and_ln121_1 = and i768 %or_ln121_1, i768 %sext_ln121_1" [aes_tableless.c:121]   --->   Operation 259 'and' 'and_ln121_1' <Predicate = true> <Delay = 0.29> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 260 [1/1] (0.00ns) (grouped into LUT with out node or_ln121_5)   --->   "%and_ln121_3 = and i640 %or_ln121_4, i640 %trunc_ln121_5" [aes_tableless.c:121]   --->   Operation 260 'and' 'and_ln121_3' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 261 [1/1] (0.29ns) (out node of the LUT)   --->   "%or_ln121_5 = or i640 %and_ln121_3, i640 %shl_ln121_3" [aes_tableless.c:121]   --->   Operation 261 'or' 'or_ln121_5' <Predicate = true> <Delay = 0.29> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 262 [1/1] (0.00ns)   --->   "%tmp_21 = partselect i128 @_ssdm_op_PartSelect.i128.i768.i32.i32, i768 %and_ln121_1, i32 640, i32 767" [aes_tableless.c:121]   --->   Operation 262 'partselect' 'tmp_21' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 263 [1/1] (0.00ns)   --->   "%or_ln121_3 = bitconcatenate i768 @_ssdm_op_BitConcatenate.i768.i128.i640, i128 %tmp_21, i640 %or_ln121_5" [aes_tableless.c:121]   --->   Operation 263 'bitconcatenate' 'or_ln121_3' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 264 [1/1] (0.38ns)   --->   "%store_ln120 = store i768 %or_ln121_3, i768 %empty" [aes_tableless.c:120]   --->   Operation 264 'store' 'store_ln120' <Predicate = true> <Delay = 0.38>
+ST_12 : Operation 265 [1/1] (0.00ns)   --->   "%br_ln120 = br void %for.inc" [aes_tableless.c:120]   --->   Operation 265 'br' 'br_ln120' <Predicate = true> <Delay = 0.00>
+
+State 13 <SV = 10> <Delay = 2.99>
+ST_13 : Operation 266 [1/1] (0.00ns)   --->   "%p_load = load i768 %empty" [aes_tableless.c:122]   --->   Operation 266 'load' 'p_load' <Predicate = true> <Delay = 0.00>
+ST_13 : Operation 267 [1/1] (0.00ns)   --->   "%zext_ln122 = zext i10 %add_ln122" [aes_tableless.c:122]   --->   Operation 267 'zext' 'zext_ln122' <Predicate = true> <Delay = 0.00>
+ST_13 : Operation 268 [1/1] (1.44ns)   --->   "%lshr_ln122 = lshr i768 %p_load, i768 %zext_ln122" [aes_tableless.c:122]   --->   Operation 268 'lshr' 'lshr_ln122' <Predicate = true> <Delay = 1.44> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_13 : Operation 269 [1/1] (0.00ns)   --->   "%trunc_ln122 = trunc i768 %lshr_ln122" [aes_tableless.c:122]   --->   Operation 269 'trunc' 'trunc_ln122' <Predicate = true> <Delay = 0.00>
+ST_13 : Operation 270 [2/2] (1.54ns)   --->   "%tmp_4 = call i8 @rj_sbox, i8 %trunc_ln122" [aes_tableless.c:122]   --->   Operation 270 'call' 'tmp_4' <Predicate = true> <Delay = 1.54> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 14 <SV = 11> <Delay = 2.90>
+ST_14 : Operation 271 [1/2] (0.64ns)   --->   "%tmp_4 = call i8 @rj_sbox, i8 %trunc_ln122" [aes_tableless.c:122]   --->   Operation 271 'call' 'tmp_4' <Predicate = true> <Delay = 0.64> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_14 : Operation 272 [1/1] (0.72ns)   --->   "%add_ln122_1 = add i10 %k_idx_read, i10 128" [aes_tableless.c:122]   --->   Operation 272 'add' 'add_ln122_1' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_14 : Operation 273 [1/1] (0.00ns) (grouped into LUT with out node or_ln122)   --->   "%zext_ln122_1 = zext i10 %add_ln122_1" [aes_tableless.c:122]   --->   Operation 273 'zext' 'zext_ln122_1' <Predicate = true> <Delay = 0.00>
+ST_14 : Operation 274 [1/1] (0.00ns)   --->   "%zext_ln122_2 = zext i10 %add_ln122_1" [aes_tableless.c:122]   --->   Operation 274 'zext' 'zext_ln122_2' <Predicate = true> <Delay = 0.00>
+ST_14 : Operation 275 [1/1] (0.00ns) (grouped into LUT with out node or_ln122)   --->   "%lshr_ln122_1 = lshr i768 %p_load, i768 %zext_ln122_1" [aes_tableless.c:122]   --->   Operation 275 'lshr' 'lshr_ln122_1' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_14 : Operation 276 [1/1] (0.00ns) (grouped into LUT with out node or_ln122)   --->   "%trunc_ln122_1 = trunc i768 %lshr_ln122_1" [aes_tableless.c:122]   --->   Operation 276 'trunc' 'trunc_ln122_1' <Predicate = true> <Delay = 0.00>
+ST_14 : Operation 277 [1/1] (0.00ns) (grouped into LUT with out node or_ln122)   --->   "%xor_ln122 = xor i8 %trunc_ln122_1, i8 %tmp_4" [aes_tableless.c:122]   --->   Operation 277 'xor' 'xor_ln122' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.22> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_14 : Operation 278 [1/1] (0.00ns) (grouped into LUT with out node xor_ln122_1)   --->   "%shl_ln122 = shl i648 255, i648 %zext_ln122_2" [aes_tableless.c:122]   --->   Operation 278 'shl' 'shl_ln122' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_14 : Operation 279 [1/1] (0.00ns) (grouped into LUT with out node xor_ln122_1)   --->   "%zext_ln122_3 = zext i648 %shl_ln122" [aes_tableless.c:122]   --->   Operation 279 'zext' 'zext_ln122_3' <Predicate = true> <Delay = 0.00>
+ST_14 : Operation 280 [1/1] (0.00ns) (grouped into LUT with out node or_ln122)   --->   "%zext_ln122_4 = zext i8 %xor_ln122" [aes_tableless.c:122]   --->   Operation 280 'zext' 'zext_ln122_4' <Predicate = true> <Delay = 0.00>
+ST_14 : Operation 281 [1/1] (0.00ns) (grouped into LUT with out node or_ln122)   --->   "%shl_ln122_1 = shl i648 %zext_ln122_4, i648 %zext_ln122_2" [aes_tableless.c:122]   --->   Operation 281 'shl' 'shl_ln122_1' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_14 : Operation 282 [1/1] (0.74ns) (out node of the LUT)   --->   "%xor_ln122_1 = xor i649 %zext_ln122_3, i649 2335969596222563951944279862118549158345332995711262684456546569164428885610842821891027359394494156686664862501680336543072616817344224255105362595697773664385021273272455654442431586430261133311" [aes_tableless.c:122]   --->   Operation 282 'xor' 'xor_ln122_1' <Predicate = true> <Delay = 0.74> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_14 : Operation 283 [1/1] (0.00ns)   --->   "%sext_ln122 = sext i649 %xor_ln122_1" [aes_tableless.c:122]   --->   Operation 283 'sext' 'sext_ln122' <Predicate = true> <Delay = 0.00>
+ST_14 : Operation 284 [1/1] (0.00ns) (grouped into LUT with out node or_ln122)   --->   "%trunc_ln122_2 = trunc i649 %xor_ln122_1" [aes_tableless.c:122]   --->   Operation 284 'trunc' 'trunc_ln122_2' <Predicate = true> <Delay = 0.00>
+ST_14 : Operation 285 [1/1] (0.00ns) (grouped into LUT with out node or_ln122)   --->   "%trunc_ln122_3 = trunc i768 %p_load" [aes_tableless.c:122]   --->   Operation 285 'trunc' 'trunc_ln122_3' <Predicate = true> <Delay = 0.00>
+ST_14 : Operation 286 [1/1] (0.29ns)   --->   "%and_ln122 = and i768 %p_load, i768 %sext_ln122" [aes_tableless.c:122]   --->   Operation 286 'and' 'and_ln122' <Predicate = true> <Delay = 0.29> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_14 : Operation 287 [1/1] (0.00ns) (grouped into LUT with out node or_ln122)   --->   "%and_ln122_1 = and i648 %trunc_ln122_3, i648 %trunc_ln122_2" [aes_tableless.c:122]   --->   Operation 287 'and' 'and_ln122_1' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_14 : Operation 288 [1/1] (1.44ns) (out node of the LUT)   --->   "%or_ln122 = or i648 %and_ln122_1, i648 %shl_ln122_1" [aes_tableless.c:122]   --->   Operation 288 'or' 'or_ln122' <Predicate = true> <Delay = 1.44> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_14 : Operation 289 [1/1] (0.00ns)   --->   "%tmp_22 = partselect i120 @_ssdm_op_PartSelect.i120.i768.i32.i32, i768 %and_ln122, i32 648, i32 767" [aes_tableless.c:122]   --->   Operation 289 'partselect' 'tmp_22' <Predicate = true> <Delay = 0.00>
+ST_14 : Operation 290 [1/1] (0.72ns)   --->   "%add_ln123 = add i10 %k_idx_read, i10 104" [aes_tableless.c:123]   --->   Operation 290 'add' 'add_ln123' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+
+State 15 <SV = 12> <Delay = 2.99>
+ST_15 : Operation 291 [1/1] (0.00ns)   --->   "%or_ln5 = bitconcatenate i768 @_ssdm_op_BitConcatenate.i768.i120.i648, i120 %tmp_22, i648 %or_ln122" [aes_tableless.c:122]   --->   Operation 291 'bitconcatenate' 'or_ln5' <Predicate = true> <Delay = 0.00>
+ST_15 : Operation 292 [1/1] (0.00ns)   --->   "%zext_ln123 = zext i10 %add_ln123" [aes_tableless.c:123]   --->   Operation 292 'zext' 'zext_ln123' <Predicate = true> <Delay = 0.00>
+ST_15 : Operation 293 [1/1] (1.44ns)   --->   "%lshr_ln123 = lshr i768 %or_ln5, i768 %zext_ln123" [aes_tableless.c:123]   --->   Operation 293 'lshr' 'lshr_ln123' <Predicate = true> <Delay = 1.44> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_15 : Operation 294 [1/1] (0.00ns)   --->   "%trunc_ln123 = trunc i768 %lshr_ln123" [aes_tableless.c:123]   --->   Operation 294 'trunc' 'trunc_ln123' <Predicate = true> <Delay = 0.00>
+ST_15 : Operation 295 [2/2] (1.54ns)   --->   "%tmp_5 = call i8 @rj_sbox, i8 %trunc_ln123" [aes_tableless.c:123]   --->   Operation 295 'call' 'tmp_5' <Predicate = true> <Delay = 1.54> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 16 <SV = 13> <Delay = 2.90>
+ST_16 : Operation 296 [1/1] (0.00ns) (grouped into LUT with out node or_ln123)   --->   "%tmp_23 = partselect i8 @_ssdm_op_PartSelect.i8.i768.i32.i32, i768 %and_ln122, i32 648, i32 655" [aes_tableless.c:122]   --->   Operation 296 'partselect' 'tmp_23' <Predicate = true> <Delay = 0.00>
+ST_16 : Operation 297 [1/2] (0.64ns)   --->   "%tmp_5 = call i8 @rj_sbox, i8 %trunc_ln123" [aes_tableless.c:123]   --->   Operation 297 'call' 'tmp_5' <Predicate = true> <Delay = 0.64> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_16 : Operation 298 [1/1] (0.72ns)   --->   "%add_ln123_1 = add i10 %k_idx_read, i10 136" [aes_tableless.c:123]   --->   Operation 298 'add' 'add_ln123_1' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_16 : Operation 299 [1/1] (0.00ns) (grouped into LUT with out node or_ln123)   --->   "%zext_ln123_1 = zext i10 %add_ln123_1" [aes_tableless.c:123]   --->   Operation 299 'zext' 'zext_ln123_1' <Predicate = true> <Delay = 0.00>
+ST_16 : Operation 300 [1/1] (0.00ns)   --->   "%zext_ln123_2 = zext i10 %add_ln123_1" [aes_tableless.c:123]   --->   Operation 300 'zext' 'zext_ln123_2' <Predicate = true> <Delay = 0.00>
+ST_16 : Operation 301 [1/1] (0.00ns) (grouped into LUT with out node or_ln123)   --->   "%lshr_ln123_1 = lshr i768 %or_ln5, i768 %zext_ln123_1" [aes_tableless.c:123]   --->   Operation 301 'lshr' 'lshr_ln123_1' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_16 : Operation 302 [1/1] (0.00ns) (grouped into LUT with out node or_ln123)   --->   "%trunc_ln123_1 = trunc i768 %lshr_ln123_1" [aes_tableless.c:123]   --->   Operation 302 'trunc' 'trunc_ln123_1' <Predicate = true> <Delay = 0.00>
+ST_16 : Operation 303 [1/1] (0.00ns) (grouped into LUT with out node or_ln123)   --->   "%xor_ln123 = xor i8 %trunc_ln123_1, i8 %tmp_5" [aes_tableless.c:123]   --->   Operation 303 'xor' 'xor_ln123' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.22> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_16 : Operation 304 [1/1] (0.00ns) (grouped into LUT with out node xor_ln123_1)   --->   "%shl_ln123 = shl i656 255, i656 %zext_ln123_2" [aes_tableless.c:123]   --->   Operation 304 'shl' 'shl_ln123' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_16 : Operation 305 [1/1] (0.00ns) (grouped into LUT with out node xor_ln123_1)   --->   "%zext_ln123_3 = zext i656 %shl_ln123" [aes_tableless.c:123]   --->   Operation 305 'zext' 'zext_ln123_3' <Predicate = true> <Delay = 0.00>
+ST_16 : Operation 306 [1/1] (0.00ns) (grouped into LUT with out node or_ln123)   --->   "%zext_ln123_4 = zext i8 %xor_ln123" [aes_tableless.c:123]   --->   Operation 306 'zext' 'zext_ln123_4' <Predicate = true> <Delay = 0.00>
+ST_16 : Operation 307 [1/1] (0.00ns) (grouped into LUT with out node or_ln123)   --->   "%shl_ln123_1 = shl i656 %zext_ln123_4, i656 %zext_ln123_2" [aes_tableless.c:123]   --->   Operation 307 'shl' 'shl_ln123_1' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_16 : Operation 308 [1/1] (0.74ns) (out node of the LUT)   --->   "%xor_ln123_1 = xor i657 %zext_ln123_3, i657 598008216632976371697735644702348584536405246902083247220875921706093794716375762404103004004990504111786204800430166155026589905240121409306972824498630058082565445957748647537262486126146850127871" [aes_tableless.c:123]   --->   Operation 308 'xor' 'xor_ln123_1' <Predicate = true> <Delay = 0.74> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_16 : Operation 309 [1/1] (0.00ns)   --->   "%sext_ln123 = sext i657 %xor_ln123_1" [aes_tableless.c:123]   --->   Operation 309 'sext' 'sext_ln123' <Predicate = true> <Delay = 0.00>
+ST_16 : Operation 310 [1/1] (0.00ns) (grouped into LUT with out node or_ln123)   --->   "%trunc_ln123_2 = trunc i657 %xor_ln123_1" [aes_tableless.c:123]   --->   Operation 310 'trunc' 'trunc_ln123_2' <Predicate = true> <Delay = 0.00>
+ST_16 : Operation 311 [1/1] (0.00ns) (grouped into LUT with out node or_ln123)   --->   "%tmp_24 = bitconcatenate i656 @_ssdm_op_BitConcatenate.i656.i8.i648, i8 %tmp_23, i648 %or_ln122" [aes_tableless.c:123]   --->   Operation 311 'bitconcatenate' 'tmp_24' <Predicate = true> <Delay = 0.00>
+ST_16 : Operation 312 [1/1] (0.29ns)   --->   "%and_ln123 = and i768 %or_ln5, i768 %sext_ln123" [aes_tableless.c:123]   --->   Operation 312 'and' 'and_ln123' <Predicate = true> <Delay = 0.29> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_16 : Operation 313 [1/1] (0.00ns) (grouped into LUT with out node or_ln123)   --->   "%and_ln123_1 = and i656 %tmp_24, i656 %trunc_ln123_2" [aes_tableless.c:123]   --->   Operation 313 'and' 'and_ln123_1' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_16 : Operation 314 [1/1] (1.44ns) (out node of the LUT)   --->   "%or_ln123 = or i656 %and_ln123_1, i656 %shl_ln123_1" [aes_tableless.c:123]   --->   Operation 314 'or' 'or_ln123' <Predicate = true> <Delay = 1.44> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_16 : Operation 315 [1/1] (0.00ns)   --->   "%tmp_25 = partselect i112 @_ssdm_op_PartSelect.i112.i768.i32.i32, i768 %and_ln123, i32 656, i32 767" [aes_tableless.c:123]   --->   Operation 315 'partselect' 'tmp_25' <Predicate = true> <Delay = 0.00>
+ST_16 : Operation 316 [1/1] (0.72ns)   --->   "%add_ln124 = add i10 %k_idx_read, i10 112" [aes_tableless.c:124]   --->   Operation 316 'add' 'add_ln124' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+
+State 17 <SV = 14> <Delay = 2.99>
+ST_17 : Operation 317 [1/1] (0.00ns)   --->   "%or_ln6 = bitconcatenate i768 @_ssdm_op_BitConcatenate.i768.i112.i656, i112 %tmp_25, i656 %or_ln123" [aes_tableless.c:123]   --->   Operation 317 'bitconcatenate' 'or_ln6' <Predicate = true> <Delay = 0.00>
+ST_17 : Operation 318 [1/1] (0.00ns)   --->   "%zext_ln124 = zext i10 %add_ln124" [aes_tableless.c:124]   --->   Operation 318 'zext' 'zext_ln124' <Predicate = true> <Delay = 0.00>
+ST_17 : Operation 319 [1/1] (1.44ns)   --->   "%lshr_ln124 = lshr i768 %or_ln6, i768 %zext_ln124" [aes_tableless.c:124]   --->   Operation 319 'lshr' 'lshr_ln124' <Predicate = true> <Delay = 1.44> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_17 : Operation 320 [1/1] (0.00ns)   --->   "%trunc_ln124 = trunc i768 %lshr_ln124" [aes_tableless.c:124]   --->   Operation 320 'trunc' 'trunc_ln124' <Predicate = true> <Delay = 0.00>
+ST_17 : Operation 321 [2/2] (1.54ns)   --->   "%tmp_6 = call i8 @rj_sbox, i8 %trunc_ln124" [aes_tableless.c:124]   --->   Operation 321 'call' 'tmp_6' <Predicate = true> <Delay = 1.54> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 18 <SV = 15> <Delay = 2.90>
+ST_18 : Operation 322 [1/1] (0.00ns) (grouped into LUT with out node or_ln124)   --->   "%tmp_26 = partselect i8 @_ssdm_op_PartSelect.i8.i768.i32.i32, i768 %and_ln123, i32 656, i32 663" [aes_tableless.c:123]   --->   Operation 322 'partselect' 'tmp_26' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 323 [1/2] (0.64ns)   --->   "%tmp_6 = call i8 @rj_sbox, i8 %trunc_ln124" [aes_tableless.c:124]   --->   Operation 323 'call' 'tmp_6' <Predicate = true> <Delay = 0.64> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_18 : Operation 324 [1/1] (0.72ns)   --->   "%add_ln124_1 = add i10 %k_idx_read, i10 144" [aes_tableless.c:124]   --->   Operation 324 'add' 'add_ln124_1' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_18 : Operation 325 [1/1] (0.00ns) (grouped into LUT with out node or_ln124)   --->   "%zext_ln124_1 = zext i10 %add_ln124_1" [aes_tableless.c:124]   --->   Operation 325 'zext' 'zext_ln124_1' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 326 [1/1] (0.00ns)   --->   "%zext_ln124_2 = zext i10 %add_ln124_1" [aes_tableless.c:124]   --->   Operation 326 'zext' 'zext_ln124_2' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 327 [1/1] (0.00ns) (grouped into LUT with out node or_ln124)   --->   "%lshr_ln124_1 = lshr i768 %or_ln6, i768 %zext_ln124_1" [aes_tableless.c:124]   --->   Operation 327 'lshr' 'lshr_ln124_1' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_18 : Operation 328 [1/1] (0.00ns) (grouped into LUT with out node or_ln124)   --->   "%trunc_ln124_1 = trunc i768 %lshr_ln124_1" [aes_tableless.c:124]   --->   Operation 328 'trunc' 'trunc_ln124_1' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 329 [1/1] (0.00ns) (grouped into LUT with out node or_ln124)   --->   "%xor_ln124 = xor i8 %trunc_ln124_1, i8 %tmp_6" [aes_tableless.c:124]   --->   Operation 329 'xor' 'xor_ln124' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.22> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_18 : Operation 330 [1/1] (0.00ns) (grouped into LUT with out node xor_ln124_1)   --->   "%shl_ln124 = shl i664 255, i664 %zext_ln124_2" [aes_tableless.c:124]   --->   Operation 330 'shl' 'shl_ln124' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_18 : Operation 331 [1/1] (0.00ns) (grouped into LUT with out node xor_ln124_1)   --->   "%zext_ln124_3 = zext i664 %shl_ln124" [aes_tableless.c:124]   --->   Operation 331 'zext' 'zext_ln124_3' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 332 [1/1] (0.00ns) (grouped into LUT with out node or_ln124)   --->   "%zext_ln124_4 = zext i8 %xor_ln124" [aes_tableless.c:124]   --->   Operation 332 'zext' 'zext_ln124_4' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 333 [1/1] (0.00ns) (grouped into LUT with out node or_ln124)   --->   "%shl_ln124_1 = shl i664 %zext_ln124_4, i664 %zext_ln124_2" [aes_tableless.c:124]   --->   Operation 333 'shl' 'shl_ln124_1' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_18 : Operation 334 [1/1] (0.74ns) (out node of the LUT)   --->   "%xor_ln124_1 = xor i665 %zext_ln124_3, i665 153090103458041951154620325043801237641319743206933311288544235956760011447392195175450369025277569052617268428910122535686807015741471080782585043071649294869136754165183653769539196448293593632735231" [aes_tableless.c:124]   --->   Operation 334 'xor' 'xor_ln124_1' <Predicate = true> <Delay = 0.74> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_18 : Operation 335 [1/1] (0.00ns)   --->   "%sext_ln124 = sext i665 %xor_ln124_1" [aes_tableless.c:124]   --->   Operation 335 'sext' 'sext_ln124' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 336 [1/1] (0.00ns) (grouped into LUT with out node or_ln124)   --->   "%trunc_ln124_2 = trunc i665 %xor_ln124_1" [aes_tableless.c:124]   --->   Operation 336 'trunc' 'trunc_ln124_2' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 337 [1/1] (0.00ns) (grouped into LUT with out node or_ln124)   --->   "%tmp_27 = bitconcatenate i664 @_ssdm_op_BitConcatenate.i664.i8.i656, i8 %tmp_26, i656 %or_ln123" [aes_tableless.c:124]   --->   Operation 337 'bitconcatenate' 'tmp_27' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 338 [1/1] (0.29ns)   --->   "%and_ln124 = and i768 %or_ln6, i768 %sext_ln124" [aes_tableless.c:124]   --->   Operation 338 'and' 'and_ln124' <Predicate = true> <Delay = 0.29> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_18 : Operation 339 [1/1] (0.00ns) (grouped into LUT with out node or_ln124)   --->   "%and_ln124_1 = and i664 %tmp_27, i664 %trunc_ln124_2" [aes_tableless.c:124]   --->   Operation 339 'and' 'and_ln124_1' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_18 : Operation 340 [1/1] (1.44ns) (out node of the LUT)   --->   "%or_ln124 = or i664 %and_ln124_1, i664 %shl_ln124_1" [aes_tableless.c:124]   --->   Operation 340 'or' 'or_ln124' <Predicate = true> <Delay = 1.44> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_18 : Operation 341 [1/1] (0.00ns)   --->   "%tmp_28 = partselect i104 @_ssdm_op_PartSelect.i104.i768.i32.i32, i768 %and_ln124, i32 664, i32 767" [aes_tableless.c:124]   --->   Operation 341 'partselect' 'tmp_28' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 342 [1/1] (0.72ns)   --->   "%add_ln125 = add i10 %k_idx_read, i10 120" [aes_tableless.c:125]   --->   Operation 342 'add' 'add_ln125' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+
+State 19 <SV = 16> <Delay = 2.99>
+ST_19 : Operation 343 [1/1] (0.00ns)   --->   "%or_ln7 = bitconcatenate i768 @_ssdm_op_BitConcatenate.i768.i104.i664, i104 %tmp_28, i664 %or_ln124" [aes_tableless.c:124]   --->   Operation 343 'bitconcatenate' 'or_ln7' <Predicate = true> <Delay = 0.00>
+ST_19 : Operation 344 [1/1] (0.00ns)   --->   "%zext_ln125 = zext i10 %add_ln125" [aes_tableless.c:125]   --->   Operation 344 'zext' 'zext_ln125' <Predicate = true> <Delay = 0.00>
+ST_19 : Operation 345 [1/1] (1.44ns)   --->   "%lshr_ln125 = lshr i768 %or_ln7, i768 %zext_ln125" [aes_tableless.c:125]   --->   Operation 345 'lshr' 'lshr_ln125' <Predicate = true> <Delay = 1.44> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_19 : Operation 346 [1/1] (0.00ns)   --->   "%trunc_ln125 = trunc i768 %lshr_ln125" [aes_tableless.c:125]   --->   Operation 346 'trunc' 'trunc_ln125' <Predicate = true> <Delay = 0.00>
+ST_19 : Operation 347 [2/2] (1.54ns)   --->   "%tmp_7 = call i8 @rj_sbox, i8 %trunc_ln125" [aes_tableless.c:125]   --->   Operation 347 'call' 'tmp_7' <Predicate = true> <Delay = 1.54> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 20 <SV = 17> <Delay = 3.29>
+ST_20 : Operation 348 [1/1] (0.00ns) (grouped into LUT with out node or_ln125)   --->   "%tmp_29 = partselect i8 @_ssdm_op_PartSelect.i8.i768.i32.i32, i768 %and_ln124, i32 664, i32 671" [aes_tableless.c:124]   --->   Operation 348 'partselect' 'tmp_29' <Predicate = true> <Delay = 0.00>
+ST_20 : Operation 349 [1/2] (0.64ns)   --->   "%tmp_7 = call i8 @rj_sbox, i8 %trunc_ln125" [aes_tableless.c:125]   --->   Operation 349 'call' 'tmp_7' <Predicate = true> <Delay = 0.64> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_20 : Operation 350 [1/1] (0.72ns)   --->   "%add_ln125_1 = add i10 %k_idx_read, i10 152" [aes_tableless.c:125]   --->   Operation 350 'add' 'add_ln125_1' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_20 : Operation 351 [1/1] (0.00ns) (grouped into LUT with out node or_ln125)   --->   "%zext_ln125_1 = zext i10 %add_ln125_1" [aes_tableless.c:125]   --->   Operation 351 'zext' 'zext_ln125_1' <Predicate = true> <Delay = 0.00>
+ST_20 : Operation 352 [1/1] (0.00ns)   --->   "%zext_ln125_2 = zext i10 %add_ln125_1" [aes_tableless.c:125]   --->   Operation 352 'zext' 'zext_ln125_2' <Predicate = true> <Delay = 0.00>
+ST_20 : Operation 353 [1/1] (0.00ns) (grouped into LUT with out node or_ln125)   --->   "%lshr_ln125_1 = lshr i768 %or_ln7, i768 %zext_ln125_1" [aes_tableless.c:125]   --->   Operation 353 'lshr' 'lshr_ln125_1' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_20 : Operation 354 [1/1] (0.00ns) (grouped into LUT with out node or_ln125)   --->   "%trunc_ln125_1 = trunc i768 %lshr_ln125_1" [aes_tableless.c:125]   --->   Operation 354 'trunc' 'trunc_ln125_1' <Predicate = true> <Delay = 0.00>
+ST_20 : Operation 355 [1/1] (0.00ns) (grouped into LUT with out node or_ln125)   --->   "%xor_ln125 = xor i8 %trunc_ln125_1, i8 %tmp_7" [aes_tableless.c:125]   --->   Operation 355 'xor' 'xor_ln125' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.22> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_20 : Operation 356 [1/1] (0.00ns) (grouped into LUT with out node xor_ln125_1)   --->   "%shl_ln125 = shl i672 255, i672 %zext_ln125_2" [aes_tableless.c:125]   --->   Operation 356 'shl' 'shl_ln125' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_20 : Operation 357 [1/1] (0.00ns) (grouped into LUT with out node xor_ln125_1)   --->   "%zext_ln125_3 = zext i672 %shl_ln125" [aes_tableless.c:125]   --->   Operation 357 'zext' 'zext_ln125_3' <Predicate = true> <Delay = 0.00>
+ST_20 : Operation 358 [1/1] (0.00ns) (grouped into LUT with out node or_ln125)   --->   "%zext_ln125_4 = zext i8 %xor_ln125" [aes_tableless.c:125]   --->   Operation 358 'zext' 'zext_ln125_4' <Predicate = true> <Delay = 0.00>
+ST_20 : Operation 359 [1/1] (0.00ns) (grouped into LUT with out node or_ln125)   --->   "%shl_ln125_1 = shl i672 %zext_ln125_4, i672 %zext_ln125_2" [aes_tableless.c:125]   --->   Operation 359 'shl' 'shl_ln125_1' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_20 : Operation 360 [1/1] (0.74ns) (out node of the LUT)   --->   "%xor_ln125_1 = xor i673 %zext_ln125_3, i673 39191066485258739495582803211213116836177854260974927689867324404930562930532401964915294470471057677470020717800991369135822596029816596680341771026342219486499009066287015365002034290763159969980219391" [aes_tableless.c:125]   --->   Operation 360 'xor' 'xor_ln125_1' <Predicate = true> <Delay = 0.74> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_20 : Operation 361 [1/1] (0.00ns)   --->   "%sext_ln125 = sext i673 %xor_ln125_1" [aes_tableless.c:125]   --->   Operation 361 'sext' 'sext_ln125' <Predicate = true> <Delay = 0.00>
+ST_20 : Operation 362 [1/1] (0.00ns) (grouped into LUT with out node or_ln125)   --->   "%trunc_ln125_2 = trunc i673 %xor_ln125_1" [aes_tableless.c:125]   --->   Operation 362 'trunc' 'trunc_ln125_2' <Predicate = true> <Delay = 0.00>
+ST_20 : Operation 363 [1/1] (0.00ns) (grouped into LUT with out node or_ln125)   --->   "%tmp_30 = bitconcatenate i672 @_ssdm_op_BitConcatenate.i672.i8.i664, i8 %tmp_29, i664 %or_ln124" [aes_tableless.c:125]   --->   Operation 363 'bitconcatenate' 'tmp_30' <Predicate = true> <Delay = 0.00>
+ST_20 : Operation 364 [1/1] (0.29ns)   --->   "%and_ln125 = and i768 %or_ln7, i768 %sext_ln125" [aes_tableless.c:125]   --->   Operation 364 'and' 'and_ln125' <Predicate = true> <Delay = 0.29> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_20 : Operation 365 [1/1] (0.00ns) (grouped into LUT with out node or_ln125)   --->   "%and_ln125_1 = and i672 %tmp_30, i672 %trunc_ln125_2" [aes_tableless.c:125]   --->   Operation 365 'and' 'and_ln125_1' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_20 : Operation 366 [1/1] (1.44ns) (out node of the LUT)   --->   "%or_ln125 = or i672 %and_ln125_1, i672 %shl_ln125_1" [aes_tableless.c:125]   --->   Operation 366 'or' 'or_ln125' <Predicate = true> <Delay = 1.44> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_20 : Operation 367 [1/1] (0.00ns)   --->   "%tmp_31 = partselect i96 @_ssdm_op_PartSelect.i96.i768.i32.i32, i768 %and_ln125, i32 672, i32 767" [aes_tableless.c:125]   --->   Operation 367 'partselect' 'tmp_31' <Predicate = true> <Delay = 0.00>
+ST_20 : Operation 368 [1/1] (0.00ns)   --->   "%or_ln8 = bitconcatenate i768 @_ssdm_op_BitConcatenate.i768.i96.i672, i96 %tmp_31, i672 %or_ln125" [aes_tableless.c:125]   --->   Operation 368 'bitconcatenate' 'or_ln8' <Predicate = true> <Delay = 0.00>
+ST_20 : Operation 369 [1/1] (0.38ns)   --->   "%store_ln127 = store i768 %or_ln8, i768 %empty_22" [aes_tableless.c:127]   --->   Operation 369 'store' 'store_ln127' <Predicate = true> <Delay = 0.38>
+ST_20 : Operation 370 [1/1] (0.00ns)   --->   "%br_ln127 = br void %for.inc156" [aes_tableless.c:127]   --->   Operation 370 'br' 'br_ln127' <Predicate = true> <Delay = 0.00>
+
+State 21 <SV = 18> <Delay = 3.64>
+ST_21 : Operation 371 [1/1] (0.00ns)   --->   "%i_8 = load i6 %i_6" [aes_tableless.c:127]   --->   Operation 371 'load' 'i_8' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 372 [1/1] (0.00ns)   --->   "%tmp_33 = bitselect i1 @_ssdm_op_BitSelect.i1.i6.i32, i6 %i_8, i32 5" [aes_tableless.c:127]   --->   Operation 372 'bitselect' 'tmp_33' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 373 [1/1] (0.00ns)   --->   "%empty_23 = speclooptripcount i32 @_ssdm_op_SpecLoopTripCount, i64 3, i64 3, i64 3"   --->   Operation 373 'speclooptripcount' 'empty_23' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 374 [1/1] (0.00ns)   --->   "%br_ln127 = br i1 %tmp_33, void %for.inc156.split, void %for.end160" [aes_tableless.c:127]   --->   Operation 374 'br' 'br_ln127' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 375 [1/1] (0.00ns)   --->   "%p_load11 = load i768 %empty_22" [aes_tableless.c:127]   --->   Operation 375 'load' 'p_load11' <Predicate = (!tmp_33)> <Delay = 0.00>
+ST_21 : Operation 376 [1/1] (0.00ns)   --->   "%trunc_ln127 = trunc i6 %i_8" [aes_tableless.c:127]   --->   Operation 376 'trunc' 'trunc_ln127' <Predicate = (!tmp_33)> <Delay = 0.00>
+ST_21 : Operation 377 [1/1] (0.70ns)   --->   "%add_ln127 = add i5 %trunc_ln127, i5 28" [aes_tableless.c:127]   --->   Operation 377 'add' 'add_ln127' <Predicate = (!tmp_33)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 378 [1/1] (0.00ns)   --->   "%shl_ln127_4 = bitconcatenate i8 @_ssdm_op_BitConcatenate.i8.i5.i3, i5 %add_ln127, i3 0" [aes_tableless.c:127]   --->   Operation 378 'bitconcatenate' 'shl_ln127_4' <Predicate = (!tmp_33)> <Delay = 0.00>
+ST_21 : Operation 379 [1/1] (0.00ns)   --->   "%zext_ln127_6 = zext i8 %shl_ln127_4" [aes_tableless.c:127]   --->   Operation 379 'zext' 'zext_ln127_6' <Predicate = (!tmp_33)> <Delay = 0.00>
+ST_21 : Operation 380 [1/1] (0.72ns)   --->   "%add_ln127_1 = add i10 %zext_ln127_6, i10 %k_idx_read" [aes_tableless.c:127]   --->   Operation 380 'add' 'add_ln127_1' <Predicate = (!tmp_33)> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 381 [1/1] (0.00ns) (grouped into LUT with out node or_ln127)   --->   "%zext_ln127 = zext i10 %add_ln127_1" [aes_tableless.c:127]   --->   Operation 381 'zext' 'zext_ln127' <Predicate = (!tmp_33)> <Delay = 0.00>
+ST_21 : Operation 382 [1/1] (0.00ns) (grouped into LUT with out node or_ln127)   --->   "%lshr_ln127 = lshr i768 %p_load11, i768 %zext_ln127" [aes_tableless.c:127]   --->   Operation 382 'lshr' 'lshr_ln127' <Predicate = (!tmp_33)> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 383 [1/1] (0.00ns) (grouped into LUT with out node or_ln127)   --->   "%trunc_ln127_1 = trunc i768 %lshr_ln127" [aes_tableless.c:127]   --->   Operation 383 'trunc' 'trunc_ln127_1' <Predicate = (!tmp_33)> <Delay = 0.00>
+ST_21 : Operation 384 [1/1] (0.00ns)   --->   "%shl_ln127_5 = bitconcatenate i8 @_ssdm_op_BitConcatenate.i8.i5.i3, i5 %trunc_ln127, i3 0" [aes_tableless.c:127]   --->   Operation 384 'bitconcatenate' 'shl_ln127_5' <Predicate = (!tmp_33)> <Delay = 0.00>
+ST_21 : Operation 385 [1/1] (0.00ns)   --->   "%zext_ln127_7 = zext i8 %shl_ln127_5" [aes_tableless.c:127]   --->   Operation 385 'zext' 'zext_ln127_7' <Predicate = (!tmp_33)> <Delay = 0.00>
+ST_21 : Operation 386 [1/1] (0.72ns)   --->   "%add_ln127_2 = add i10 %zext_ln127_7, i10 %k_idx_read" [aes_tableless.c:127]   --->   Operation 386 'add' 'add_ln127_2' <Predicate = (!tmp_33)> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 387 [1/1] (0.00ns)   --->   "%zext_ln127_1 = zext i10 %add_ln127_2" [aes_tableless.c:127]   --->   Operation 387 'zext' 'zext_ln127_1' <Predicate = (!tmp_33)> <Delay = 0.00>
+ST_21 : Operation 388 [1/1] (0.00ns) (grouped into LUT with out node or_ln127)   --->   "%lshr_ln127_1 = lshr i768 %p_load11, i768 %zext_ln127_1" [aes_tableless.c:127]   --->   Operation 388 'lshr' 'lshr_ln127_1' <Predicate = (!tmp_33)> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 389 [1/1] (0.00ns) (grouped into LUT with out node or_ln127)   --->   "%trunc_ln127_2 = trunc i768 %lshr_ln127_1" [aes_tableless.c:127]   --->   Operation 389 'trunc' 'trunc_ln127_2' <Predicate = (!tmp_33)> <Delay = 0.00>
+ST_21 : Operation 390 [1/1] (0.00ns) (grouped into LUT with out node or_ln127)   --->   "%xor_ln127 = xor i8 %trunc_ln127_1, i8 %trunc_ln127_2" [aes_tableless.c:127]   --->   Operation 390 'xor' 'xor_ln127' <Predicate = (!tmp_33)> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.22> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 391 [1/1] (0.00ns) (grouped into LUT with out node and_ln127)   --->   "%shl_ln127 = shl i768 255, i768 %zext_ln127_1" [aes_tableless.c:127]   --->   Operation 391 'shl' 'shl_ln127' <Predicate = (!tmp_33)> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 392 [1/1] (0.00ns) (grouped into LUT with out node or_ln127)   --->   "%zext_ln127_2 = zext i8 %xor_ln127" [aes_tableless.c:127]   --->   Operation 392 'zext' 'zext_ln127_2' <Predicate = (!tmp_33)> <Delay = 0.00>
+ST_21 : Operation 393 [1/1] (0.00ns) (grouped into LUT with out node or_ln127)   --->   "%shl_ln127_1 = shl i768 %zext_ln127_2, i768 %zext_ln127_1" [aes_tableless.c:127]   --->   Operation 393 'shl' 'shl_ln127_1' <Predicate = (!tmp_33)> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 394 [1/1] (0.00ns) (grouped into LUT with out node and_ln127)   --->   "%xor_ln127_1 = xor i768 %shl_ln127, i768 1552518092300708935148979488462502555256886017116696611139052038026050952686376886330878408828646477950487730697131073206171580044114814391444287275041181139204454976020849905550265285631598444825262999193716468750892846853816057855" [aes_tableless.c:127]   --->   Operation 394 'xor' 'xor_ln127_1' <Predicate = (!tmp_33)> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 395 [1/1] (0.74ns) (out node of the LUT)   --->   "%and_ln127 = and i768 %p_load11, i768 %xor_ln127_1" [aes_tableless.c:127]   --->   Operation 395 'and' 'and_ln127' <Predicate = (!tmp_33)> <Delay = 0.74> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 396 [1/1] (1.44ns) (out node of the LUT)   --->   "%or_ln127 = or i768 %shl_ln127_1, i768 %and_ln127" [aes_tableless.c:127]   --->   Operation 396 'or' 'or_ln127' <Predicate = (!tmp_33)> <Delay = 1.44> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 397 [1/1] (0.70ns)   --->   "%add_ln127_3 = add i5 %trunc_ln127, i5 29" [aes_tableless.c:127]   --->   Operation 397 'add' 'add_ln127_3' <Predicate = (!tmp_33)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 398 [1/1] (0.00ns)   --->   "%shl_ln127_6 = bitconcatenate i8 @_ssdm_op_BitConcatenate.i8.i5.i3, i5 %add_ln127_3, i3 0" [aes_tableless.c:127]   --->   Operation 398 'bitconcatenate' 'shl_ln127_6' <Predicate = (!tmp_33)> <Delay = 0.00>
+ST_21 : Operation 399 [1/1] (0.00ns)   --->   "%zext_ln127_8 = zext i8 %shl_ln127_6" [aes_tableless.c:127]   --->   Operation 399 'zext' 'zext_ln127_8' <Predicate = (!tmp_33)> <Delay = 0.00>
+ST_21 : Operation 400 [1/1] (0.72ns)   --->   "%add_ln127_4 = add i10 %zext_ln127_8, i10 %k_idx_read" [aes_tableless.c:127]   --->   Operation 400 'add' 'add_ln127_4' <Predicate = (!tmp_33)> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 401 [1/1] (0.00ns) (grouped into LUT with out node add_ln127_5)   --->   "%or_ln127_1 = or i5 %trunc_ln127, i5 1" [aes_tableless.c:127]   --->   Operation 401 'or' 'or_ln127_1' <Predicate = (!tmp_33)> <Delay = 0.00>
+ST_21 : Operation 402 [1/1] (0.00ns) (grouped into LUT with out node add_ln127_5)   --->   "%shl_ln127_7 = bitconcatenate i8 @_ssdm_op_BitConcatenate.i8.i5.i3, i5 %or_ln127_1, i3 0" [aes_tableless.c:127]   --->   Operation 402 'bitconcatenate' 'shl_ln127_7' <Predicate = (!tmp_33)> <Delay = 0.00>
+ST_21 : Operation 403 [1/1] (0.00ns) (grouped into LUT with out node add_ln127_5)   --->   "%zext_ln127_9 = zext i8 %shl_ln127_7" [aes_tableless.c:127]   --->   Operation 403 'zext' 'zext_ln127_9' <Predicate = (!tmp_33)> <Delay = 0.00>
+ST_21 : Operation 404 [1/1] (0.72ns) (out node of the LUT)   --->   "%add_ln127_5 = add i10 %zext_ln127_9, i10 %k_idx_read" [aes_tableless.c:127]   --->   Operation 404 'add' 'add_ln127_5' <Predicate = (!tmp_33)> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 405 [1/1] (0.00ns)   --->   "%zext_ln127_4 = zext i10 %add_ln127_5" [aes_tableless.c:127]   --->   Operation 405 'zext' 'zext_ln127_4' <Predicate = (!tmp_33)> <Delay = 0.00>
+ST_21 : Operation 406 [1/1] (0.00ns) (grouped into LUT with out node and_ln127_1)   --->   "%shl_ln127_2 = shl i768 255, i768 %zext_ln127_4" [aes_tableless.c:127]   --->   Operation 406 'shl' 'shl_ln127_2' <Predicate = (!tmp_33)> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 407 [1/1] (0.00ns) (grouped into LUT with out node and_ln127_1)   --->   "%xor_ln127_3 = xor i768 %shl_ln127_2, i768 1552518092300708935148979488462502555256886017116696611139052038026050952686376886330878408828646477950487730697131073206171580044114814391444287275041181139204454976020849905550265285631598444825262999193716468750892846853816057855" [aes_tableless.c:127]   --->   Operation 407 'xor' 'xor_ln127_3' <Predicate = (!tmp_33)> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 408 [1/1] (0.74ns) (out node of the LUT)   --->   "%and_ln127_1 = and i768 %or_ln127, i768 %xor_ln127_3" [aes_tableless.c:127]   --->   Operation 408 'and' 'and_ln127_1' <Predicate = (!tmp_33)> <Delay = 0.74> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 409 [1/1] (0.70ns)   --->   "%add_ln127_6 = add i6 %i_8, i6 4" [aes_tableless.c:127]   --->   Operation 409 'add' 'add_ln127_6' <Predicate = (!tmp_33)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 410 [1/1] (0.38ns)   --->   "%store_ln127 = store i6 %add_ln127_6, i6 %i_6" [aes_tableless.c:127]   --->   Operation 410 'store' 'store_ln127' <Predicate = (!tmp_33)> <Delay = 0.38>
+ST_21 : Operation 411 [1/1] (0.00ns)   --->   "%p_load12 = load i768 %empty_22" [aes_tableless.c:130]   --->   Operation 411 'load' 'p_load12' <Predicate = (tmp_33)> <Delay = 0.00>
+ST_21 : Operation 412 [1/1] (0.00ns)   --->   "%mrv = insertvalue i776 <undef>, i768 %p_load12" [aes_tableless.c:130]   --->   Operation 412 'insertvalue' 'mrv' <Predicate = (tmp_33)> <Delay = 0.00>
+ST_21 : Operation 413 [1/1] (0.00ns)   --->   "%mrv_1 = insertvalue i776 %mrv, i8 %xor_ln118" [aes_tableless.c:130]   --->   Operation 413 'insertvalue' 'mrv_1' <Predicate = (tmp_33)> <Delay = 0.00>
+ST_21 : Operation 414 [1/1] (0.00ns)   --->   "%ret_ln130 = ret i776 %mrv_1" [aes_tableless.c:130]   --->   Operation 414 'ret' 'ret_ln130' <Predicate = (tmp_33)> <Delay = 0.00>
+
+State 22 <SV = 19> <Delay = 3.62>
+ST_22 : Operation 415 [1/1] (0.00ns) (grouped into LUT with out node or_ln127_2)   --->   "%zext_ln127_3 = zext i10 %add_ln127_4" [aes_tableless.c:127]   --->   Operation 415 'zext' 'zext_ln127_3' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 416 [1/1] (0.00ns) (grouped into LUT with out node or_ln127_2)   --->   "%lshr_ln127_2 = lshr i768 %or_ln127, i768 %zext_ln127_3" [aes_tableless.c:127]   --->   Operation 416 'lshr' 'lshr_ln127_2' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_22 : Operation 417 [1/1] (0.00ns) (grouped into LUT with out node or_ln127_2)   --->   "%trunc_ln127_3 = trunc i768 %lshr_ln127_2" [aes_tableless.c:127]   --->   Operation 417 'trunc' 'trunc_ln127_3' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 418 [1/1] (0.00ns) (grouped into LUT with out node or_ln127_2)   --->   "%lshr_ln127_3 = lshr i768 %or_ln127, i768 %zext_ln127_4" [aes_tableless.c:127]   --->   Operation 418 'lshr' 'lshr_ln127_3' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_22 : Operation 419 [1/1] (0.00ns) (grouped into LUT with out node or_ln127_2)   --->   "%trunc_ln127_4 = trunc i768 %lshr_ln127_3" [aes_tableless.c:127]   --->   Operation 419 'trunc' 'trunc_ln127_4' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 420 [1/1] (0.00ns) (grouped into LUT with out node or_ln127_2)   --->   "%xor_ln127_2 = xor i8 %trunc_ln127_4, i8 %trunc_ln127_3" [aes_tableless.c:127]   --->   Operation 420 'xor' 'xor_ln127_2' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.22> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_22 : Operation 421 [1/1] (0.00ns) (grouped into LUT with out node or_ln127_2)   --->   "%zext_ln127_5 = zext i8 %xor_ln127_2" [aes_tableless.c:127]   --->   Operation 421 'zext' 'zext_ln127_5' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 422 [1/1] (0.00ns) (grouped into LUT with out node or_ln127_2)   --->   "%shl_ln127_3 = shl i768 %zext_ln127_5, i768 %zext_ln127_4" [aes_tableless.c:127]   --->   Operation 422 'shl' 'shl_ln127_3' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_22 : Operation 423 [1/1] (1.44ns) (out node of the LUT)   --->   "%or_ln127_2 = or i768 %shl_ln127_3, i768 %and_ln127_1" [aes_tableless.c:127]   --->   Operation 423 'or' 'or_ln127_2' <Predicate = true> <Delay = 1.44> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_22 : Operation 424 [1/1] (0.70ns)   --->   "%add_ln128 = add i5 %trunc_ln127, i5 30" [aes_tableless.c:128]   --->   Operation 424 'add' 'add_ln128' <Predicate = true> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_22 : Operation 425 [1/1] (0.00ns)   --->   "%shl_ln128_4 = bitconcatenate i8 @_ssdm_op_BitConcatenate.i8.i5.i3, i5 %add_ln128, i3 0" [aes_tableless.c:128]   --->   Operation 425 'bitconcatenate' 'shl_ln128_4' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 426 [1/1] (0.00ns)   --->   "%zext_ln128_6 = zext i8 %shl_ln128_4" [aes_tableless.c:128]   --->   Operation 426 'zext' 'zext_ln128_6' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 427 [1/1] (0.72ns)   --->   "%add_ln128_1 = add i10 %zext_ln128_6, i10 %k_idx_read" [aes_tableless.c:128]   --->   Operation 427 'add' 'add_ln128_1' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_22 : Operation 428 [1/1] (0.00ns) (grouped into LUT with out node or_ln128_1)   --->   "%zext_ln128 = zext i10 %add_ln128_1" [aes_tableless.c:128]   --->   Operation 428 'zext' 'zext_ln128' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 429 [1/1] (0.00ns) (grouped into LUT with out node or_ln128_1)   --->   "%lshr_ln128 = lshr i768 %or_ln127_2, i768 %zext_ln128" [aes_tableless.c:128]   --->   Operation 429 'lshr' 'lshr_ln128' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_22 : Operation 430 [1/1] (0.00ns) (grouped into LUT with out node or_ln128_1)   --->   "%trunc_ln128 = trunc i768 %lshr_ln128" [aes_tableless.c:128]   --->   Operation 430 'trunc' 'trunc_ln128' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 431 [1/1] (0.00ns) (grouped into LUT with out node add_ln128_2)   --->   "%or_ln128 = or i5 %trunc_ln127, i5 2" [aes_tableless.c:128]   --->   Operation 431 'or' 'or_ln128' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 432 [1/1] (0.00ns) (grouped into LUT with out node add_ln128_2)   --->   "%shl_ln128_5 = bitconcatenate i8 @_ssdm_op_BitConcatenate.i8.i5.i3, i5 %or_ln128, i3 0" [aes_tableless.c:128]   --->   Operation 432 'bitconcatenate' 'shl_ln128_5' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 433 [1/1] (0.00ns) (grouped into LUT with out node add_ln128_2)   --->   "%zext_ln128_7 = zext i8 %shl_ln128_5" [aes_tableless.c:128]   --->   Operation 433 'zext' 'zext_ln128_7' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 434 [1/1] (0.72ns) (out node of the LUT)   --->   "%add_ln128_2 = add i10 %zext_ln128_7, i10 %k_idx_read" [aes_tableless.c:128]   --->   Operation 434 'add' 'add_ln128_2' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_22 : Operation 435 [1/1] (0.00ns)   --->   "%zext_ln128_1 = zext i10 %add_ln128_2" [aes_tableless.c:128]   --->   Operation 435 'zext' 'zext_ln128_1' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 436 [1/1] (0.00ns) (grouped into LUT with out node or_ln128_1)   --->   "%lshr_ln128_1 = lshr i768 %or_ln127_2, i768 %zext_ln128_1" [aes_tableless.c:128]   --->   Operation 436 'lshr' 'lshr_ln128_1' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_22 : Operation 437 [1/1] (0.00ns) (grouped into LUT with out node or_ln128_1)   --->   "%trunc_ln128_1 = trunc i768 %lshr_ln128_1" [aes_tableless.c:128]   --->   Operation 437 'trunc' 'trunc_ln128_1' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 438 [1/1] (0.00ns) (grouped into LUT with out node or_ln128_1)   --->   "%xor_ln128 = xor i8 %trunc_ln128_1, i8 %trunc_ln128" [aes_tableless.c:128]   --->   Operation 438 'xor' 'xor_ln128' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.22> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_22 : Operation 439 [1/1] (0.00ns) (grouped into LUT with out node and_ln128)   --->   "%shl_ln128 = shl i768 255, i768 %zext_ln128_1" [aes_tableless.c:128]   --->   Operation 439 'shl' 'shl_ln128' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_22 : Operation 440 [1/1] (0.00ns) (grouped into LUT with out node or_ln128_1)   --->   "%zext_ln128_2 = zext i8 %xor_ln128" [aes_tableless.c:128]   --->   Operation 440 'zext' 'zext_ln128_2' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 441 [1/1] (0.00ns) (grouped into LUT with out node or_ln128_1)   --->   "%shl_ln128_1 = shl i768 %zext_ln128_2, i768 %zext_ln128_1" [aes_tableless.c:128]   --->   Operation 441 'shl' 'shl_ln128_1' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_22 : Operation 442 [1/1] (0.00ns) (grouped into LUT with out node and_ln128)   --->   "%xor_ln128_1 = xor i768 %shl_ln128, i768 1552518092300708935148979488462502555256886017116696611139052038026050952686376886330878408828646477950487730697131073206171580044114814391444287275041181139204454976020849905550265285631598444825262999193716468750892846853816057855" [aes_tableless.c:128]   --->   Operation 442 'xor' 'xor_ln128_1' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_22 : Operation 443 [1/1] (0.74ns) (out node of the LUT)   --->   "%and_ln128 = and i768 %or_ln127_2, i768 %xor_ln128_1" [aes_tableless.c:128]   --->   Operation 443 'and' 'and_ln128' <Predicate = true> <Delay = 0.74> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_22 : Operation 444 [1/1] (1.44ns) (out node of the LUT)   --->   "%or_ln128_1 = or i768 %shl_ln128_1, i768 %and_ln128" [aes_tableless.c:128]   --->   Operation 444 'or' 'or_ln128_1' <Predicate = true> <Delay = 1.44> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+
+State 23 <SV = 20> <Delay = 3.29>
+ST_23 : Operation 445 [1/1] (0.00ns)   --->   "%specloopname_ln112 = specloopname void @_ssdm_op_SpecLoopName, void @empty_9" [aes_tableless.c:112]   --->   Operation 445 'specloopname' 'specloopname_ln112' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 446 [1/1] (0.70ns)   --->   "%add_ln128_3 = add i5 %trunc_ln127, i5 31" [aes_tableless.c:128]   --->   Operation 446 'add' 'add_ln128_3' <Predicate = true> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_23 : Operation 447 [1/1] (0.00ns)   --->   "%shl_ln128_6 = bitconcatenate i8 @_ssdm_op_BitConcatenate.i8.i5.i3, i5 %add_ln128_3, i3 0" [aes_tableless.c:128]   --->   Operation 447 'bitconcatenate' 'shl_ln128_6' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 448 [1/1] (0.00ns)   --->   "%zext_ln128_8 = zext i8 %shl_ln128_6" [aes_tableless.c:128]   --->   Operation 448 'zext' 'zext_ln128_8' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 449 [1/1] (0.72ns)   --->   "%add_ln128_4 = add i10 %zext_ln128_8, i10 %k_idx_read" [aes_tableless.c:128]   --->   Operation 449 'add' 'add_ln128_4' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_23 : Operation 450 [1/1] (0.00ns) (grouped into LUT with out node or_ln128_3)   --->   "%zext_ln128_3 = zext i10 %add_ln128_4" [aes_tableless.c:128]   --->   Operation 450 'zext' 'zext_ln128_3' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 451 [1/1] (0.00ns) (grouped into LUT with out node or_ln128_3)   --->   "%lshr_ln128_2 = lshr i768 %or_ln128_1, i768 %zext_ln128_3" [aes_tableless.c:128]   --->   Operation 451 'lshr' 'lshr_ln128_2' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_23 : Operation 452 [1/1] (0.00ns) (grouped into LUT with out node or_ln128_3)   --->   "%trunc_ln128_2 = trunc i768 %lshr_ln128_2" [aes_tableless.c:128]   --->   Operation 452 'trunc' 'trunc_ln128_2' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 453 [1/1] (0.00ns) (grouped into LUT with out node add_ln128_5)   --->   "%or_ln128_2 = or i5 %trunc_ln127, i5 3" [aes_tableless.c:128]   --->   Operation 453 'or' 'or_ln128_2' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 454 [1/1] (0.00ns) (grouped into LUT with out node add_ln128_5)   --->   "%shl_ln128_7 = bitconcatenate i8 @_ssdm_op_BitConcatenate.i8.i5.i3, i5 %or_ln128_2, i3 0" [aes_tableless.c:128]   --->   Operation 454 'bitconcatenate' 'shl_ln128_7' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 455 [1/1] (0.00ns) (grouped into LUT with out node add_ln128_5)   --->   "%zext_ln128_9 = zext i8 %shl_ln128_7" [aes_tableless.c:128]   --->   Operation 455 'zext' 'zext_ln128_9' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 456 [1/1] (0.72ns) (out node of the LUT)   --->   "%add_ln128_5 = add i10 %zext_ln128_9, i10 %k_idx_read" [aes_tableless.c:128]   --->   Operation 456 'add' 'add_ln128_5' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_23 : Operation 457 [1/1] (0.00ns)   --->   "%zext_ln128_4 = zext i10 %add_ln128_5" [aes_tableless.c:128]   --->   Operation 457 'zext' 'zext_ln128_4' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 458 [1/1] (0.00ns) (grouped into LUT with out node or_ln128_3)   --->   "%lshr_ln128_3 = lshr i768 %or_ln128_1, i768 %zext_ln128_4" [aes_tableless.c:128]   --->   Operation 458 'lshr' 'lshr_ln128_3' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_23 : Operation 459 [1/1] (0.00ns) (grouped into LUT with out node or_ln128_3)   --->   "%trunc_ln128_3 = trunc i768 %lshr_ln128_3" [aes_tableless.c:128]   --->   Operation 459 'trunc' 'trunc_ln128_3' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 460 [1/1] (0.00ns) (grouped into LUT with out node or_ln128_3)   --->   "%xor_ln128_2 = xor i8 %trunc_ln128_3, i8 %trunc_ln128_2" [aes_tableless.c:128]   --->   Operation 460 'xor' 'xor_ln128_2' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.22> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_23 : Operation 461 [1/1] (0.00ns) (grouped into LUT with out node and_ln128_1)   --->   "%shl_ln128_2 = shl i768 255, i768 %zext_ln128_4" [aes_tableless.c:128]   --->   Operation 461 'shl' 'shl_ln128_2' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_23 : Operation 462 [1/1] (0.00ns) (grouped into LUT with out node or_ln128_3)   --->   "%zext_ln128_5 = zext i8 %xor_ln128_2" [aes_tableless.c:128]   --->   Operation 462 'zext' 'zext_ln128_5' <Predicate = true> <Delay = 0.00>
+ST_23 : Operation 463 [1/1] (0.00ns) (grouped into LUT with out node or_ln128_3)   --->   "%shl_ln128_3 = shl i768 %zext_ln128_5, i768 %zext_ln128_4" [aes_tableless.c:128]   --->   Operation 463 'shl' 'shl_ln128_3' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_23 : Operation 464 [1/1] (0.00ns) (grouped into LUT with out node and_ln128_1)   --->   "%xor_ln128_3 = xor i768 %shl_ln128_2, i768 1552518092300708935148979488462502555256886017116696611139052038026050952686376886330878408828646477950487730697131073206171580044114814391444287275041181139204454976020849905550265285631598444825262999193716468750892846853816057855" [aes_tableless.c:128]   --->   Operation 464 'xor' 'xor_ln128_3' <Predicate = true> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_23 : Operation 465 [1/1] (0.74ns) (out node of the LUT)   --->   "%and_ln128_1 = and i768 %or_ln128_1, i768 %xor_ln128_3" [aes_tableless.c:128]   --->   Operation 465 'and' 'and_ln128_1' <Predicate = true> <Delay = 0.74> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_23 : Operation 466 [1/1] (1.44ns) (out node of the LUT)   --->   "%or_ln128_3 = or i768 %shl_ln128_3, i768 %and_ln128_1" [aes_tableless.c:128]   --->   Operation 466 'or' 'or_ln128_3' <Predicate = true> <Delay = 1.44> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.29> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_23 : Operation 467 [1/1] (0.38ns)   --->   "%store_ln127 = store i768 %or_ln128_3, i768 %empty_22" [aes_tableless.c:127]   --->   Operation 467 'store' 'store_ln127' <Predicate = true> <Delay = 0.38>
+ST_23 : Operation 468 [1/1] (0.00ns)   --->   "%br_ln127 = br void %for.inc156" [aes_tableless.c:127]   --->   Operation 468 'br' 'br_ln127' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 5ns, clock uncertainty: 1.35ns.
+
+ <State 1>: 0.725ns
+The critical path consists of the following:
+	wire read operation ('k_idx_read') on port 'k_idx' [7]  (0 ns)
+	'add' operation ('add_ln114', aes_tableless.c:114) [9]  (0.725 ns)
+
+ <State 2>: 2.99ns
+The critical path consists of the following:
+	wire read operation ('p_read_1') on port 'p_read' [8]  (0 ns)
+	'lshr' operation ('lshr_ln114', aes_tableless.c:114) [11]  (1.44 ns)
+	'call' operation ('tmp', aes_tableless.c:114) to 'rj_sbox' [13]  (1.55 ns)
+
+ <State 3>: 2.38ns
+The critical path consists of the following:
+	'call' operation ('tmp', aes_tableless.c:114) to 'rj_sbox' [13]  (0.648 ns)
+	'xor' operation ('xor_ln114_1', aes_tableless.c:114) [19]  (0 ns)
+	'shl' operation ('shl_ln114_1', aes_tableless.c:114) [23]  (1.44 ns)
+	'or' operation ('or_ln114', aes_tableless.c:114) [30]  (0.293 ns)
+
+ <State 4>: 2.99ns
+The critical path consists of the following:
+	'lshr' operation ('lshr_ln115', aes_tableless.c:115) [36]  (1.44 ns)
+	'call' operation ('tmp_1', aes_tableless.c:115) to 'rj_sbox' [38]  (1.55 ns)
+
+ <State 5>: 2.91ns
+The critical path consists of the following:
+	'add' operation ('add_ln115_1', aes_tableless.c:115) [39]  (0.725 ns)
+	'shl' operation ('shl_ln115', aes_tableless.c:115) [45]  (0 ns)
+	'xor' operation ('xor_ln115_1', aes_tableless.c:115) [49]  (0.74 ns)
+	'and' operation ('and_ln115_1', aes_tableless.c:115) [54]  (0 ns)
+	'or' operation ('or_ln115', aes_tableless.c:115) [55]  (1.44 ns)
+
+ <State 6>: 2.99ns
+The critical path consists of the following:
+	'lshr' operation ('lshr_ln116', aes_tableless.c:116) [61]  (1.44 ns)
+	'call' operation ('tmp_2', aes_tableless.c:116) to 'rj_sbox' [63]  (1.55 ns)
+
+ <State 7>: 2.91ns
+The critical path consists of the following:
+	'add' operation ('add_ln116_1', aes_tableless.c:116) [64]  (0.725 ns)
+	'shl' operation ('shl_ln116', aes_tableless.c:116) [70]  (0 ns)
+	'xor' operation ('xor_ln116_1', aes_tableless.c:116) [74]  (0.74 ns)
+	'and' operation ('and_ln116_1', aes_tableless.c:116) [79]  (0 ns)
+	'or' operation ('or_ln116', aes_tableless.c:116) [80]  (1.44 ns)
+
+ <State 8>: 2.99ns
+The critical path consists of the following:
+	'lshr' operation ('lshr_ln117', aes_tableless.c:117) [86]  (1.44 ns)
+	'call' operation ('tmp_3', aes_tableless.c:117) to 'rj_sbox' [88]  (1.55 ns)
+
+ <State 9>: 3.3ns
+The critical path consists of the following:
+	'add' operation ('add_ln117_1', aes_tableless.c:117) [89]  (0.725 ns)
+	'shl' operation ('shl_ln117', aes_tableless.c:117) [95]  (0 ns)
+	'xor' operation ('xor_ln117_1', aes_tableless.c:117) [99]  (0.74 ns)
+	'and' operation ('and_ln117_1', aes_tableless.c:117) [104]  (0 ns)
+	'or' operation ('or_ln117', aes_tableless.c:117) [105]  (1.44 ns)
+	'store' operation ('store_ln120', aes_tableless.c:120) of variable 'or_ln3', aes_tableless.c:117 on local variable 'empty' [112]  (0.387 ns)
+
+ <State 10>: 3.17ns
+The critical path consists of the following:
+	'load' operation ('i', aes_tableless.c:120) on local variable 'i' [116]  (0 ns)
+	'add' operation ('add_ln120', aes_tableless.c:120) [124]  (0.708 ns)
+	'add' operation ('add_ln120_1', aes_tableless.c:120) [127]  (0.725 ns)
+	'lshr' operation ('lshr_ln120', aes_tableless.c:120) [129]  (0 ns)
+	'xor' operation ('xor_ln120', aes_tableless.c:120) [138]  (0 ns)
+	'shl' operation ('shl_ln120_1', aes_tableless.c:120) [142]  (1.44 ns)
+	'or' operation ('or_ln120_3', aes_tableless.c:120) [149]  (0.293 ns)
+
+ <State 11>: 3.47ns
+The critical path consists of the following:
+	'lshr' operation ('lshr_ln120_3', aes_tableless.c:120) [165]  (0 ns)
+	'xor' operation ('xor_ln120_2', aes_tableless.c:120) [167]  (0 ns)
+	'shl' operation ('shl_ln120_3', aes_tableless.c:120) [171]  (1.44 ns)
+	'or' operation ('or_ln120', aes_tableless.c:120) [177]  (0.293 ns)
+	'lshr' operation ('lshr_ln121_1', aes_tableless.c:121) [193]  (0 ns)
+	'xor' operation ('xor_ln121', aes_tableless.c:121) [195]  (0 ns)
+	'shl' operation ('shl_ln121_1', aes_tableless.c:121) [199]  (1.44 ns)
+	'or' operation ('or_ln121_4', aes_tableless.c:121) [205]  (0.293 ns)
+
+ <State 12>: 3.56ns
+The critical path consists of the following:
+	'add' operation ('add_ln121_3', aes_tableless.c:121) [208]  (0.708 ns)
+	'add' operation ('add_ln121_4', aes_tableless.c:121) [211]  (0.725 ns)
+	'lshr' operation ('lshr_ln121_2', aes_tableless.c:121) [213]  (0 ns)
+	'xor' operation ('xor_ln121_2', aes_tableless.c:121) [223]  (0 ns)
+	'shl' operation ('shl_ln121_3', aes_tableless.c:121) [227]  (1.44 ns)
+	'or' operation ('or_ln121_5', aes_tableless.c:121) [233]  (0.293 ns)
+	'store' operation ('store_ln120', aes_tableless.c:120) of variable 'or_ln121_3', aes_tableless.c:121 on local variable 'empty' [237]  (0.387 ns)
+
+ <State 13>: 2.99ns
+The critical path consists of the following:
+	'load' operation ('p_load', aes_tableless.c:122) on local variable 'empty' [243]  (0 ns)
+	'lshr' operation ('lshr_ln122', aes_tableless.c:122) [246]  (1.44 ns)
+	'call' operation ('tmp_4', aes_tableless.c:122) to 'rj_sbox' [248]  (1.55 ns)
+
+ <State 14>: 2.91ns
+The critical path consists of the following:
+	'add' operation ('add_ln122_1', aes_tableless.c:122) [249]  (0.725 ns)
+	'shl' operation ('shl_ln122', aes_tableless.c:122) [255]  (0 ns)
+	'xor' operation ('xor_ln122_1', aes_tableless.c:122) [259]  (0.74 ns)
+	'and' operation ('and_ln122_1', aes_tableless.c:122) [264]  (0 ns)
+	'or' operation ('or_ln122', aes_tableless.c:122) [265]  (1.44 ns)
+
+ <State 15>: 2.99ns
+The critical path consists of the following:
+	'lshr' operation ('lshr_ln123', aes_tableless.c:123) [271]  (1.44 ns)
+	'call' operation ('tmp_5', aes_tableless.c:123) to 'rj_sbox' [273]  (1.55 ns)
+
+ <State 16>: 2.91ns
+The critical path consists of the following:
+	'add' operation ('add_ln123_1', aes_tableless.c:123) [274]  (0.725 ns)
+	'shl' operation ('shl_ln123', aes_tableless.c:123) [280]  (0 ns)
+	'xor' operation ('xor_ln123_1', aes_tableless.c:123) [284]  (0.74 ns)
+	'and' operation ('and_ln123_1', aes_tableless.c:123) [289]  (0 ns)
+	'or' operation ('or_ln123', aes_tableless.c:123) [290]  (1.44 ns)
+
+ <State 17>: 2.99ns
+The critical path consists of the following:
+	'lshr' operation ('lshr_ln124', aes_tableless.c:124) [296]  (1.44 ns)
+	'call' operation ('tmp_6', aes_tableless.c:124) to 'rj_sbox' [298]  (1.55 ns)
+
+ <State 18>: 2.91ns
+The critical path consists of the following:
+	'add' operation ('add_ln124_1', aes_tableless.c:124) [299]  (0.725 ns)
+	'shl' operation ('shl_ln124', aes_tableless.c:124) [305]  (0 ns)
+	'xor' operation ('xor_ln124_1', aes_tableless.c:124) [309]  (0.74 ns)
+	'and' operation ('and_ln124_1', aes_tableless.c:124) [314]  (0 ns)
+	'or' operation ('or_ln124', aes_tableless.c:124) [315]  (1.44 ns)
+
+ <State 19>: 2.99ns
+The critical path consists of the following:
+	'lshr' operation ('lshr_ln125', aes_tableless.c:125) [321]  (1.44 ns)
+	'call' operation ('tmp_7', aes_tableless.c:125) to 'rj_sbox' [323]  (1.55 ns)
+
+ <State 20>: 3.3ns
+The critical path consists of the following:
+	'add' operation ('add_ln125_1', aes_tableless.c:125) [324]  (0.725 ns)
+	'shl' operation ('shl_ln125', aes_tableless.c:125) [330]  (0 ns)
+	'xor' operation ('xor_ln125_1', aes_tableless.c:125) [334]  (0.74 ns)
+	'and' operation ('and_ln125_1', aes_tableless.c:125) [339]  (0 ns)
+	'or' operation ('or_ln125', aes_tableless.c:125) [340]  (1.44 ns)
+	'store' operation ('store_ln127', aes_tableless.c:127) of variable 'or_ln8', aes_tableless.c:125 on local variable 'empty_22' [343]  (0.387 ns)
+
+ <State 21>: 3.65ns
+The critical path consists of the following:
+	'load' operation ('i', aes_tableless.c:127) on local variable 'i' [347]  (0 ns)
+	'add' operation ('add_ln127_2', aes_tableless.c:127) [364]  (0.725 ns)
+	'shl' operation ('shl_ln127', aes_tableless.c:127) [369]  (0 ns)
+	'xor' operation ('xor_ln127_1', aes_tableless.c:127) [372]  (0 ns)
+	'and' operation ('and_ln127', aes_tableless.c:127) [373]  (0.74 ns)
+	'or' operation ('or_ln127', aes_tableless.c:127) [374]  (1.44 ns)
+	'and' operation ('and_ln127_1', aes_tableless.c:127) [394]  (0.74 ns)
+
+ <State 22>: 3.63ns
+The critical path consists of the following:
+	'lshr' operation ('lshr_ln127_2', aes_tableless.c:127) [380]  (0 ns)
+	'xor' operation ('xor_ln127_2', aes_tableless.c:127) [389]  (0 ns)
+	'shl' operation ('shl_ln127_3', aes_tableless.c:127) [392]  (0 ns)
+	'or' operation ('or_ln127_2', aes_tableless.c:127) [395]  (1.44 ns)
+	'and' operation ('and_ln128', aes_tableless.c:128) [415]  (0.74 ns)
+	'or' operation ('or_ln128_1', aes_tableless.c:128) [416]  (1.44 ns)
+
+ <State 23>: 3.3ns
+The critical path consists of the following:
+	'or' operation ('or_ln128_2', aes_tableless.c:128) [424]  (0 ns)
+	'add' operation ('add_ln128_5', aes_tableless.c:128) [427]  (0.725 ns)
+	'shl' operation ('shl_ln128_2', aes_tableless.c:128) [432]  (0 ns)
+	'xor' operation ('xor_ln128_3', aes_tableless.c:128) [435]  (0 ns)
+	'and' operation ('and_ln128_1', aes_tableless.c:128) [436]  (0.74 ns)
+	'or' operation ('or_ln128_3', aes_tableless.c:128) [437]  (1.44 ns)
+	'store' operation ('store_ln127', aes_tableless.c:127) of variable 'or_ln128_3', aes_tableless.c:128 on local variable 'empty_22' [439]  (0.387 ns)
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+	State 4
+	State 5
+	State 6
+	State 7
+	State 8
+	State 9
+	State 10
+	State 11
+	State 12
+	State 13
+	State 14
+	State 15
+	State 16
+	State 17
+	State 18
+	State 19
+	State 20
+	State 21
+	State 22
+	State 23
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

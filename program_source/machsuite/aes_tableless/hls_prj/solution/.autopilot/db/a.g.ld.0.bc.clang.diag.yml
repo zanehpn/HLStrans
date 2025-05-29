@@ -1,0 +1,350 @@
+--- !Passed
+Pass:            reflow-inliner
+Name:            AutoInline
+DebugLoc:        { File: aes_tableless.c, Line: 36, Column: 0 }
+Function:        gf_mulinv
+Args:            
+  - String:          'Inlining function '''
+  - Callee:          gf_log
+    DebugLoc:        { File: aes_tableless.c, Line: 22, Column: 0 }
+  - String:          ''' into '''
+  - Caller:          gf_mulinv
+    DebugLoc:        { File: aes_tableless.c, Line: 36, Column: 0 }
+  - String:          ''''
+...
+--- !Passed
+Pass:            reflow-inliner
+Name:            AutoInline
+DebugLoc:        { File: aes_tableless.c, Line: 36, Column: 0 }
+Function:        gf_mulinv
+Args:            
+  - String:          'Inlining function '''
+  - Callee:          gf_alog
+    DebugLoc:        { File: aes_tableless.c, Line: 12, Column: 0 }
+  - String:          ''' into '''
+  - Caller:          gf_mulinv
+    DebugLoc:        { File: aes_tableless.c, Line: 36, Column: 0 }
+  - String:          ''''
+...
+--- !Passed
+Pass:            reflow-inliner
+Name:            AutoInline
+DebugLoc:        { File: aes_tableless.c, Line: 42, Column: 0 }
+Function:        rj_sbox
+Args:            
+  - String:          'Inlining function '''
+  - Callee:          gf_mulinv
+    DebugLoc:        { File: aes_tableless.c, Line: 36, Column: 0 }
+  - String:          ''' into '''
+  - Caller:          rj_sbox
+    DebugLoc:        { File: aes_tableless.c, Line: 42, Column: 0 }
+  - String:          ''''
+...
+--- !Passed
+Pass:            reflow-inliner
+Name:            AutoInline
+DebugLoc:        { File: aes_tableless.c, Line: 60, Column: 0 }
+Function:        aes_subBytes
+Args:            
+  - String:          'Inlining function '''
+  - Callee:          rj_sbox
+    DebugLoc:        { File: aes_tableless.c, Line: 42, Column: 0 }
+  - String:          ''' into '''
+  - Caller:          aes_subBytes
+    DebugLoc:        { File: aes_tableless.c, Line: 60, Column: 0 }
+  - String:          ''''
+...
+--- !Passed
+Pass:            reflow-inliner
+Name:            AutoInline
+DebugLoc:        { File: aes_tableless.c, Line: 97, Column: 0 }
+Function:        aes_mixColumns
+Args:            
+  - String:          'Inlining function '''
+  - Callee:          rj_xtime
+    DebugLoc:        { File: aes_tableless.c, Line: 54, Column: 0 }
+  - String:          ''' into '''
+  - Caller:          aes_mixColumns
+    DebugLoc:        { File: aes_tableless.c, Line: 97, Column: 0 }
+  - String:          ''''
+...
+--- !Passed
+Pass:            reflow-inliner
+Name:            AutoInline
+DebugLoc:        { File: aes_tableless.c, Line: 134, Column: 0 }
+Function:        aes256_encrypt_ecb
+Args:            
+  - String:          'Inlining function '''
+  - Callee:          aes_addRoundKey_cpy
+    DebugLoc:        { File: aes_tableless.c, Line: 76, Column: 0 }
+  - String:          ''' into '''
+  - Caller:          aes256_encrypt_ecb
+    DebugLoc:        { File: aes_tableless.c, Line: 134, Column: 0 }
+  - String:          ''''
+...
+--- !Passed
+Pass:            reflow-inliner
+Name:            AutoInline
+DebugLoc:        { File: aes_tableless.c, Line: 134, Column: 0 }
+Function:        aes256_encrypt_ecb
+Args:            
+  - String:          'Inlining function '''
+  - Callee:          aes_shiftRows
+    DebugLoc:        { File: aes_tableless.c, Line: 85, Column: 0 }
+  - String:          ''' into '''
+  - Caller:          aes256_encrypt_ecb
+    DebugLoc:        { File: aes_tableless.c, Line: 134, Column: 0 }
+  - String:          ''''
+...
+--- !Passed
+Pass:            reflow-inliner
+Name:            AutoInline
+DebugLoc:        { File: aes_tableless.c, Line: 134, Column: 0 }
+Function:        aes256_encrypt_ecb
+Args:            
+  - String:          'Inlining function '''
+  - Callee:          aes_mixColumns
+    DebugLoc:        { File: aes_tableless.c, Line: 97, Column: 0 }
+  - String:          ''' into '''
+  - Caller:          aes256_encrypt_ecb
+    DebugLoc:        { File: aes_tableless.c, Line: 134, Column: 0 }
+  - String:          ''''
+...
+--- !Passed
+Pass:            reflow-inliner
+Name:            AutoInline
+DebugLoc:        { File: aes_tableless.c, Line: 134, Column: 0 }
+Function:        aes256_encrypt_ecb
+Args:            
+  - String:          'Inlining function '''
+  - Callee:          aes_addRoundKey
+    DebugLoc:        { File: aes_tableless.c, Line: 68, Column: 0 }
+  - String:          ''' into '''
+  - Caller:          aes256_encrypt_ecb
+    DebugLoc:        { File: aes_tableless.c, Line: 134, Column: 0 }
+  - String:          ''''
+...
+--- !Passed
+Pass:            reflow-aggr
+Name:            AggrSucc
+DebugLoc:        { File: aes_tableless.c, Line: 134, Column: 0 }
+Function:        aes256_encrypt_ecb
+Args:            
+  - String:          'Aggregating '
+  - HwTyName:        scalar
+  - String:          ' variable '''
+  - Name:            ctx
+  - String:          ''' with '
+  - AggregateTypeName: 'compact=bit'
+  - String:          ' mode in '
+  - Bitwidth:        '768'
+  - String:          '-bits'
+...
+--- !Missed
+Pass:            reflow-burst-inference
+Name:            CouldNotAnalyzeBoundsPattern
+DebugLoc:        { File: aes_tableless.c, Line: 25, Column: 12 }
+Function:        rj_sbox
+Args:            
+  - String:          Could not analyze the loop bounds
+  - String:          ' _XLX_SEP_ '
+  - LoopName:        glog
+  - String:          ' '
+  - LoopLoc:         'aes_tableless.c:25:12'
+  - String:          ' '
+  - Function:        rj_sbox
+    DebugLoc:        { File: aes_tableless.c, Line: 42, Column: 0 }
+  - String:          ' '
+...
+--- !Missed
+Pass:            reflow-burst-inference
+Name:            CouldNotAnalyzeBoundsPattern
+DebugLoc:        { File: aes_tableless.c, Line: 25, Column: 12 }
+Function:        aes_subBytes
+Args:            
+  - String:          Could not analyze the loop bounds
+  - String:          ' _XLX_SEP_ '
+  - LoopName:        glog
+  - String:          ' '
+  - LoopLoc:         'aes_tableless.c:25:12'
+  - String:          ' '
+  - Function:        aes_subBytes
+    DebugLoc:        { File: aes_tableless.c, Line: 60, Column: 0 }
+  - String:          ' '
+...
+--- !Missed
+Pass:            reflow-burst-inference
+Name:            InsufficientAlignment
+DebugLoc:        { File: aes_tableless.c, Line: 140, Column: 41 }
+Function:        aes256_encrypt_ecb
+Args:            
+  - String:          'Alignment is insufficient, current alignment is '
+  - Align:           '1'
+  - String:          ' byte(s) but '
+  - RequiredAlign:   '128'
+  - String:          ' is required'
+  - String:          ' _XLX_SEP_ '
+  - AccessID:        for.inc.load.7
+  - String:          ' '
+  - ArrayName:       ctx
+  - String:          ' '
+  - BundleName:      ''
+  - String:          ' '
+  - Function:        aes256_encrypt_ecb
+    DebugLoc:        { File: aes_tableless.c, Line: 134, Column: 0 }
+  - String:          ' '
+...
+--- !Missed
+Pass:            reflow-burst-inference
+Name:            InsufficientAlignment
+DebugLoc:        { File: aes_tableless.c, Line: 140, Column: 24 }
+Function:        aes256_encrypt_ecb
+Args:            
+  - String:          'Alignment is insufficient, current alignment is '
+  - Align:           '1'
+  - String:          ' byte(s) but '
+  - RequiredAlign:   '128'
+  - String:          ' is required'
+  - String:          ' _XLX_SEP_ '
+  - AccessID:        for.inc.store.22
+  - String:          ' '
+  - ArrayName:       ctx
+  - String:          ' '
+  - BundleName:      ''
+  - String:          ' '
+  - Function:        aes256_encrypt_ecb
+    DebugLoc:        { File: aes_tableless.c, Line: 134, Column: 0 }
+  - String:          ' '
+...
+--- !Missed
+Pass:            reflow-burst-inference
+Name:            InsufficientAlignment
+DebugLoc:        { File: aes_tableless.c, Line: 79, Column: 45 }
+Function:        aes256_encrypt_ecb
+Args:            
+  - String:          'Alignment is insufficient, current alignment is '
+  - Align:           '1'
+  - String:          ' byte(s) but '
+  - RequiredAlign:   '128'
+  - String:          ' is required'
+  - String:          ' _XLX_SEP_ '
+  - AccessID:        while.body.i.load.3
+  - String:          ' '
+  - ArrayName:       ctx
+  - String:          ' '
+  - BundleName:      ''
+  - String:          ' '
+  - Function:        aes256_encrypt_ecb
+    DebugLoc:        { File: aes_tableless.c, Line: 134, Column: 0 }
+  - String:          ' '
+...
+--- !Missed
+Pass:            reflow-burst-inference
+Name:            InsufficientAlignment
+DebugLoc:        { File: aes_tableless.c, Line: 79, Column: 64 }
+Function:        aes256_encrypt_ecb
+Args:            
+  - String:          'Alignment is insufficient, current alignment is '
+  - Align:           '1'
+  - String:          ' byte(s) but '
+  - RequiredAlign:   '128'
+  - String:          ' is required'
+  - String:          ' _XLX_SEP_ '
+  - AccessID:        while.body.i.store.40
+  - String:          ' '
+  - ArrayName:       ctx
+  - String:          ' '
+  - BundleName:      ''
+  - String:          ' '
+  - Function:        aes256_encrypt_ecb
+    DebugLoc:        { File: aes_tableless.c, Line: 134, Column: 0 }
+  - String:          ' '
+...
+--- !Missed
+Pass:            reflow-burst-inference
+Name:            InsufficientAlignment
+DebugLoc:        { File: aes_tableless.c, Line: 71, Column: 36 }
+Function:        aes256_encrypt_ecb
+Args:            
+  - String:          'Alignment is insufficient, current alignment is '
+  - Align:           '1'
+  - String:          ' byte(s) but '
+  - RequiredAlign:   '128'
+  - String:          ' is required'
+  - String:          ' _XLX_SEP_ '
+  - AccessID:        while.body.i40.load.2
+  - String:          ' '
+  - ArrayName:       ctx
+  - String:          ' '
+  - BundleName:      ''
+  - String:          ' '
+  - Function:        aes256_encrypt_ecb
+    DebugLoc:        { File: aes_tableless.c, Line: 134, Column: 0 }
+  - String:          ' '
+...
+--- !Missed
+Pass:            reflow-burst-inference
+Name:            InsufficientAlignment
+DebugLoc:        { File: aes_tableless.c, Line: 71, Column: 36 }
+Function:        aes256_encrypt_ecb
+Args:            
+  - String:          'Alignment is insufficient, current alignment is '
+  - Align:           '1'
+  - String:          ' byte(s) but '
+  - RequiredAlign:   '128'
+  - String:          ' is required'
+  - String:          ' _XLX_SEP_ '
+  - AccessID:        while.body.i64.load.2
+  - String:          ' '
+  - ArrayName:       ctx
+  - String:          ' '
+  - BundleName:      ''
+  - String:          ' '
+  - Function:        aes256_encrypt_ecb
+    DebugLoc:        { File: aes_tableless.c, Line: 134, Column: 0 }
+  - String:          ' '
+...
+--- !Missed
+Pass:            reflow-burst-inference
+Name:            InsufficientAlignment
+DebugLoc:        { File: aes_tableless.c, Line: 121, Column: 34 }
+Function:        aes_expandEncKey
+Args:            
+  - String:          'Alignment is insufficient, current alignment is '
+  - Align:           '1'
+  - String:          ' byte(s) but '
+  - RequiredAlign:   '128'
+  - String:          ' is required'
+  - String:          ' _XLX_SEP_ '
+  - AccessID:        for.inc.store.110
+  - String:          ' '
+  - ArrayName:       k
+  - String:          ' '
+  - BundleName:      ''
+  - String:          ' '
+  - Function:        aes_expandEncKey
+    DebugLoc:        { File: aes_tableless.c, Line: 111, Column: 0 }
+  - String:          ' '
+...
+--- !Missed
+Pass:            reflow-burst-inference
+Name:            InsufficientAlignment
+DebugLoc:        { File: aes_tableless.c, Line: 128, Column: 34 }
+Function:        aes_expandEncKey
+Args:            
+  - String:          'Alignment is insufficient, current alignment is '
+  - Align:           '1'
+  - String:          ' byte(s) but '
+  - RequiredAlign:   '128'
+  - String:          ' is required'
+  - String:          ' _XLX_SEP_ '
+  - AccessID:        for.inc156.store.110
+  - String:          ' '
+  - ArrayName:       k
+  - String:          ' '
+  - BundleName:      ''
+  - String:          ' '
+  - Function:        aes_expandEncKey
+    DebugLoc:        { File: aes_tableless.c, Line: 111, Column: 0 }
+  - String:          ' '
+...

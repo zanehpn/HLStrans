@@ -1,0 +1,225 @@
+
+
+================================================================
+== Synthesis Summary Report of 'correlation'
+================================================================
++ General Information: 
+    * Date:           Mon May  5 03:30:39 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        correlation
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +---------------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+---------+----------+-------------+-------------+-----+
+    |                         Modules                         | Issue|      | Latency |  Latency  | Iteration|         | Trip |          |         |          |             |             |     |
+    |                         & Loops                         | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined|  BRAM   |    DSP   |      FF     |     LUT     | URAM|
+    +---------------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+---------+----------+-------------+-------------+-----+
+    |+ correlation                                            |     -|  0.02|  2665448|  1.333e+07|         -|  2665449|     -|        no|  5 (~0%)|  69 (~0%)|  13557 (~0%)|  11474 (~0%)|    -|
+    | + correlation_Pipeline_VITIS_LOOP_10_1_VITIS_LOOP_13_2  |     -|  0.33|    40027|  2.001e+05|         -|    40027|     -|        no|        -|         -|    523 (~0%)|    464 (~0%)|    -|
+    |  o VITIS_LOOP_10_1_VITIS_LOOP_13_2                      |    II|  3.65|    40025|  2.001e+05|        31|        5|  8000|       yes|        -|         -|            -|            -|    -|
+    | + correlation_Pipeline_VITIS_LOOP_37_5_VITIS_LOOP_39_6  |     -|  0.32|     8031|  4.016e+04|         -|     8031|     -|        no|        -|         -|    569 (~0%)|    224 (~0%)|    -|
+    |  o VITIS_LOOP_37_5_VITIS_LOOP_39_6                      |     -|  3.65|     8029|  4.014e+04|        31|        1|  8000|       yes|        -|         -|            -|            -|    -|
+    | o VITIS_LOOP_20_3                                       |     -|  3.65|    39600|  1.980e+05|       495|        -|    80|        no|        -|         -|            -|            -|    -|
+    |  + correlation_Pipeline_VITIS_LOOP_23_4                 |     -|  0.04|      451|  2.255e+03|         -|      451|     -|        no|  5 (~0%)|  58 (~0%)|  11000 (~0%)|   8732 (~0%)|    -|
+    |   o VITIS_LOOP_23_4                                     |    II|  3.65|      449|  2.245e+03|        54|        4|   100|       yes|        -|         -|            -|            -|    -|
+    |    + pow_generic_double_s                               |    II|  0.04|       40|    200.000|         -|        1|     -|       yes|  5 (~0%)|  58 (~0%)|  10627 (~0%)|   8392 (~0%)|    -|
+    | o VITIS_LOOP_48_7                                       |     -|  3.65|  2577770|  1.289e+07|     32630|        -|    79|        no|        -|         -|            -|            -|    -|
+    |  o VITIS_LOOP_51_8                                      |     -|  3.65|    32627|  1.631e+05|       413|        -|    79|        no|        -|         -|            -|            -|    -|
+    |   + correlation_Pipeline_VITIS_LOOP_54_9                |     -|  0.32|      410|  2.050e+03|         -|      410|     -|        no|        -|         -|    302 (~0%)|    202 (~0%)|    -|
+    |    o VITIS_LOOP_54_9                                    |    II|  3.65|      408|  2.040e+03|        13|        4|   100|       yes|        -|         -|            -|            -|    -|
+    +---------------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+---------+----------+-------------+-------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_MEMORY
++-----------------+----------+
+| Interface       | Bitwidth |
++-----------------+----------+
+| corr_address0   | 13       |
+| corr_address1   | 13       |
+| corr_d0         | 64       |
+| corr_d1         | 64       |
+| data_address0   | 13       |
+| data_address1   | 13       |
+| data_d0         | 64       |
+| data_q0         | 64       |
+| data_q1         | 64       |
+| mean_address0   | 7        |
+| mean_d0         | 64       |
+| mean_q0         | 64       |
+| stddev_address0 | 7        |
+| stddev_d0       | 64       |
+| stddev_q0       | 64       |
++-----------------+----------+
+
+* Other Ports
++-----------+---------+----------+
+| Interface | Mode    | Bitwidth |
++-----------+---------+----------+
+| float_n   | ap_none | 64       |
++-----------+---------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| float_n  | in        | double   |
+| data     | inout     | double*  |
+| corr     | out       | double*  |
+| mean     | inout     | double*  |
+| stddev   | inout     | double*  |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+-----------------+---------+----------+
+| Argument | HW Interface    | HW Type | HW Usage |
++----------+-----------------+---------+----------+
+| float_n  | float_n         | port    |          |
+| data     | data_address0   | port    | offset   |
+| data     | data_ce0        | port    |          |
+| data     | data_we0        | port    |          |
+| data     | data_d0         | port    |          |
+| data     | data_q0         | port    |          |
+| data     | data_address1   | port    | offset   |
+| data     | data_ce1        | port    |          |
+| data     | data_q1         | port    |          |
+| corr     | corr_address0   | port    | offset   |
+| corr     | corr_ce0        | port    |          |
+| corr     | corr_we0        | port    |          |
+| corr     | corr_d0         | port    |          |
+| corr     | corr_address1   | port    | offset   |
+| corr     | corr_ce1        | port    |          |
+| corr     | corr_we1        | port    |          |
+| corr     | corr_d1         | port    |          |
+| mean     | mean_address0   | port    | offset   |
+| mean     | mean_ce0        | port    |          |
+| mean     | mean_we0        | port    |          |
+| mean     | mean_d0         | port    |          |
+| mean     | mean_q0         | port    |          |
+| stddev   | stddev_address0 | port    | offset   |
+| stddev   | stddev_ce0      | port    |          |
+| stddev   | stddev_we0      | port    |          |
+| stddev   | stddev_d0       | port    |          |
+| stddev   | stddev_q0       | port    |          |
++----------+-----------------+---------+----------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++---------------------------------------------------------+-----+--------+-----------------+-------+--------+---------+
+| Name                                                    | DSP | Pragma | Variable        | Op    | Impl   | Latency |
++---------------------------------------------------------+-----+--------+-----------------+-------+--------+---------+
+| + correlation                                           | 69  |        |                 |       |        |         |
+|   add_ln20_fu_330_p2                                    | -   |        | add_ln20        | add   | fabric | 0       |
+|   ddiv_64ns_64ns_64_22_no_dsp_1_U67                     | -   |        | div1            | ddiv  | fabric | 21      |
+|   dsqrt_64ns_64ns_64_17_no_dsp_1_U69                    | -   |        | tmp_s           | dsqrt | fabric | 16      |
+|   dsqrt_64ns_64ns_64_17_no_dsp_1_U69                    | -   |        | tmp             | dsqrt | fabric | 16      |
+|   add_ln51_fu_425_p2                                    | -   |        | add_ln51        | add   | fabric | 0       |
+|   add_ln49_fu_455_p2                                    | -   |        | add_ln49        | add   | fabric | 0       |
+|   add_ln49_1_fu_461_p2                                  | -   |        | add_ln49_1      | add   | fabric | 0       |
+|   add_ln52_fu_481_p2                                    | -   |        | add_ln52        | add   | fabric | 0       |
+|   add_ln51_1_fu_509_p2                                  | -   |        | add_ln51_1      | add   | fabric | 0       |
+|   add_ln48_fu_515_p2                                    | -   |        | add_ln48        | add   | fabric | 0       |
+|  + correlation_Pipeline_VITIS_LOOP_10_1_VITIS_LOOP_13_2 | 0   |        |                 |       |        |         |
+|    add_ln10_1_fu_143_p2                                 | -   |        | add_ln10_1      | add   | fabric | 0       |
+|    add_ln10_fu_155_p2                                   | -   |        | add_ln10        | add   | fabric | 0       |
+|    add_ln13_fu_248_p2                                   | -   |        | add_ln13        | add   | fabric | 0       |
+|  + correlation_Pipeline_VITIS_LOOP_23_4                 | 58  |        |                 |       |        |         |
+|    add_ln23_fu_178_p2                                   | -   |        | add_ln23        | add   | fabric | 0       |
+|   + pow_generic_double_s                                | 58  |        |                 |       |        |         |
+|     b_exp_fu_584_p2                                     | -   |        | b_exp           | add   | fabric | 0       |
+|     b_exp_1_fu_656_p2                                   | -   |        | b_exp_1         | add   | fabric | 0       |
+|     mul_12s_80ns_90_2_1_U14                             | 5   |        | Elog2_V         | mul   | auto   | 1       |
+|     mul_54s_6ns_54_2_1_U6                               | 2   |        | mul_ln838       | mul   | auto   | 1       |
+|     mul_71ns_4ns_75_2_1_U7                              | -   |        | r_V_22          | mul   | auto   | 1       |
+|     mul_73ns_6ns_79_2_1_U8                              | 4   |        | r_V_23          | mul   | auto   | 1       |
+|     mul_83ns_6ns_89_2_1_U9                              | 4   |        | r_V_24          | mul   | auto   | 1       |
+|     mul_92ns_6ns_98_2_1_U10                             | 5   |        | r_V_25          | mul   | auto   | 1       |
+|     mul_87ns_6ns_93_2_1_U11                             | 4   |        | r_V_26          | mul   | auto   | 1       |
+|     mul_82ns_6ns_88_2_1_U12                             | 4   |        | r_V_27          | mul   | auto   | 1       |
+|     mul_77ns_6ns_83_2_1_U13                             | 4   |        | r_V_28          | mul   | auto   | 1       |
+|     add_ln813_fu_1476_p2                                | -   |        | add_ln813       | add   | fabric | 0       |
+|     add_ln813_1_fu_1482_p2                              | -   |        | add_ln813_1     | add   | fabric | 0       |
+|     add_ln813_4_fu_1428_p2                              | -   |        | add_ln813_4     | add   | fabric | 0       |
+|     mul_40ns_40ns_80_1_1_U15                            | 4   |        | r_V_29          | mul   | auto   | 0       |
+|     ret_V_fu_1540_p2                                    | -   |        | ret_V           | sub   | fabric | 0       |
+|     mac_muladd_16s_15ns_19s_31_4_1_U20                  | 1   |        | r_V_30          | mul   | dsp48  | 3       |
+|     mac_muladd_16s_15ns_19s_31_4_1_U20                  | 1   |        | ret_V_31        | add   | dsp48  | 3       |
+|     ret_V_18_fu_1650_p2                                 | -   |        | ret_V_18        | add   | fabric | 0       |
+|     mul_13s_71s_71_2_1_U16                              | 4   |        | r_V_15          | mul   | auto   | 1       |
+|     m_diff_V_fu_1691_p2                                 | -   |        | m_diff_V        | sub   | fabric | 0       |
+|     ret_V_33_fu_1766_p2                                 | -   |        | ret_V_33        | add   | fabric | 0       |
+|     mul_43ns_36ns_79_1_1_U17                            | 4   |        | r_V_17          | mul   | auto   | 0       |
+|     add_ln813_7_fu_1813_p2                              | -   |        | add_ln813_7     | add   | fabric | 0       |
+|     exp_Z2P_m_1_V_fu_1822_p2                            | -   |        | exp_Z2P_m_1_V   | add   | fabric | 0       |
+|     mul_49ns_44ns_93_2_1_U18                            | 5   |        | r_V_19          | mul   | auto   | 1       |
+|     add_ln813_9_fu_1890_p2                              | -   |        | add_ln813_9     | add   | fabric | 0       |
+|     exp_Z1P_m_1_l_V_fu_1899_p2                          | -   |        | exp_Z1P_m_1_l_V | add   | fabric | 0       |
+|     ret_V_35_fu_1937_p2                                 | -   |        | ret_V_35        | add   | fabric | 0       |
+|     mul_50ns_50ns_100_2_1_U19                           | 8   |        | r_V             | mul   | auto   | 1       |
+|     ret_V_23_fu_2021_p2                                 | -   |        | ret_V_23        | add   | fabric | 0       |
+|     add_ln1347_1_fu_2027_p2                             | -   |        | add_ln1347_1    | add   | fabric | 0       |
+|     r_exp_V_fu_2041_p2                                  | -   |        | r_exp_V         | add   | fabric | 0       |
+|     out_exp_V_fu_2122_p2                                | -   |        | out_exp_V       | add   | fabric | 0       |
+|  + correlation_Pipeline_VITIS_LOOP_37_5_VITIS_LOOP_39_6 | 0   |        |                 |       |        |         |
+|    add_ln37_1_fu_155_p2                                 | -   |        | add_ln37_1      | add   | fabric | 0       |
+|    add_ln37_fu_167_p2                                   | -   |        | add_ln37        | add   | fabric | 0       |
+|    add_ln39_fu_231_p2                                   | -   |        | add_ln39        | add   | fabric | 0       |
+|  + correlation_Pipeline_VITIS_LOOP_54_9                 | 0   |        |                 |       |        |         |
+|    add_ln54_fu_139_p2                                   | -   |        | add_ln54        | add   | fabric | 0       |
+|    add_ln55_fu_165_p2                                   | -   |        | add_ln55        | add   | fabric | 0       |
+|    add_ln55_1_fu_171_p2                                 | -   |        | add_ln55_1      | add   | fabric | 0       |
+|    add_ln55_2_fu_177_p2                                 | -   |        | add_ln55_2      | add   | fabric | 0       |
++---------------------------------------------------------+-----+--------+-----------------+-------+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++-------------------------------------------------------------------------------+------+------+--------+-------------------------------------------------------------------------+---------+------+---------+
+| Name                                                                          | BRAM | URAM | Pragma | Variable                                                                | Storage | Impl | Latency |
++-------------------------------------------------------------------------------+------+------+--------+-------------------------------------------------------------------------+---------+------+---------+
+| + correlation                                                                 | 5    | 0    |        |                                                                         |         |      |         |
+|  + correlation_Pipeline_VITIS_LOOP_23_4                                       | 5    | 0    |        |                                                                         |         |      |         |
+|   + pow_generic_double_s                                                      | 5    | 0    |        |                                                                         |         |      |         |
+|     pow_reduce_anonymous_namespace_log_inverse_lut_table_pow_0_5_64_array_V_U | -    | -    |        | pow_reduce_anonymous_namespace_log_inverse_lut_table_pow_0_5_64_array_V | rom_1p  | auto | 1       |
+|     pow_reduce_anonymous_namespace_log0_lut_table_array_V_U                   | -    | -    |        | pow_reduce_anonymous_namespace_log0_lut_table_array_V                   | rom_1p  | auto | 1       |
+|     pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_4_4_16_array_V_U    | -    | -    |        | pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_4_4_16_array_V    | rom_1p  | auto | 1       |
+|     pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_7_6_64_array_V_U    | -    | -    |        | pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_7_6_64_array_V    | rom_1p  | auto | 1       |
+|     pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_12_6_64_array_V_U   | -    | -    |        | pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_12_6_64_array_V   | rom_1p  | auto | 1       |
+|     pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_17_6_64_array_V_U   | -    | -    |        | pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_17_6_64_array_V   | rom_1p  | auto | 1       |
+|     pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_22_6_64_array_V_U   | -    | -    |        | pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_22_6_64_array_V   | rom_1p  | auto | 1       |
+|     pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_27_6_64_array_V_U   | -    | -    |        | pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_27_6_64_array_V   | rom_1p  | auto | 1       |
+|     pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_32_6_64_array_V_U   | -    | -    |        | pow_reduce_anonymous_namespace_log_lut_table_ap_fixed_32_6_64_array_V   | rom_1p  | auto | 1       |
+|     pow_reduce_anonymous_namespace_table_exp_Z1_ap_ufixed_array_V_U           | 2    | -    |        | pow_reduce_anonymous_namespace_table_exp_Z1_ap_ufixed_array_V           | rom_1p  | auto | 1       |
+|     pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V_U             | 1    | -    |        | pow_reduce_anonymous_namespace_table_f_Z3_ap_ufixed_array_V             | rom_2p  | auto | 1       |
+|     pow_reduce_anonymous_namespace_table_f_Z2_ap_ufixed_array_V_U             | 2    | -    |        | pow_reduce_anonymous_namespace_table_f_Z2_ap_ufixed_array_V             | rom_1p  | auto | 1       |
++-------------------------------------------------------------------------------+------+------+--------+-------------------------------------------------------------------------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+  No pragmas found
+

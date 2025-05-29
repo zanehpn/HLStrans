@@ -1,0 +1,17 @@
+set SynModuleInfo {
+  {SRCNAME aes256_encrypt_ecb_Pipeline_ecb1 MODELNAME aes256_encrypt_ecb_Pipeline_ecb1 RTLNAME aes256_encrypt_ecb_aes256_encrypt_ecb_Pipeline_ecb1
+    SUBMODULES {
+      {MODELNAME aes256_encrypt_ecb_flow_control_loop_pipe_sequential_init RTLNAME aes256_encrypt_ecb_flow_control_loop_pipe_sequential_init BINDTYPE interface TYPE internal_upc_flow_control INSTNAME aes256_encrypt_ecb_flow_control_loop_pipe_sequential_init_U}
+    }
+  }
+  {SRCNAME rj_sbox_Pipeline_glog MODELNAME rj_sbox_Pipeline_glog RTLNAME aes256_encrypt_ecb_rj_sbox_Pipeline_glog}
+  {SRCNAME rj_sbox_Pipeline_alog MODELNAME rj_sbox_Pipeline_alog RTLNAME aes256_encrypt_ecb_rj_sbox_Pipeline_alog}
+  {SRCNAME rj_sbox MODELNAME rj_sbox RTLNAME aes256_encrypt_ecb_rj_sbox}
+  {SRCNAME aes_expandEncKey MODELNAME aes_expandEncKey RTLNAME aes256_encrypt_ecb_aes_expandEncKey}
+  {SRCNAME aes256_encrypt_ecb_Pipeline_cpkey MODELNAME aes256_encrypt_ecb_Pipeline_cpkey RTLNAME aes256_encrypt_ecb_aes256_encrypt_ecb_Pipeline_cpkey}
+  {SRCNAME aes_subBytes.1_Pipeline_glog MODELNAME aes_subBytes_1_Pipeline_glog RTLNAME aes256_encrypt_ecb_aes_subBytes_1_Pipeline_glog}
+  {SRCNAME aes_subBytes.1_Pipeline_alog MODELNAME aes_subBytes_1_Pipeline_alog RTLNAME aes256_encrypt_ecb_aes_subBytes_1_Pipeline_alog}
+  {SRCNAME aes_subBytes.1 MODELNAME aes_subBytes_1 RTLNAME aes256_encrypt_ecb_aes_subBytes_1}
+  {SRCNAME aes256_encrypt_ecb_Pipeline_addkey MODELNAME aes256_encrypt_ecb_Pipeline_addkey RTLNAME aes256_encrypt_ecb_aes256_encrypt_ecb_Pipeline_addkey}
+  {SRCNAME aes256_encrypt_ecb MODELNAME aes256_encrypt_ecb RTLNAME aes256_encrypt_ecb IS_TOP 1}
+}

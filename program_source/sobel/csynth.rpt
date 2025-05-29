@@ -1,0 +1,124 @@
+
+
+================================================================
+== Synthesis Summary Report of 'sobel'
+================================================================
++ General Information: 
+    * Date:           Sun May  4 12:57:58 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        sobel
+    * Solution:       solution (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +------------------------------------+------+------+---------+-----------+----------+---------+------+----------+---------+----+-----------+-----------+-----+
+    |               Modules              | Issue|      | Latency |  Latency  | Iteration|         | Trip |          |         |    |           |           |     |
+    |               & Loops              | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined|  BRAM   | DSP|     FF    |    LUT    | URAM|
+    +------------------------------------+------+------+---------+-----------+----------+---------+------+----------+---------+----+-----------+-----------+-----+
+    |+ sobel                             |     -|  0.67|     4227|  2.114e+04|         -|     4228|     -|        no|  2 (~0%)|   -|  184 (~0%)|  540 (~0%)|    -|
+    | o VITIS_LOOP_22_1_VITIS_LOOP_23_2  |     -|  3.65|     4225|  2.112e+04|         3|        1|  4224|       yes|        -|   -|          -|          -|    -|
+    +------------------------------------+------+------+---------+-----------+----------+---------+------+----------+---------+----+-----------+-----------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* Other Ports
++----------------+---------+----------+
+| Interface      | Mode    | Bitwidth |
++----------------+---------+----------+
+| EDGE_THRESHOLD | ap_none | 32       |
+| inputImage     | ap_none | 32       |
+| outputImage    | ap_vld  | 32       |
++----------------+---------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------------+-----------+----------+
+| Argument       | Direction | Datatype |
++----------------+-----------+----------+
+| inputImage     | in        | int*     |
+| outputImage    | out       | int*     |
+| EDGE_THRESHOLD | in        | int      |
++----------------+-----------+----------+
+
+* SW-to-HW Mapping
++----------------+--------------------+---------+
+| Argument       | HW Interface       | HW Type |
++----------------+--------------------+---------+
+| inputImage     | inputImage         | port    |
+| outputImage    | outputImage        | port    |
+| outputImage    | outputImage_ap_vld | port    |
+| EDGE_THRESHOLD | EDGE_THRESHOLD     | port    |
++----------------+--------------------+---------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++------------------------+-----+--------+------------+-----+--------+---------+
+| Name                   | DSP | Pragma | Variable   | Op  | Impl   | Latency |
++------------------------+-----+--------+------------+-----+--------+---------+
+| + sobel                | 0   |        |            |     |        |         |
+|   add_ln22_fu_218_p2   | -   |        | add_ln22   | add | fabric | 0       |
+|   add_ln22_1_fu_244_p2 | -   |        | add_ln22_1 | add | fabric | 0       |
+|   add_ln49_fu_315_p2   | -   |        | add_ln49   | add | fabric | 0       |
+|   add_ln50_fu_429_p2   | -   |        | add_ln50   | add | fabric | 0       |
+|   add_ln52_fu_487_p2   | -   |        | add_ln52   | add | fabric | 0       |
+|   add_ln52_1_fu_497_p2 | -   |        | add_ln52_1 | add | fabric | 0       |
+|   sub_ln53_fu_507_p2   | -   |        | sub_ln53   | sub | fabric | 0       |
+|   neg_fu_554_p2        | -   |        | neg        | sub | fabric | 0       |
+|   neg27_fu_575_p2      | -   |        | neg27      | sub | fabric | 0       |
+|   gradient_fu_596_p2   | -   |        | gradient   | add | fabric | 0       |
+|   add_ln23_fu_343_p2   | -   |        | add_ln23   | add | fabric | 0       |
++------------------------+-----+--------+------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++-----------------+------+------+--------+-------------+---------+------+---------+
+| Name            | BRAM | URAM | Pragma | Variable    | Storage | Impl | Latency |
++-----------------+------+------+--------+-------------+---------+------+---------+
+| + sobel         | 2    | 0    |        |             |         |      |         |
+|   lineBuffer1_U | 1    | -    | yes    | lineBuffer1 | ram_2p  | bram | 1       |
+|   lineBuffer2_U | 1    | -    | yes    | lineBuffer2 | ram_2p  | bram | 1       |
++-----------------+------+------+--------+-------------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Pragmas with Warnings
++----------+---------------------------------------+-----------------------------------------+----------------------------------------------------------------------------+
+| Type     | Options                               | Location                                | Messages                                                                   |
++----------+---------------------------------------+-----------------------------------------+----------------------------------------------------------------------------+
+| resource | variable=lineBuffer1 core=RAM_2P_BRAM | sobel_fast.cpp:14 in sobel, lineBuffer1 | 'Resource pragma' is deprecated, use 'bind_op/bind_storage pragma' instead |
+| resource | variable=lineBuffer2 core=RAM_2P_BRAM | sobel_fast.cpp:16 in sobel, lineBuffer2 | 'Resource pragma' is deprecated, use 'bind_op/bind_storage pragma' instead |
++----------+---------------------------------------+-----------------------------------------+----------------------------------------------------------------------------+
+
+* Valid Pragma Syntax
++-----------------+-------------------------------------+-----------------------------------------+
+| Type            | Options                             | Location                                |
++-----------------+-------------------------------------+-----------------------------------------+
+| array_partition | variable=pixelWindow complete dim=1 | sobel_fast.cpp:18 in sobel, pixelWindow |
+| array_partition | variable=pixelWindow complete dim=2 | sobel_fast.cpp:19 in sobel, pixelWindow |
++-----------------+-------------------------------------+-----------------------------------------+
+
+

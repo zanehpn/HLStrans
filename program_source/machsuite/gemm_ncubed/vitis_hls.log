@@ -1,0 +1,99 @@
+
+****** Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2022.2.2 (64-bit)
+  **** SW Build 3779808 on Feb 17 2023
+  **** IP Build 3783773 on Tue Feb 21 23:41:56 MST 2023
+    ** Copyright 1986-2023 Xilinx, Inc. All Rights Reserved.
+
+source /tools/Xilinx/new/Vitis_HLS/2022.2/scripts/vitis_hls/hls.tcl -notrace
+INFO: [HLS 200-10] Running '/tools/Xilinx/new/Vitis_HLS/2022.2/bin/unwrapped/lnx64.o/vitis_hls'
+INFO: [HLS 200-10] For user 'zqy' on host 'hacchead' (Linux_x86_64 version 5.15.0-134-generic) on Fri Apr 04 11:05:28 CST 2025
+INFO: [HLS 200-10] On os Ubuntu 20.04.6 LTS
+INFO: [HLS 200-10] In directory '/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/gemm_ncubed'
+Sourcing Tcl script 'hls_template.tcl'
+INFO: [HLS 200-1510] Running: open_project -reset hls_prj 
+INFO: [HLS 200-10] Creating and opening project '/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/gemm_ncubed/hls_prj'.
+INFO: [HLS 200-1510] Running: set_top gemm 
+INFO: [HLS 200-1510] Running: add_files gemm.c 
+INFO: [HLS 200-10] Adding design file 'gemm.c' to the project
+INFO: [HLS 200-1510] Running: add_files gemm.h 
+INFO: [HLS 200-10] Adding design file 'gemm.h' to the project
+INFO: [HLS 200-1510] Running: open_solution -reset solution 
+INFO: [HLS 200-10] Creating and opening solution '/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/gemm_ncubed/hls_prj/solution'.
+INFO: [HLS 200-10] Cleaning up the solution database.
+INFO: [HLS 200-1505] Using default flow_target 'vivado'
+Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=200-1505.html
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vivado' configuration: config_interface -m_axi_latency=0
+INFO: [HLS 200-1510] Running: set_part xcu55c-fsvh2892-2L-e 
+INFO: [HLS 200-1611] Setting target device to 'xcu55c-fsvh2892-2L-e'
+INFO: [HLS 200-1510] Running: create_clock -period 5 -name default 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 5ns.
+INFO: [HLS 200-1510] Running: csynth_design 
+Running Dispatch Server on port: 46097
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.02 seconds. CPU system time: 0.06 seconds. Elapsed time: 10.11 seconds; current allocated memory: 1.196 GB.
+INFO: [HLS 200-10] Analyzing design file 'gemm.c' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 0.44 seconds. CPU system time: 1.05 seconds. Elapsed time: 3.28 seconds; current allocated memory: 1.198 GB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 3.83 seconds. CPU system time: 1.23 seconds. Elapsed time: 6.97 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.03 seconds. CPU system time: 0 seconds. Elapsed time: 0.35 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.01 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.21 seconds; current allocated memory: 1.200 GB.
+INFO: [XFORM 203-510] Pipelining loop 'middle' (gemm.c:11) in function 'gemm' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'middle' (gemm.c:11) in function 'gemm' for pipelining.
+INFO: [HLS 200-489] Unrolling loop 'inner' (gemm.c:4) in function 'gemm' completely with a factor of 64.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.14 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.59 seconds; current allocated memory: 1.224 GB.
+INFO: [XFORM 203-541] Flattening a loop nest 'outer' (gemm.c:4:9) in function 'gemm'.
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.16 seconds. CPU system time: 0 seconds. Elapsed time: 0.29 seconds; current allocated memory: 1.224 GB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'gemm' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'gemm' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'outer_middle'.
+WARNING: [HLS 200-885] The II Violation in module 'gemm' (loop 'outer_middle'): Unable to schedule 'load' operation ('m1_load_1', gemm.c:4) on array 'm1' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'm1'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'gemm' (loop 'outer_middle'): Unable to schedule 'load' operation ('m1_load_3', gemm.c:4) on array 'm1' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'm1'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'gemm' (loop 'outer_middle'): Unable to schedule 'load' operation ('m1_load_5', gemm.c:4) on array 'm1' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'm1'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'gemm' (loop 'outer_middle'): Unable to schedule 'load' operation ('m1_load_7', gemm.c:4) on array 'm1' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'm1'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'gemm' (loop 'outer_middle'): Unable to schedule 'load' operation ('m1_load_37', gemm.c:4) on array 'm1' due to limited memory ports (II = 19). Please consider using a memory core with more ports or partitioning the array 'm1'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'gemm' (loop 'outer_middle'): Unable to schedule 'load' operation ('m1_load_53', gemm.c:4) on array 'm1' due to limited memory ports (II = 27). Please consider using a memory core with more ports or partitioning the array 'm1'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'gemm' (loop 'outer_middle'): Unable to schedule 'load' operation ('m1_load_61', gemm.c:4) on array 'm1' due to limited memory ports (II = 31). Please consider using a memory core with more ports or partitioning the array 'm1'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 32, Depth = 328, loop 'outer_middle'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 2.58 seconds. CPU system time: 0.13 seconds. Elapsed time: 3.98 seconds; current allocated memory: 1.224 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 2.37 seconds. CPU system time: 0.02 seconds. Elapsed time: 2.96 seconds; current allocated memory: 1.225 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'gemm' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-500] Setting interface mode on port 'gemm/m1' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'gemm/m2' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'gemm/prod' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'gemm' to 'ap_ctrl_hs'.
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'gemm' pipeline 'outer_middle' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'dadd_64ns_64ns_64_5_full_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dmul_64ns_64ns_64_5_max_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'gemm'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 1.37 seconds. CPU system time: 0.02 seconds. Elapsed time: 2.9 seconds; current allocated memory: 1.233 GB.
+INFO: [HLS 200-111] Finished Generating all RTL models: CPU user time: 2.74 seconds. CPU system time: 0.09 seconds. Elapsed time: 6.64 seconds; current allocated memory: 1.247 GB.
+INFO: [HLS 200-111] Finished Updating report files: CPU user time: 0.34 seconds. CPU system time: 0.04 seconds. Elapsed time: 1.31 seconds; current allocated memory: 1.250 GB.
+INFO: [VHDL 208-304] Generating VHDL RTL for gemm.
+INFO: [VLOG 209-307] Generating Verilog RTL for gemm.
+INFO: [HLS 200-790] **** Loop Constraint Status: All loop constraints were NOT satisfied.
+INFO: [HLS 200-789] **** Estimated Fmax: 277.65 MHz
+INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 14.06 seconds. CPU system time: 2.61 seconds. Elapsed time: 30.59 seconds; current allocated memory: 55.211 MB.
+INFO: [HLS 200-1510] Running: close_project 
+INFO: [HLS 200-112] Total CPU user time: 17.82 seconds. Total CPU system time: 4.56 seconds. Total elapsed time: 47.67 seconds; peak allocated memory: 1.250 GB.
+INFO: [Common 17-206] Exiting vitis_hls at Fri Apr  4 11:06:15 2025...

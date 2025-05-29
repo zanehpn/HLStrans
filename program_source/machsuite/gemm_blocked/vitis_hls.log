@@ -1,0 +1,98 @@
+
+****** Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2022.2.2 (64-bit)
+  **** SW Build 3779808 on Feb 17 2023
+  **** IP Build 3783773 on Tue Feb 21 23:41:56 MST 2023
+    ** Copyright 1986-2023 Xilinx, Inc. All Rights Reserved.
+
+source /tools/Xilinx/new/Vitis_HLS/2022.2/scripts/vitis_hls/hls.tcl -notrace
+INFO: [HLS 200-10] Running '/tools/Xilinx/new/Vitis_HLS/2022.2/bin/unwrapped/lnx64.o/vitis_hls'
+INFO: [HLS 200-10] For user 'zqy' on host 'hacc-gpu1' (Linux_x86_64 version 5.4.0-208-generic) on Fri Apr 04 02:23:17 UTC 2025
+INFO: [HLS 200-10] On os Ubuntu 20.04.6 LTS
+INFO: [HLS 200-10] In directory '/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/gemm_blocked'
+Sourcing Tcl script 'hls_template.tcl'
+INFO: [HLS 200-1510] Running: open_project -reset hls_prj 
+INFO: [HLS 200-10] Creating and opening project '/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/gemm_blocked/hls_prj'.
+INFO: [HLS 200-1510] Running: set_top bbgemm 
+INFO: [HLS 200-1510] Running: add_files gemm.c 
+INFO: [HLS 200-10] Adding design file 'gemm.c' to the project
+INFO: [HLS 200-1510] Running: add_files gemm.h 
+INFO: [HLS 200-10] Adding design file 'gemm.h' to the project
+INFO: [HLS 200-1510] Running: open_solution -reset solution 
+INFO: [HLS 200-10] Creating and opening solution '/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/gemm_blocked/hls_prj/solution'.
+INFO: [HLS 200-10] Cleaning up the solution database.
+INFO: [HLS 200-1505] Using default flow_target 'vivado'
+Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=200-1505.html
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vivado' configuration: config_interface -m_axi_latency=0
+INFO: [HLS 200-1510] Running: set_part xcu55c-fsvh2892-2L-e 
+INFO: [HLS 200-1611] Setting target device to 'xcu55c-fsvh2892-2L-e'
+INFO: [HLS 200-1510] Running: create_clock -period 5 -name default 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 5ns.
+INFO: [HLS 200-1510] Running: csynth_design 
+Running Dispatch Server on port: 40661
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0.02 seconds. Elapsed time: 10.06 seconds; current allocated memory: 1.196 GB.
+INFO: [HLS 200-10] Analyzing design file 'gemm.c' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 0.22 seconds. CPU system time: 0.36 seconds. Elapsed time: 0.71 seconds; current allocated memory: 1.198 GB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 2.02 seconds. CPU system time: 0.45 seconds. Elapsed time: 3 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.03 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.02 seconds; current allocated memory: 1.200 GB.
+INFO: [XFORM 203-510] Pipelining loop 'loopk' (gemm.c:11) in function 'bbgemm' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'loopk' (gemm.c:11) in function 'bbgemm' for pipelining.
+INFO: [HLS 200-489] Unrolling loop 'loopj' (gemm.c:11) in function 'bbgemm' completely with a factor of 8.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.04 seconds. CPU system time: 0 seconds. Elapsed time: 0.05 seconds; current allocated memory: 1.221 GB.
+INFO: [XFORM 203-541] Flattening a loop nest 'loopi' (gemm.c:11:9) in function 'bbgemm'.
+INFO: [XFORM 203-541] Flattening a loop nest 'loopkk' (gemm.c:11:22) in function 'bbgemm'.
+INFO: [XFORM 203-541] Flattening a loop nest 'loopjj' (gemm.c:11:18) in function 'bbgemm'.
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.03 seconds. CPU system time: 0 seconds. Elapsed time: 0.03 seconds; current allocated memory: 1.219 GB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'bbgemm' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'bbgemm' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'loopjj_loopi_loopk'.
+WARNING: [HLS 200-880] The II Violation in module 'bbgemm' (loop 'loopjj_loopi_loopk'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between 'store' operation ('prod_addr_write_ln24', gemm.c:24) of variable 'bitcast_ln24_1', gemm.c:24 on array 'prod' and 'load' operation ('prod_load', gemm.c:24) on array 'prod'.
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'bbgemm' (loop 'loopjj_loopi_loopk'): Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 1) between 'store' operation ('prod_addr_write_ln24', gemm.c:24) of variable 'bitcast_ln24_1', gemm.c:24 on array 'prod' and 'load' operation ('prod_load', gemm.c:24) on array 'prod'.
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'bbgemm' (loop 'loopjj_loopi_loopk'): Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 1) between 'store' operation ('prod_addr_write_ln24', gemm.c:24) of variable 'bitcast_ln24_1', gemm.c:24 on array 'prod' and 'load' operation ('prod_load', gemm.c:24) on array 'prod'.
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'bbgemm' (loop 'loopjj_loopi_loopk'): Unable to enforce a carried dependence constraint (II = 4, distance = 1, offset = 1) between 'store' operation ('prod_addr_write_ln24', gemm.c:24) of variable 'bitcast_ln24_1', gemm.c:24 on array 'prod' and 'load' operation ('prod_load', gemm.c:24) on array 'prod'.
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'bbgemm' (loop 'loopjj_loopi_loopk'): Unable to enforce a carried dependence constraint (II = 7, distance = 1, offset = 1) between 'store' operation ('prod_addr_write_ln24', gemm.c:24) of variable 'bitcast_ln24_1', gemm.c:24 on array 'prod' and 'load' operation ('prod_load', gemm.c:24) on array 'prod'.
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=200-880.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 8, Depth = 21, loop 'loopjj_loopi_loopk'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.32 seconds. CPU system time: 0.05 seconds. Elapsed time: 0.47 seconds; current allocated memory: 1.222 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.24 seconds. CPU system time: 0 seconds. Elapsed time: 0.27 seconds; current allocated memory: 1.222 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'bbgemm' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-500] Setting interface mode on port 'bbgemm/m1' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'bbgemm/m2' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'bbgemm/prod' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'bbgemm' to 'ap_ctrl_hs'.
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'bbgemm' pipeline 'loopjj_loopi_loopk' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'dadd_64ns_64ns_64_5_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dmul_64ns_64ns_64_5_max_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'bbgemm'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.26 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.31 seconds; current allocated memory: 1.222 GB.
+INFO: [HLS 200-111] Finished Generating all RTL models: CPU user time: 0.7 seconds. CPU system time: 0.04 seconds. Elapsed time: 0.81 seconds; current allocated memory: 1.228 GB.
+INFO: [HLS 200-111] Finished Updating report files: CPU user time: 0.18 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.22 seconds; current allocated memory: 1.230 GB.
+INFO: [VHDL 208-304] Generating VHDL RTL for bbgemm.
+INFO: [VLOG 209-307] Generating Verilog RTL for bbgemm.
+INFO: [HLS 200-790] **** Loop Constraint Status: All loop constraints were NOT satisfied.
+INFO: [HLS 200-789] **** Estimated Fmax: 276.32 MHz
+INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 4.03 seconds. CPU system time: 0.94 seconds. Elapsed time: 5.96 seconds; current allocated memory: 34.773 MB.
+INFO: [HLS 200-1510] Running: close_project 
+[2Kvitis_hls> [11C[2Kvitis_hls> e[12C[2Kvitis_hls> ex[13C[2Kvitis_hls> exi[14C[2Kvitis_hls> exit[15C
+INFO: [HLS 200-112] Total CPU user time: 6.52 seconds. Total CPU system time: 1.59 seconds. Total elapsed time: 475.58 seconds; peak allocated memory: 1.230 GB.
+INFO: [Common 17-206] Exiting vitis_hls at Fri Apr  4 02:31:12 2025...

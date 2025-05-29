@@ -1,0 +1,148 @@
+
+
+================================================================
+== Synthesis Summary Report of 'mac_accel'
+================================================================
++ General Information: 
+    * Date:           Wed May  7 11:38:27 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        mac_accel
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +-----------------------------------------------------------------------+------+------+---------+--------+----------+---------+------+----------+---------+----------+------------+------------+-----+
+    |                                Modules                                | Issue|      | Latency | Latency| Iteration|         | Trip |          |         |          |            |            |     |
+    |                                & Loops                                | Type | Slack| (cycles)|  (ns)  |  Latency | Interval| Count| Pipelined|  BRAM   |    DSP   |     FF     |     LUT    | URAM|
+    +-----------------------------------------------------------------------+------+------+---------+--------+----------+---------+------+----------+---------+----------+------------+------------+-----+
+    |+ mac_accel                                                            |     -|  0.04|        -|       -|         -|        -|     -|        no|  3 (~0%)|  19 (~0%)|  1363 (~0%)|  2254 (~0%)|    -|
+    | + mac_accel_Pipeline_VITIS_LOOP_18_1_VITIS_LOOP_19_2                  |     -|  0.45|        -|       -|         -|        -|     -|        no|        -|         -|   105 (~0%)|   295 (~0%)|    -|
+    |  o VITIS_LOOP_18_1_VITIS_LOOP_19_2                                    |     -|  3.65|        -|       -|         1|        1|     -|       yes|        -|         -|           -|           -|    -|
+    | + mac_accel_Pipeline_VITIS_LOOP_26_3_VITIS_LOOP_27_4                  |     -|  0.45|        -|       -|         -|        -|     -|        no|        -|         -|   105 (~0%)|   295 (~0%)|    -|
+    |  o VITIS_LOOP_26_3_VITIS_LOOP_27_4                                    |     -|  3.65|        -|       -|         1|        1|     -|       yes|        -|         -|           -|           -|    -|
+    | + mac_accel_Pipeline_VITIS_LOOP_32_5_VITIS_LOOP_33_6_VITIS_LOOP_34_7  |     -|  0.18|        -|       -|         -|        -|     -|        no|        -|   3 (~0%)|   362 (~0%)|   832 (~0%)|    -|
+    |  o VITIS_LOOP_32_5_VITIS_LOOP_33_6_VITIS_LOOP_34_7                    |     -|  3.65|        -|       -|         5|        1|     -|       yes|        -|         -|           -|           -|    -|
+    | + mac_accel_Pipeline_VITIS_LOOP_44_8_VITIS_LOOP_45_9                  |     -|  0.49|        -|       -|         -|        -|     -|        no|        -|         -|   130 (~0%)|   352 (~0%)|    -|
+    |  o VITIS_LOOP_44_8_VITIS_LOOP_45_9                                    |     -|  3.65|        -|       -|         2|        1|     -|       yes|        -|         -|           -|           -|    -|
+    +-----------------------------------------------------------------------+------+------+---------+--------+----------+---------+------+----------+---------+----------+------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* Other Ports
++-----------+---------+----------+
+| Interface | Mode    | Bitwidth |
++-----------+---------+----------+
+| a         | ap_none | 32       |
+| a_col     | ap_none | 32       |
+| a_row     | ap_none | 32       |
+| b         | ap_none | 32       |
+| b_col     | ap_none | 32       |
+| c         | ap_vld  | 32       |
++-----------+---------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+-------------+
+| Argument | Direction | Datatype    |
++----------+-----------+-------------+
+| a        | in        | int const * |
+| b        | in        | int const * |
+| c        | out       | int*        |
+| a_row    | in        | int         |
+| a_col    | in        | int         |
+| b_col    | in        | int         |
++----------+-----------+-------------+
+
+* SW-to-HW Mapping
++----------+--------------+---------+
+| Argument | HW Interface | HW Type |
++----------+--------------+---------+
+| a        | a            | port    |
+| b        | b            | port    |
+| c        | c            | port    |
+| c        | c_ap_vld     | port    |
+| a_row    | a_row        | port    |
+| a_col    | a_col        | port    |
+| b_col    | b_col        | port    |
++----------+--------------+---------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++-----------------------------------------------------------------------+-----+--------+------------+-----+--------+---------+
+| Name                                                                  | DSP | Pragma | Variable   | Op  | Impl   | Latency |
++-----------------------------------------------------------------------+-----+--------+------------+-----+--------+---------+
+| + mac_accel                                                           | 19  |        |            |     |        |         |
+|   mul_31ns_32ns_63_1_1_U23                                            | 3   |        | mul_ln18   | mul | auto   | 0       |
+|   mul_31ns_32ns_63_1_1_U24                                            | 3   |        | mul_ln26   | mul | auto   | 0       |
+|   mul_32ns_32ns_64_1_1_U25                                            | 3   |        | mul_ln32   | mul | auto   | 0       |
+|   mul_32ns_64ns_96_2_1_U26                                            | 7   |        | mul_ln32_1 | mul | auto   | 1       |
+|  + mac_accel_Pipeline_VITIS_LOOP_18_1_VITIS_LOOP_19_2                 | 0   |        |            |     |        |         |
+|    add_ln18_1_fu_151_p2                                               | -   |        | add_ln18_1 | add | fabric | 0       |
+|    add_ln18_fu_160_p2                                                 | -   |        | add_ln18   | add | fabric | 0       |
+|    add_ln19_fu_224_p2                                                 | -   |        | add_ln19   | add | fabric | 0       |
+|  + mac_accel_Pipeline_VITIS_LOOP_26_3_VITIS_LOOP_27_4                 | 0   |        |            |     |        |         |
+|    add_ln26_1_fu_121_p2                                               | -   |        | add_ln26_1 | add | fabric | 0       |
+|    add_ln26_fu_130_p2                                                 | -   |        | add_ln26   | add | fabric | 0       |
+|    add_ln27_fu_193_p2                                                 | -   |        | add_ln27   | add | fabric | 0       |
+|  + mac_accel_Pipeline_VITIS_LOOP_32_5_VITIS_LOOP_33_6_VITIS_LOOP_34_7 | 3   |        |            |     |        |         |
+|    add_ln32_1_fu_184_p2                                               | -   |        | add_ln32_1 | add | fabric | 0       |
+|    add_ln32_fu_280_p2                                                 | -   |        | add_ln32   | add | fabric | 0       |
+|    add_ln33_fu_358_p2                                                 | -   |        | add_ln33   | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U10                                             | 3   |        | mul_ln38   | mul | auto   | 0       |
+|    localC_d0                                                          | -   |        | add_ln38   | add | fabric | 0       |
+|    add_ln34_fu_476_p2                                                 | -   |        | add_ln34   | add | fabric | 0       |
+|    add_ln33_1_fu_198_p2                                               | -   |        | add_ln33_1 | add | fabric | 0       |
+|  + mac_accel_Pipeline_VITIS_LOOP_44_8_VITIS_LOOP_45_9                 | 0   |        |            |     |        |         |
+|    add_ln44_1_fu_126_p2                                               | -   |        | add_ln44_1 | add | fabric | 0       |
+|    add_ln44_fu_135_p2                                                 | -   |        | add_ln44   | add | fabric | 0       |
+|    add_ln45_fu_202_p2                                                 | -   |        | add_ln45   | add | fabric | 0       |
++-----------------------------------------------------------------------+-----+--------+------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++-------------+------+------+--------+----------+---------+------+---------+
+| Name        | BRAM | URAM | Pragma | Variable | Storage | Impl | Latency |
++-------------+------+------+--------+----------+---------+------+---------+
+| + mac_accel | 3    | 0    |        |          |         |      |         |
+|   localA_U  | 1    | -    |        | localA   | ram_1p  | auto | 1       |
+|   localB_U  | 1    | -    |        | localB   | ram_1p  | auto | 1       |
+|   localC_U  | 1    | -    |        | localC   | ram_s2p | auto | 1       |
++-------------+------+------+--------+----------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++----------------+---------------------------------------------+------------------------------------+
+| Type           | Options                                     | Location                           |
++----------------+---------------------------------------------+------------------------------------+
+| loop_tripcount | min=c_dim*c_dim max=c_dim*c_dim             | mac_accel_slow.cpp:20 in mac_accel |
+| loop_tripcount | min=c_dim max=c_dim                         | mac_accel_slow.cpp:28 in mac_accel |
+| loop_tripcount | min=c_dim*c_dim*c_dim max=c_dim*c_dim*c_dim | mac_accel_slow.cpp:35 in mac_accel |
+| loop_tripcount | min=c_dim*c_dim max=c_dim*c_dim             | mac_accel_slow.cpp:46 in mac_accel |
++----------------+---------------------------------------------+------------------------------------+
+
+

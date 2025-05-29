@@ -1,0 +1,224 @@
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2022.2.2 (64-bit)
+Tool Version Limit: 2019.12
+Copyright 1986-2023 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [HLS 200-1505] Using default flow_target 'vivado'
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vivado' configuration: config_interface -m_axi_latency=0
+INFO: [HLS 200-1510] Running: set_part xcu55c-fsvh2892-2L-e 
+INFO: [HLS 200-1611] Setting target device to 'xcu55c-fsvh2892-2L-e'
+INFO: [HLS 200-1510] Running: create_clock -period 5 -name default 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 5ns.
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0 seconds. CPU system time: 0.02 seconds. Elapsed time: 10.06 seconds; current allocated memory: 1.196 GB.
+INFO: [HLS 200-10] Analyzing design file 'aes_table.c' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 0.25 seconds. CPU system time: 0.53 seconds. Elapsed time: 0.84 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-178] Inlining function 'rj_xtime' into 'aes_mixColumns' (aes_table.c:92:0)
+INFO: [HLS 214-178] Inlining function 'aes_addRoundKey_cpy' into 'aes256_encrypt_ecb' (aes_table.c:129:0)
+INFO: [HLS 214-178] Inlining function 'aes_subBytes' into 'aes256_encrypt_ecb' (aes_table.c:129:0)
+INFO: [HLS 214-178] Inlining function 'aes_shiftRows' into 'aes256_encrypt_ecb' (aes_table.c:129:0)
+INFO: [HLS 214-178] Inlining function 'aes_mixColumns' into 'aes256_encrypt_ecb' (aes_table.c:129:0)
+INFO: [HLS 214-178] Inlining function 'aes_addRoundKey' into 'aes256_encrypt_ecb' (aes_table.c:129:0)
+INFO: [HLS 214-241] Aggregating scalar variable 'ctx' with compact=bit mode in 768-bits (aes_table.c:129:0)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 2.98 seconds. CPU system time: 0.68 seconds. Elapsed time: 3.75 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.04 seconds. CPU system time: 0 seconds. Elapsed time: 0.04 seconds; current allocated memory: 1.200 GB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.03 seconds. CPU system time: 0 seconds. Elapsed time: 0.03 seconds; current allocated memory: 1.200 GB.
+INFO: [XFORM 203-510] Pipelining loop 'ecb1' (aes_table.c:132) in function 'aes256_encrypt_ecb' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'ecb2' (aes_table.c:138) in function 'aes256_encrypt_ecb' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'cpkey' (aes_table.c:74) in function 'aes256_encrypt_ecb' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'ecb3' (aes_table.c:132) in function 'aes256_encrypt_ecb' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'sub' (aes_table.c:58) in function 'aes256_encrypt_ecb' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'addkey' (aes_table.c:66) in function 'aes256_encrypt_ecb' automatically.
+INFO: [XFORM 203-502] Unrolling all loops for pipelining in function 'aes_expandEncKey' (aes_table.c:105).
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'ecb3' (aes_table.c:132) in function 'aes256_encrypt_ecb' for pipelining.
+INFO: [HLS 200-489] Unrolling loop 'exp1' (aes_table.c:107) in function 'aes_expandEncKey' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'exp2' (aes_table.c:107) in function 'aes_expandEncKey' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'sub' (aes_table.c:58) in function 'aes256_encrypt_ecb' completely with a factor of 15.
+INFO: [HLS 200-489] Unrolling loop 'mix' (aes_table.c:93) in function 'aes256_encrypt_ecb' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'addkey' (aes_table.c:66) in function 'aes256_encrypt_ecb' completely with a factor of 15.
+INFO: [XFORM 203-11] Balancing expressions in function 'aes256_encrypt_ecb' (aes_table.c:50:1)...3 expression(s) balanced.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.19 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.22 seconds; current allocated memory: 1.226 GB.
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.26 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.29 seconds; current allocated memory: 1.294 GB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'aes256_encrypt_ecb' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'aes256_encrypt_ecb_Pipeline_ecb1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'ecb1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 2, loop 'ecb1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.06 seconds. CPU system time: 0.05 seconds. Elapsed time: 0.12 seconds; current allocated memory: 1.295 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.04 seconds. CPU system time: 0 seconds. Elapsed time: 0.05 seconds; current allocated memory: 1.295 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'aes_expandEncKey' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining function 'aes_expandEncKey'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 28, function 'aes_expandEncKey'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.65 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.8 seconds; current allocated memory: 1.304 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.62 seconds. CPU system time: 0 seconds. Elapsed time: 0.99 seconds; current allocated memory: 1.304 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'aes256_encrypt_ecb_Pipeline_ecb2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'ecb2'.
+WARNING: [HLS 200-880] The II Violation in module 'aes256_encrypt_ecb_Pipeline_ecb2' (loop 'ecb2'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 0) between 'store' operation ('rcon_2_write_ln137', aes_table.c:137) of variable 'rcon', aes_table.c:138 on local variable 'rcon' and 'load' operation ('rcon_2_load', aes_table.c:138) on local variable 'rcon'.
+WARNING: [HLS 200-880] The II Violation in module 'aes256_encrypt_ecb_Pipeline_ecb2' (loop 'ecb2'): Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 0) between 'store' operation ('rcon_2_write_ln137', aes_table.c:137) of variable 'rcon', aes_table.c:138 on local variable 'rcon' and 'load' operation ('rcon_2_load', aes_table.c:138) on local variable 'rcon'.
+WARNING: [HLS 200-880] The II Violation in module 'aes256_encrypt_ecb_Pipeline_ecb2' (loop 'ecb2'): Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 0) between 'store' operation ('rcon_2_write_ln137', aes_table.c:137) of variable 'rcon', aes_table.c:138 on local variable 'rcon' and 'load' operation ('rcon_2_load', aes_table.c:138) on local variable 'rcon'.
+WARNING: [HLS 200-880] The II Violation in module 'aes256_encrypt_ecb_Pipeline_ecb2' (loop 'ecb2'): Unable to enforce a carried dependence constraint (II = 4, distance = 1, offset = 0) between 'store' operation ('rcon_2_write_ln137', aes_table.c:137) of variable 'rcon', aes_table.c:138 on local variable 'rcon' and 'load' operation ('rcon_2_load', aes_table.c:138) on local variable 'rcon'.
+WARNING: [HLS 200-880] The II Violation in module 'aes256_encrypt_ecb_Pipeline_ecb2' (loop 'ecb2'): Unable to enforce a carried dependence constraint (II = 19, distance = 1, offset = 0) between 'store' operation ('rcon_2_write_ln137', aes_table.c:137) of variable 'rcon', aes_table.c:138 on local variable 'rcon' and 'load' operation ('rcon_2_load', aes_table.c:138) on local variable 'rcon'.
+WARNING: [HLS 200-880] The II Violation in module 'aes256_encrypt_ecb_Pipeline_ecb2' (loop 'ecb2'): Unable to enforce a carried dependence constraint (II = 23, distance = 1, offset = 0) between 'store' operation ('rcon_2_write_ln137', aes_table.c:137) of variable 'rcon', aes_table.c:138 on local variable 'rcon' and 'load' operation ('rcon_2_load', aes_table.c:138) on local variable 'rcon'.
+WARNING: [HLS 200-880] The II Violation in module 'aes256_encrypt_ecb_Pipeline_ecb2' (loop 'ecb2'): Unable to enforce a carried dependence constraint (II = 25, distance = 1, offset = 0) between 'store' operation ('rcon_2_write_ln137', aes_table.c:137) of variable 'rcon', aes_table.c:138 on local variable 'rcon' and 'load' operation ('rcon_2_load', aes_table.c:138) on local variable 'rcon'.
+WARNING: [HLS 200-880] The II Violation in module 'aes256_encrypt_ecb_Pipeline_ecb2' (loop 'ecb2'): Unable to enforce a carried dependence constraint (II = 26, distance = 1, offset = 0) between 'store' operation ('rcon_2_write_ln137', aes_table.c:137) of variable 'rcon', aes_table.c:138 on local variable 'rcon' and 'load' operation ('rcon_2_load', aes_table.c:138) on local variable 'rcon'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 27, Depth = 29, loop 'ecb2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 1.1 seconds. CPU system time: 0.01 seconds. Elapsed time: 1.39 seconds; current allocated memory: 1.304 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.39 seconds. CPU system time: 0 seconds. Elapsed time: 0.45 seconds; current allocated memory: 1.304 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'aes256_encrypt_ecb_Pipeline_cpkey' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'cpkey'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 3, loop 'cpkey'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.84 seconds. CPU system time: 0 seconds. Elapsed time: 0.86 seconds; current allocated memory: 1.304 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.04 seconds. CPU system time: 0 seconds. Elapsed time: 0.06 seconds; current allocated memory: 1.304 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'aes256_encrypt_ecb_Pipeline_ecb3' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'ecb3'.
+WARNING: [HLS 200-880] The II Violation in module 'aes256_encrypt_ecb_Pipeline_ecb3' (loop 'ecb3'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between 'store' operation ('buf_r_addr_write_ln99', aes_table.c:99) of variable 'xor_ln99_2', aes_table.c:99 on array 'buf_r' and 'load' operation ('buf_r_load_14', aes_table.c:58) on array 'buf_r'.
+WARNING: [HLS 200-880] The II Violation in module 'aes256_encrypt_ecb_Pipeline_ecb3' (loop 'ecb3'): Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 1) between 'store' operation ('buf_r_addr_write_ln66', aes_table.c:66) of variable 'xor_ln66_15', aes_table.c:66 on array 'buf_r' and 'load' operation ('buf_r_load_14', aes_table.c:58) on array 'buf_r'.
+WARNING: [HLS 200-880] The II Violation in module 'aes256_encrypt_ecb_Pipeline_ecb3' (loop 'ecb3'): Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 1) between 'store' operation ('buf_r_addr_3_write_ln66', aes_table.c:66) of variable 'xor_ln66_12', aes_table.c:66 on array 'buf_r' and 'load' operation ('buf_r_load_11', aes_table.c:58) on array 'buf_r'.
+WARNING: [HLS 200-880] The II Violation in module 'aes256_encrypt_ecb_Pipeline_ecb3' (loop 'ecb3'): Unable to enforce a carried dependence constraint (II = 4, distance = 1, offset = 0) between 'store' operation ('ctx10_write_ln149', aes_table.c:149) of variable 'ctx_ret1', aes_table.c:149 on local variable 'ctx10' and 'load' operation ('ctx10_load_1', aes_table.c:66) on local variable 'ctx10'.
+WARNING: [HLS 200-880] The II Violation in module 'aes256_encrypt_ecb_Pipeline_ecb3' (loop 'ecb3'): Unable to enforce a carried dependence constraint (II = 19, distance = 1, offset = 0) between 'store' operation ('ctx10_write_ln149', aes_table.c:149) of variable 'ctx_ret1', aes_table.c:149 on local variable 'ctx10' and 'load' operation ('ctx10_load_1', aes_table.c:66) on local variable 'ctx10'.
+WARNING: [HLS 200-880] The II Violation in module 'aes256_encrypt_ecb_Pipeline_ecb3' (loop 'ecb3'): Unable to enforce a carried dependence constraint (II = 23, distance = 1, offset = 0) between 'store' operation ('ctx10_write_ln149', aes_table.c:149) of variable 'ctx_ret1', aes_table.c:149 on local variable 'ctx10' and 'load' operation ('ctx10_load_1', aes_table.c:66) on local variable 'ctx10'.
+WARNING: [HLS 200-880] The II Violation in module 'aes256_encrypt_ecb_Pipeline_ecb3' (loop 'ecb3'): Unable to enforce a carried dependence constraint (II = 25, distance = 1, offset = 0) between 'store' operation ('ctx10_write_ln149', aes_table.c:149) of variable 'ctx_ret1', aes_table.c:149 on local variable 'ctx10' and 'load' operation ('ctx10_load_1', aes_table.c:66) on local variable 'ctx10'.
+WARNING: [HLS 200-880] The II Violation in module 'aes256_encrypt_ecb_Pipeline_ecb3' (loop 'ecb3'): Unable to enforce a carried dependence constraint (II = 26, distance = 1, offset = 0) between 'store' operation ('ctx10_write_ln149', aes_table.c:149) of variable 'ctx_ret1', aes_table.c:149 on local variable 'ctx10' and 'load' operation ('ctx10_load_1', aes_table.c:66) on local variable 'ctx10'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 27, Depth = 40, loop 'ecb3'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 1.2 seconds. CPU system time: 0 seconds. Elapsed time: 1.4 seconds; current allocated memory: 1.304 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.79 seconds. CPU system time: 0 seconds. Elapsed time: 1.08 seconds; current allocated memory: 1.304 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'aes256_encrypt_ecb_Pipeline_sub' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'sub'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 3, loop 'sub'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 1.29 seconds. CPU system time: 0 seconds. Elapsed time: 1.65 seconds; current allocated memory: 1.304 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.03 seconds. CPU system time: 0 seconds. Elapsed time: 0.07 seconds; current allocated memory: 1.304 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'aes256_encrypt_ecb_Pipeline_addkey' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'addkey'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 2, loop 'addkey'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.05 seconds. CPU system time: 0 seconds. Elapsed time: 0.1 seconds; current allocated memory: 1.304 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.03 seconds. CPU system time: 0 seconds. Elapsed time: 0.05 seconds; current allocated memory: 1.304 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'aes256_encrypt_ecb' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.15 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.28 seconds; current allocated memory: 1.304 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 1.12 seconds. CPU system time: 0 seconds. Elapsed time: 1.18 seconds; current allocated memory: 1.305 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'aes256_encrypt_ecb_Pipeline_ecb1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'aes256_encrypt_ecb_Pipeline_ecb1' pipeline 'ecb1' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Finished creating RTL model for 'aes256_encrypt_ecb_Pipeline_ecb1'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 2.7 seconds. CPU system time: 0.01 seconds. Elapsed time: 2.74 seconds; current allocated memory: 1.305 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'aes_expandEncKey' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'aes_expandEncKey' pipeline 'aes_expandEncKey' pipeline type 'function pipeline'
+INFO: [RTGEN 206-104] Estimated max fanout for 'aes_expandEncKey' is 201145 from HDL expression: ((1'b1 == ap_ce) & (1'b0 == ap_block_pp0_stage0_11001))
+INFO: [RTGEN 206-100] Finished creating RTL model for 'aes_expandEncKey'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.43 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.46 seconds; current allocated memory: 1.311 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'aes256_encrypt_ecb_Pipeline_ecb2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'aes256_encrypt_ecb_Pipeline_ecb2' pipeline 'ecb2' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Finished creating RTL model for 'aes256_encrypt_ecb_Pipeline_ecb2'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 2.63 seconds. CPU system time: 0.04 seconds. Elapsed time: 2.88 seconds; current allocated memory: 1.326 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'aes256_encrypt_ecb_Pipeline_cpkey' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'aes256_encrypt_ecb_Pipeline_cpkey' pipeline 'cpkey' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Finished creating RTL model for 'aes256_encrypt_ecb_Pipeline_cpkey'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.85 seconds. CPU system time: 0 seconds. Elapsed time: 0.86 seconds; current allocated memory: 1.326 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'aes256_encrypt_ecb_Pipeline_ecb3' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'aes256_encrypt_ecb_Pipeline_ecb3' pipeline 'ecb3' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Finished creating RTL model for 'aes256_encrypt_ecb_Pipeline_ecb3'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.22 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.26 seconds; current allocated memory: 1.328 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'aes256_encrypt_ecb_Pipeline_sub' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'aes256_encrypt_ecb_Pipeline_sub' pipeline 'sub' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Finished creating RTL model for 'aes256_encrypt_ecb_Pipeline_sub'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 1.75 seconds. CPU system time: 0.03 seconds. Elapsed time: 1.81 seconds; current allocated memory: 1.336 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'aes256_encrypt_ecb_Pipeline_addkey' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'aes256_encrypt_ecb_Pipeline_addkey' pipeline 'addkey' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Finished creating RTL model for 'aes256_encrypt_ecb_Pipeline_addkey'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.06 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.07 seconds; current allocated memory: 1.338 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'aes256_encrypt_ecb' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-500] Setting interface mode on port 'aes256_encrypt_ecb/ctx' to 'ap_ovld'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'aes256_encrypt_ecb/k' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'aes256_encrypt_ecb/buf_r' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'aes256_encrypt_ecb' to 'ap_ctrl_hs'.
+INFO: [RTGEN 206-100] Finished creating RTL model for 'aes256_encrypt_ecb'.

@@ -1,0 +1,205 @@
+
+
+================================================================
+== Synthesis Summary Report of 'sort_radix'
+================================================================
++ General Information: 
+    * Date:           Sun May 18 06:01:04 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        hls_prj
+    * Solution:       solution (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +--------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----+------------+------------+-----+
+    |                   Modules                  | Issue|      | Latency |  Latency  | Iteration|         | Trip |          |      |    |            |            |     |
+    |                   & Loops                  | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined| BRAM | DSP|     FF     |     LUT    | URAM|
+    +--------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----+------------+------------+-----+
+    |+ sort_radix                                |     -|  0.14|   166289|  8.314e+05|         -|   166290|     -|        no|     -|   -|  2621 (~0%)|  4575 (~0%)|    -|
+    | o sort_1                                   |     -|  3.65|   166288|  8.314e+05|     10393|        -|    16|        no|     -|   -|           -|           -|    -|
+    |  + sort_radix_Pipeline_init_1              |     -|  1.82|     2050|  1.025e+04|         -|     2050|     -|        no|     -|   -|    14 (~0%)|    58 (~0%)|    -|
+    |   o init_1                                 |     -|  3.65|     2048|  1.024e+04|         1|        1|  2048|       yes|     -|   -|           -|           -|    -|
+    |  + sort_radix_Pipeline_hist_1_hist_2       |     -|  0.19|     2051|  1.026e+04|         -|     2051|     -|        no|     -|   -|   152 (~0%)|   393 (~0%)|    -|
+    |   o hist_1_hist_2                          |     -|  3.65|     2049|  1.024e+04|         3|        1|  2048|       yes|     -|   -|           -|           -|    -|
+    |  + sort_radix_Pipeline_hist_1_hist_21      |     -|  0.19|     2051|  1.026e+04|         -|     2051|     -|        no|     -|   -|   152 (~0%)|   393 (~0%)|    -|
+    |   o hist_1_hist_2                          |     -|  3.65|     2049|  1.024e+04|         3|        1|  2048|       yes|     -|   -|           -|           -|    -|
+    |  + sort_radix_Pipeline_local_1             |     -|  1.57|     2050|  1.025e+04|         -|     2050|     -|        no|     -|   -|   777 (~0%)|  1122 (~0%)|    -|
+    |   o local_1                                |    II|  3.65|     2048|  1.024e+04|        16|       16|   128|       yes|     -|   -|           -|           -|    -|
+    |  + sort_radix_Pipeline_sum_1               |     -|  0.97|      129|    645.000|         -|      129|     -|        no|     -|   -|    51 (~0%)|   132 (~0%)|    -|
+    |   o sum_1                                  |     -|  3.65|      127|    635.000|         2|        1|   127|       yes|     -|   -|           -|           -|    -|
+    |  + sort_radix_Pipeline_last_1              |     -|  1.57|     2050|  1.025e+04|         -|     2050|     -|        no|     -|   -|  1072 (~0%)|  1183 (~0%)|    -|
+    |   o last_1                                 |    II|  3.65|     2048|  1.024e+04|        16|       16|   128|       yes|     -|   -|           -|           -|    -|
+    |  + sort_radix_Pipeline_update_1_update_2   |     -|  0.14|     2051|  1.026e+04|         -|     2051|     -|        no|     -|   -|   184 (~0%)|   364 (~0%)|    -|
+    |   o update_1_update_2                      |     -|  3.65|     2049|  1.024e+04|         3|        1|  2048|       yes|     -|   -|           -|           -|    -|
+    |  + sort_radix_Pipeline_update_1_update_22  |     -|  0.14|     2051|  1.026e+04|         -|     2051|     -|        no|     -|   -|   184 (~0%)|   364 (~0%)|    -|
+    |   o update_1_update_2                      |     -|  3.65|     2049|  1.024e+04|         3|        1|  2048|       yes|     -|   -|           -|           -|    -|
+    +--------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----+------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_MEMORY
++-----------------+----------+
+| Interface       | Bitwidth |
++-----------------+----------+
+| a_address0      | 11       |
+| a_d0            | 32       |
+| a_q0            | 32       |
+| b_address0      | 11       |
+| b_d0            | 32       |
+| b_q0            | 32       |
+| bucket_address0 | 11       |
+| bucket_address1 | 11       |
+| bucket_d0       | 32       |
+| bucket_d1       | 32       |
+| bucket_q0       | 32       |
+| bucket_q1       | 32       |
+| sum_address0    | 7        |
+| sum_d0          | 32       |
+| sum_q0          | 32       |
++-----------------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| a        | inout     | int*     |
+| b        | inout     | int*     |
+| bucket   | inout     | int*     |
+| sum      | inout     | int*     |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+-----------------+---------+----------+
+| Argument | HW Interface    | HW Type | HW Usage |
++----------+-----------------+---------+----------+
+| a        | a_address0      | port    | offset   |
+| a        | a_ce0           | port    |          |
+| a        | a_we0           | port    |          |
+| a        | a_d0            | port    |          |
+| a        | a_q0            | port    |          |
+| b        | b_address0      | port    | offset   |
+| b        | b_ce0           | port    |          |
+| b        | b_we0           | port    |          |
+| b        | b_d0            | port    |          |
+| b        | b_q0            | port    |          |
+| bucket   | bucket_address0 | port    | offset   |
+| bucket   | bucket_ce0      | port    |          |
+| bucket   | bucket_we0      | port    |          |
+| bucket   | bucket_d0       | port    |          |
+| bucket   | bucket_q0       | port    |          |
+| bucket   | bucket_address1 | port    | offset   |
+| bucket   | bucket_ce1      | port    |          |
+| bucket   | bucket_we1      | port    |          |
+| bucket   | bucket_d1       | port    |          |
+| bucket   | bucket_q1       | port    |          |
+| sum      | sum_address0    | port    | offset   |
+| sum      | sum_ce0         | port    |          |
+| sum      | sum_we0         | port    |          |
+| sum      | sum_d0          | port    |          |
+| sum      | sum_q0          | port    |          |
++----------+-----------------+---------+----------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++-------------------------------------------+-----+--------+-------------+-----+--------+---------+
+| Name                                      | DSP | Pragma | Variable    | Op  | Impl   | Latency |
++-------------------------------------------+-----+--------+-------------+-----+--------+---------+
+| + sort_radix                              | 0   |        |             |     |        |         |
+|   exp_3_fu_194_p2                         | -   |        | exp_3       | add | fabric | 0       |
+|  + sort_radix_Pipeline_init_1             | 0   |        |             |     |        |         |
+|    add_ln45_fu_66_p2                      | -   |        | add_ln45    | add | fabric | 0       |
+|  + sort_radix_Pipeline_hist_1_hist_2      | 0   |        |             |     |        |         |
+|    add_ln54_fu_156_p2                     | -   |        | add_ln54    | add | fabric | 0       |
+|    add_ln54_2_fu_182_p2                   | -   |        | add_ln54_2  | add | fabric | 0       |
+|    bucket_indx_fu_264_p2                  | -   |        | bucket_indx | add | fabric | 0       |
+|    bucket_d0                              | -   |        | add_ln58    | add | fabric | 0       |
+|    add_ln55_fu_217_p2                     | -   |        | add_ln55    | add | fabric | 0       |
+|  + sort_radix_Pipeline_hist_1_hist_21     | 0   |        |             |     |        |         |
+|    add_ln54_fu_156_p2                     | -   |        | add_ln54    | add | fabric | 0       |
+|    add_ln54_1_fu_182_p2                   | -   |        | add_ln54_1  | add | fabric | 0       |
+|    bucket_indx_fu_264_p2                  | -   |        | bucket_indx | add | fabric | 0       |
+|    bucket_d0                              | -   |        | add_ln58    | add | fabric | 0       |
+|    add_ln55_fu_217_p2                     | -   |        | add_ln55    | add | fabric | 0       |
+|  + sort_radix_Pipeline_local_1            | 0   |        |             |     |        |         |
+|    add_ln13_fu_231_p2                     | -   |        | add_ln13    | add | fabric | 0       |
+|    add_ln16_fu_270_p2                     | -   |        | add_ln16    | add | fabric | 0       |
+|    add_ln16_1_fu_416_p2                   | -   |        | add_ln16_1  | add | fabric | 0       |
+|    add_ln16_2_fu_422_p2                   | -   |        | add_ln16_2  | add | fabric | 0       |
+|    add_ln16_3_fu_428_p2                   | -   |        | add_ln16_3  | add | fabric | 0       |
+|    add_ln16_4_fu_433_p2                   | -   |        | add_ln16_4  | add | fabric | 0       |
+|    add_ln16_5_fu_438_p2                   | -   |        | add_ln16_5  | add | fabric | 0       |
+|    add_ln16_6_fu_443_p2                   | -   |        | add_ln16_6  | add | fabric | 0       |
+|    add_ln16_7_fu_448_p2                   | -   |        | add_ln16_7  | add | fabric | 0       |
+|    add_ln16_8_fu_453_p2                   | -   |        | add_ln16_8  | add | fabric | 0       |
+|    add_ln16_9_fu_458_p2                   | -   |        | add_ln16_9  | add | fabric | 0       |
+|    add_ln16_10_fu_463_p2                  | -   |        | add_ln16_10 | add | fabric | 0       |
+|    add_ln16_11_fu_468_p2                  | -   |        | add_ln16_11 | add | fabric | 0       |
+|    add_ln16_12_fu_473_p2                  | -   |        | add_ln16_12 | add | fabric | 0       |
+|    add_ln16_13_fu_478_p2                  | -   |        | add_ln16_13 | add | fabric | 0       |
+|    add_ln16_14_fu_484_p2                  | -   |        | add_ln16_14 | add | fabric | 0       |
+|  + sort_radix_Pipeline_sum_1              | 0   |        |             |     |        |         |
+|    add_ln27_fu_111_p2                     | -   |        | add_ln27    | add | fabric | 0       |
+|    sum_d0                                 | -   |        | add_ln27_1  | add | fabric | 0       |
+|    add_ln25_fu_132_p2                     | -   |        | add_ln25    | add | fabric | 0       |
+|  + sort_radix_Pipeline_last_1             | 0   |        |             |     |        |         |
+|    add_ln34_fu_238_p2                     | -   |        | add_ln34    | add | fabric | 0       |
+|    add_ln37_fu_422_p2                     | -   |        | add_ln37    | add | fabric | 0       |
+|    add_ln37_1_fu_427_p2                   | -   |        | add_ln37_1  | add | fabric | 0       |
+|    add_ln37_2_fu_432_p2                   | -   |        | add_ln37_2  | add | fabric | 0       |
+|    add_ln37_3_fu_436_p2                   | -   |        | add_ln37_3  | add | fabric | 0       |
+|    add_ln37_4_fu_440_p2                   | -   |        | add_ln37_4  | add | fabric | 0       |
+|    add_ln37_5_fu_444_p2                   | -   |        | add_ln37_5  | add | fabric | 0       |
+|    add_ln37_6_fu_448_p2                   | -   |        | add_ln37_6  | add | fabric | 0       |
+|    add_ln37_7_fu_452_p2                   | -   |        | add_ln37_7  | add | fabric | 0       |
+|    add_ln37_8_fu_456_p2                   | -   |        | add_ln37_8  | add | fabric | 0       |
+|    add_ln37_9_fu_460_p2                   | -   |        | add_ln37_9  | add | fabric | 0       |
+|    add_ln37_10_fu_464_p2                  | -   |        | add_ln37_10 | add | fabric | 0       |
+|    add_ln37_11_fu_468_p2                  | -   |        | add_ln37_11 | add | fabric | 0       |
+|    add_ln37_12_fu_472_p2                  | -   |        | add_ln37_12 | add | fabric | 0       |
+|    add_ln37_13_fu_476_p2                  | -   |        | add_ln37_13 | add | fabric | 0       |
+|    add_ln37_14_fu_480_p2                  | -   |        | add_ln37_14 | add | fabric | 0       |
+|    add_ln37_15_fu_485_p2                  | -   |        | add_ln37_15 | add | fabric | 0       |
+|  + sort_radix_Pipeline_update_1_update_2  | 0   |        |             |     |        |         |
+|    add_ln68_fu_167_p2                     | -   |        | add_ln68    | add | fabric | 0       |
+|    add_ln68_2_fu_193_p2                   | -   |        | add_ln68_2  | add | fabric | 0       |
+|    bucket_d0                              | -   |        | add_ln73    | add | fabric | 0       |
+|    add_ln69_fu_228_p2                     | -   |        | add_ln69    | add | fabric | 0       |
+|  + sort_radix_Pipeline_update_1_update_22 | 0   |        |             |     |        |         |
+|    add_ln68_fu_167_p2                     | -   |        | add_ln68    | add | fabric | 0       |
+|    add_ln68_1_fu_193_p2                   | -   |        | add_ln68_1  | add | fabric | 0       |
+|    bucket_d0                              | -   |        | add_ln73    | add | fabric | 0       |
+|    add_ln69_fu_228_p2                     | -   |        | add_ln69    | add | fabric | 0       |
++-------------------------------------------+-----+--------+-------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
+  No bind storage info in design
+
+================================================================
+== Pragma Report
+================================================================
+  No pragmas found
+

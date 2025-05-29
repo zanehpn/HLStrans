@@ -1,0 +1,151 @@
+
+
+================================================================
+== Vitis HLS Report for 'aes256_encrypt_ecb_Pipeline_addkey'
+================================================================
+* Date:           Fri Apr  4 01:45:02 2025
+
+* Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+* Project:        hls_prj
+* Solution:       solution (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu55c-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  5.00 ns|  2.777 ns|     1.35 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+-----------+-----------+-----+-----+---------+
+    |  Latency (cycles) |   Latency (absolute)  |  Interval | Pipeline|
+    |   min   |   max   |    min    |    max    | min | max |   Type  |
+    +---------+---------+-----------+-----------+-----+-----+---------+
+    |       19|       19|  95.000 ns|  95.000 ns|   19|   19|       no|
+    +---------+---------+-----------+-----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +----------+---------+---------+----------+-----------+-----------+------+----------+
+        |          |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        | Loop Name|   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +----------+---------+---------+----------+-----------+-----------+------+----------+
+        |- addkey  |       17|       17|         2|          1|          1|    16|       yes|
+        +----------+---------+---------+----------+-----------+-----------+------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 2
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
++ Individual pipeline summary: 
+  * Pipeline-0: initiation interval (II) = 1, depth = 2
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 2
+* Pipeline : 1
+  Pipeline-0 : II = 1, D = 2, States = { 1 2 }
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 1.09>
+ST_1 : Operation 5 [1/1] (0.00ns)   --->   "%i = alloca i32 1"   --->   Operation 5 'alloca' 'i' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 6 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i8 %buf_r, void @empty_0, i32 0, i32 0, void @empty, i32 4294967295, i32 0, void @empty, void @empty, void @empty, i32 0, i32 0, i32 0, i32 0, void @empty, void @empty, i32 4294967295, i32 0"   --->   Operation 6 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 7 [1/1] (0.00ns)   --->   "%ctx_ret_read = read i768 @_ssdm_op_Read.ap_auto.i768, i768 %ctx_ret"   --->   Operation 7 'read' 'ctx_ret_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 8 [1/1] (0.38ns)   --->   "%store_ln0 = store i4 15, i4 %i"   --->   Operation 8 'store' 'store_ln0' <Predicate = true> <Delay = 0.38>
+ST_1 : Operation 9 [1/1] (0.00ns)   --->   "%br_ln0 = br void %while.body.i64"   --->   Operation 9 'br' 'br_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 10 [1/1] (0.00ns)   --->   "%i_10 = load i4 %i" [aes_tableless.c:71]   --->   Operation 10 'load' 'i_10' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 11 [1/1] (0.00ns)   --->   "%i_14_cast9 = zext i4 %i_10" [aes_tableless.c:71]   --->   Operation 11 'zext' 'i_14_cast9' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 12 [1/1] (0.00ns)   --->   "%buf_r_addr = getelementptr i8 %buf_r, i64 0, i64 %i_14_cast9" [aes_tableless.c:71]   --->   Operation 12 'getelementptr' 'buf_r_addr' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 13 [2/2] (0.66ns)   --->   "%buf_r_load = load i4 %buf_r_addr" [aes_tableless.c:71]   --->   Operation 13 'load' 'buf_r_load' <Predicate = true> <Delay = 0.66> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 0.66> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 8> <Depth = 16> <RAM>
+ST_1 : Operation 14 [1/1] (0.70ns)   --->   "%add_ln71 = add i4 %i_10, i4 15" [aes_tableless.c:71]   --->   Operation 14 'add' 'add_ln71' <Predicate = true> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 15 [1/1] (0.65ns)   --->   "%icmp_ln71 = icmp_eq  i4 %i_10, i4 0" [aes_tableless.c:71]   --->   Operation 15 'icmp' 'icmp_ln71' <Predicate = true> <Delay = 0.65> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.65> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 16 [1/1] (0.00ns)   --->   "%br_ln71 = br i1 %icmp_ln71, void %while.body.i64.while.body.i64_crit_edge, void %aes_addRoundKey.exit65.exitStub" [aes_tableless.c:71]   --->   Operation 16 'br' 'br_ln71' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 17 [1/1] (0.38ns)   --->   "%store_ln71 = store i4 %add_ln71, i4 %i" [aes_tableless.c:71]   --->   Operation 17 'store' 'store_ln71' <Predicate = (!icmp_ln71)> <Delay = 0.38>
+ST_1 : Operation 18 [1/1] (0.00ns)   --->   "%br_ln71 = br void %while.body.i64" [aes_tableless.c:71]   --->   Operation 18 'br' 'br_ln71' <Predicate = (!icmp_ln71)> <Delay = 0.00>
+
+State 2 <SV = 1> <Delay = 2.77>
+ST_2 : Operation 19 [1/1] (0.00ns)   --->   "%specpipeline_ln0 = specpipeline void @_ssdm_op_SpecPipeline, i32 4294967295, i32 0, i32 1, i32 0, void @p_str"   --->   Operation 19 'specpipeline' 'specpipeline_ln0' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 20 [1/1] (0.00ns)   --->   "%specloopname_ln71 = specloopname void @_ssdm_op_SpecLoopName, void @empty_4" [aes_tableless.c:71]   --->   Operation 20 'specloopname' 'specloopname_ln71' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 21 [1/1] (0.00ns) (grouped into LUT with out node xor_ln71)   --->   "%shl_ln1 = bitconcatenate i7 @_ssdm_op_BitConcatenate.i7.i4.i3, i4 %i_10, i3 0" [aes_tableless.c:71]   --->   Operation 21 'bitconcatenate' 'shl_ln1' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 22 [1/1] (0.00ns) (grouped into LUT with out node xor_ln71)   --->   "%zext_ln71 = zext i7 %shl_ln1" [aes_tableless.c:71]   --->   Operation 22 'zext' 'zext_ln71' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 23 [1/1] (0.00ns) (grouped into LUT with out node xor_ln71)   --->   "%lshr_ln71 = lshr i768 %ctx_ret_read, i768 %zext_ln71" [aes_tableless.c:71]   --->   Operation 23 'lshr' 'lshr_ln71' <Predicate = true> <Delay = 0.00> <CoreInst = "Shifter">   --->   Core 75 'Shifter' <Latency = 0> <II = 1> <Delay = 1.44> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 24 [1/1] (0.00ns) (grouped into LUT with out node xor_ln71)   --->   "%trunc_ln71 = trunc i768 %lshr_ln71" [aes_tableless.c:71]   --->   Operation 24 'trunc' 'trunc_ln71' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 25 [1/2] (0.66ns)   --->   "%buf_r_load = load i4 %buf_r_addr" [aes_tableless.c:71]   --->   Operation 25 'load' 'buf_r_load' <Predicate = true> <Delay = 0.66> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 0.66> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 8> <Depth = 16> <RAM>
+ST_2 : Operation 26 [1/1] (1.44ns) (out node of the LUT)   --->   "%xor_ln71 = xor i8 %buf_r_load, i8 %trunc_ln71" [aes_tableless.c:71]   --->   Operation 26 'xor' 'xor_ln71' <Predicate = true> <Delay = 1.44> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.22> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 27 [1/1] (0.66ns)   --->   "%store_ln71 = store i8 %xor_ln71, i4 %buf_r_addr" [aes_tableless.c:71]   --->   Operation 27 'store' 'store_ln71' <Predicate = true> <Delay = 0.66> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 0.66> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 8> <Depth = 16> <RAM>
+ST_2 : Operation 28 [1/1] (0.00ns)   --->   "%empty = speclooptripcount i32 @_ssdm_op_SpecLoopTripCount, i64 16, i64 16, i64 16"   --->   Operation 28 'speclooptripcount' 'empty' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 29 [1/1] (0.00ns)   --->   "%ret_ln0 = ret"   --->   Operation 29 'ret' 'ret_ln0' <Predicate = (icmp_ln71)> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 5ns, clock uncertainty: 1.35ns.
+
+ <State 1>: 1.09ns
+The critical path consists of the following:
+	'alloca' operation ('i') [3]  (0 ns)
+	'load' operation ('i', aes_tableless.c:71) on local variable 'i' [9]  (0 ns)
+	'add' operation ('add_ln71', aes_tableless.c:71) [21]  (0.708 ns)
+	'store' operation ('store_ln71', aes_tableless.c:71) of variable 'add_ln71', aes_tableless.c:71 on local variable 'i' [26]  (0.387 ns)
+
+ <State 2>: 2.78ns
+The critical path consists of the following:
+	'load' operation ('buf_r_load', aes_tableless.c:71) on array 'buf_r' [18]  (0.667 ns)
+	'xor' operation ('xor_ln71', aes_tableless.c:71) [19]  (1.44 ns)
+	'store' operation ('store_ln71', aes_tableless.c:71) of variable 'xor_ln71', aes_tableless.c:71 on array 'buf_r' [20]  (0.667 ns)
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

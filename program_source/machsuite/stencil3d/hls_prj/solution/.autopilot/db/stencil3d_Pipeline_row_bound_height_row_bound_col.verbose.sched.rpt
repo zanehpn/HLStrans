@@ -1,0 +1,171 @@
+
+
+================================================================
+== Vitis HLS Report for 'stencil3d_Pipeline_row_bound_height_row_bound_col'
+================================================================
+* Date:           Sat Apr  5 07:23:27 2025
+
+* Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+* Project:        hls_prj
+* Solution:       solution (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu55c-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  5.00 ns|  2.496 ns|     1.35 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-----+-----+---------+
+    |  Latency (cycles) |  Latency (absolute) |  Interval | Pipeline|
+    |   min   |   max   |    min   |    max   | min | max |   Type  |
+    +---------+---------+----------+----------+-----+-----+---------+
+    |      902|      902|  4.510 us|  4.510 us|  902|  902|       no|
+    +---------+---------+----------+----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +----------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |                                  |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |             Loop Name            |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +----------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- row_bound_height_row_bound_col  |      900|      900|         2|          1|          1|   900|       yes|
+        +----------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 2
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
++ Individual pipeline summary: 
+  * Pipeline-0: initiation interval (II) = 1, depth = 2
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 2
+* Pipeline : 1
+  Pipeline-0 : II = 1, D = 2, States = { 1 2 }
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 2.23>
+ST_1 : Operation 5 [1/1] (0.00ns)   --->   "%j = alloca i32 1"   --->   Operation 5 'alloca' 'j' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 6 [1/1] (0.00ns)   --->   "%i = alloca i32 1"   --->   Operation 6 'alloca' 'i' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 7 [1/1] (0.00ns)   --->   "%indvar_flatten19 = alloca i32 1"   --->   Operation 7 'alloca' 'indvar_flatten19' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 8 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i32 %sol, void @empty, i32 0, i32 0, void @empty_0, i32 4294967295, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 8 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 9 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i32 %orig, void @empty, i32 0, i32 0, void @empty_0, i32 4294967295, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 9 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 10 [1/1] (0.38ns)   --->   "%store_ln0 = store i10 0, i10 %indvar_flatten19"   --->   Operation 10 'store' 'store_ln0' <Predicate = true> <Delay = 0.38>
+ST_1 : Operation 11 [1/1] (0.38ns)   --->   "%store_ln0 = store i5 1, i5 %i"   --->   Operation 11 'store' 'store_ln0' <Predicate = true> <Delay = 0.38>
+ST_1 : Operation 12 [1/1] (0.38ns)   --->   "%store_ln0 = store i5 1, i5 %j"   --->   Operation 12 'store' 'store_ln0' <Predicate = true> <Delay = 0.38>
+ST_1 : Operation 13 [1/1] (0.00ns)   --->   "%br_ln0 = br void %for.inc89"   --->   Operation 13 'br' 'br_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 14 [1/1] (0.00ns)   --->   "%indvar_flatten19_load = load i10 %indvar_flatten19" [stencil.c:27]   --->   Operation 14 'load' 'indvar_flatten19_load' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 15 [1/1] (0.00ns)   --->   "%specpipeline_ln0 = specpipeline void @_ssdm_op_SpecPipeline, i32 4294967295, i32 0, i32 1, i32 0, void @p_str"   --->   Operation 15 'specpipeline' 'specpipeline_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 16 [1/1] (0.60ns)   --->   "%icmp_ln27 = icmp_eq  i10 %indvar_flatten19_load, i10 900" [stencil.c:27]   --->   Operation 16 'icmp' 'icmp_ln27' <Predicate = true> <Delay = 0.60> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.60> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 17 [1/1] (0.72ns)   --->   "%add_ln27 = add i10 %indvar_flatten19_load, i10 1" [stencil.c:27]   --->   Operation 17 'add' 'add_ln27' <Predicate = true> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 18 [1/1] (0.00ns)   --->   "%br_ln27 = br i1 %icmp_ln27, void %for.inc92, void %loop_height.exitStub" [stencil.c:27]   --->   Operation 18 'br' 'br_ln27' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 19 [1/1] (0.00ns)   --->   "%j_load = load i5 %j" [stencil.c:28]   --->   Operation 19 'load' 'j_load' <Predicate = (!icmp_ln27)> <Delay = 0.00>
+ST_1 : Operation 20 [1/1] (0.00ns)   --->   "%i_load = load i5 %i" [stencil.c:27]   --->   Operation 20 'load' 'i_load' <Predicate = (!icmp_ln27)> <Delay = 0.00>
+ST_1 : Operation 21 [1/1] (0.63ns)   --->   "%icmp_ln28 = icmp_eq  i5 %j_load, i5 31" [stencil.c:28]   --->   Operation 21 'icmp' 'icmp_ln28' <Predicate = (!icmp_ln27)> <Delay = 0.63> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.63> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 22 [1/1] (0.27ns)   --->   "%select_ln11 = select i1 %icmp_ln28, i5 1, i5 %j_load" [stencil.c:11]   --->   Operation 22 'select' 'select_ln11' <Predicate = (!icmp_ln27)> <Delay = 0.27> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_1 : Operation 23 [1/1] (0.70ns)   --->   "%add_ln27_1 = add i5 %i_load, i5 1" [stencil.c:27]   --->   Operation 23 'add' 'add_ln27_1' <Predicate = (!icmp_ln27)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 24 [1/1] (0.27ns)   --->   "%select_ln27 = select i1 %icmp_ln28, i5 %add_ln27_1, i5 %i_load" [stencil.c:27]   --->   Operation 24 'select' 'select_ln27' <Predicate = (!icmp_ln27)> <Delay = 0.27> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_1 : Operation 25 [1/1] (0.00ns)   --->   "%shl_ln = bitconcatenate i14 @_ssdm_op_BitConcatenate.i14.i5.i5.i4, i5 %select_ln27, i5 %select_ln11, i4 0" [stencil.c:29]   --->   Operation 25 'bitconcatenate' 'shl_ln' <Predicate = (!icmp_ln27)> <Delay = 0.00>
+ST_1 : Operation 26 [1/1] (0.00ns)   --->   "%zext_ln29 = zext i14 %shl_ln" [stencil.c:29]   --->   Operation 26 'zext' 'zext_ln29' <Predicate = (!icmp_ln27)> <Delay = 0.00>
+ST_1 : Operation 27 [1/1] (0.00ns)   --->   "%orig_addr = getelementptr i32 %orig, i64 0, i64 %zext_ln29" [stencil.c:29]   --->   Operation 27 'getelementptr' 'orig_addr' <Predicate = (!icmp_ln27)> <Delay = 0.00>
+ST_1 : Operation 28 [2/2] (1.24ns)   --->   "%orig_load = load i14 %orig_addr" [stencil.c:29]   --->   Operation 28 'load' 'orig_load' <Predicate = (!icmp_ln27)> <Delay = 1.24> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.24> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_1 : Operation 29 [1/1] (0.00ns)   --->   "%or_ln30 = or i14 %shl_ln, i14 15" [stencil.c:30]   --->   Operation 29 'or' 'or_ln30' <Predicate = (!icmp_ln27)> <Delay = 0.00>
+ST_1 : Operation 30 [1/1] (0.00ns)   --->   "%zext_ln30 = zext i14 %or_ln30" [stencil.c:30]   --->   Operation 30 'zext' 'zext_ln30' <Predicate = (!icmp_ln27)> <Delay = 0.00>
+ST_1 : Operation 31 [1/1] (0.00ns)   --->   "%orig_addr_1 = getelementptr i32 %orig, i64 0, i64 %zext_ln30" [stencil.c:30]   --->   Operation 31 'getelementptr' 'orig_addr_1' <Predicate = (!icmp_ln27)> <Delay = 0.00>
+ST_1 : Operation 32 [2/2] (1.24ns)   --->   "%orig_load_1 = load i14 %orig_addr_1" [stencil.c:30]   --->   Operation 32 'load' 'orig_load_1' <Predicate = (!icmp_ln27)> <Delay = 1.24> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.24> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_1 : Operation 33 [1/1] (0.70ns)   --->   "%add_ln28 = add i5 %select_ln11, i5 1" [stencil.c:28]   --->   Operation 33 'add' 'add_ln28' <Predicate = (!icmp_ln27)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 34 [1/1] (0.38ns)   --->   "%store_ln28 = store i10 %add_ln27, i10 %indvar_flatten19" [stencil.c:28]   --->   Operation 34 'store' 'store_ln28' <Predicate = (!icmp_ln27)> <Delay = 0.38>
+ST_1 : Operation 35 [1/1] (0.38ns)   --->   "%store_ln28 = store i5 %select_ln27, i5 %i" [stencil.c:28]   --->   Operation 35 'store' 'store_ln28' <Predicate = (!icmp_ln27)> <Delay = 0.38>
+ST_1 : Operation 36 [1/1] (0.38ns)   --->   "%store_ln28 = store i5 %add_ln28, i5 %j" [stencil.c:28]   --->   Operation 36 'store' 'store_ln28' <Predicate = (!icmp_ln27)> <Delay = 0.38>
+ST_1 : Operation 48 [1/1] (0.00ns)   --->   "%ret_ln0 = ret"   --->   Operation 48 'ret' 'ret_ln0' <Predicate = (icmp_ln27)> <Delay = 0.00>
+
+State 2 <SV = 1> <Delay = 2.49>
+ST_2 : Operation 37 [1/1] (0.00ns)   --->   "%specloopname_ln0 = specloopname void @_ssdm_op_SpecLoopName, void @row_bound_height_row_bound_col_str"   --->   Operation 37 'specloopname' 'specloopname_ln0' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 38 [1/1] (0.00ns)   --->   "%empty = speclooptripcount i32 @_ssdm_op_SpecLoopTripCount, i64 900, i64 900, i64 900"   --->   Operation 38 'speclooptripcount' 'empty' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 39 [1/1] (0.00ns)   --->   "%specpipeline_ln0 = specpipeline void @_ssdm_op_SpecPipeline, i32 4294967295, i32 0, i32 1, i32 0, void @p_str"   --->   Operation 39 'specpipeline' 'specpipeline_ln0' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 40 [1/1] (0.00ns)   --->   "%specloopname_ln11 = specloopname void @_ssdm_op_SpecLoopName, void @empty_3" [stencil.c:11]   --->   Operation 40 'specloopname' 'specloopname_ln11' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 41 [1/2] (1.24ns)   --->   "%orig_load = load i14 %orig_addr" [stencil.c:29]   --->   Operation 41 'load' 'orig_load' <Predicate = true> <Delay = 1.24> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.24> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_2 : Operation 42 [1/1] (0.00ns)   --->   "%sol_addr = getelementptr i32 %sol, i64 0, i64 %zext_ln29" [stencil.c:29]   --->   Operation 42 'getelementptr' 'sol_addr' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 43 [1/1] (1.24ns)   --->   "%store_ln29 = store i32 %orig_load, i14 %sol_addr" [stencil.c:29]   --->   Operation 43 'store' 'store_ln29' <Predicate = true> <Delay = 1.24> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.24> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_2 : Operation 44 [1/2] (1.24ns)   --->   "%orig_load_1 = load i14 %orig_addr_1" [stencil.c:30]   --->   Operation 44 'load' 'orig_load_1' <Predicate = true> <Delay = 1.24> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.24> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_2 : Operation 45 [1/1] (0.00ns)   --->   "%sol_addr_1 = getelementptr i32 %sol, i64 0, i64 %zext_ln30" [stencil.c:30]   --->   Operation 45 'getelementptr' 'sol_addr_1' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 46 [1/1] (1.24ns)   --->   "%store_ln30 = store i32 %orig_load_1, i14 %sol_addr_1" [stencil.c:30]   --->   Operation 46 'store' 'store_ln30' <Predicate = true> <Delay = 1.24> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.24> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_2 : Operation 47 [1/1] (0.00ns)   --->   "%br_ln28 = br void %for.inc89" [stencil.c:28]   --->   Operation 47 'br' 'br_ln28' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 5ns, clock uncertainty: 1.35ns.
+
+ <State 1>: 2.23ns
+The critical path consists of the following:
+	'alloca' operation ('i') [4]  (0 ns)
+	'load' operation ('i_load', stencil.c:27) on local variable 'i' [20]  (0 ns)
+	'add' operation ('add_ln27_1', stencil.c:27) [26]  (0.707 ns)
+	'select' operation ('select_ln27', stencil.c:27) [27]  (0.278 ns)
+	'getelementptr' operation ('orig_addr', stencil.c:29) [31]  (0 ns)
+	'load' operation ('orig_load', stencil.c:29) on array 'orig' [32]  (1.25 ns)
+
+ <State 2>: 2.5ns
+The critical path consists of the following:
+	'load' operation ('orig_load', stencil.c:29) on array 'orig' [32]  (1.25 ns)
+	'store' operation ('store_ln29', stencil.c:29) of variable 'orig_load', stencil.c:29 on array 'sol' [34]  (1.25 ns)
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

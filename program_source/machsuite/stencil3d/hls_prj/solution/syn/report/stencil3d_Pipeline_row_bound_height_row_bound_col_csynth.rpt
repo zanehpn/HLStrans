@@ -1,0 +1,167 @@
+
+
+================================================================
+== Vitis HLS Report for 'stencil3d_Pipeline_row_bound_height_row_bound_col'
+================================================================
+* Date:           Sat Apr  5 07:23:28 2025
+
+* Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+* Project:        hls_prj
+* Solution:       solution (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu55c-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  5.00 ns|  2.496 ns|     1.35 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-----+-----+---------+
+    |  Latency (cycles) |  Latency (absolute) |  Interval | Pipeline|
+    |   min   |   max   |    min   |    max   | min | max |   Type  |
+    +---------+---------+----------+----------+-----+-----+---------+
+    |      902|      902|  4.510 us|  4.510 us|  902|  902|       no|
+    +---------+---------+----------+----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +----------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |                                  |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |             Loop Name            |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +----------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- row_bound_height_row_bound_col  |      900|      900|         2|          1|          1|   900|       yes|
+        +----------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++---------------------+---------+------+---------+---------+-----+
+|         Name        | BRAM_18K|  DSP |    FF   |   LUT   | URAM|
++---------------------+---------+------+---------+---------+-----+
+|DSP                  |        -|     -|        -|        -|    -|
+|Expression           |        -|     -|        0|       87|    -|
+|FIFO                 |        -|     -|        -|        -|    -|
+|Instance             |        -|     -|        -|        -|    -|
+|Memory               |        -|     -|        -|        -|    -|
+|Multiplexer          |        -|     -|        -|       72|    -|
+|Register             |        -|     -|       43|        -|    -|
++---------------------+---------+------+---------+---------+-----+
+|Total                |        0|     0|       43|      159|    0|
++---------------------+---------+------+---------+---------+-----+
+|Available SLR        |     1344|  3008|   869120|   434560|  320|
++---------------------+---------+------+---------+---------+-----+
+|Utilization SLR (%)  |        0|     0|       ~0|       ~0|    0|
++---------------------+---------+------+---------+---------+-----+
+|Available            |     4032|  9024|  2607360|  1303680|  960|
++---------------------+---------+------+---------+---------+-----+
+|Utilization (%)      |        0|     0|       ~0|       ~0|    0|
++---------------------+---------+------+---------+---------+-----+
+
++ Detail: 
+    * Instance: 
+    N/A
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +-----------------------+----------+----+---+----+------------+------------+
+    |     Variable Name     | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +-----------------------+----------+----+---+----+------------+------------+
+    |add_ln27_1_fu_162_p2   |         +|   0|  0|  12|           5|           1|
+    |add_ln27_fu_136_p2     |         +|   0|  0|  17|          10|           1|
+    |add_ln28_fu_202_p2     |         +|   0|  0|  12|           5|           1|
+    |icmp_ln27_fu_130_p2    |      icmp|   0|  0|  11|          10|           8|
+    |icmp_ln28_fu_148_p2    |      icmp|   0|  0|   9|           5|           2|
+    |or_ln30_fu_191_p2      |        or|   0|  0|  14|          14|           4|
+    |select_ln11_fu_154_p3  |    select|   0|  0|   5|           1|           1|
+    |select_ln27_fu_168_p3  |    select|   0|  0|   5|           1|           5|
+    |ap_enable_pp0          |       xor|   0|  0|   2|           1|           2|
+    +-----------------------+----------+----+---+----+------------+------------+
+    |Total                  |          |   0|  0|  87|          52|          25|
+    +-----------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +----------------------------------------+----+-----------+-----+-----------+
+    |                  Name                  | LUT| Input Size| Bits| Total Bits|
+    +----------------------------------------+----+-----------+-----+-----------+
+    |ap_done_int                             |   9|          2|    1|          2|
+    |ap_enable_reg_pp0_iter1                 |   9|          2|    1|          2|
+    |ap_sig_allocacmp_i_load                 |   9|          2|    5|         10|
+    |ap_sig_allocacmp_indvar_flatten19_load  |   9|          2|   10|         20|
+    |ap_sig_allocacmp_j_load                 |   9|          2|    5|         10|
+    |i_fu_52                                 |   9|          2|    5|         10|
+    |indvar_flatten19_fu_56                  |   9|          2|   10|         20|
+    |j_fu_48                                 |   9|          2|    5|         10|
+    +----------------------------------------+----+-----------+-----+-----------+
+    |Total                                   |  72|         16|   42|         84|
+    +----------------------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +-------------------------+----+----+-----+-----------+
+    |           Name          | FF | LUT| Bits| Const Bits|
+    +-------------------------+----+----+-----+-----------+
+    |ap_CS_fsm                |   1|   0|    1|          0|
+    |ap_done_reg              |   1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter1  |   1|   0|    1|          0|
+    |i_fu_52                  |   5|   0|    5|          0|
+    |indvar_flatten19_fu_56   |  10|   0|   10|          0|
+    |j_fu_48                  |   5|   0|    5|          0|
+    |zext_ln29_reg_247        |  10|   0|   64|         54|
+    |zext_ln30_reg_257        |  10|   0|   64|         54|
+    +-------------------------+----+----+-----+-----------+
+    |Total                    |  43|   0|  151|        108|
+    +-------------------------+----+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++---------------+-----+-----+------------+---------------------------------------------------+--------------+
+|   RTL Ports   | Dir | Bits|  Protocol  |                   Source Object                   |    C Type    |
++---------------+-----+-----+------------+---------------------------------------------------+--------------+
+|ap_clk         |   in|    1|  ap_ctrl_hs|  stencil3d_Pipeline_row_bound_height_row_bound_col|  return value|
+|ap_rst         |   in|    1|  ap_ctrl_hs|  stencil3d_Pipeline_row_bound_height_row_bound_col|  return value|
+|ap_start       |   in|    1|  ap_ctrl_hs|  stencil3d_Pipeline_row_bound_height_row_bound_col|  return value|
+|ap_done        |  out|    1|  ap_ctrl_hs|  stencil3d_Pipeline_row_bound_height_row_bound_col|  return value|
+|ap_idle        |  out|    1|  ap_ctrl_hs|  stencil3d_Pipeline_row_bound_height_row_bound_col|  return value|
+|ap_ready       |  out|    1|  ap_ctrl_hs|  stencil3d_Pipeline_row_bound_height_row_bound_col|  return value|
+|orig_address0  |  out|   14|   ap_memory|                                               orig|         array|
+|orig_ce0       |  out|    1|   ap_memory|                                               orig|         array|
+|orig_q0        |   in|   32|   ap_memory|                                               orig|         array|
+|orig_address1  |  out|   14|   ap_memory|                                               orig|         array|
+|orig_ce1       |  out|    1|   ap_memory|                                               orig|         array|
+|orig_q1        |   in|   32|   ap_memory|                                               orig|         array|
+|sol_address0   |  out|   14|   ap_memory|                                                sol|         array|
+|sol_ce0        |  out|    1|   ap_memory|                                                sol|         array|
+|sol_we0        |  out|    1|   ap_memory|                                                sol|         array|
+|sol_d0         |  out|   32|   ap_memory|                                                sol|         array|
+|sol_address1   |  out|   14|   ap_memory|                                                sol|         array|
+|sol_ce1        |  out|    1|   ap_memory|                                                sol|         array|
+|sol_we1        |  out|    1|   ap_memory|                                                sol|         array|
+|sol_d1         |  out|   32|   ap_memory|                                                sol|         array|
++---------------+-----+-----+------------+---------------------------------------------------+--------------+
+

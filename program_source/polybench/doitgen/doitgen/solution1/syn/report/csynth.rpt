@@ -1,0 +1,259 @@
+
+
+================================================================
+== Synthesis Summary Report of 'doitgen'
+================================================================
++ General Information: 
+    * Date:           Mon May  5 03:28:06 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        doitgen
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +--------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+------+----------+-------------+------------+-----+
+    |                Modules               |  Issue |       | Latency |  Latency  | Iteration|         | Trip |          |      |          |             |            |     |
+    |                & Loops               |  Type  | Slack | (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined| BRAM |    DSP   |      FF     |     LUT    | URAM|
+    +--------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+------+----------+-------------+------------+-----+
+    |+ doitgen                             |  Timing|  -0.01|   325001|  1.625e+06|         -|   325002|     -|        no|     -|  22 (~0%)|  10442 (~0%)|  4903 (~0%)|    -|
+    | o VITIS_LOOP_10_1_VITIS_LOOP_13_2    |       -|   3.65|   325000|  1.625e+06|       650|        -|   500|        no|     -|         -|            -|           -|    -|
+    |  + doitgen_Pipeline_VITIS_LOOP_16_3  |  Timing|  -0.01|      597|  2.985e+03|         -|      597|     -|        no|     -|  22 (~0%)|   6218 (~0%)|  3754 (~0%)|    -|
+    |   o VITIS_LOOP_16_3                  |      II|   3.65|      595|  2.975e+03|       161|       15|    30|       yes|     -|         -|            -|           -|    -|
+    |  + doitgen_Pipeline_VITIS_LOOP_22_5  |       -|   0.67|       33|    165.000|         -|       33|     -|        no|     -|         -|     93 (~0%)|    80 (~0%)|    -|
+    |   o VITIS_LOOP_22_5                  |       -|   3.65|       31|    155.000|         3|        1|    30|       yes|     -|         -|            -|           -|    -|
+    +--------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+------+----------+-------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_MEMORY
++--------------+----------+
+| Interface    | Bitwidth |
++--------------+----------+
+| A_address0   | 14       |
+| A_address1   | 14       |
+| A_d0         | 64       |
+| A_q0         | 64       |
+| A_q1         | 64       |
+| C4_address0  | 10       |
+| C4_address1  | 10       |
+| C4_q0        | 64       |
+| C4_q1        | 64       |
+| sum_address0 | 5        |
+| sum_d0       | 64       |
+| sum_q0       | 64       |
++--------------+----------+
+
+* Other Ports
++-----------+---------+----------+
+| Interface | Mode    | Bitwidth |
++-----------+---------+----------+
+| np        | ap_none | 32       |
+| nq        | ap_none | 32       |
+| nr        | ap_none | 32       |
++-----------+---------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| nr       | in        | int      |
+| nq       | in        | int      |
+| np       | in        | int      |
+| A        | inout     | double*  |
+| C4       | in        | double*  |
+| sum      | inout     | double*  |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+--------------+---------+----------+
+| Argument | HW Interface | HW Type | HW Usage |
++----------+--------------+---------+----------+
+| nr       | nr           | port    |          |
+| nq       | nq           | port    |          |
+| np       | np           | port    |          |
+| A        | A_address0   | port    | offset   |
+| A        | A_ce0        | port    |          |
+| A        | A_we0        | port    |          |
+| A        | A_d0         | port    |          |
+| A        | A_q0         | port    |          |
+| A        | A_address1   | port    | offset   |
+| A        | A_ce1        | port    |          |
+| A        | A_q1         | port    |          |
+| C4       | C4_address0  | port    | offset   |
+| C4       | C4_ce0       | port    |          |
+| C4       | C4_q0        | port    |          |
+| C4       | C4_address1  | port    | offset   |
+| C4       | C4_ce1       | port    |          |
+| C4       | C4_q1        | port    |          |
+| sum      | sum_address0 | port    | offset   |
+| sum      | sum_ce0      | port    |          |
+| sum      | sum_we0      | port    |          |
+| sum      | sum_d0       | port    |          |
+| sum      | sum_q0       | port    |          |
++----------+--------------+---------+----------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++--------------------------------------+-----+--------+-------------+------+---------+---------+
+| Name                                 | DSP | Pragma | Variable    | Op   | Impl    | Latency |
++--------------------------------------+-----+--------+-------------+------+---------+---------+
+| + doitgen                            | 22  |        |             |      |         |         |
+|   add_ln10_1_fu_464_p2               | -   |        | add_ln10_1  | add  | fabric  | 0       |
+|   add_ln10_fu_476_p2                 | -   |        | add_ln10    | add  | fabric  | 0       |
+|   sub_ln19_fu_568_p2                 | -   |        | sub_ln19    | sub  | fabric  | 0       |
+|   add_ln19_2_fu_609_p2               | -   |        | add_ln19_2  | add  | fabric  | 0       |
+|   add_ln19_3_fu_614_p2               | -   |        | add_ln19_3  | add  | fabric  | 0       |
+|   add_ln19_4_fu_627_p2               | -   |        | add_ln19_4  | add  | fabric  | 0       |
+|   add_ln19_5_fu_632_p2               | -   |        | add_ln19_5  | add  | fabric  | 0       |
+|   add_ln19_6_fu_645_p2               | -   |        | add_ln19_6  | add  | fabric  | 0       |
+|   add_ln19_7_fu_650_p2               | -   |        | add_ln19_7  | add  | fabric  | 0       |
+|   add_ln19_8_fu_663_p2               | -   |        | add_ln19_8  | add  | fabric  | 0       |
+|   add_ln19_9_fu_668_p2               | -   |        | add_ln19_9  | add  | fabric  | 0       |
+|   add_ln19_10_fu_681_p2              | -   |        | add_ln19_10 | add  | fabric  | 0       |
+|   add_ln19_11_fu_686_p2              | -   |        | add_ln19_11 | add  | fabric  | 0       |
+|   add_ln19_12_fu_699_p2              | -   |        | add_ln19_12 | add  | fabric  | 0       |
+|   add_ln19_13_fu_704_p2              | -   |        | add_ln19_13 | add  | fabric  | 0       |
+|   add_ln19_14_fu_717_p2              | -   |        | add_ln19_14 | add  | fabric  | 0       |
+|   add_ln19_15_fu_722_p2              | -   |        | add_ln19_15 | add  | fabric  | 0       |
+|   add_ln19_16_fu_735_p2              | -   |        | add_ln19_16 | add  | fabric  | 0       |
+|   add_ln19_17_fu_740_p2              | -   |        | add_ln19_17 | add  | fabric  | 0       |
+|   add_ln19_18_fu_753_p2              | -   |        | add_ln19_18 | add  | fabric  | 0       |
+|   add_ln19_19_fu_758_p2              | -   |        | add_ln19_19 | add  | fabric  | 0       |
+|   add_ln19_20_fu_771_p2              | -   |        | add_ln19_20 | add  | fabric  | 0       |
+|   add_ln19_21_fu_776_p2              | -   |        | add_ln19_21 | add  | fabric  | 0       |
+|   add_ln19_22_fu_789_p2              | -   |        | add_ln19_22 | add  | fabric  | 0       |
+|   add_ln19_23_fu_794_p2              | -   |        | add_ln19_23 | add  | fabric  | 0       |
+|   add_ln19_24_fu_807_p2              | -   |        | add_ln19_24 | add  | fabric  | 0       |
+|   add_ln19_25_fu_812_p2              | -   |        | add_ln19_25 | add  | fabric  | 0       |
+|   add_ln19_26_fu_825_p2              | -   |        | add_ln19_26 | add  | fabric  | 0       |
+|   add_ln19_27_fu_830_p2              | -   |        | add_ln19_27 | add  | fabric  | 0       |
+|   add_ln19_28_fu_843_p2              | -   |        | add_ln19_28 | add  | fabric  | 0       |
+|   add_ln19_29_fu_848_p2              | -   |        | add_ln19_29 | add  | fabric  | 0       |
+|   add_ln13_fu_574_p2                 | -   |        | add_ln13    | add  | fabric  | 0       |
+|  + doitgen_Pipeline_VITIS_LOOP_16_3  | 22  |        |             |      |         |         |
+|    add_ln16_fu_714_p2                | -   |        | add_ln16    | add  | fabric  | 0       |
+|    add_ln19_fu_729_p2                | -   |        | add_ln19    | add  | fabric  | 0       |
+|    add_ln19_1_fu_748_p2              | -   |        | add_ln19_1  | add  | fabric  | 0       |
+|    add_ln19_2_fu_759_p2              | -   |        | add_ln19_2  | add  | fabric  | 0       |
+|    add_ln19_3_fu_773_p2              | -   |        | add_ln19_3  | add  | fabric  | 0       |
+|    add_ln19_4_fu_784_p2              | -   |        | add_ln19_4  | add  | fabric  | 0       |
+|    add_ln19_5_fu_805_p2              | -   |        | add_ln19_5  | add  | fabric  | 0       |
+|    add_ln19_6_fu_815_p2              | -   |        | add_ln19_6  | add  | fabric  | 0       |
+|    add_ln19_7_fu_842_p2              | -   |        | add_ln19_7  | add  | fabric  | 0       |
+|    add_ln19_8_fu_853_p2              | -   |        | add_ln19_8  | add  | fabric  | 0       |
+|    add_ln19_9_fu_874_p2              | -   |        | add_ln19_9  | add  | fabric  | 0       |
+|    add_ln19_10_fu_884_p2             | -   |        | add_ln19_10 | add  | fabric  | 0       |
+|    add_ln19_11_fu_904_p2             | -   |        | add_ln19_11 | add  | fabric  | 0       |
+|    add_ln19_12_fu_914_p2             | -   |        | add_ln19_12 | add  | fabric  | 0       |
+|    add_ln19_13_fu_938_p2             | -   |        | add_ln19_13 | add  | fabric  | 0       |
+|    add_ln19_14_fu_952_p2             | -   |        | add_ln19_14 | add  | fabric  | 0       |
+|    add_ln19_15_fu_995_p2             | -   |        | add_ln19_15 | add  | fabric  | 0       |
+|    add_ln19_16_fu_1016_p2            | -   |        | add_ln19_16 | add  | fabric  | 0       |
+|    add_ln19_17_fu_1026_p2            | -   |        | add_ln19_17 | add  | fabric  | 0       |
+|    add_ln19_18_fu_1046_p2            | -   |        | add_ln19_18 | add  | fabric  | 0       |
+|    add_ln19_19_fu_1056_p2            | -   |        | add_ln19_19 | add  | fabric  | 0       |
+|    add_ln19_20_fu_1076_p2            | -   |        | add_ln19_20 | add  | fabric  | 0       |
+|    add_ln19_21_fu_1086_p2            | -   |        | add_ln19_21 | add  | fabric  | 0       |
+|    add_ln19_22_fu_1106_p2            | -   |        | add_ln19_22 | add  | fabric  | 0       |
+|    add_ln19_23_fu_1116_p2            | -   |        | add_ln19_23 | add  | fabric  | 0       |
+|    add_ln19_24_fu_1136_p2            | -   |        | add_ln19_24 | add  | fabric  | 0       |
+|    add_ln19_25_fu_1150_p2            | -   |        | add_ln19_25 | add  | fabric  | 0       |
+|    add_ln19_26_fu_1174_p2            | -   |        | add_ln19_26 | add  | fabric  | 0       |
+|    add_ln19_27_fu_1188_p2            | -   |        | add_ln19_27 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U3  | 8   |        | mul         | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add         | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U4  | 8   |        | mul_1       | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_1       | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U3  | 8   |        | mul_2       | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_2       | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U4  | 8   |        | mul_3       | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_3       | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U3  | 8   |        | mul_4       | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_4       | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U4  | 8   |        | mul_5       | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_5       | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U3  | 8   |        | mul_6       | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_6       | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U4  | 8   |        | mul_7       | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_7       | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U3  | 8   |        | mul_8       | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_8       | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U4  | 8   |        | mul_9       | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_9       | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U3  | 8   |        | mul_s       | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_s       | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U4  | 8   |        | mul_10      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_10      | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U3  | 8   |        | mul_11      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_11      | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U4  | 8   |        | mul_12      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_12      | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U3  | 8   |        | mul_13      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_13      | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U4  | 8   |        | mul_14      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_14      | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U3  | 8   |        | mul_15      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_15      | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U4  | 8   |        | mul_16      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_16      | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U3  | 8   |        | mul_17      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_17      | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U4  | 8   |        | mul_18      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_18      | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U3  | 8   |        | mul_19      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_19      | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U4  | 8   |        | mul_20      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_20      | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U3  | 8   |        | mul_21      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_21      | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U4  | 8   |        | mul_22      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_22      | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U3  | 8   |        | mul_23      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_23      | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U4  | 8   |        | mul_24      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_24      | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U3  | 8   |        | mul_25      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_25      | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U4  | 8   |        | mul_26      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_26      | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U3  | 8   |        | mul_27      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_27      | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U4  | 8   |        | mul_28      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_28      | dadd | fulldsp | 4       |
+|  + doitgen_Pipeline_VITIS_LOOP_22_5  | 0   |        |             |      |         |         |
+|    add_ln22_fu_90_p2                 | -   |        | add_ln22    | add  | fabric  | 0       |
+|    add_ln23_fu_109_p2                | -   |        | add_ln23    | add  | fabric  | 0       |
++--------------------------------------+-----+--------+-------------+------+---------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
+  No bind storage info in design
+
+================================================================
+== Pragma Report
+================================================================
+  No pragmas found
+

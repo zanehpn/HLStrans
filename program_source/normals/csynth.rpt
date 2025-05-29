@@ -1,0 +1,209 @@
+
+
+================================================================
+== Synthesis Summary Report of 'normals'
+================================================================
++ General Information: 
+    * Date:           Thu May 22 09:17:52 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        normals
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +--------------------------------------+------+------+---------+-----------+----------+---------+-------+----------+------+----------+-------------+------------+-----+
+    |                Modules               | Issue|      | Latency |  Latency  | Iteration|         |  Trip |          |      |          |             |            |     |
+    |                & Loops               | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count | Pipelined| BRAM |    DSP   |      FF     |     LUT    | URAM|
+    +--------------------------------------+------+------+---------+-----------+----------+---------+-------+----------+------+----------+-------------+------------+-----+
+    |+ normals                             |     -|  0.00|  6279466|  3.140e+07|         -|  6279467|      -|        no|     -|  32 (~0%)|  11586 (~0%)|  17139 (1%)|    -|
+    | + normals_Pipeline_VITIS_LOOP_23_1   |     -|  1.70|       53|    265.000|         -|       53|      -|        no|     -|         -|     15 (~0%)|    61 (~0%)|    -|
+    |  o VITIS_LOOP_23_1                   |     -|  3.65|       51|    255.000|         2|        1|     51|       yes|     -|         -|            -|           -|    -|
+    | + normals_Pipeline_VITIS_LOOP_25_2   |     -|  1.70|       50|    250.000|         -|       50|      -|        no|     -|         -|     15 (~0%)|    61 (~0%)|    -|
+    |  o VITIS_LOOP_25_2                   |     -|  3.65|       48|    240.000|         2|        1|     48|       yes|     -|         -|            -|           -|    -|
+    | o VITIS_LOOP_27_3                    |     -|  3.65|  6278400|  3.139e+07|       327|        -|  19200|        no|     -|         -|            -|           -|    -|
+    |  + normals_Pipeline_VITIS_LOOP_31_4  |     -|  0.00|      204|  1.020e+03|         -|      204|      -|        no|     -|  20 (~0%)|   3215 (~0%)|  2563 (~0%)|    -|
+    |   o VITIS_LOOP_31_4                  |    II|  3.65|      202|  1.010e+03|        62|        3|     48|       yes|     -|         -|            -|           -|    -|
+    |  + normals_Pipeline_VITIS_LOOP_84_6  |     -|  0.05|       57|    285.000|         -|       57|      -|        no|     -|   6 (~0%)|   3569 (~0%)|  2844 (~0%)|    -|
+    |   o VITIS_LOOP_84_6                  |    II|  3.65|       55|    275.000|        26|        2|     16|       yes|     -|         -|            -|           -|    -|
+    |  + normals_Pipeline_VITIS_LOOP_93_7  |     -|  0.05|       57|    285.000|         -|       57|      -|        no|     -|   6 (~0%)|   3569 (~0%)|  2859 (~0%)|    -|
+    |   o VITIS_LOOP_93_7                  |    II|  3.65|       55|    275.000|        26|        2|     16|       yes|     -|         -|            -|           -|    -|
+    +--------------------------------------+------+------+---------+-----------+----------+---------+-------+----------+------+----------+-------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_MEMORY
++-----------------+----------+
+| Interface       | Bitwidth |
++-----------------+----------+
+| nmap_address0   | 20       |
+| nmap_address1   | 20       |
+| nmap_d0         | 32       |
+| nmap_d1         | 32       |
+| vmap_0_address0 | 19       |
+| vmap_0_address1 | 19       |
+| vmap_0_q0       | 32       |
+| vmap_0_q1       | 32       |
+| vmap_1_address0 | 19       |
+| vmap_1_address1 | 19       |
+| vmap_1_q0       | 32       |
+| vmap_1_q1       | 32       |
++-----------------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| vmap     | in        | float*   |
+| nmap     | out       | float*   |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+-----------------+---------+----------+
+| Argument | HW Interface    | HW Type | HW Usage |
++----------+-----------------+---------+----------+
+| vmap     | vmap_0_address0 | port    | offset   |
+| vmap     | vmap_0_ce0      | port    |          |
+| vmap     | vmap_0_q0       | port    |          |
+| vmap     | vmap_0_address1 | port    | offset   |
+| vmap     | vmap_0_ce1      | port    |          |
+| vmap     | vmap_0_q1       | port    |          |
+| vmap     | vmap_1_address0 | port    | offset   |
+| vmap     | vmap_1_ce0      | port    |          |
+| vmap     | vmap_1_q0       | port    |          |
+| vmap     | vmap_1_address1 | port    | offset   |
+| vmap     | vmap_1_ce1      | port    |          |
+| vmap     | vmap_1_q1       | port    |          |
+| nmap     | nmap_address0   | port    | offset   |
+| nmap     | nmap_ce0        | port    |          |
+| nmap     | nmap_we0        | port    |          |
+| nmap     | nmap_d0         | port    |          |
+| nmap     | nmap_address1   | port    | offset   |
+| nmap     | nmap_ce1        | port    |          |
+| nmap     | nmap_we1        | port    |          |
+| nmap     | nmap_d1         | port    |          |
++----------+-----------------+---------+----------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++------------------------------------------+-----+--------+-------------------+-------+---------+---------+
+| Name                                     | DSP | Pragma | Variable          | Op    | Impl    | Latency |
++------------------------------------------+-----+--------+-------------------+-------+---------+---------+
+| + normals                                | 32  |        |                   |       |         |         |
+|   indvars_iv_next64_fu_21346_p2          | -   |        | indvars_iv_next64 | add   | fabric  | 0       |
+|  + normals_Pipeline_VITIS_LOOP_23_1      | 0   |        |                   |       |         |         |
+|    add_ln23_fu_80_p2                     | -   |        | add_ln23          | add   | fabric  | 0       |
+|  + normals_Pipeline_VITIS_LOOP_25_2      | 0   |        |                   |       |         |         |
+|    add_ln25_fu_84_p2                     | -   |        | add_ln25          | add   | fabric  | 0       |
+|  + normals_Pipeline_VITIS_LOOP_31_4      | 20  |        |                   |       |         |         |
+|    add_ln40_fu_349_p2                    | -   |        | add_ln40          | add   | fabric  | 0       |
+|    sub_ln75_fu_316_p2                    | -   |        | sub_ln75          | sub   | fabric  | 0       |
+|    add_ln37_fu_439_p2                    | -   |        | add_ln37          | add   | fabric  | 0       |
+|    add_ln40_1_fu_338_p2                  | -   |        | add_ln40_1        | add   | fabric  | 0       |
+|    add_ln75_fu_452_p2                    | -   |        | add_ln75          | add   | fabric  | 0       |
+|    add_ln50_fu_381_p2                    | -   |        | add_ln50          | add   | fabric  | 0       |
+|    add_ln51_fu_391_p2                    | -   |        | add_ln51          | add   | fabric  | 0       |
+|    add_ln54_fu_401_p2                    | -   |        | add_ln54          | add   | fabric  | 0       |
+|    add_ln55_fu_411_p2                    | -   |        | add_ln55          | add   | fabric  | 0       |
+|    fsub_32ns_32ns_32_5_full_dsp_1_U5     | 2   |        | sub               | fsub  | fulldsp | 4       |
+|    faddfsub_32ns_32ns_32_5_full_dsp_1_U6 | 2   |        | sub1              | fsub  | fulldsp | 4       |
+|    faddfsub_32ns_32ns_32_5_full_dsp_1_U7 | 2   |        | sub_1             | fsub  | fulldsp | 4       |
+|    fsub_32ns_32ns_32_5_full_dsp_1_U8     | 2   |        | sub1_1            | fsub  | fulldsp | 4       |
+|    fsub_32ns_32ns_32_5_full_dsp_1_U5     | 2   |        | sub_2             | fsub  | fulldsp | 4       |
+|    faddfsub_32ns_32ns_32_5_full_dsp_1_U6 | 2   |        | sub1_2            | fsub  | fulldsp | 4       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U9      | 3   |        | mul_i             | fmul  | maxdsp  | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U10     | 3   |        | mul4_i            | fmul  | maxdsp  | 3       |
+|    faddfsub_32ns_32ns_32_5_full_dsp_1_U7 | 2   |        | sub_i             | fsub  | fulldsp | 4       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U11     | 3   |        | mul8_i            | fmul  | maxdsp  | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U12     | 3   |        | mul11_i           | fmul  | maxdsp  | 3       |
+|    fsub_32ns_32ns_32_5_full_dsp_1_U8     | 2   |        | sub12_i           | fsub  | fulldsp | 4       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U9      | 3   |        | mul17_i           | fmul  | maxdsp  | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U10     | 3   |        | mul20_i           | fmul  | maxdsp  | 3       |
+|    fsub_32ns_32ns_32_5_full_dsp_1_U5     | 2   |        | sub21_i           | fsub  | fulldsp | 4       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U9      | 3   |        | mul_i1            | fmul  | maxdsp  | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U10     | 3   |        | mul4_i1           | fmul  | maxdsp  | 3       |
+|    faddfsub_32ns_32ns_32_5_full_dsp_1_U6 | 2   |        | add_i             | fsub  | fulldsp | 4       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U11     | 3   |        | mul7_i            | fmul  | maxdsp  | 3       |
+|    faddfsub_32ns_32ns_32_5_full_dsp_1_U7 | 2   |        | add8_i            | fsub  | fulldsp | 4       |
+|    fdiv_32ns_32ns_32_10_no_dsp_1_U13     | -   |        | p_x_assign_3      | fdiv  | fabric  | 9       |
+|    fsqrt_32ns_32ns_32_9_no_dsp_1_U15     | -   |        | t                 | fsqrt | fabric  | 8       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U11     | 3   |        | mul10_i           | fmul  | maxdsp  | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U12     | 3   |        | mul10_i_1         | fmul  | maxdsp  | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U12     | 3   |        | mul10_i_2         | fmul  | maxdsp  | 3       |
+|    add_ln70_fu_467_p2                    | -   |        | add_ln70          | add   | fabric  | 0       |
+|    add_ln71_fu_481_p2                    | -   |        | add_ln71          | add   | fabric  | 0       |
+|    j_fu_354_p2                           | -   |        | j                 | add   | fabric  | 0       |
+|  + normals_Pipeline_VITIS_LOOP_84_6      | 6   |        |                   |       |         |         |
+|    add_ln87_fu_187_p2                    | -   |        | add_ln87          | add   | fabric  | 0       |
+|    sub_ln87_fu_205_p2                    | -   |        | sub_ln87          | sub   | fabric  | 0       |
+|    grp_fu_225_p0                         | -   |        | add_ln88          | add   | fabric  | 0       |
+|    mul_20ns_22ns_41_1_1_U32              | 2   |        | mul_ln88          | mul   | auto    | 0       |
+|    grp_fu_241_p0                         | -   |        | add_ln89          | add   | fabric  | 0       |
+|    mul_20ns_22ns_41_1_1_U35              | 2   |        | mul_ln89          | mul   | auto    | 0       |
+|    add_ln89_1_fu_368_p2                  | -   |        | add_ln89_1        | add   | fabric  | 0       |
+|    grp_fu_252_p0                         | -   |        | add_ln90          | add   | fabric  | 0       |
+|    mul_20ns_22ns_41_1_1_U34              | 2   |        | mul_ln90          | mul   | auto    | 0       |
+|    add_ln90_1_fu_396_p2                  | -   |        | add_ln90_1        | add   | fabric  | 0       |
+|  + normals_Pipeline_VITIS_LOOP_93_7      | 6   |        |                   |       |         |         |
+|    add_ln93_fu_189_p2                    | -   |        | add_ln93          | add   | fabric  | 0       |
+|    sub_ln96_fu_215_p2                    | -   |        | sub_ln96          | sub   | fabric  | 0       |
+|    add_ln96_1_fu_229_p2                  | -   |        | add_ln96_1        | add   | fabric  | 0       |
+|    grp_fu_249_p0                         | -   |        | add_ln96          | add   | fabric  | 0       |
+|    mul_20ns_22ns_41_1_1_U48              | 2   |        | mul_ln96          | mul   | auto    | 0       |
+|    grp_fu_265_p0                         | -   |        | add_ln97          | add   | fabric  | 0       |
+|    mul_20ns_22ns_41_1_1_U51              | 2   |        | mul_ln97          | mul   | auto    | 0       |
+|    add_ln97_1_fu_392_p2                  | -   |        | add_ln97_1        | add   | fabric  | 0       |
+|    grp_fu_276_p0                         | -   |        | add_ln98          | add   | fabric  | 0       |
+|    mul_20ns_22ns_41_1_1_U50              | 2   |        | mul_ln98          | mul   | auto    | 0       |
+|    add_ln98_1_fu_420_p2                  | -   |        | add_ln98_1        | add   | fabric  | 0       |
++------------------------------------------+-----+--------+-------------------+-------+---------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++-----------+------+------+--------+----------+---------+------+---------+
+| Name      | BRAM | URAM | Pragma | Variable | Storage | Impl | Latency |
++-----------+------+------+--------+----------+---------+------+---------+
+| + normals | 0    | 0    |        |          |         |      |         |
+|   data0_U | -    | -    |        | data0    | ram_t2p | auto | 1       |
+|   data1_U | -    | -    |        | data1    | ram_t2p | auto | 1       |
++-----------+------+------+--------+----------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++-----------------+------------------------------+--------------------------------------+
+| Type            | Options                      | Location                             |
++-----------------+------------------------------+--------------------------------------+
+| array_partition | variable=vmap factor=2 BLOCK | normals_fast.cpp:20 in normals, vmap |
+| unroll          | FACTOR=1                     | normals_fast.cpp:29 in normals       |
+| unroll          | FACTOR=1                     | normals_fast.cpp:33 in normals       |
+| unroll          | FACTOR=1                     | normals_fast.cpp:86 in normals       |
+| unroll          | FACTOR=1                     | normals_fast.cpp:95 in normals       |
+| unroll          |                              | normals_fast.cpp:102 in normals      |
++-----------------+------------------------------+--------------------------------------+
+
+

@@ -1,0 +1,295 @@
+
+
+================================================================
+== Synthesis Summary Report of 'krnl_KALMAN'
+================================================================
++ General Information: 
+    * Date:           Sun May 11 08:16:10 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        kalman_filter
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +---------------------------------------------------------+------+------+---------+-----------+----------+---------+--------+----------+----------+---------+-------------+------------+-----+
+    |                         Modules                         | Issue|      | Latency |  Latency  | Iteration|         |  Trip  |          |          |         |             |            |     |
+    |                         & Loops                         | Type | Slack| (cycles)|    (ns)   |  Latency | Interval|  Count | Pipelined|   BRAM   |   DSP   |      FF     |     LUT    | URAM|
+    +---------------------------------------------------------+------+------+---------+-----------+----------+---------+--------+----------+----------+---------+-------------+------------+-----+
+    |+ krnl_KALMAN                                            |     -|  0.00|   426050|  2.130e+06|         -|   426051|       -|        no|  128 (3%)|  2 (~0%)|  10452 (~0%)|  24947 (1%)|    -|
+    | + krnl_KALMAN_Pipeline_VITIS_LOOP_49_1                  |     -|  0.00|   131078|  6.554e+05|         -|   131078|       -|        no|         -|        -|   1736 (~0%)|  5589 (~0%)|    -|
+    |  o VITIS_LOOP_49_1                                      |    II|  3.65|   131076|  6.554e+05|         9|        4|   32768|       yes|         -|        -|            -|           -|    -|
+    | + krnl_KALMAN_Pipeline_VITIS_LOOP_66_3                  |     -|  1.15|       66|    330.000|         -|       66|       -|        no|         -|        -|     23 (~0%)|    63 (~0%)|    -|
+    |  o VITIS_LOOP_66_3                                      |     -|  3.65|       64|    320.000|         2|        1|      64|       yes|         -|        -|            -|           -|    -|
+    | + krnl_KALMAN_Pipeline_VITIS_LOOP_72_4_VITIS_LOOP_73_5  |     -|  0.53|   262113|  1.311e+06|         -|   262113|       -|        no|         -|  2 (~0%)|   2188 (~0%)|  1785 (~0%)|    -|
+    |  o VITIS_LOOP_72_4_VITIS_LOOP_73_5                      |     -|  3.65|   262111|  1.311e+06|        33|        1|  262080|       yes|         -|        -|            -|           -|    -|
+    | + krnl_KALMAN_Pipeline_VITIS_LOOP_87_6                  |     -|  0.00|    32773|  1.639e+05|         -|    32773|       -|        no|         -|        -|   1182 (~0%)|  7930 (~0%)|    -|
+    |  o VITIS_LOOP_87_6                                      |     -|  3.65|    32771|  1.639e+05|         5|        1|   32768|       yes|         -|        -|            -|           -|    -|
+    +---------------------------------------------------------+------+------+---------+-----------+----------+---------+--------+----------+----------+---------+-------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* M_AXI
++-------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| Interface   | Data Width | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   |
+|             | (SW->HW)   |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |
++-------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| m_axi_gmem0 | 256 -> 256 | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem1 | 256 -> 256 | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
++-------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+
+* S_AXILITE Interfaces
++---------------+------------+---------------+--------+----------+
+| Interface     | Data Width | Address Width | Offset | Register |
++---------------+------------+---------------+--------+----------+
+| s_axi_control | 32         | 6             | 16     | 0        |
++---------------+------------+---------------+--------+----------+
+
+* S_AXILITE Registers
++---------------+----------+--------+-------+--------+----------------------+
+| Interface     | Register | Offset | Width | Access | Description          |
++---------------+----------+--------+-------+--------+----------------------+
+| s_axi_control | in_r_1   | 0x10   | 32    | W      | Data signal of in_r  |
+| s_axi_control | in_r_2   | 0x14   | 32    | W      | Data signal of in_r  |
+| s_axi_control | out_r_1  | 0x1c   | 32    | W      | Data signal of out_r |
+| s_axi_control | out_r_2  | 0x20   | 32    | W      | Data signal of out_r |
++---------------+----------+--------+-------+--------+----------------------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst_n  | reset      | ap_rst_n                          |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+---------------+
+| Argument | Direction | Datatype      |
++----------+-----------+---------------+
+| in       | in        | ap_uint<256>* |
+| out      | out       | ap_uint<256>* |
++----------+-----------+---------------+
+
+* SW-to-HW Mapping
++----------+---------------+-----------+----------+
+| Argument | HW Interface  | HW Type   | HW Usage |
++----------+---------------+-----------+----------+
+| in       | m_axi_gmem0   | interface |          |
+| in       | s_axi_control | interface | offset   |
+| out      | m_axi_gmem1   | interface |          |
+| out      | s_axi_control | interface | offset   |
++----------+---------------+-----------+----------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+* Inferred Burst Summary
++--------------+-----------------+-----------+--------+-------+------------------------------------------------------------------------------------------+
+| HW Interface | Loop            | Direction | Length | Width | Location                                                                                 |
++--------------+-----------------+-----------+--------+-------+------------------------------------------------------------------------------------------+
+| m_axi_gmem0  | VITIS_LOOP_49_1 | read      | 32768  | 256   | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/kalman_filter/kalman_filter_slow.cpp:49:27 |
+| m_axi_gmem1  | VITIS_LOOP_87_6 | write     | 32768  | 256   | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/kalman_filter/kalman_filter_slow.cpp:87:28 |
++--------------+-----------------+-----------+--------+-------+------------------------------------------------------------------------------------------+
+
+* Inferred Bursts and Widening Missed
++--------------+----------+-----------------+--------------------------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------------------------+
+| HW Interface | Variable | Loop            | Problem                                                                                                | Resolution | Location                                                                                 |
++--------------+----------+-----------------+--------------------------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------------------------+
+| m_axi_gmem1  | out      | VITIS_LOOP_87_6 | Could not widen since type i256 size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/kalman_filter/kalman_filter_slow.cpp:87:28 |
+| m_axi_gmem0  | in       | VITIS_LOOP_49_1 | Could not widen since type i256 size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/kalman_filter/kalman_filter_slow.cpp:49:27 |
++--------------+----------+-----------------+--------------------------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------------------------+
+
+    * Resolution URL: www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=XXX-YYY.html (replace XXX-YYY with column value)
+
+================================================================
+== Bind Op Report
+================================================================
++---------------------------------------------------------+-----+--------+-----------------+-----+--------+---------+
+| Name                                                    | DSP | Pragma | Variable        | Op  | Impl   | Latency |
++---------------------------------------------------------+-----+--------+-----------------+-----+--------+---------+
+| + krnl_KALMAN                                           | 2   |        |                 |     |        |         |
+|  + krnl_KALMAN_Pipeline_VITIS_LOOP_49_1                 | 0   |        |                 |     |        |         |
+|    add_ln49_fu_249_p2                                   | -   |        | add_ln49        | add | fabric | 0       |
+|    sub_ln455_fu_458_p2                                  | -   |        | sub_ln455       | sub | fabric | 0       |
+|    sub_ln564_fu_387_p2                                  | -   |        | sub_ln564       | sub | fabric | 0       |
+|    add_ln570_fu_476_p2                                  | -   |        | add_ln570       | add | fabric | 0       |
+|    sub_ln570_fu_481_p2                                  | -   |        | sub_ln570       | sub | fabric | 0       |
+|    add_ln580_fu_572_p2                                  | -   |        | add_ln580       | add | fabric | 0       |
+|    add_ln377_fu_600_p2                                  | -   |        | add_ln377       | add | fabric | 0       |
+|    sub_ln455_1_fu_658_p2                                | -   |        | sub_ln455_1     | sub | fabric | 0       |
+|    sub_ln564_1_fu_433_p2                                | -   |        | sub_ln564_1     | sub | fabric | 0       |
+|    add_ln570_1_fu_676_p2                                | -   |        | add_ln570_1     | add | fabric | 0       |
+|    sub_ln570_1_fu_681_p2                                | -   |        | sub_ln570_1     | sub | fabric | 0       |
+|    add_ln580_1_fu_772_p2                                | -   |        | add_ln580_1     | add | fabric | 0       |
+|    add_ln377_2_fu_800_p2                                | -   |        | add_ln377_2     | add | fabric | 0       |
+|    add_ln57_fu_1541_p2                                  | -   |        | add_ln57        | add | fabric | 0       |
+|    sub_ln455_2_fu_1041_p2                               | -   |        | sub_ln455_2     | sub | fabric | 0       |
+|    sub_ln564_2_fu_887_p2                                | -   |        | sub_ln564_2     | sub | fabric | 0       |
+|    add_ln570_2_fu_1059_p2                               | -   |        | add_ln570_2     | add | fabric | 0       |
+|    sub_ln570_2_fu_1064_p2                               | -   |        | sub_ln570_2     | sub | fabric | 0       |
+|    add_ln580_2_fu_1155_p2                               | -   |        | add_ln580_2     | add | fabric | 0       |
+|    add_ln377_3_fu_1183_p2                               | -   |        | add_ln377_3     | add | fabric | 0       |
+|    sub_ln455_3_fu_1241_p2                               | -   |        | sub_ln455_3     | sub | fabric | 0       |
+|    sub_ln564_3_fu_933_p2                                | -   |        | sub_ln564_3     | sub | fabric | 0       |
+|    add_ln570_3_fu_1259_p2                               | -   |        | add_ln570_3     | add | fabric | 0       |
+|    sub_ln570_3_fu_1264_p2                               | -   |        | sub_ln570_3     | sub | fabric | 0       |
+|    add_ln580_3_fu_1355_p2                               | -   |        | add_ln580_3     | add | fabric | 0       |
+|    add_ln377_4_fu_1383_p2                               | -   |        | add_ln377_4     | add | fabric | 0       |
+|    add_ln57_1_fu_2113_p2                                | -   |        | add_ln57_1      | add | fabric | 0       |
+|    sub_ln455_4_fu_1632_p2                               | -   |        | sub_ln455_4     | sub | fabric | 0       |
+|    sub_ln564_4_fu_1470_p2                               | -   |        | sub_ln564_4     | sub | fabric | 0       |
+|    add_ln570_4_fu_1650_p2                               | -   |        | add_ln570_4     | add | fabric | 0       |
+|    sub_ln570_4_fu_1655_p2                               | -   |        | sub_ln570_4     | sub | fabric | 0       |
+|    add_ln580_4_fu_1746_p2                               | -   |        | add_ln580_4     | add | fabric | 0       |
+|    add_ln377_5_fu_1774_p2                               | -   |        | add_ln377_5     | add | fabric | 0       |
+|    add_ln57_2_fu_2153_p2                                | -   |        | add_ln57_2      | add | fabric | 0       |
+|    sub_ln455_5_fu_1832_p2                               | -   |        | sub_ln455_5     | sub | fabric | 0       |
+|    sub_ln564_5_fu_1516_p2                               | -   |        | sub_ln564_5     | sub | fabric | 0       |
+|    add_ln570_5_fu_1850_p2                               | -   |        | add_ln570_5     | add | fabric | 0       |
+|    sub_ln570_5_fu_1855_p2                               | -   |        | sub_ln570_5     | sub | fabric | 0       |
+|    add_ln580_5_fu_1946_p2                               | -   |        | add_ln580_5     | add | fabric | 0       |
+|    add_ln377_6_fu_1974_p2                               | -   |        | add_ln377_6     | add | fabric | 0       |
+|    add_ln57_3_fu_2593_p2                                | -   |        | add_ln57_3      | add | fabric | 0       |
+|    sub_ln455_6_fu_2204_p2                               | -   |        | sub_ln455_6     | sub | fabric | 0       |
+|    sub_ln564_6_fu_2061_p2                               | -   |        | sub_ln564_6     | sub | fabric | 0       |
+|    add_ln570_6_fu_2222_p2                               | -   |        | add_ln570_6     | add | fabric | 0       |
+|    sub_ln570_6_fu_2227_p2                               | -   |        | sub_ln570_6     | sub | fabric | 0       |
+|    add_ln580_6_fu_2318_p2                               | -   |        | add_ln580_6     | add | fabric | 0       |
+|    add_ln377_7_fu_2346_p2                               | -   |        | add_ln377_7     | add | fabric | 0       |
+|    sub_ln455_7_fu_2404_p2                               | -   |        | sub_ln455_7     | sub | fabric | 0       |
+|    sub_ln564_7_fu_2107_p2                               | -   |        | sub_ln564_7     | sub | fabric | 0       |
+|    add_ln570_7_fu_2422_p2                               | -   |        | add_ln570_7     | add | fabric | 0       |
+|    sub_ln570_7_fu_2427_p2                               | -   |        | sub_ln570_7     | sub | fabric | 0       |
+|    add_ln580_7_fu_2518_p2                               | -   |        | add_ln580_7     | add | fabric | 0       |
+|    add_ln377_8_fu_2546_p2                               | -   |        | add_ln377_8     | add | fabric | 0       |
+|    add_ln49_1_fu_1530_p2                                | -   |        | add_ln49_1      | add | fabric | 0       |
+|  + krnl_KALMAN_Pipeline_VITIS_LOOP_66_3                 | 0   |        |                 |     |        |         |
+|    add_ln66_fu_113_p2                                   | -   |        | add_ln66        | add | fabric | 0       |
+|  + krnl_KALMAN_Pipeline_VITIS_LOOP_72_4_VITIS_LOOP_73_5 | 2   |        |                 |     |        |         |
+|    add_ln72_fu_165_p2                                   | -   |        | add_ln72        | add | fabric | 0       |
+|    add_ln72_1_fu_251_p2                                 | -   |        | add_ln72_1      | add | fabric | 0       |
+|    calc_temp_arr_V_fu_218_p2                            | -   |        | calc_temp_arr_V | add | fabric | 0       |
+|    ret_V_fu_224_p2                                      | -   |        | ret_V           | add | fabric | 0       |
+|    add_ln78_fu_275_p2                                   | -   |        | add_ln78        | add | fabric | 0       |
+|    ret_V_1_fu_303_p2                                    | -   |        | ret_V_1         | sub | fabric | 0       |
+|    mul_mul_20s_19s_39_4_1_U12                           | 1   |        | r_V_2           | mul | dsp48  | 3       |
+|    ret_V_4_fu_344_p2                                    | -   |        | ret_V_4         | add | fabric | 0       |
+|    add_ln377_fu_371_p2                                  | -   |        | add_ln377       | add | fabric | 0       |
+|    ret_V_5_fu_321_p2                                    | -   |        | ret_V_5         | sub | fabric | 0       |
+|    mul_mul_20s_19s_39_4_1_U13                           | 1   |        | r_V             | mul | dsp48  | 3       |
+|    p_arr_1_V_d0                                         | -   |        | add_ln377_1     | add | fabric | 0       |
+|    add_ln73_fu_198_p2                                   | -   |        | add_ln73        | add | fabric | 0       |
+|  + krnl_KALMAN_Pipeline_VITIS_LOOP_87_6                 | 0   |        |                 |     |        |         |
+|    add_ln87_fu_264_p2                                   | -   |        | add_ln87        | add | fabric | 0       |
+|    sub_ln1094_fu_383_p2                                 | -   |        | sub_ln1094      | sub | fabric | 0       |
+|    sub_ln1099_fu_527_p2                                 | -   |        | sub_ln1099      | sub | fabric | 0       |
+|    add_ln1099_fu_537_p2                                 | -   |        | add_ln1099      | add | fabric | 0       |
+|    sub_ln1102_fu_563_p2                                 | -   |        | sub_ln1102      | sub | fabric | 0       |
+|    add_ln1104_fu_611_p2                                 | -   |        | add_ln1104      | add | fabric | 0       |
+|    add_ln1113_fu_1839_p2                                | -   |        | add_ln1113      | add | fabric | 0       |
+|    sub_ln1114_fu_1854_p2                                | -   |        | sub_ln1114      | sub | fabric | 0       |
+|    add_ln1116_fu_1879_p2                                | -   |        | add_ln1116      | add | fabric | 0       |
+|    sub_ln1094_1_fu_397_p2                               | -   |        | sub_ln1094_1    | sub | fabric | 0       |
+|    sub_ln1099_1_fu_695_p2                               | -   |        | sub_ln1099_1    | sub | fabric | 0       |
+|    add_ln1099_1_fu_705_p2                               | -   |        | add_ln1099_1    | add | fabric | 0       |
+|    sub_ln1102_1_fu_731_p2                               | -   |        | sub_ln1102_1    | sub | fabric | 0       |
+|    add_ln1104_1_fu_779_p2                               | -   |        | add_ln1104_1    | add | fabric | 0       |
+|    add_ln1113_1_fu_1959_p2                              | -   |        | add_ln1113_1    | add | fabric | 0       |
+|    sub_ln1114_1_fu_1974_p2                              | -   |        | sub_ln1114_1    | sub | fabric | 0       |
+|    add_ln1116_1_fu_1999_p2                              | -   |        | add_ln1116_1    | add | fabric | 0       |
+|    add_ln96_fu_293_p2                                   | -   |        | add_ln96        | add | fabric | 0       |
+|    sub_ln1094_2_fu_411_p2                               | -   |        | sub_ln1094_2    | sub | fabric | 0       |
+|    sub_ln1099_2_fu_863_p2                               | -   |        | sub_ln1099_2    | sub | fabric | 0       |
+|    add_ln1099_2_fu_873_p2                               | -   |        | add_ln1099_2    | add | fabric | 0       |
+|    sub_ln1102_2_fu_899_p2                               | -   |        | sub_ln1102_2    | sub | fabric | 0       |
+|    add_ln1104_2_fu_947_p2                               | -   |        | add_ln1104_2    | add | fabric | 0       |
+|    add_ln1113_2_fu_2079_p2                              | -   |        | add_ln1113_2    | add | fabric | 0       |
+|    sub_ln1114_2_fu_2094_p2                              | -   |        | sub_ln1114_2    | sub | fabric | 0       |
+|    add_ln1116_2_fu_2119_p2                              | -   |        | add_ln1116_2    | add | fabric | 0       |
+|    sub_ln1094_3_fu_425_p2                               | -   |        | sub_ln1094_3    | sub | fabric | 0       |
+|    sub_ln1099_3_fu_1031_p2                              | -   |        | sub_ln1099_3    | sub | fabric | 0       |
+|    add_ln1099_3_fu_1041_p2                              | -   |        | add_ln1099_3    | add | fabric | 0       |
+|    sub_ln1102_3_fu_1067_p2                              | -   |        | sub_ln1102_3    | sub | fabric | 0       |
+|    add_ln1104_3_fu_1115_p2                              | -   |        | add_ln1104_3    | add | fabric | 0       |
+|    add_ln1113_3_fu_2199_p2                              | -   |        | add_ln1113_3    | add | fabric | 0       |
+|    sub_ln1114_3_fu_2214_p2                              | -   |        | sub_ln1114_3    | sub | fabric | 0       |
+|    add_ln1116_3_fu_2239_p2                              | -   |        | add_ln1116_3    | add | fabric | 0       |
+|    add_ln96_1_fu_315_p2                                 | -   |        | add_ln96_1      | add | fabric | 0       |
+|    sub_ln1094_4_fu_439_p2                               | -   |        | sub_ln1094_4    | sub | fabric | 0       |
+|    sub_ln1099_4_fu_1199_p2                              | -   |        | sub_ln1099_4    | sub | fabric | 0       |
+|    add_ln1099_4_fu_1209_p2                              | -   |        | add_ln1099_4    | add | fabric | 0       |
+|    sub_ln1102_4_fu_1235_p2                              | -   |        | sub_ln1102_4    | sub | fabric | 0       |
+|    add_ln1104_4_fu_1283_p2                              | -   |        | add_ln1104_4    | add | fabric | 0       |
+|    add_ln1113_4_fu_2319_p2                              | -   |        | add_ln1113_4    | add | fabric | 0       |
+|    sub_ln1114_4_fu_2334_p2                              | -   |        | sub_ln1114_4    | sub | fabric | 0       |
+|    add_ln1116_4_fu_2359_p2                              | -   |        | add_ln1116_4    | add | fabric | 0       |
+|    add_ln96_2_fu_326_p2                                 | -   |        | add_ln96_2      | add | fabric | 0       |
+|    sub_ln1094_5_fu_453_p2                               | -   |        | sub_ln1094_5    | sub | fabric | 0       |
+|    sub_ln1099_5_fu_1367_p2                              | -   |        | sub_ln1099_5    | sub | fabric | 0       |
+|    add_ln1099_5_fu_1377_p2                              | -   |        | add_ln1099_5    | add | fabric | 0       |
+|    sub_ln1102_5_fu_1403_p2                              | -   |        | sub_ln1102_5    | sub | fabric | 0       |
+|    add_ln1104_5_fu_1451_p2                              | -   |        | add_ln1104_5    | add | fabric | 0       |
+|    add_ln1113_5_fu_2439_p2                              | -   |        | add_ln1113_5    | add | fabric | 0       |
+|    sub_ln1114_5_fu_2454_p2                              | -   |        | sub_ln1114_5    | sub | fabric | 0       |
+|    add_ln1116_5_fu_2479_p2                              | -   |        | add_ln1116_5    | add | fabric | 0       |
+|    add_ln96_3_fu_337_p2                                 | -   |        | add_ln96_3      | add | fabric | 0       |
+|    sub_ln1094_6_fu_467_p2                               | -   |        | sub_ln1094_6    | sub | fabric | 0       |
+|    sub_ln1099_6_fu_1535_p2                              | -   |        | sub_ln1099_6    | sub | fabric | 0       |
+|    add_ln1099_6_fu_1545_p2                              | -   |        | add_ln1099_6    | add | fabric | 0       |
+|    sub_ln1102_6_fu_1571_p2                              | -   |        | sub_ln1102_6    | sub | fabric | 0       |
+|    add_ln1104_6_fu_1619_p2                              | -   |        | add_ln1104_6    | add | fabric | 0       |
+|    add_ln1113_6_fu_2559_p2                              | -   |        | add_ln1113_6    | add | fabric | 0       |
+|    sub_ln1114_6_fu_2574_p2                              | -   |        | sub_ln1114_6    | sub | fabric | 0       |
+|    add_ln1116_6_fu_2599_p2                              | -   |        | add_ln1116_6    | add | fabric | 0       |
+|    sub_ln1094_7_fu_481_p2                               | -   |        | sub_ln1094_7    | sub | fabric | 0       |
+|    sub_ln1099_7_fu_1703_p2                              | -   |        | sub_ln1099_7    | sub | fabric | 0       |
+|    add_ln1099_7_fu_1713_p2                              | -   |        | add_ln1099_7    | add | fabric | 0       |
+|    sub_ln1102_7_fu_1739_p2                              | -   |        | sub_ln1102_7    | sub | fabric | 0       |
+|    add_ln1104_7_fu_1787_p2                              | -   |        | add_ln1104_7    | add | fabric | 0       |
+|    add_ln1113_7_fu_2679_p2                              | -   |        | add_ln1113_7    | add | fabric | 0       |
+|    sub_ln1114_7_fu_2694_p2                              | -   |        | sub_ln1114_7    | sub | fabric | 0       |
+|    add_ln1116_7_fu_2719_p2                              | -   |        | add_ln1116_7    | add | fabric | 0       |
+|    add_ln99_fu_359_p2                                   | -   |        | add_ln99        | add | fabric | 0       |
++---------------------------------------------------------+-----+--------+-----------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++-----------------+------+------+--------+-------------+---------+------+---------+
+| Name            | BRAM | URAM | Pragma | Variable    | Storage | Impl | Latency |
++-----------------+------+------+--------+-------------+---------+------+---------+
+| + krnl_KALMAN   | 128  | 0    |        |             |         |      |         |
+|   in_local_V_U  | 16   | -    |        | in_local_V  | ram_t2p | auto | 1       |
+|   out_local_V_U | 16   | -    |        | out_local_V | rom_np  | auto | 1       |
+|   u_hat_arr_V_U | -    | -    |        | u_hat_arr_V | ram_s2p | auto | 1       |
+|   p_arr_1_V_U   | -    | -    |        | p_arr_1_V   | ram_s2p | auto | 1       |
++-----------------+------+------+--------+-------------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++-----------+-----------------------------+-----------------------------------------------+
+| Type      | Options                     | Location                                      |
++-----------+-----------------------------+-----------------------------------------------+
+| interface | m_axi port=in bundle=gmem0  | kalman_filter_slow.cpp:41 in krnl_kalman, in  |
+| interface | m_axi port=out bundle=gmem1 | kalman_filter_slow.cpp:42 in krnl_kalman, out |
++-----------+-----------------------------+-----------------------------------------------+
+
+

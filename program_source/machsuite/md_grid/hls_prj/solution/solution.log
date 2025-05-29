@@ -1,0 +1,84 @@
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2022.2.2 (64-bit)
+Tool Version Limit: 2019.12
+Copyright 1986-2023 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [HLS 200-1505] Using default flow_target 'vivado'
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vivado' configuration: config_interface -m_axi_latency=0
+INFO: [HLS 200-1510] Running: set_part xcu55c-fsvh2892-2L-e 
+INFO: [HLS 200-1611] Setting target device to 'xcu55c-fsvh2892-2L-e'
+INFO: [HLS 200-1510] Running: create_clock -period 5 -name default 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 5ns.
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0.01 seconds. Elapsed time: 10.06 seconds; current allocated memory: 1.196 GB.
+INFO: [HLS 200-10] Analyzing design file 'md_grid.c' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 0.2 seconds. CPU system time: 0.48 seconds. Elapsed time: 0.72 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-241] Aggregating bram variable 'position' with compact=bit mode in 192-bits
+INFO: [HLS 214-241] Aggregating bram variable 'force' with compact=bit mode in 192-bits
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 2.13 seconds. CPU system time: 0.51 seconds. Elapsed time: 2.74 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.02 seconds. CPU system time: 0 seconds. Elapsed time: 0.02 seconds; current allocated memory: 1.200 GB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.02 seconds; current allocated memory: 1.200 GB.
+INFO: [XFORM 203-510] Pipelining loop 'loop_q' (md_grid.c:10) in function 'md' automatically.
+WARNING: [XFORM 203-561] Updating loop lower bound from 1 to 4 for loop 'loop_grid0_z' (md_grid.c:19:9) in function 'md'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 1 to 4 for loop 'loop_grid0_y' (md_grid.c:17:9) in function 'md'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 1 to 4 for loop 'loop_grid0_x' (md_grid.c:15:9) in function 'md'.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.07 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.1 seconds; current allocated memory: 1.222 GB.
+WARNING: [HLS 200-960] Cannot flatten loop 'loop_p' (md_grid.c:10:11) in function 'md' the outer loop is not a perfect loop because there is nontrivial logic in the loop latch.
+INFO: [XFORM 203-541] Flattening a loop nest 'loop_grid1_z' (md_grid.c:29:23) in function 'md'.
+INFO: [XFORM 203-541] Flattening a loop nest 'loop_grid1_y' (md_grid.c:25:21) in function 'md'.
+INFO: [XFORM 203-541] Flattening a loop nest 'loop_grid1_x' (md_grid.c:23:21) in function 'md'.
+WARNING: [HLS 200-960] Cannot flatten loop 'loop_grid0_z' (md_grid.c:8:13) in function 'md' the outer loop is not a perfect loop.
+INFO: [XFORM 203-541] Flattening a loop nest 'loop_grid0_y' (md_grid.c:8:13) in function 'md'.
+INFO: [XFORM 203-541] Flattening a loop nest 'loop_grid0_x' (md_grid.c:8:13) in function 'md'.
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.06 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.08 seconds; current allocated memory: 1.232 GB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'md' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'md_Pipeline_loop_q' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'loop_q'.
+WARNING: [HLS 200-880] The II Violation in module 'md_Pipeline_loop_q' (loop 'loop_q'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 0) between 'store' operation ('sum_x_1_write_ln55', md_grid.c:55) of variable 'sum_x', md_grid.c:52 on local variable 'sum_x' and 'load' operation ('sum_x_1_load_1', md_grid.c:52) on local variable 'sum_x'.
+WARNING: [HLS 200-880] The II Violation in module 'md_Pipeline_loop_q' (loop 'loop_q'): Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 0) between 'store' operation ('sum_x_1_write_ln55', md_grid.c:55) of variable 'sum_x', md_grid.c:52 on local variable 'sum_x' and 'load' operation ('sum_x_1_load_1', md_grid.c:52) on local variable 'sum_x'.
+WARNING: [HLS 200-880] The II Violation in module 'md_Pipeline_loop_q' (loop 'loop_q'): Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 0) between 'store' operation ('sum_x_1_write_ln55', md_grid.c:55) of variable 'sum_x', md_grid.c:52 on local variable 'sum_x' and 'load' operation ('sum_x_1_load_1', md_grid.c:52) on local variable 'sum_x'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 4, Depth = 88, loop 'loop_q'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.29 seconds. CPU system time: 0.03 seconds. Elapsed time: 0.34 seconds; current allocated memory: 1.233 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.39 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.41 seconds; current allocated memory: 1.233 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'md' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.38 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.4 seconds; current allocated memory: 1.237 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.25 seconds. CPU system time: 0 seconds. Elapsed time: 0.28 seconds; current allocated memory: 1.237 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'md_Pipeline_loop_q' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'md_Pipeline_loop_q' pipeline 'loop_q' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'dadddsub_64ns_64ns_64_5_full_dsp_1': 3 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dcmp_64ns_64ns_1_2_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'ddiv_64ns_64ns_64_22_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dmul_64ns_64ns_64_5_max_dsp_1': 3 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'md_Pipeline_loop_q'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.44 seconds. CPU system time: 0 seconds. Elapsed time: 0.47 seconds; current allocated memory: 1.237 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'md' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-500] Setting interface mode on port 'md/n_points' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'md/force_r' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'md/position' to 'ap_memory'.

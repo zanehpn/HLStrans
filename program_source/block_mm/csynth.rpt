@@ -1,0 +1,169 @@
+
+
+================================================================
+== Synthesis Summary Report of 'block_mm'
+================================================================
++ General Information: 
+    * Date:           Sun May 11 11:22:10 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        block_mm
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +--------------------------------------------------+------+------+---------+---------+----------+---------+------+----------+------+----------+------------+------------+-----+
+    |                      Modules                     | Issue|      | Latency | Latency | Iteration|         | Trip |          |      |          |            |            |     |
+    |                      & Loops                     | Type | Slack| (cycles)|   (ns)  |  Latency | Interval| Count| Pipelined| BRAM |    DSP   |     FF     |     LUT    | URAM|
+    +--------------------------------------------------+------+------+---------+---------+----------+---------+------+----------+------+----------+------------+------------+-----+
+    |+ block_mm                                        |     -|  0.48|      184|  920.000|         -|      185|     -|        no|     -|  48 (~0%)|  2150 (~0%)|  7905 (~0%)|    -|
+    | + block_mm_Pipeline_loadA                        |     -|  1.52|       10|   50.000|         -|       10|     -|        no|     -|         -|    11 (~0%)|    70 (~0%)|    -|
+    |  o loadA                                         |     -|  3.65|        8|   40.000|         2|        1|     8|       yes|     -|         -|           -|           -|    -|
+    | + block_mm_Pipeline_2                            |     -|  2.31|       18|   90.000|         -|       18|     -|        no|     -|         -|     7 (~0%)|    49 (~0%)|    -|
+    |  o Loop 1                                        |     -|  3.65|       16|   80.000|         1|        1|    16|       yes|     -|         -|           -|           -|    -|
+    | + block_mm_Pipeline_partialsum                   |     -|  0.48|      130|  650.000|         -|      130|     -|        no|     -|  48 (~0%)|  1429 (~0%)|  1288 (~0%)|    -|
+    |  o partialsum                                    |    II|  3.65|      128|  640.000|        16|       16|     8|       yes|     -|         -|           -|           -|    -|
+    | + block_mm_Pipeline_writeoutput_VITIS_LOOP_25_4  |     -|  1.39|       18|   90.000|         -|       18|     -|        no|     -|         -|   530 (~0%)|  6027 (~0%)|    -|
+    |  o writeoutput_VITIS_LOOP_25_4                   |     -|  3.65|       16|   80.000|         2|        1|    16|       yes|     -|         -|           -|           -|    -|
+    +--------------------------------------------------+------+------+---------+---------+----------+---------+------+----------+------+----------+------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_FIFO
++-----------+------------+
+| Interface | Data Width |
++-----------+------------+
+| Arows     | 128        |
+| Bcols     | 128        |
++-----------+------------+
+
+* Other Ports
++-------------+---------+----------+
+| Interface   | Mode    | Bitwidth |
++-------------+---------+----------+
+| ABpartial_i | ap_ovld | 512      |
+| ABpartial_o | ap_ovld | 512      |
+| it          | ap_none | 32       |
++-------------+---------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++-----------+-----------+----------------------+
+| Argument  | Direction | Datatype             |
++-----------+-----------+----------------------+
+| Arows     | in        | stream<blockvec, 0>& |
+| Bcols     | in        | stream<blockvec, 0>& |
+| ABpartial | inout     | &                    |
+| it        | in        | int                  |
++-----------+-----------+----------------------+
+
+* SW-to-HW Mapping
++-----------+--------------------+-----------+
+| Argument  | HW Interface       | HW Type   |
++-----------+--------------------+-----------+
+| Arows     | Arows              | interface |
+| Bcols     | Bcols              | interface |
+| ABpartial | ABpartial_i        | port      |
+| ABpartial | ABpartial_o        | port      |
+| ABpartial | ABpartial_o_ap_vld | port      |
+| it        | it                 | port      |
++-----------+--------------------+-----------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+  No burst in design
+
+================================================================
+== Bind Op Report
+================================================================
++--------------------------------------------------+-----+--------+-------------+-----+--------+---------+
+| Name                                             | DSP | Pragma | Variable    | Op  | Impl   | Latency |
++--------------------------------------------------+-----+--------+-------------+-----+--------+---------+
+| + block_mm                                       | 48  |        |             |     |        |         |
+|  + block_mm_Pipeline_loadA                       | 0   |        |             |     |        |         |
+|    add_ln8_fu_134_p2                             | -   |        | add_ln8     | add | fabric | 0       |
+|  + block_mm_Pipeline_2                           | 0   |        |             |     |        |         |
+|    empty_13_fu_56_p2                             | -   |        | empty_13    | add | fabric | 0       |
+|  + block_mm_Pipeline_partialsum                  | 48  |        |             |     |        |         |
+|    add_ln16_fu_319_p2                            | -   |        | add_ln16    | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U7                         | 3   |        | mul_ln20    | mul | auto   | 0       |
+|    add_ln20_fu_380_p2                            | -   |        | add_ln20    | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U8                         | 3   |        | mul_ln20_1  | mul | auto   | 0       |
+|    add_ln20_1_fu_385_p2                          | -   |        | add_ln20_1  | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U9                         | 3   |        | mul_ln20_2  | mul | auto   | 0       |
+|    add_ln20_2_fu_398_p2                          | -   |        | add_ln20_2  | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U10                        | 3   |        | mul_ln20_3  | mul | auto   | 0       |
+|    add_ln20_3_fu_403_p2                          | -   |        | add_ln20_3  | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U11                        | 3   |        | mul_ln20_4  | mul | auto   | 0       |
+|    add_ln20_4_fu_416_p2                          | -   |        | add_ln20_4  | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U12                        | 3   |        | mul_ln20_5  | mul | auto   | 0       |
+|    add_ln20_5_fu_421_p2                          | -   |        | add_ln20_5  | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U13                        | 3   |        | mul_ln20_6  | mul | auto   | 0       |
+|    add_ln20_6_fu_434_p2                          | -   |        | add_ln20_6  | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U14                        | 3   |        | mul_ln20_7  | mul | auto   | 0       |
+|    add_ln20_7_fu_439_p2                          | -   |        | add_ln20_7  | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U15                        | 3   |        | mul_ln20_8  | mul | auto   | 0       |
+|    add_ln20_8_fu_452_p2                          | -   |        | add_ln20_8  | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U16                        | 3   |        | mul_ln20_9  | mul | auto   | 0       |
+|    add_ln20_9_fu_457_p2                          | -   |        | add_ln20_9  | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U17                        | 3   |        | mul_ln20_10 | mul | auto   | 0       |
+|    add_ln20_10_fu_470_p2                         | -   |        | add_ln20_10 | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U18                        | 3   |        | mul_ln20_11 | mul | auto   | 0       |
+|    add_ln20_11_fu_475_p2                         | -   |        | add_ln20_11 | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U19                        | 3   |        | mul_ln20_12 | mul | auto   | 0       |
+|    add_ln20_12_fu_488_p2                         | -   |        | add_ln20_12 | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U20                        | 3   |        | mul_ln20_13 | mul | auto   | 0       |
+|    add_ln20_13_fu_493_p2                         | -   |        | add_ln20_13 | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U21                        | 3   |        | mul_ln20_14 | mul | auto   | 0       |
+|    add_ln20_14_fu_506_p2                         | -   |        | add_ln20_14 | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U22                        | 3   |        | mul_ln20_15 | mul | auto   | 0       |
+|    add_ln20_15_fu_511_p2                         | -   |        | add_ln20_15 | add | fabric | 0       |
+|  + block_mm_Pipeline_writeoutput_VITIS_LOOP_25_4 | 0   |        |             |     |        |         |
+|    add_ln24_1_fu_125_p2                          | -   |        | add_ln24_1  | add | fabric | 0       |
+|    add_ln24_fu_137_p2                            | -   |        | add_ln24    | add | fabric | 0       |
+|    add_ln26_fu_181_p2                            | -   |        | add_ln26    | add | fabric | 0       |
+|    add_ln25_fu_196_p2                            | -   |        | add_ln25    | add | fabric | 0       |
++--------------------------------------------------+-----+--------+-------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++------------+------+------+--------+----------+---------+------+---------+
+| Name       | BRAM | URAM | Pragma | Variable | Storage | Impl | Latency |
++------------+------+------+--------+----------+---------+------+---------+
+| + block_mm | 0    | 0    |        |          |         |      |         |
+|   AB_U     | -    | -    |        | AB       | ram_t2p | auto | 1       |
+|   A_0_U    | -    | -    |        | A_0      | ram_1p  | auto | 1       |
+|   A_1_U    | -    | -    |        | A_1      | ram_1p  | auto | 1       |
+|   A_2_U    | -    | -    |        | A_2      | ram_1p  | auto | 1       |
+|   A_3_U    | -    | -    |        | A_3      | ram_1p  | auto | 1       |
++------------+------+------+--------+----------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+  No pragmas found
+

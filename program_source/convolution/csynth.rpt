@@ -1,0 +1,265 @@
+
+
+================================================================
+== Synthesis Summary Report of 'convolution'
+================================================================
++ General Information: 
+    * Date:           Sun May  4 13:12:59 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        convolution
+    * Solution:       solution (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +--------------------------------------+------+------+-----------+-----------+----------+-----------+---------+----------+---------+---------+------------+-------------+-----+
+    |                Modules               | Issue|      |  Latency  |  Latency  | Iteration|           |   Trip  |          |         |         |            |             |     |
+    |                & Loops               | Type | Slack|  (cycles) |    (ns)   |  Latency |  Interval |  Count  | Pipelined|  BRAM   |   DSP   |     FF     |     LUT     | URAM|
+    +--------------------------------------+------+------+-----------+-----------+----------+-----------+---------+----------+---------+---------+------------+-------------+-----+
+    |+ convolution*                        |     -|  0.02|  734054648|  3.670e+09|         -|  734054632|        -|  dataflow|  4 (~0%)|  4 (~0%)|  8064 (~0%)|  10264 (~0%)|    -|
+    | + ReadFromMem                        |     -|  1.04|    2073897|  1.037e+07|         -|    2073897|        -|        no|        -|        -|   150 (~0%)|    420 (~0%)|    -|
+    |  + ReadFromMem_Pipeline_read_coefs   |     -|  1.66|        290|  1.450e+03|         -|        290|        -|        no|        -|        -|    13 (~0%)|     89 (~0%)|    -|
+    |   o read_coefs                       |     -|  3.65|        288|  1.440e+03|         2|          1|      288|       yes|        -|        -|           -|            -|    -|
+    |  + ReadFromMem_Pipeline_read_image   |     -|  1.04|    2073602|  1.037e+07|         -|    2073602|        -|        no|        -|        -|   106 (~0%)|    214 (~0%)|    -|
+    |   o read_image                       |     -|  3.65|    2073600|  1.037e+07|         2|          1|  2073600|       yes|        -|        -|           -|            -|    -|
+    | + Window2D                           |     -|  0.96|   96004485|  4.800e+08|         -|   96004485|        -|        no|  4 (~0%)|        -|  1939 (~0%)|   2886 (~0%)|    -|
+    |  o update_window                     |     -|  3.65|   96004484|  4.800e+08|        46|          -|  2087054|        no|        -|        -|           -|            -|    -|
+    |   + Window2D_Pipeline_L6             |     -|  1.43|         17|     85.000|         -|         17|        -|        no|        -|        -|    68 (~0%)|    108 (~0%)|    -|
+    |    o L6                              |     -|  3.65|         15|     75.000|         2|          1|       15|       yes|        -|        -|           -|            -|    -|
+    |   + Window2D_Pipeline_L8             |     -|  1.00|         15|     75.000|         -|         15|        -|        no|        -|        -|    11 (~0%)|    129 (~0%)|    -|
+    |    o L8                              |     -|  3.65|         13|     65.000|         2|          1|       13|       yes|        -|        -|           -|            -|    -|
+    | + entry_proc                         |     -|  2.19|          0|      0.000|         -|          0|        -|        no|        -|        -|     3 (~0%)|     47 (~0%)|    -|
+    | + Filter2D                           |     -|  0.02|  734054631|  3.670e+09|         -|  734054631|        -|        no|        -|  4 (~0%)|  2517 (~0%)|   4713 (~0%)|    -|
+    |  + Filter2D_Pipeline_load_coefs_L11  |     -|  1.13|        227|  1.135e+03|         -|        227|        -|        no|        -|        -|    19 (~0%)|    172 (~0%)|    -|
+    |   o load_coefs_L11                   |     -|  3.65|        225|  1.125e+03|         2|          1|      225|       yes|        -|        -|           -|            -|    -|
+    |  o apply_filter_L13                  |     -|  3.65|  734054400|  3.670e+09|       354|          -|  2073600|        no|        -|        -|           -|            -|    -|
+    |   + Filter2D_Pipeline_L14_L15        |     -|  0.50|        230|  1.150e+03|         -|        230|        -|        no|        -|  1 (~0%)|   118 (~0%)|    397 (~0%)|    -|
+    |    o L14_L15                         |     -|  3.65|        228|  1.140e+03|         5|          1|      225|       yes|        -|        -|           -|            -|    -|
+    | + WriteToMem                         |     -|  0.66|    2073604|  1.037e+07|         -|    2073604|        -|        no|        -|        -|   186 (~0%)|    318 (~0%)|    -|
+    |  + WriteToMem_Pipeline_write_image   |     -|  0.66|    2073602|  1.037e+07|         -|    2073602|        -|        no|        -|        -|   144 (~0%)|    236 (~0%)|    -|
+    |   o write_image                      |     -|  3.65|    2073600|  1.037e+07|         2|          1|  2073600|       yes|        -|        -|           -|            -|    -|
+    +--------------------------------------+------+------+-----------+-----------+----------+-----------+---------+----------+---------+---------+------------+-------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_MEMORY
++-----------------+----------+
+| Interface       | Bitwidth |
++-----------------+----------+
+| coeffs_address0 | 8        |
+| coeffs_address1 | 8        |
+| coeffs_d0       | 8        |
+| coeffs_d1       | 8        |
+| coeffs_q0       | 8        |
+| coeffs_q1       | 8        |
+| dst_address0    | 21       |
+| dst_address1    | 21       |
+| dst_d0          | 8        |
+| dst_d1          | 8        |
+| dst_q0          | 8        |
+| dst_q1          | 8        |
+| src_address0    | 21       |
+| src_address1    | 21       |
+| src_d0          | 8        |
+| src_d1          | 8        |
+| src_q0          | 8        |
+| src_q1          | 8        |
++-----------------+----------+
+
+* Other Ports
++-----------+---------+----------+
+| Interface | Mode    | Bitwidth |
++-----------+---------+----------+
+| bias      | ap_none | 16       |
+| factor    | ap_none | 32       |
+| height    | ap_none | 16       |
+| stride    | ap_none | 16       |
+| width     | ap_none | 16       |
++-----------+---------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+-----------------------+
+| Argument | Direction | Datatype              |
++----------+-----------+-----------------------+
+| coeffs   | in        | char const *          |
+| factor   | in        | float                 |
+| bias     | in        | short                 |
+| width    | in        | unsigned short        |
+| height   | in        | unsigned short        |
+| stride   | in        | unsigned short        |
+| src      | in        | unsigned char const * |
+| dst      | out       | unsigned char*        |
++----------+-----------+-----------------------+
+
+* SW-to-HW Mapping
++----------+-----------------+---------+----------+
+| Argument | HW Interface    | HW Type | HW Usage |
++----------+-----------------+---------+----------+
+| coeffs   | coeffs_address0 | port    | offset   |
+| coeffs   | coeffs_ce0      | port    |          |
+| coeffs   | coeffs_d0       | port    |          |
+| coeffs   | coeffs_q0       | port    |          |
+| coeffs   | coeffs_we0      | port    |          |
+| coeffs   | coeffs_address1 | port    | offset   |
+| coeffs   | coeffs_ce1      | port    |          |
+| coeffs   | coeffs_d1       | port    |          |
+| coeffs   | coeffs_q1       | port    |          |
+| coeffs   | coeffs_we1      | port    |          |
+| factor   | factor          | port    |          |
+| bias     | bias            | port    |          |
+| width    | width           | port    |          |
+| height   | height          | port    |          |
+| stride   | stride          | port    |          |
+| src      | src_address0    | port    | offset   |
+| src      | src_ce0         | port    |          |
+| src      | src_d0          | port    |          |
+| src      | src_q0          | port    |          |
+| src      | src_we0         | port    |          |
+| src      | src_address1    | port    | offset   |
+| src      | src_ce1         | port    |          |
+| src      | src_d1          | port    |          |
+| src      | src_q1          | port    |          |
+| src      | src_we1         | port    |          |
+| dst      | dst_address0    | port    | offset   |
+| dst      | dst_ce0         | port    |          |
+| dst      | dst_d0          | port    |          |
+| dst      | dst_q0          | port    |          |
+| dst      | dst_we0         | port    |          |
+| dst      | dst_address1    | port    | offset   |
+| dst      | dst_ce1         | port    |          |
+| dst      | dst_d1          | port    |          |
+| dst      | dst_q1          | port    |          |
+| dst      | dst_we1         | port    |          |
++----------+-----------------+---------+----------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++--------------------------------------+-----+--------+-------------+------+--------+---------+
+| Name                                 | DSP | Pragma | Variable    | Op   | Impl   | Latency |
++--------------------------------------+-----+--------+-------------+------+--------+---------+
+| + convolution                        | 4   |        |             |      |        |         |
+|  + ReadFromMem                       | 0   |        |             |      |        |         |
+|    sub16_fu_127_p2                   | -   |        | sub16       | add  | fabric | 0       |
+|   + ReadFromMem_Pipeline_read_coefs  | 0   |        |             |      |        |         |
+|     add_ln36_fu_81_p2                | -   |        | add_ln36    | add  | fabric | 0       |
+|   + ReadFromMem_Pipeline_read_image  | 0   |        |             |      |        |         |
+|     add_ln44_fu_119_p2               | -   |        | add_ln44    | add  | fabric | 0       |
+|     x_fu_140_p2                      | -   |        | x           | add  | fabric | 0       |
+|  + Window2D                          | 0   |        |             |      |        |         |
+|    sub_fu_2190_p2                    | -   |        | sub         | add  | fabric | 0       |
+|    n_3_fu_2219_p2                    | -   |        | n_3         | add  | fabric | 0       |
+|    add_ln117_fu_2264_p2              | -   |        | add_ln117   | add  | fabric | 0       |
+|    col_ptr_1_fu_2250_p2              | -   |        | col_ptr_1   | add  | fabric | 0       |
+|   + Window2D_Pipeline_L6             | 0   |        |             |      |        |         |
+|     add_ln106_fu_384_p2              | -   |        | add_ln106   | add  | fabric | 0       |
+|   + Window2D_Pipeline_L8             | 0   |        |             |      |        |         |
+|     add_ln115_fu_90_p2               | -   |        | add_ln115   | add  | fabric | 0       |
+|  + Filter2D                          | 4   |        |             |      |        |         |
+|    add_ln155_1_fu_3158_p2            | -   |        | add_ln155_1 | add  | fabric | 0       |
+|    add_ln155_fu_5421_p2              | -   |        | add_ln155   | add  | fabric | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U58 | 3   |        | dc          | fmul | maxdsp | 3       |
+|    add_ln346_fu_5505_p2              | -   |        | add_ln346   | add  | fabric | 0       |
+|    sub_ln1512_fu_5519_p2             | -   |        | sub_ln1512  | sub  | fabric | 0       |
+|    result_V_2_fu_5598_p2             | -   |        | result_V_2  | sub  | fabric | 0       |
+|    add_ln182_fu_5615_p2              | -   |        | add_ln182   | add  | fabric | 0       |
+|    add_ln182_1_fu_5620_p2            | -   |        | add_ln182_1 | add  | fabric | 0       |
+|    add_ln157_fu_5451_p2              | -   |        | add_ln157   | add  | fabric | 0       |
+|   + Filter2D_Pipeline_load_coefs_L11 | 0   |        |             |      |        |         |
+|     add_ln148_1_fu_104_p2            | -   |        | add_ln148_1 | add  | fabric | 0       |
+|     add_ln148_fu_121_p2              | -   |        | add_ln148   | add  | fabric | 0       |
+|     add_ln149_fu_182_p2              | -   |        | add_ln149   | add  | fabric | 0       |
+|   + Filter2D_Pipeline_L14_L15        | 1   |        |             |      |        |         |
+|     empty_fu_173_p2                  | -   |        | empty       | add  | fabric | 0       |
+|     empty_966_fu_183_p2              | -   |        | empty_966   | add  | fabric | 0       |
+|     add_ln164_1_fu_211_p2            | -   |        | add_ln164_1 | add  | fabric | 0       |
+|     add_ln164_fu_220_p2              | -   |        | add_ln164   | add  | fabric | 0       |
+|     p_mid1_fu_270_p2                 | -   |        | p_mid1      | add  | fabric | 0       |
+|     p_mid18_fu_280_p2                | -   |        | p_mid18     | add  | fabric | 0       |
+|     add_ln169_fu_316_p2              | -   |        | add_ln169   | add  | fabric | 0       |
+|     add_ln172_fu_326_p2              | -   |        | add_ln172   | add  | fabric | 0       |
+|     mac_muladd_8s_8ns_24s_24_4_1_U49 | 1   |        | mul_ln177   | mul  | dsp48  | 3       |
+|     mac_muladd_8s_8ns_24s_24_4_1_U49 | 1   |        | sum         | add  | dsp48  | 3       |
+|     add_ln166_fu_342_p2              | -   |        | add_ln166   | add  | fabric | 0       |
+|  + WriteToMem                        | 0   |        |             |      |        |         |
+|    sub_fu_91_p2                      | -   |        | sub         | add  | fabric | 0       |
+|   + WriteToMem_Pipeline_write_image  | 0   |        |             |      |        |         |
+|     add_ln63_fu_132_p2               | -   |        | add_ln63    | add  | fabric | 0       |
+|     x_4_fu_148_p2                    | -   |        | x_4         | add  | fabric | 0       |
++--------------------------------------+-----+--------+-------------+------+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++--------------------+------+------+--------+---------------+---------+--------+---------+
+| Name               | BRAM | URAM | Pragma | Variable      | Storage | Impl   | Latency |
++--------------------+------+------+--------+---------------+---------+--------+---------+
+| + convolution      | 4    | 0    |        |               |         |        |         |
+|   stride_c_U       | -    | -    |        | stride_c      | fifo    | srl    | 0       |
+|   height_c_U       | -    | -    |        | height_c      | fifo    | srl    | 0       |
+|   width_c12_U      | -    | -    |        | width_c12     | fifo    | srl    | 0       |
+|   width_c11_U      | -    | -    |        | width_c11     | fifo    | srl    | 0       |
+|   width_c_U        | -    | -    |        | width_c       | fifo    | srl    | 0       |
+|   bias_c_U         | -    | -    |        | bias_c        | fifo    | srl    | 0       |
+|   factor_c_U       | -    | -    |        | factor_c      | fifo    | srl    | 0       |
+|   coefs_stream_U   | -    | -    |        | coefs_stream  | fifo    | srl    | 0       |
+|   pixel_stream_U   | -    | -    |        | pixel_stream  | fifo    | srl    | 0       |
+|   window_stream_U  | -    | -    |        | window_stream | fifo    | memory | 0       |
+|   output_stream_U  | -    | -    |        | output_stream | fifo    | srl    | 0       |
+|  + Window2D        | 4    | 0    |        |               |         |        |         |
+|    LineBuffer_U    | 4    | -    |        | LineBuffer    | ram_s2p | auto   | 1       |
+|    Window_pix_0_U  | -    | -    |        | Window_pix_0  | ram_s2p | auto   | 1       |
+|    Window_pix_1_U  | -    | -    |        | Window_pix_1  | ram_s2p | auto   | 1       |
+|    Window_pix_2_U  | -    | -    |        | Window_pix_2  | ram_s2p | auto   | 1       |
+|    Window_pix_3_U  | -    | -    |        | Window_pix_3  | ram_s2p | auto   | 1       |
+|    Window_pix_4_U  | -    | -    |        | Window_pix_4  | ram_s2p | auto   | 1       |
+|    Window_pix_5_U  | -    | -    |        | Window_pix_5  | ram_s2p | auto   | 1       |
+|    Window_pix_6_U  | -    | -    |        | Window_pix_6  | ram_s2p | auto   | 1       |
+|    Window_pix_7_U  | -    | -    |        | Window_pix_7  | ram_s2p | auto   | 1       |
+|    Window_pix_8_U  | -    | -    |        | Window_pix_8  | ram_s2p | auto   | 1       |
+|    Window_pix_9_U  | -    | -    |        | Window_pix_9  | ram_s2p | auto   | 1       |
+|    Window_pix_10_U | -    | -    |        | Window_pix_10 | ram_s2p | auto   | 1       |
+|    Window_pix_11_U | -    | -    |        | Window_pix_11 | ram_s2p | auto   | 1       |
+|    Window_pix_12_U | -    | -    |        | Window_pix_12 | ram_s2p | auto   | 1       |
+|    Window_pix_13_U | -    | -    |        | Window_pix_13 | ram_s2p | auto   | 1       |
+|    Window_pix_14_U | -    | -    |        | Window_pix_14 | ram_s2p | auto   | 1       |
+|  + Filter2D        | 0    | 0    |        |               |         |        |         |
+|    coeffs_U        | -    | -    |        | coeffs        | ram_1p  | auto   | 1       |
+|    w_pix_U         | -    | -    |        | w_pix         | ram_t2p | auto   | 1       |
++--------------------+------+------+--------+---------------+---------+--------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++----------------+---------------------------------+-------------------------------------------------+
+| Type           | Options                         | Location                                        |
++----------------+---------------------------------+-------------------------------------------------+
+| dependence     | variable=LineBuffer inter false | convolution_fast.cpp:84 in window2d, LineBuffer |
+| dependence     | variable=LineBuffer intra false | convolution_fast.cpp:85 in window2d, LineBuffer |
+| loop_tripcount | max=max_iterations              | convolution_fast.cpp:100 in window2d            |
+| dataflow       |                                 | convolution_fast.cpp:202 in convolution         |
++----------------+---------------------------------+-------------------------------------------------+
+
+

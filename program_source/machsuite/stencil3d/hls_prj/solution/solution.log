@@ -1,0 +1,86 @@
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2022.2.2 (64-bit)
+Tool Version Limit: 2019.12
+Copyright 1986-2023 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [HLS 200-1505] Using default flow_target 'vivado'
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vivado' configuration: config_interface -m_axi_latency=0
+INFO: [HLS 200-1510] Running: set_part xcu55c-fsvh2892-2L-e 
+INFO: [HLS 200-1611] Setting target device to 'xcu55c-fsvh2892-2L-e'
+INFO: [HLS 200-1510] Running: create_clock -period 5 -name default 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 5ns.
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0.02 seconds. Elapsed time: 10.05 seconds; current allocated memory: 1.202 GB.
+INFO: [HLS 200-10] Analyzing design file 'stencil.c' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 0.23 seconds. CPU system time: 0.45 seconds. Elapsed time: 0.74 seconds; current allocated memory: 1.204 GB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 2.26 seconds. CPU system time: 0.49 seconds. Elapsed time: 2.82 seconds; current allocated memory: 1.205 GB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 1.205 GB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.02 seconds; current allocated memory: 1.205 GB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.01 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.01 seconds; current allocated memory: 1.205 GB.
+INFO: [XFORM 203-510] Pipelining loop 'height_bound_row' (stencil.c:11) in function 'stencil3d' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'col_bound_row' (stencil.c:11) in function 'stencil3d' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'row_bound_col' (stencil.c:11) in function 'stencil3d' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'loop_row' (stencil.c:11) in function 'stencil3d' automatically.
+INFO: [XFORM 203-11] Balancing expressions in function 'stencil3d' (stencil.c:10:24)...5 expression(s) balanced.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.06 seconds. CPU system time: 0 seconds. Elapsed time: 0.08 seconds; current allocated memory: 1.221 GB.
+INFO: [XFORM 203-541] Flattening a loop nest 'height_bound_col' (stencil.c:11:12) in function 'stencil3d'.
+INFO: [XFORM 203-541] Flattening a loop nest 'col_bound_height' (stencil.c:11:9) in function 'stencil3d'.
+INFO: [XFORM 203-541] Flattening a loop nest 'row_bound_height' (stencil.c:11:9) in function 'stencil3d'.
+INFO: [XFORM 203-541] Flattening a loop nest 'loop_col' (stencil.c:11:12) in function 'stencil3d'.
+INFO: [XFORM 203-541] Flattening a loop nest 'loop_height' (stencil.c:11:9) in function 'stencil3d'.
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.05 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.14 seconds; current allocated memory: 1.258 GB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'stencil3d' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'stencil3d_Pipeline_height_bound_col_height_bound_row' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'height_bound_col_height_bound_row'.
+WARNING: [HLS 200-880] The II Violation in module 'stencil3d_Pipeline_height_bound_col_height_bound_row' (loop 'height_bound_col_height_bound_row'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between 'store' operation ('sol_addr_1_write_ln18', stencil.c:18) of variable 'orig_load_1', stencil.c:18 on array 'sol' and 'store' operation ('sol_addr_write_ln17', stencil.c:17) of variable 'orig_load', stencil.c:17 on array 'sol'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 2, Depth = 3, loop 'height_bound_col_height_bound_row'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.06 seconds. CPU system time: 0.05 seconds. Elapsed time: 0.24 seconds; current allocated memory: 1.258 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.05 seconds. CPU system time: 0 seconds. Elapsed time: 0.08 seconds; current allocated memory: 1.259 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'stencil3d_Pipeline_col_bound_height_col_bound_row' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'col_bound_height_col_bound_row'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 2, loop 'col_bound_height_col_bound_row'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.09 seconds. CPU system time: 0 seconds. Elapsed time: 0.1 seconds; current allocated memory: 1.259 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.04 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.05 seconds; current allocated memory: 1.259 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'stencil3d_Pipeline_row_bound_height_row_bound_col' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'row_bound_height_row_bound_col'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 2, loop 'row_bound_height_row_bound_col'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.08 seconds. CPU system time: 0 seconds. Elapsed time: 0.08 seconds; current allocated memory: 1.259 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.04 seconds. CPU system time: 0 seconds. Elapsed time: 0.05 seconds; current allocated memory: 1.259 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'stencil3d_Pipeline_loop_height_loop_col_loop_row' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'loop_height_loop_col_loop_row'.
+WARNING: [HLS 200-885] The II Violation in module 'stencil3d_Pipeline_loop_height_loop_col_loop_row' (loop 'loop_height_loop_col_loop_row'): Unable to schedule 'load' operation ('orig_load_4', stencil.c:43) on array 'orig' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'orig'.
+WARNING: [HLS 200-885] The II Violation in module 'stencil3d_Pipeline_loop_height_loop_col_loop_row' (loop 'loop_height_loop_col_loop_row'): Unable to schedule 'load' operation ('orig_load_6', stencil.c:45) on array 'orig' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'orig'.

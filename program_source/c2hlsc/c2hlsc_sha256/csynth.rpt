@@ -1,0 +1,169 @@
+
+
+================================================================
+== Synthesis Summary Report of 'sha256'
+================================================================
++ General Information: 
+    * Date:           Wed May  7 06:54:31 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        sha256
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +-----------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----+------------+-------------+-----+
+    |                    Modules                    | Issue|      | Latency |  Latency  | Iteration|         | Trip |          |      |    |            |             |     |
+    |                    & Loops                    | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined| BRAM | DSP|     FF     |     LUT     | URAM|
+    +-----------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----+------------+-------------+-----+
+    |+ sha256                                       |     -|  0.36|      271|  1.355e+03|         -|      272|     -|        no|     -|   -|  7494 (~0%)|   30042 (2%)|    -|
+    | + sha256_Pipeline_VITIS_LOOP_91_2             |     -|  2.12|       66|    330.000|         -|       66|     -|        no|     -|   -|   931 (~0%)|   4026 (~0%)|    -|
+    |  o VITIS_LOOP_91_2                            |     -|  3.65|       64|    320.000|         1|        1|    64|       yes|     -|   -|           -|            -|    -|
+    | + sha256_Pipeline_VITIS_LOOP_85_1             |     -|  1.02|       58|    290.000|         -|       58|     -|        no|     -|   -|   931 (~0%)|   4026 (~0%)|    -|
+    |  o VITIS_LOOP_85_1                            |     -|  3.65|       56|    280.000|         1|        1|    56|       yes|     -|   -|           -|            -|    -|
+    | + sha256_Pipeline_3                           |     -|  2.54|       58|    290.000|         -|       58|     -|        no|     -|   -|   873 (~0%)|   3958 (~0%)|    -|
+    |  o Loop 1                                     |     -|  3.65|       56|    280.000|         1|        1|    56|       yes|     -|   -|           -|            -|    -|
+    | + sha256_transform                            |     -|  0.64|      141|    705.000|         -|      141|     -|        no|     -|   -|  1237 (~0%)|  10421 (~0%)|    -|
+    |  + sha256_transform_Pipeline_VITIS_LOOP_6_1   |     -|  0.79|       18|     90.000|         -|       18|     -|        no|     -|   -|    14 (~0%)|   8800 (~0%)|    -|
+    |   o VITIS_LOOP_6_1                            |     -|  3.65|       16|     80.000|         1|        1|    16|       yes|     -|   -|           -|            -|    -|
+    |  + sha256_transform_Pipeline_VITIS_LOOP_9_2   |     -|  0.64|       50|    250.000|         -|       50|     -|        no|     -|   -|    17 (~0%)|    346 (~0%)|    -|
+    |   o VITIS_LOOP_9_2                            |     -|  3.65|       48|    240.000|         2|        1|    48|       yes|     -|   -|           -|            -|    -|
+    |  + sha256_transform_Pipeline_VITIS_LOOP_21_3  |     -|  0.71|       67|    335.000|         -|       67|     -|        no|     -|   -|   300 (~0%)|    783 (~0%)|    -|
+    |   o VITIS_LOOP_21_3                           |     -|  3.65|       65|    325.000|         2|        1|    64|       yes|     -|   -|           -|            -|    -|
+    | + sha256_Pipeline_VITIS_LOOP_114_3            |     -|  1.89|        6|     30.000|         -|        6|     -|        no|     -|   -|     5 (~0%)|    150 (~0%)|    -|
+    |  o VITIS_LOOP_114_3                           |     -|  3.65|        4|     20.000|         1|        1|     4|       yes|     -|   -|           -|            -|    -|
+    +-----------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----+------------+-------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* Other Ports
++-----------+---------+----------+
+| Interface | Mode    | Bitwidth |
++-----------+---------+----------+
+| ctx_i     | ap_ovld | 864      |
+| ctx_o     | ap_ovld | 864      |
+| hash      | ap_vld  | 8        |
++-----------+---------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------------+
+| Argument | Direction | Datatype       |
++----------+-----------+----------------+
+| ctx      | inout     | pointer        |
+| hash     | out       | unsigned char* |
++----------+-----------+----------------+
+
+* SW-to-HW Mapping
++----------+--------------+---------+
+| Argument | HW Interface | HW Type |
++----------+--------------+---------+
+| ctx      | ctx_i        | port    |
+| ctx      | ctx_o        | port    |
+| ctx      | ctx_o_ap_vld | port    |
+| hash     | hash         | port    |
+| hash     | hash_ap_vld  | port    |
++----------+--------------+---------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+  No burst in design
+
+================================================================
+== Bind Op Report
+================================================================
++-----------------------------------------------+-----+--------+-------------+-----+--------+---------+
+| Name                                          | DSP | Pragma | Variable    | Op  | Impl   | Latency |
++-----------------------------------------------+-----+--------+-------------+-----+--------+---------+
+| + sha256                                      | 0   |        |             |     |        |         |
+|   i_6_fu_272_p2                               | -   |        | i_6         | add | fabric | 0       |
+|   add_ln100_fu_538_p2                         | -   |        | add_ln100   | add | fabric | 0       |
+|   add_ln100_1_fu_544_p2                       | -   |        | add_ln100_1 | add | fabric | 0       |
+|   add_ln100_2_fu_550_p2                       | -   |        | add_ln100_2 | add | fabric | 0       |
+|   add_ln100_3_fu_556_p2                       | -   |        | add_ln100_3 | add | fabric | 0       |
+|   add_ln100_4_fu_562_p2                       | -   |        | add_ln100_4 | add | fabric | 0       |
+|   add_ln100_5_fu_568_p2                       | -   |        | add_ln100_5 | add | fabric | 0       |
+|   add_ln100_6_fu_574_p2                       | -   |        | add_ln100_6 | add | fabric | 0       |
+|   add_ln101_fu_590_p2                         | -   |        | add_ln101   | add | fabric | 0       |
+|  + sha256_Pipeline_VITIS_LOOP_91_2            | 0   |        |             |     |        |         |
+|    add_ln93_fu_99_p2                          | -   |        | add_ln93    | add | fabric | 0       |
+|  + sha256_Pipeline_VITIS_LOOP_85_1            | 0   |        |             |     |        |         |
+|    i_4_fu_99_p2                               | -   |        | i_4         | add | fabric | 0       |
+|  + sha256_Pipeline_3                          | 0   |        |             |     |        |         |
+|    empty_28_fu_76_p2                          | -   |        | empty_28    | add | fabric | 0       |
+|  + sha256_transform                           | 0   |        |             |     |        |         |
+|    add_ln34_fu_236_p2                         | -   |        | add_ln34    | add | fabric | 0       |
+|    add_ln35_fu_241_p2                         | -   |        | add_ln35    | add | fabric | 0       |
+|    add_ln36_fu_246_p2                         | -   |        | add_ln36    | add | fabric | 0       |
+|    add_ln37_fu_251_p2                         | -   |        | add_ln37    | add | fabric | 0       |
+|    add_ln38_fu_256_p2                         | -   |        | add_ln38    | add | fabric | 0       |
+|    add_ln39_fu_261_p2                         | -   |        | add_ln39    | add | fabric | 0       |
+|    add_ln40_fu_266_p2                         | -   |        | add_ln40    | add | fabric | 0       |
+|    add_ln41_fu_271_p2                         | -   |        | add_ln41    | add | fabric | 0       |
+|   + sha256_transform_Pipeline_VITIS_LOOP_6_1  | 0   |        |             |     |        |         |
+|     add_ln6_fu_94_p2                          | -   |        | add_ln6     | add | fabric | 0       |
+|     add_ln8_fu_158_p2                         | -   |        | add_ln8     | add | fabric | 0       |
+|     add_ln6_1_fu_211_p2                       | -   |        | add_ln6_1   | add | fabric | 0       |
+|   + sha256_transform_Pipeline_VITIS_LOOP_9_2  | 0   |        |             |     |        |         |
+|     add_ln10_fu_153_p2                        | -   |        | add_ln10    | add | fabric | 0       |
+|     add_ln10_1_fu_164_p2                      | -   |        | add_ln10_1  | add | fabric | 0       |
+|     add_ln10_2_fu_175_p2                      | -   |        | add_ln10_2  | add | fabric | 0       |
+|     add_ln10_3_fu_186_p2                      | -   |        | add_ln10_3  | add | fabric | 0       |
+|     add_ln10_5_fu_358_p2                      | -   |        | add_ln10_5  | add | fabric | 0       |
+|     add_ln9_fu_197_p2                         | -   |        | add_ln9     | add | fabric | 0       |
+|   + sha256_transform_Pipeline_VITIS_LOOP_21_3 | 0   |        |             |     |        |         |
+|     add_ln21_fu_324_p2                        | -   |        | add_ln21    | add | fabric | 0       |
+|     e_2_fu_599_p2                             | -   |        | e_2         | add | fabric | 0       |
+|  + sha256_Pipeline_VITIS_LOOP_114_3           | 0   |        |             |     |        |         |
+|    add_ln114_fu_67_p2                         | -   |        | add_ln114   | add | fabric | 0       |
+|    sub_ln115_fu_85_p2                         | -   |        | sub_ln115   | sub | fabric | 0       |
++-----------------------------------------------+-----+--------+-------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++-----------------------------------------------+------+------+--------+----------+---------+------+---------+
+| Name                                          | BRAM | URAM | Pragma | Variable | Storage | Impl | Latency |
++-----------------------------------------------+------+------+--------+----------+---------+------+---------+
+| + sha256                                      | 0    | 0    |        |          |         |      |         |
+|  + sha256_transform                           | 0    | 0    |        |          |         |      |         |
+|    m_U                                        | -    | -    |        | m        | rom_np  | auto | 1       |
+|   + sha256_transform_Pipeline_VITIS_LOOP_21_3 | 0    | 0    |        |          |         |      |         |
+|     k_U                                       | -    | -    |        | k        | rom_1p  | auto | 1       |
++-----------------------------------------------+------+------+--------+----------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++----------------+--------------+------------------------------+
+| Type           | Options      | Location                     |
++----------------+--------------+------------------------------+
+| loop_tripcount | min=1 max=56 | sha256_slow.cpp:86 in sha256 |
+| loop_tripcount | min=1 max=64 | sha256_slow.cpp:92 in sha256 |
++----------------+--------------+------------------------------+
+
+

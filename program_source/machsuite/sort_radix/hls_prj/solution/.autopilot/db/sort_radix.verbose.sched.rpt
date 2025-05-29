@@ -1,0 +1,259 @@
+
+
+================================================================
+== Vitis HLS Report for 'sort_radix'
+================================================================
+* Date:           Sun May 18 06:01:02 2025
+
+* Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+* Project:        hls_prj
+* Solution:       solution (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu55c-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  5.00 ns|  3.513 ns|     1.35 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+--------+--------+---------+
+    |  Latency (cycles) |  Latency (absolute) |     Interval    | Pipeline|
+    |   min   |   max   |    min   |    max   |   min  |   max  |   Type  |
+    +---------+---------+----------+----------+--------+--------+---------+
+    |   166289|   166289|  0.831 ms|  0.831 ms|  166290|  166290|       no|
+    +---------+---------+----------+----------+--------+--------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +----------+---------+---------+----------+-----------+-----------+------+----------+
+        |          |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        | Loop Name|   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +----------+---------+---------+----------+-----------+-----------+------+----------+
+        |- sort_1  |   166288|   166288|     10393|          -|          -|    16|        no|
+        +----------+---------+---------+----------+-----------+-----------+------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 1
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 0
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 15
+* Pipeline : 0
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 3 
+3 --> 4 6 
+4 --> 5 
+5 --> 7 
+6 --> 5 
+7 --> 8 
+8 --> 9 
+9 --> 10 
+10 --> 11 
+11 --> 12 
+12 --> 13 15 
+13 --> 14 
+14 --> 2 
+15 --> 14 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 0.38>
+ST_1 : Operation 16 [1/1] (0.00ns)   --->   "%exp = alloca i32 1"   --->   Operation 16 'alloca' 'exp' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 17 [1/1] (0.00ns)   --->   "%spectopmodule_ln78 = spectopmodule void @_ssdm_op_SpecTopModule, void @empty_1" [sort_radix.c:78]   --->   Operation 17 'spectopmodule' 'spectopmodule_ln78' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 18 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i32 %a, void @empty, i32 0, i32 0, void @empty_0, i32 4294967295, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 18 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 19 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i32 %a"   --->   Operation 19 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 20 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i32 %b, void @empty, i32 0, i32 0, void @empty_0, i32 4294967295, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 20 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 21 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i32 %b"   --->   Operation 21 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 22 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i32 %bucket, void @empty, i32 0, i32 0, void @empty_0, i32 4294967295, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 22 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 23 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i32 %bucket"   --->   Operation 23 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 24 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i32 %sum, void @empty, i32 0, i32 0, void @empty_0, i32 4294967295, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 24 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 25 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i32 %sum"   --->   Operation 25 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 26 [1/1] (0.00ns)   --->   "%sum_addr = getelementptr i32 %sum, i64 0, i64 0" [sort_radix.c:24]   --->   Operation 26 'getelementptr' 'sum_addr' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 27 [1/1] (0.38ns)   --->   "%store_ln84 = store i6 0, i6 %exp" [sort_radix.c:84]   --->   Operation 27 'store' 'store_ln84' <Predicate = true> <Delay = 0.38>
+ST_1 : Operation 28 [1/1] (0.38ns)   --->   "%br_ln84 = br void %for.body" [sort_radix.c:84]   --->   Operation 28 'br' 'br_ln84' <Predicate = true> <Delay = 0.38>
+
+State 2 <SV = 1> <Delay = 0.00>
+ST_2 : Operation 29 [1/1] (0.00ns)   --->   "%valid_buffer = phi i1 0, void %entry, i1 %valid_buffer_1, void %for.inc"   --->   Operation 29 'phi' 'valid_buffer' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 30 [1/1] (0.00ns)   --->   "%exp_2 = load i6 %exp" [sort_radix.c:63]   --->   Operation 30 'load' 'exp_2' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 31 [1/1] (0.00ns)   --->   "%tmp = bitselect i1 @_ssdm_op_BitSelect.i1.i6.i32, i6 %exp_2, i32 5" [sort_radix.c:84]   --->   Operation 31 'bitselect' 'tmp' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 32 [1/1] (0.00ns)   --->   "%empty = speclooptripcount i32 @_ssdm_op_SpecLoopTripCount, i64 16, i64 16, i64 16"   --->   Operation 32 'speclooptripcount' 'empty' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 33 [1/1] (0.00ns)   --->   "%br_ln84 = br i1 %tmp, void %for.body.split, void %for.end" [sort_radix.c:84]   --->   Operation 33 'br' 'br_ln84' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 34 [2/2] (0.00ns)   --->   "%call_ln0 = call void @sort_radix_Pipeline_init_1, i32 %bucket"   --->   Operation 34 'call' 'call_ln0' <Predicate = (!tmp)> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_2 : Operation 35 [1/1] (0.00ns)   --->   "%ret_ln105 = ret" [sort_radix.c:105]   --->   Operation 35 'ret' 'ret_ln105' <Predicate = (tmp)> <Delay = 0.00>
+
+State 3 <SV = 2> <Delay = 0.00>
+ST_3 : Operation 36 [1/1] (0.00ns)   --->   "%trunc_ln63 = trunc i6 %exp_2" [sort_radix.c:63]   --->   Operation 36 'trunc' 'trunc_ln63' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 37 [1/1] (0.00ns)   --->   "%specloopname_ln79 = specloopname void @_ssdm_op_SpecLoopName, void @empty_8" [sort_radix.c:79]   --->   Operation 37 'specloopname' 'specloopname_ln79' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 38 [1/2] (0.00ns)   --->   "%call_ln0 = call void @sort_radix_Pipeline_init_1, i32 %bucket"   --->   Operation 38 'call' 'call_ln0' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_3 : Operation 39 [1/1] (0.00ns)   --->   "%br_ln86 = br i1 %valid_buffer, void %for.inc.i7.preheader, void %for.inc.i26.preheader" [sort_radix.c:86]   --->   Operation 39 'br' 'br_ln86' <Predicate = true> <Delay = 0.00>
+
+State 4 <SV = 3> <Delay = 0.00>
+ST_4 : Operation 40 [2/2] (0.00ns)   --->   "%call_ln63 = call void @sort_radix_Pipeline_hist_1_hist_2, i32 %a, i5 %trunc_ln63, i32 %bucket" [sort_radix.c:63]   --->   Operation 40 'call' 'call_ln63' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 5 <SV = 4> <Delay = 0.60>
+ST_5 : Operation 41 [1/2] (0.00ns)   --->   "%call_ln63 = call void @sort_radix_Pipeline_hist_1_hist_2, i32 %a, i5 %trunc_ln63, i32 %bucket" [sort_radix.c:63]   --->   Operation 41 'call' 'call_ln63' <Predicate = (!valid_buffer)> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_5 : Operation 42 [1/1] (0.00ns)   --->   "%br_ln0 = br void %if.end"   --->   Operation 42 'br' 'br_ln0' <Predicate = (!valid_buffer)> <Delay = 0.00>
+ST_5 : Operation 43 [1/2] (0.00ns)   --->   "%call_ln63 = call void @sort_radix_Pipeline_hist_1_hist_21, i32 %b, i5 %trunc_ln63, i32 %bucket" [sort_radix.c:63]   --->   Operation 43 'call' 'call_ln63' <Predicate = (valid_buffer)> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_5 : Operation 44 [1/1] (0.00ns)   --->   "%br_ln0 = br void %if.end"   --->   Operation 44 'br' 'br_ln0' <Predicate = (valid_buffer)> <Delay = 0.00>
+ST_5 : Operation 45 [1/1] (0.60ns)   --->   "%store_ln24 = store i32 0, i7 %sum_addr" [sort_radix.c:24]   --->   Operation 45 'store' 'store_ln24' <Predicate = true> <Delay = 0.60> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 0.60> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 128> <RAM>
+
+State 6 <SV = 3> <Delay = 0.00>
+ST_6 : Operation 46 [2/2] (0.00ns)   --->   "%call_ln63 = call void @sort_radix_Pipeline_hist_1_hist_21, i32 %b, i5 %trunc_ln63, i32 %bucket" [sort_radix.c:63]   --->   Operation 46 'call' 'call_ln63' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 7 <SV = 5> <Delay = 0.00>
+ST_7 : Operation 47 [2/2] (0.00ns)   --->   "%call_ln0 = call void @sort_radix_Pipeline_local_1, i32 %bucket"   --->   Operation 47 'call' 'call_ln0' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 8 <SV = 6> <Delay = 0.00>
+ST_8 : Operation 48 [1/2] (0.00ns)   --->   "%call_ln0 = call void @sort_radix_Pipeline_local_1, i32 %bucket"   --->   Operation 48 'call' 'call_ln0' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 9 <SV = 7> <Delay = 0.00>
+ST_9 : Operation 49 [2/2] (0.00ns)   --->   "%call_ln0 = call void @sort_radix_Pipeline_sum_1, i32 %bucket, i32 %sum"   --->   Operation 49 'call' 'call_ln0' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 10 <SV = 8> <Delay = 0.00>
+ST_10 : Operation 50 [1/2] (0.00ns)   --->   "%call_ln0 = call void @sort_radix_Pipeline_sum_1, i32 %bucket, i32 %sum"   --->   Operation 50 'call' 'call_ln0' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 11 <SV = 9> <Delay = 0.00>
+ST_11 : Operation 51 [2/2] (0.00ns)   --->   "%call_ln0 = call void @sort_radix_Pipeline_last_1, i32 %sum, i32 %bucket"   --->   Operation 51 'call' 'call_ln0' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 12 <SV = 10> <Delay = 0.00>
+ST_12 : Operation 52 [1/2] (0.00ns)   --->   "%call_ln0 = call void @sort_radix_Pipeline_last_1, i32 %sum, i32 %bucket"   --->   Operation 52 'call' 'call_ln0' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_12 : Operation 53 [1/1] (0.00ns)   --->   "%br_ln96 = br i1 %valid_buffer, void %for.inc.i73.preheader, void %for.inc.i93.preheader" [sort_radix.c:96]   --->   Operation 53 'br' 'br_ln96' <Predicate = true> <Delay = 0.00>
+
+State 13 <SV = 11> <Delay = 0.00>
+ST_13 : Operation 54 [2/2] (0.00ns)   --->   "%call_ln63 = call void @sort_radix_Pipeline_update_1_update_2, i32 %a, i5 %trunc_ln63, i32 %bucket, i32 %b" [sort_radix.c:63]   --->   Operation 54 'call' 'call_ln63' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 14 <SV = 12> <Delay = 1.09>
+ST_14 : Operation 55 [1/2] (0.00ns)   --->   "%call_ln63 = call void @sort_radix_Pipeline_update_1_update_2, i32 %a, i5 %trunc_ln63, i32 %bucket, i32 %b" [sort_radix.c:63]   --->   Operation 55 'call' 'call_ln63' <Predicate = (!valid_buffer)> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_14 : Operation 56 [1/1] (0.38ns)   --->   "%br_ln0 = br void %for.inc"   --->   Operation 56 'br' 'br_ln0' <Predicate = (!valid_buffer)> <Delay = 0.38>
+ST_14 : Operation 57 [1/2] (0.00ns)   --->   "%call_ln63 = call void @sort_radix_Pipeline_update_1_update_22, i32 %b, i5 %trunc_ln63, i32 %bucket, i32 %a" [sort_radix.c:63]   --->   Operation 57 'call' 'call_ln63' <Predicate = (valid_buffer)> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_14 : Operation 58 [1/1] (0.38ns)   --->   "%br_ln0 = br void %for.inc"   --->   Operation 58 'br' 'br_ln0' <Predicate = (valid_buffer)> <Delay = 0.38>
+ST_14 : Operation 59 [1/1] (0.00ns)   --->   "%valid_buffer_1 = phi i1 0, void %for.inc.i93.preheader, i1 1, void %for.inc.i73.preheader"   --->   Operation 59 'phi' 'valid_buffer_1' <Predicate = true> <Delay = 0.00>
+ST_14 : Operation 60 [1/1] (0.70ns)   --->   "%exp_3 = add i6 %exp_2, i6 2" [sort_radix.c:84]   --->   Operation 60 'add' 'exp_3' <Predicate = true> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_14 : Operation 61 [1/1] (0.38ns)   --->   "%store_ln84 = store i6 %exp_3, i6 %exp" [sort_radix.c:84]   --->   Operation 61 'store' 'store_ln84' <Predicate = true> <Delay = 0.38>
+ST_14 : Operation 62 [1/1] (0.00ns)   --->   "%br_ln84 = br void %for.body" [sort_radix.c:84]   --->   Operation 62 'br' 'br_ln84' <Predicate = true> <Delay = 0.00>
+
+State 15 <SV = 11> <Delay = 0.00>
+ST_15 : Operation 63 [2/2] (0.00ns)   --->   "%call_ln63 = call void @sort_radix_Pipeline_update_1_update_22, i32 %b, i5 %trunc_ln63, i32 %bucket, i32 %a" [sort_radix.c:63]   --->   Operation 63 'call' 'call_ln63' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 5ns, clock uncertainty: 1.35ns.
+
+ <State 1>: 0.387ns
+The critical path consists of the following:
+	'alloca' operation ('exp') [5]  (0 ns)
+	'store' operation ('store_ln84', sort_radix.c:84) of constant 0 on local variable 'exp' [16]  (0.387 ns)
+
+ <State 2>: 0ns
+The critical path consists of the following:
+
+ <State 3>: 0ns
+The critical path consists of the following:
+
+ <State 4>: 0ns
+The critical path consists of the following:
+
+ <State 5>: 0.6ns
+The critical path consists of the following:
+	'store' operation ('store_ln24', sort_radix.c:24) of constant 0 on array 'sum' [37]  (0.6 ns)
+
+ <State 6>: 0ns
+The critical path consists of the following:
+
+ <State 7>: 0ns
+The critical path consists of the following:
+
+ <State 8>: 0ns
+The critical path consists of the following:
+
+ <State 9>: 0ns
+The critical path consists of the following:
+
+ <State 10>: 0ns
+The critical path consists of the following:
+
+ <State 11>: 0ns
+The critical path consists of the following:
+
+ <State 12>: 0ns
+The critical path consists of the following:
+
+ <State 13>: 0ns
+The critical path consists of the following:
+
+ <State 14>: 1.09ns
+The critical path consists of the following:
+	'add' operation ('exp', sort_radix.c:84) [49]  (0.706 ns)
+	'store' operation ('store_ln84', sort_radix.c:84) of variable 'exp', sort_radix.c:84 on local variable 'exp' [50]  (0.387 ns)
+
+ <State 15>: 0ns
+The critical path consists of the following:
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+	State 4
+	State 5
+	State 6
+	State 7
+	State 8
+	State 9
+	State 10
+	State 11
+	State 12
+	State 13
+	State 14
+	State 15
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

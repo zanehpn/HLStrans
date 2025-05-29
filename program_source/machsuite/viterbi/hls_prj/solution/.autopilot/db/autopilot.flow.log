@@ -1,0 +1,647 @@
+INFO-FLOW: Workspace /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution opened at Sat Apr 05 07:02:31 UTC 2025
+Execute       send_msg_by_id INFO @200-1505@%s%s default  vivado 
+INFO: [HLS 200-1505] Using default flow_target 'vivado'
+Execute       send_msg_by_id INFO @200-435@%s%s 'open_solution -flow_target vivado' config_interface -m_axi_latency=0 
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vivado' configuration: config_interface -m_axi_latency=0
+Execute       config_interface -m_axi_latency=0 
+Execute     set_part xcu55c-fsvh2892-2L-e 
+INFO: [HLS 200-1510] Running: set_part xcu55c-fsvh2892-2L-e 
+Execute       create_platform xcu55c-fsvh2892-2L-e -board  
+DBG:HLSDevice: Trying to load device library: /tools/Xilinx/new/Vitis_HLS/2022.2/lib/lnx64.o/libxv_hlsvwrap.so
+DBG:HLSDevice: first parts/arch.xml in RDI_DATADIR: /tools/Xilinx/new/Vivado/2022.2/data/parts/arch.xml
+DBG:HLSDevice: init success
+INFO: [HLS 200-1611] Setting target device to 'xcu55c-fsvh2892-2L-e'
+Command       create_platform done; 2.51 sec.
+Execute       source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/common/xilinx.gen 
+Execute         source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/interface/plb46.gen 
+Execute         source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/interface/axi4.gen 
+Execute         source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute           source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/interface/saxilite.gen 
+Execute         source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute         source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute         source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/ip/dds_compiler.gen 
+Execute         source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/ip/xfft.gen 
+Execute         source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/ip/util.gen 
+Execute         source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/ip/xfir.gen 
+Execute         source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/DSP48/dsp48.gen 
+Execute       ap_part_info -name xcu55c-fsvh2892-2L-e -data info 
+Execute       config_compile -quiet -complex-mul-dsp=0 
+Command     set_part done; 2.61 sec.
+Execute     create_clock -period 5 -name default 
+INFO: [HLS 200-1510] Running: create_clock -period 5 -name default 
+Execute       ap_set_clock -name default -period 5 -default=false 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 5ns.
+Execute     csynth_design 
+INFO: [HLS 200-1510] Running: csynth_design 
+Execute       elaborate -effort=medium -skip_syncheck=0 -keep_printf=0 -skip_cdt=0 -skip_transform=0 -ng=0 -g=0 -opt_fp=0 -from_csynth_design=1 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0 seconds. CPU system time: 0.02 seconds. Elapsed time: 10.24 seconds; current allocated memory: 1.196 GB.
+INFO: [HLS 200-10] Analyzing design file 'viterbi.c' ... 
+INFO-FLOW: Compiling one TU...
+INFO-FLOW: Handling viterbi.c as C
+Execute         ap_part_info -name xcu55c-fsvh2892-2L-e -data info 
+INFO-FLOW: Running: GCC PP 39
+INFO-FLOW: Source preprocessing
+Execute         ap_eval exec -ignorestderr /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/tools/clang-3.9-csynth/bin/clang viterbi.c -foptimization-record-file=/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.c.clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fno-limit-debug-info -gcc-toolchain /tools/Xilinx/new/Vitis_HLS/2022.2/tps/lnx64/gcc-8.3.0 -fhls -fno-exceptions -E -fno-math-errno -c -emit-llvm -mllvm -disable-llvm-optzns -Werror=implicit-function-declaration -Werror=implicit-hls-streams -Werror=return-type -Wpragmas -Wunused-parameter -Wdump-hls-pragmas -Wno-error=dump-hls-pragmas -std=gnu99 -fgnu89-inline -target fpga64-xilinx-linux-gnu -D__VITIS_HLS__ -DAESL_SYN -D__SYNTHESIS__ -D__HLS_SYN__ -I /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/autopilot -I /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/autopilot/ap_sysc -include etc/autopilot_ssdm_op.h -D__DSP48E2__ -I /usr/include/x86_64-linux-gnu -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c -hls-platform-db-name=/tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_medium -device-resource-info=BRAM_4032.000000_DSP_9024.000000_FF_2607360.000000_LUT_1303680.000000_SLICE_162960.000000_SLR_3.000000_URAM_960.000000 -device-name-info=xcu55c-fsvh2892-2L-e > /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.c.clang.out.log 2> /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.c.clang.err.log 
+INFO-FLOW: Done: GCC PP 39 time: 0.1 seconds per iteration
+Execute         set_directive_top viterbi -name=viterbi 
+Execute         source /tools/Xilinx/new/Vitis_HLS/2022.2/tps/tcl/tcllib1.11.1/yaml/huddle.tcl 
+Execute         source /tools/Xilinx/new/Vitis_HLS/2022.2/tps/tcl/tcllib1.11.1/yaml/json2huddle.tcl 
+INFO-FLOW: Source syntax check for synthesis
+Execute         ap_eval exec -ignorestderr /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/tools/clang-3.9-csynth/bin/clang -foptimization-record-file=/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fsyntax-only -fhls -target fpga64-xilinx-linux-gnu /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c -hls-platform-db-name=/tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_medium -device-resource-info=BRAM_4032.000000_DSP_9024.000000_FF_2607360.000000_LUT_1303680.000000_SLICE_162960.000000_SLR_3.000000_URAM_960.000000 -device-name-info=xcu55c-fsvh2892-2L-e > /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/clang.out.log 2> /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/clang.err.log 
+Execute         clang_tidy xilinx-systemc-detector -desc systemc-detector /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c std=gnu99 -target fpga  -directive=/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/.systemc_flag 
+INFO-FLOW: exec /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-systemc-detector -import-directive=/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/.systemc_flag -fix-errors /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c -- -std=gnu99 -target fpga -fhls -ferror-limit=0
+INFO-FLOW: Running: clang-tidy CDT preprocess 39
+Execute         clang_tidy xilinx-directive2pragma -desc directive2pragma /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c std=gnu99 -target fpga  -directive=/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/all.directive.json 
+INFO-FLOW: exec /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-directive2pragma -import-directive=/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/all.directive.json -fix-errors /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c -- -std=gnu99 -target fpga -fhls -ferror-limit=0
+Execute         clang_tidy xilinx-remove-assert -desc remove-assert /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c std=gnu99 -target fpga  
+INFO-FLOW: exec /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-remove-assert -fix-errors /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c -- -std=gnu99 -target fpga -fhls -ferror-limit=0
+INFO-FLOW: Done: clang-tidy CDT preprocess 39 time: 0.1 seconds per iteration
+INFO-FLOW: Calling xilinx-label-all-loops ... 
+INFO-FLOW: Calling xilinx-aggregate-on-hls-vector ... 
+Execute         clang_tidy -errorcheck -desc loop-label xilinx-label-all-loops,xilinx-aggregate-on-hls-vector,,xilinx-warn-mayneed-no-ctor-attribute /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c std=gnu99 -target fpga  
+Execute           ap_eval exec -ignorestderr /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -export-fixes=/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c.clang-tidy.loop-label.diag.yml -header-filter=.* --checks=-*,xilinx-label-all-loops,xilinx-aggregate-on-hls-vector,,xilinx-warn-mayneed-no-ctor-attribute -fix-errors /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c -- -std=gnu99 -target fpga -fhls -ferror-limit=0 > /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c.clang-tidy.loop-label.out.log 2> /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c.clang-tidy.loop-label.err.log 
+Execute           source /tools/Xilinx/new/Vitis_HLS/2022.2/tps/tcl/tcllib1.11.1/yaml/yaml.tcl 
+Execute         ap_eval exec -ignorestderr /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/tools/clang-3.9-csynth/bin/xilinx-dataflow-lawyer -export-fixes=/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c.xilinx-dataflow-lawyer.diag.yml /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c -- -std=gnu99 -target fpga -fhls -ferror-limit=0 -fstrict-dataflow > /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c.xilinx-dataflow-lawyer.out.log 2> /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c.xilinx-dataflow-lawyer.err.log 
+Execute         ap_part_info -name xcu55c-fsvh2892-2L-e -data info 
+INFO-FLOW: compiling source code to llvm bc
+Execute         ap_eval exec -ignorestderr /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/tools/clang-3.9-csynth/bin/clang -foptimization-record-file=/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c.clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fno-limit-debug-info -fhls -flto -fno-exceptions -Wno-error=c++11-narrowing /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c -fno-math-errno -c -emit-llvm -mllvm -disable-llvm-optzns -Werror=implicit-function-declaration -Werror=implicit-hls-streams -Werror=return-type -Wpragmas -Wunused-parameter -Wdump-hls-pragmas -Wno-error=dump-hls-pragmas -std=gnu99 -fgnu89-inline -target fpga64-xilinx-linux-gnu -D__VITIS_HLS__ -DAESL_SYN -D__SYNTHESIS__ -D__HLS_SYN__ -I /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/autopilot -I /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/autopilot/ap_sysc -include etc/autopilot_ssdm_op.h -D__DSP48E2__ -g -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.bc -hls-platform-db-name=/tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_medium -device-resource-info=BRAM_4032.000000_DSP_9024.000000_FF_2607360.000000_LUT_1303680.000000_SLICE_162960.000000_SLR_3.000000_URAM_960.000000 -device-name-info=xcu55c-fsvh2892-2L-e > /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c.clang.out.log 2> /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.pp.0.c.clang.err.log 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 0.22 seconds. CPU system time: 0.25 seconds. Elapsed time: 0.52 seconds; current allocated memory: 1.198 GB.
+INFO-FLOW: Linking Debug ...
+INFO-FLOW: Linking dut bc code.
+Execute         run_link_or_opt -out /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.0.bc -args  "/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.g.bc"  
+Execute           ap_eval exec -ignorestderr /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/tools/clang-3.9-csynth/bin/llvm-link /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.g.bc -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.0.bc > /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.0.bc.llvm-link.out.log 2> /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.0.bc.llvm-link.err.log 
+INFO-FLOW: 
+Execute         run_link_or_opt -opt -out /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.1.lower.bc -args /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.0.bc -reflow-lower-math-intrinsics 
+Execute           ap_eval exec -ignorestderr /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/tools/clang-3.9-csynth/bin/opt -pass-remarks-missed=reflow|pasta|unroll -pass-remarks=reflow|pasta|unroll|inline -pass-remarks-output=/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.1.lower.bc.opt.diag.yml /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.0.bc -reflow-lower-math-intrinsics -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.1.lower.bc > /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.1.lower.bc.opt.out.log 2> /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.1.lower.bc.opt.err.log 
+INFO-FLOW: 
+INFO-FLOW: Linking math bc lib
+Execute         run_link_or_opt -out /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.2.m1.bc -args /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.1.lower.bc -only-needed /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/lib/libhlsm_39.bc /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/lib/libhlsmc++_39.bc 
+Execute           ap_eval exec -ignorestderr /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/tools/clang-3.9-csynth/bin/llvm-link /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.1.lower.bc -only-needed /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/lib/libhlsm_39.bc /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/lib/libhlsmc++_39.bc -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.2.m1.bc > /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.2.m1.bc.llvm-link.out.log 2> /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.2.m1.bc.llvm-link.err.log 
+Command           ap_eval done; 1.64 sec.
+INFO-FLOW: 
+Command         run_link_or_opt done; 1.65 sec.
+Execute         run_link_or_opt -opt -out /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.3.fpc.bc -args /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.2.m1.bc -reflow-globaldce -hls-top-function-name=viterbi -reflow-float-conversion 
+Execute           ap_eval exec -ignorestderr /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/tools/clang-3.9-csynth/bin/opt -pass-remarks-missed=reflow|pasta|unroll -pass-remarks=reflow|pasta|unroll|inline -pass-remarks-output=/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.3.fpc.bc.opt.diag.yml /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.2.m1.bc -reflow-globaldce -hls-top-function-name=viterbi -reflow-float-conversion -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.3.fpc.bc > /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.3.fpc.bc.opt.out.log 2> /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.3.fpc.bc.opt.err.log 
+Command           ap_eval done; 0.55 sec.
+INFO-FLOW: 
+Command         run_link_or_opt done; 0.55 sec.
+Execute         run_link_or_opt -out /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.4.m2.bc -args /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.3.fpc.bc -only-needed /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/lib/libfloatconversion_39.bc 
+Execute           ap_eval exec -ignorestderr /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/tools/clang-3.9-csynth/bin/llvm-link /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.3.fpc.bc -only-needed /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/lib/libfloatconversion_39.bc -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.4.m2.bc > /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.4.m2.bc.llvm-link.out.log 2> /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.4.m2.bc.llvm-link.err.log 
+INFO-FLOW: 
+Execute         run_link_or_opt -opt -out /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.5.gdce.bc -args /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.4.m2.bc -reflow-globaldce -hls-top-function-name=viterbi 
+Execute           ap_eval exec -ignorestderr /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/tools/clang-3.9-csynth/bin/opt -pass-remarks-missed=reflow|pasta|unroll -pass-remarks=reflow|pasta|unroll|inline -pass-remarks-output=/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.5.gdce.bc.opt.diag.yml /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.4.m2.bc -reflow-globaldce -hls-top-function-name=viterbi -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.5.gdce.bc > /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.5.gdce.bc.opt.out.log 2> /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.5.gdce.bc.opt.err.log 
+INFO-FLOW: 
+Execute         send_msg_by_id INFO @200-777@%s Vivado 
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+Execute         is_m_axi_addr64 
+INFO-FLOW: Doing LTO.
+Execute         ap_eval exec -ignorestderr /tools/Xilinx/new/Vitis_HLS/2022.2/lnx64/tools/clang-3.9-csynth/bin/clang -foptimization-record-file=/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.0.bc.clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fhls -mllvm -hls-top-function-name=viterbi -mllvm -hls-db-dir -mllvm /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db -emit-llvm -c -target fpga64-xilinx-none -mllvm -xcl-xmlinfo=/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/kernel.internal.xml -mllvm -top-io-mapping-info=/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/top-io-fe.xml -mllvm -hls-bitcode-version=3.1 -mllvm -reflow-enable-slave-interface-default-setting=true -mllvm -gen-kernel-xml=false -mllvm -default-maxi-offset=slave -mllvm -maxi-latency=0 -mllvm -hls-maxi-data-size-in-bits=8 -mllvm -hls-maxi-max-data-size-in-bits=1024 -mllvm -hls-max-widen-size-in-bits=0 -mllvm -xcl-kernel-max-mem-ports=0 -mllvm -maxi-read-trans=16 -mllvm -maxi-write-trans=16 -mllvm -maxi-read-burst-len=16 -mllvm -maxi-write-burst-len=16 -mllvm -reflow-enable-saxi-64bits=0 -mllvm -reflow-basic-block-instr-threshold=200000 -mllvm -reflow-auto-pipeline-threshold=64 -mllvm -reflow-enable-maxi-auto-id-channel=0 -mllvm -assume-maxi-align=1 -mllvm -reflow-pipeline-style-llvm-setting=2 -mllvm -reflow-enable-dataflow-strict-mode-checking=1 -mllvm -reflow-auto-array-partition-mode=default -mllvm -reflow-enable-auto-array-partition=true -mllvm -reflow-enable-auto-parallel-performance-driven=true -mllvm -reflow-enable-partition-for-automation=true -mllvm -reflow-aggregate-bitwidth-threshold=4096 -mllvm -reflow-assume-no-address-wrap=true -mllvm -hls -mllvm -disable-inlined-alloca-merging=true -mllvm -default-clock-period=5 -x ir /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.5.gdce.bc -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.lto.bc -hls-platform-db-name=/tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_medium -device-resource-info=BRAM_4032.000000_DSP_9024.000000_FF_2607360.000000_LUT_1303680.000000_SLICE_162960.000000_SLR_3.000000_URAM_960.000000 -device-name-info=xcu55c-fsvh2892-2L-e > /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.0.bc.clang.out.log 2> /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.ld.0.bc.clang.err.log 
+Command         ap_eval done; 0.18 sec.
+INFO-FLOW: DBG:PUTS: copy_raw_kernel_xml ap_link_39: kernel.xml not generated: /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/kernel.internal.xml
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 2.24 seconds. CPU system time: 0.24 seconds. Elapsed time: 2.54 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 1.199 GB.
+Execute         opt_and_import_c a -opt_level=2 -skip_syncheck=0 -ng=0 -keep_printf=0 
+Execute           cleanup_all_models 
+INFO: [HLS 200-10] Starting code transformations ...
+INFO-FLOW: Running Standard Transforms...
+Execute           transform -hls -share-std-xform -demangle-name -inline-byval-memcpy -always-inline -promote-dbg-pointer -interface-preproc -mem2reg -scalarrepl -mem2reg -keep-read-access -instcombine -dce -promote-dbg-pointer -bitop-raise -loop-simplify -indvarspre -indvars -loop-simplify -xunroll -constprop -instcombine -simplifycfg -indvars -simplifycfg -dce -globaldce -basicaa -simplifycfg -mem2reg -globalopt -global-constprop -deadargelim -instcombine -simplifycfg -scalarrepl -instcombine -reassociate -licm -simplifycfg -loop-simplify -indvars -instcombine -simplifycfg -mem2reg -loop-simplify -indvars -instcombine -gvn -gvn -instcombine -adce -break-crit-edges -simplifycfg -loop-delete -global-array-opt -dce -dse -adce -find-syn-modules -top viterbi -deadargelim -mem2reg -instcombine -dce -presyn-prepare -auto-rom-infer -interface-preproc -syn-check -check-rec-only -find-region -simplifycfg -func-extr -function-inline -globaldce -mem2reg -instcombine -dce -gvn -globaldce -adce -adse -constprop -instcombine -bit-constprop -instcombine -dce -simplifycfg -bitop-raise -simplifycfg -dce -loop-delete -reassociate -globalopt -global-privatize -mem2reg -dce -global-constprop -pointer-simplify -constprop -dce -auto-shift-reg-idiom -promote-dbg-pointer -norm-name /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.0.bc -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.1.bc -f -phase std-opt 
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.02 seconds; current allocated memory: 1.200 GB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO-FLOW: Checking Synthesizability 1/2..
+Execute           transform -hls -syn-check -check-rec-only -scalarrepl -norm-name -dce -mem2reg -instcombine -directive-preproc -mem2reg -dse -dce -auto-rom-infer -dce -pag -array-normalize -instcombine -dce -array-seg-normalize -instcombine -dce -data-pack -instcombine -dce -inst-simplify -array-flatten -instcombine -dce -array-burst -dce -deadargelim -promote-global-argument -simplifycfg -mem2reg -globaldce -dce -deadargelim -dce -instcombine -function-inline -globaldce -dce -doublePtrSimplify -doublePtrElim -dce -doublePtrSimplify -promote-dbg-pointer -dce -scalarrepl -dse -adse -instcombine -ptrLegalization -simplifycfg -dce -instcombine -pointer-simplify -ptrArgReplace -dce -instcombine -resolve-double-ptr -scalarrepl -norm-name -dce -mem2reg -instcombine -ptrLegalization -simplifycfg -deadargelim -instcombine -dce -inst-simplify -directive-preproc -mem2reg -dse -dce -globaldce /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.1.bc -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.2.prechk.bc -f 
+INFO-FLOW: Checking Synthesizability 2/2..
+Execute           transform -syn-check /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.2.prechk.bc -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.2.bc -f -phase syn-check 
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 1.200 GB.
+INFO-FLOW: Compiler optimizing ...
+INFO-FLOW: Share syncheck's 1.bc for syn flow: copy /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.g.1.bc to /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.o.1.bc
+INFO-FLOW: Presyn 1...
+Execute           transform -hls -tmp /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db -interface-port-rename -directive-preproc -mem2reg -dse -dce -scalarrepl -norm-name -deadargelim -mem2reg -instcombine -dce -simplifycfg -auto-rom-infer -dce -resource-proc -clib-intrinsic-prepare -dce -func-buffer -dce -pag -array-normalize -func-legal -instcombine -gvn -constprop -dce -simplifycfg -mem2reg -globaldce -resolve-double-ptr -dce -deadargelim -dce -instcombine -ptrArgReplace -mem2reg -dce -array-seg-normalize -deadargelim -instcombine -dce -directive-preproc -mem2reg -dse -dce -pointer-simplify -dce -port-alignment -dce -interface-preproc -data-pack -instcombine -dce -basicaa -aggr-aa -aggrmodref-aa -aggr-aa -gvn -gvn -basicaa -aggr-aa -aggrmodref-aa -aggr-aa -dse -adse -adce -loop-simplify -indvars -instcombine -gvn -loop-simplify -mem2reg -dce -find-region -instcombine -auto-loop-pipeline -inst-simplify -interface-preproc -cfgopt -instcombine -indvars -auto-loop-unroll -loop-simplify -loop-bound -xunroll -constprop -instcombine -simplifycfg -indvars -simplifycfg -dce -globaldce -clean-region -attach-range -gvn -inst-simplify -constprop -simplifycfg -dce -pointer-simplify -dce -globalopt -constprop -dce -array-promote -scalar-auto-dep-elim -constprop -dce -ptrArgReplace -mem2reg -simplifycfg -dce -instcombine -dce -array-transform-check -array-reshape -instcombine -simplifycfg -dce -ptrArgReplace -deadargelim -mem2reg -instcombine -simplifycfg -dce -indvars -loop-simplify -loop-bound -xunroll -constprop -instcombine -simplifycfg -indvars -simplifycfg -dce -globaldce -basicaa -aggr-aa -aggrmodref-aa -aggr-aa -dse -duplicate-dataflow-processes -globaldce -instcombine -array-partition -prepare-dynamic-array-partition -instcombine -simplifycfg -dce -ptrArgReplace -global-constprop -deadargelim -mem2reg -func-legal -dce -global-constprop -deadargelim -mem2reg -simplifycfg -dce -merge-param -deadargelim -globalopt -constprop -dce -array-promote -scalar-auto-dep-elim -constprop -dce -ptrArgReplace -mem2reg -simplifycfg -dce -mem-intrinsic-preproc -dce -global-internalize -global-privatize -mem2reg -globaldce -promote-global-argument -ptrArgReplace -mem2reg -dce -globalopt -mergereturn -simplify-global-access -mem2reg -dce -pointer-simplify -dce -functionattrs -basicaa -aggr-aa -aggrmodref-aa -aggr-aa -gvn -gvn -basicaa -aggr-aa -aggrmodref-aa -aggr-aa -dse -adse -adce -dce -norm-name -basicaa -aggr-aa -aggrmodref-aa -aggr-aa -accesses-merge -function-inline -complex-op-raise -inst-simplify -globaldce -func-legal -dce -loop-bound -arraycheck -bitwidthmin2 -bitwidthmin2 -on-by-dataflow -loop-delete -instcombine -simplifycfg -globaldce -dce -gvn -deadargelim -dce -loop-simplify -clean-region -simplifycfg -propagate-stable-arguments -loop-stream -instcombine -simplifycfg -dce -globaldce -duplicate-dataflow-processes -stream-intrinsic-preproc -dce -check-ap-stream -loop-simplify -eliminate-keepreads -extract-dataflow-in-loop -loop-simplify -dce -gvn -deadargelim -dse -duplicate-dataflow-processes -check-dataflow-syntax -legalize-stream-variable -globaldce -legalize-global -extract-subproc -dce -dead-channel-elimination -canonicalize-gep -globaldce -dce -gvn -hls-dead-arg-elim -deadargelim -directive-preproc -canonicalize-dataflow -dce -globaldce -scalar-preprocessing -scalar-propagation2 -deadargelim -globaldce -mem2reg -check-dataflow-channels -function-stream -dce -globaldce -prop-fifo-spec -internal-stream-gen -canonicalize-gep -globaldce -dce -gvn -deadargelim -mergereturn -indvars -loop-simplify -instcombine -array-stream -array-seg-normalize -array-partition -func-legal -instcombine -simplifycfg -dce -bundle-memfifo-ops -deadargelim -directive-preproc -mem2reg -dse -dce -group-axi-access -licm -simplifycfg -dce -loop-delete -hls-display -norm-name /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.o.1.bc -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.o.1.tmp.bc -f 
+INFO: [XFORM 203-510] Pipelining loop 'L_init' (viterbi.c:9) in function 'viterbi' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'L_curr_state' (viterbi.c:7) in function 'viterbi' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'L_end' (viterbi.c:8) in function 'viterbi' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'L_backtrack' (viterbi.c:9) in function 'viterbi' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'L_curr_state' (viterbi.c:7) in function 'viterbi' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'L_backtrack' (viterbi.c:9) in function 'viterbi' for pipelining.
+INFO: [HLS 200-489] Unrolling loop 'L_prev_state' (viterbi.c:7) in function 'viterbi' completely with a factor of 63.
+INFO: [HLS 200-489] Unrolling loop 'L_state' (viterbi.c:8) in function 'viterbi' completely with a factor of 63.
+Command           transform done; 0.16 sec.
+INFO-FLOW: Presyn 2...
+Execute           transform -hls -keep-callgraph -scalarrepl -mem2reg -port-alignment -attach-range -dce -pipe-mux-gen -indvars -loop-bound -inst-simplify -instcombine -dce -merge-array-access -mem2reg -dce -clean-region -mergereturn -if-conv -instcombine -dce -constprop -basicaa -aggr-aa -aggrmodref-aa -aggr-aa -gvn -gvn -basicaa -aggr-aa -aggrmodref-aa -aggr-aa -dse -adse -adce -scalarrepl -mem2reg -global-constprop -deadargelim -deadargelim -instcombine -dce -simplifycfg -ptrArgReplace -mem2reg -function-inline -globaldce -mem2reg -instcombine -dce -expr-balance -instcombine -dce -bitwidthmin2 -bitwidthmin2 -interface-preproc -directive-preproc -inst-rectify -instcombine -dce -functionattrs -constprop -instcombine -bit-constprop -simplify-global-access -globalopt -globaldce -inst-simplify -instcombine -elimdeaddata -dce -loop-delete -simplifycfg -loop-simplify -barrier -norm-name /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.o.1.tmp.bc -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.o.2.bc -f -phase presyn 
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.2 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.24 seconds; current allocated memory: 1.226 GB.
+INFO-FLOW: Building ssdm...
+Execute           transform -hls -auto-function-inline -globaldce -ptrArgReplace -mem2reg -dce -reset-lda -loop-simplify -indvars -aggr-aa -licm -loop-dep -loop-bound -licm -loop-simplify -loop-sink-hoist -flattenloopnest -array-flatten -gvn -instcombine -dce -array-map -dce -func-legal -gvn -adce -instcombine -cfgopt -simplifycfg -loop-simplify -array-burst -promote-global-argument -dce -array-seg-normalize -basicaa -aggrmodref-aa -globalsmodref-aa -aggr-aa -gvn -gvn -basicaa -aggrmodref-aa -globalsmodref-aa -aggr-aa -dse -adse -adce -licm -inst-simplify -dce -globaldce -instcombine -array-stream -eliminate-keepreads -instcombine -dce -deadargelim -doublePtrSimplify -doublePtrElim -dce -doublePtrSimplify -promote-dbg-pointer -dce -scalarrepl -mem2reg -norm-name -mem2reg -instcombine -dse -adse -adce -ptrLegalization -dce -auto-rom-infer -array-flatten -dce -instcombine -check-doubleptr -loop-rot -constprop -cfgopt -simplifycfg -loop-simplify -indvars -pointer-simplify -dce -loop-bound -loop-simplify -loop-preproc -constprop -global-constprop -gvn -mem2reg -instcombine -dce -loop-bound -loop-merge -dce -deadargelim -dce -canonicalize-dataflow -dce -deadargelim -globaldce -mem2reg -bram-byte-enable -load-elim -read-loop-dep -loop-simplify -loop-extract-inner -directive-preproc -bitwidthmin2 -bitwidthmin2 -read-loop-dep -interface-preproc -directive-preproc -interface-gen -bram-byte-enable-spec-prop -deadargelim -inst-simplify -dce -gvn -mem2reg -instcombine -dce -adse -loop-bound -instcombine -cfgopt -simplifycfg -loop-simplify -clean-region -io-protocol -find-region -mem2reg -bitop-raise -complex-op-raise -inst-simplify -inst-rectify -instcombine -adce -deadargelim -float-op-raise -loop-simplify -phi-opt -bitop-raise -cfgopt -simplifycfg -strip-dead-prototypes -interface-lower -bitop-lower -intrinsic-lower -auto-function-inline -basicaa -aggrmodref-aa -globalsmodref-aa -aggr-aa -inst-simplify -simplifycfg -loop-simplify -mergereturn -inst-simplify -inst-rectify -dce -load-elim -bitop-lower -float-op-raise -fma-raise -loop-rewind -pointer-simplify -dce -cfgopt -dce -loop-bound -loop-dep -read-loop-dep -dce -dyn-mem-reuse -dce -recurrence-min -dce -share-scalar-alloca -deadargelim -dce -check-stream -norm-name -legalize -validate-dataflow -inst-clarity -bitwidth -dump-loop-dep-to-ir -check-all-ssdm -cdfg-build /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.o.2.bc -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/a.o.3.bc -f -phase build-ssdm 
+INFO: [XFORM 203-541] Flattening a loop nest 'L_timestep' (viterbi.c:6:10) in function 'viterbi'.
+INFO: [HLS 200-472] Inferring partial write operation for 'llike' (viterbi.c:14:17)
+INFO: [HLS 200-472] Inferring partial write operation for 'llike' (viterbi.c:33:22)
+Command           transform done; 0.51 sec.
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.5 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.51 seconds; current allocated memory: 1.275 GB.
+INFO-FLOW: Finish building internal data model.
+Command         opt_and_import_c done; 0.81 sec.
+Command       elaborate done; 3.88 sec.
+Execute       ap_eval exec zip -j /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/dut.hcp $dbDir/a.o.3.bc $dbDir/${topname}.rtl_wrap.cfg.tcl $dbDir/apatb_${topname}.cpp $dbDir/apatb_${topname}_util.cpp $dbDir/apatb_${topname}_ir.ll $dbDir/mapper_${topname}.cpp $dbDir/top-io-fe.xml $dbDir/kernel.internal.xml $workdir/../hls.app 
+Execute       autosyn -from_csynth_design=1 
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO-FLOW: Synthesizing C/C++ design ...
+INFO: [HLS 200-10] Synthesizing 'viterbi' ...
+Execute         ap_set_top_model viterbi 
+Execute         get_model_list viterbi -filter all-wo-channel -topdown 
+Execute         preproc_iomode -model viterbi 
+Execute         preproc_iomode -model viterbi_Pipeline_L_backtrack 
+Execute         preproc_iomode -model viterbi_Pipeline_L_end 
+Execute         preproc_iomode -model viterbi_Pipeline_L_timestep_L_curr_state 
+Execute         preproc_iomode -model viterbi_Pipeline_L_init 
+Execute         get_model_list viterbi -filter all-wo-channel 
+INFO-FLOW: Model list for configure: viterbi_Pipeline_L_init viterbi_Pipeline_L_timestep_L_curr_state viterbi_Pipeline_L_end viterbi_Pipeline_L_backtrack viterbi
+INFO-FLOW: Configuring Module : viterbi_Pipeline_L_init ...
+Execute         set_default_model viterbi_Pipeline_L_init 
+Execute         apply_spec_resource_limit viterbi_Pipeline_L_init 
+INFO-FLOW: Configuring Module : viterbi_Pipeline_L_timestep_L_curr_state ...
+Execute         set_default_model viterbi_Pipeline_L_timestep_L_curr_state 
+Execute         apply_spec_resource_limit viterbi_Pipeline_L_timestep_L_curr_state 
+INFO-FLOW: Configuring Module : viterbi_Pipeline_L_end ...
+Execute         set_default_model viterbi_Pipeline_L_end 
+Execute         apply_spec_resource_limit viterbi_Pipeline_L_end 
+INFO-FLOW: Configuring Module : viterbi_Pipeline_L_backtrack ...
+Execute         set_default_model viterbi_Pipeline_L_backtrack 
+Execute         apply_spec_resource_limit viterbi_Pipeline_L_backtrack 
+INFO-FLOW: Configuring Module : viterbi ...
+Execute         set_default_model viterbi 
+Execute         apply_spec_resource_limit viterbi 
+INFO-FLOW: Model list for preprocess: viterbi_Pipeline_L_init viterbi_Pipeline_L_timestep_L_curr_state viterbi_Pipeline_L_end viterbi_Pipeline_L_backtrack viterbi
+INFO-FLOW: Preprocessing Module: viterbi_Pipeline_L_init ...
+Execute         set_default_model viterbi_Pipeline_L_init 
+Execute         cdfg_preprocess -model viterbi_Pipeline_L_init 
+Execute         rtl_gen_preprocess viterbi_Pipeline_L_init 
+INFO-FLOW: Preprocessing Module: viterbi_Pipeline_L_timestep_L_curr_state ...
+Execute         set_default_model viterbi_Pipeline_L_timestep_L_curr_state 
+Execute         cdfg_preprocess -model viterbi_Pipeline_L_timestep_L_curr_state 
+Execute         rtl_gen_preprocess viterbi_Pipeline_L_timestep_L_curr_state 
+INFO-FLOW: Preprocessing Module: viterbi_Pipeline_L_end ...
+Execute         set_default_model viterbi_Pipeline_L_end 
+Execute         cdfg_preprocess -model viterbi_Pipeline_L_end 
+Execute         rtl_gen_preprocess viterbi_Pipeline_L_end 
+INFO-FLOW: Preprocessing Module: viterbi_Pipeline_L_backtrack ...
+Execute         set_default_model viterbi_Pipeline_L_backtrack 
+Execute         cdfg_preprocess -model viterbi_Pipeline_L_backtrack 
+Execute         rtl_gen_preprocess viterbi_Pipeline_L_backtrack 
+INFO-FLOW: Preprocessing Module: viterbi ...
+Execute         set_default_model viterbi 
+Execute         cdfg_preprocess -model viterbi 
+Execute         rtl_gen_preprocess viterbi 
+INFO-FLOW: Model list for synthesis: viterbi_Pipeline_L_init viterbi_Pipeline_L_timestep_L_curr_state viterbi_Pipeline_L_end viterbi_Pipeline_L_backtrack viterbi
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'viterbi_Pipeline_L_init' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+Execute         set_default_model viterbi_Pipeline_L_init 
+Execute         schedule -model viterbi_Pipeline_L_init 
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'llike'. Use bind_storage pragma to override this type.
+INFO: [SCHED 204-61] Pipelining loop 'L_init'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 8, loop 'L_init'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.07 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.11 seconds; current allocated memory: 1.276 GB.
+Execute         syn_report -verbosereport -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_init.verbose.sched.rpt 
+Execute           AP::get_flow_target_display_name
+Execute         db_write -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_init.sched.adb -f 
+INFO-FLOW: Finish scheduling viterbi_Pipeline_L_init.
+Execute         set_default_model viterbi_Pipeline_L_init 
+Execute         bind -model viterbi_Pipeline_L_init 
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.05 seconds. CPU system time: 0 seconds. Elapsed time: 0.06 seconds; current allocated memory: 1.276 GB.
+Execute         syn_report -verbosereport -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_init.verbose.bind.rpt 
+Execute           AP::get_flow_target_display_name
+Execute         db_write -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_init.bind.adb -f 
+INFO-FLOW: Finish binding viterbi_Pipeline_L_init.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'viterbi_Pipeline_L_timestep_L_curr_state' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+Execute         set_default_model viterbi_Pipeline_L_timestep_L_curr_state 
+Execute         schedule -model viterbi_Pipeline_L_timestep_L_curr_state 
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'llike'. Use bind_storage pragma to override this type.
+INFO: [SCHED 204-61] Pipelining loop 'L_timestep_L_curr_state'.
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_timestep_L_curr_state' (loop 'L_timestep_L_curr_state'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between 'dadd' operation ('p_61', viterbi.c:27) and 'select' operation ('reuse_select', viterbi.c:26).
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_timestep_L_curr_state' (loop 'L_timestep_L_curr_state'): Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 1) between 'dadd' operation ('p_61', viterbi.c:27) and 'select' operation ('reuse_select', viterbi.c:26).
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_timestep_L_curr_state' (loop 'L_timestep_L_curr_state'): Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 1) between 'dadd' operation ('p_61', viterbi.c:27) and 'select' operation ('reuse_select', viterbi.c:26).
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_timestep_L_curr_state' (loop 'L_timestep_L_curr_state'): Unable to enforce a carried dependence constraint (II = 4, distance = 1, offset = 1) between 'dadd' operation ('p_61', viterbi.c:27) and 'select' operation ('reuse_select', viterbi.c:26).
+WARNING: [HLS 200-885] The II Violation in module 'viterbi_Pipeline_L_timestep_L_curr_state' (loop 'L_timestep_L_curr_state'): Unable to schedule 'load' operation ('transition_load_37', viterbi.c:27) on array 'transition' due to limited memory ports (II = 19). Please consider using a memory core with more ports or partitioning the array 'transition'.
+WARNING: [HLS 200-885] The II Violation in module 'viterbi_Pipeline_L_timestep_L_curr_state' (loop 'L_timestep_L_curr_state'): Unable to schedule 'load' operation ('transition_load_53', viterbi.c:27) on array 'transition' due to limited memory ports (II = 27). Please consider using a memory core with more ports or partitioning the array 'transition'.
+WARNING: [HLS 200-885] The II Violation in module 'viterbi_Pipeline_L_timestep_L_curr_state' (loop 'L_timestep_L_curr_state'): Unable to schedule 'load' operation ('transition_load_61', viterbi.c:27) on array 'transition' due to limited memory ports (II = 31). Please consider using a memory core with more ports or partitioning the array 'transition'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 32, Depth = 140, loop 'L_timestep_L_curr_state'
+INFO: [SCHED 204-11] Finished scheduling.
+Command         schedule done; 2.63 sec.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 2.65 seconds. CPU system time: 0.01 seconds. Elapsed time: 2.68 seconds; current allocated memory: 1.314 GB.
+Execute         syn_report -verbosereport -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_timestep_L_curr_state.verbose.sched.rpt 
+Execute           AP::get_flow_target_display_name
+Command         syn_report done; 1.44 sec.
+Execute         db_write -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_timestep_L_curr_state.sched.adb -f 
+INFO-FLOW: Finish scheduling viterbi_Pipeline_L_timestep_L_curr_state.
+Execute         set_default_model viterbi_Pipeline_L_timestep_L_curr_state 
+Execute         bind -model viterbi_Pipeline_L_timestep_L_curr_state 
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+Command         bind done; 0.81 sec.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 2.3 seconds. CPU system time: 0 seconds. Elapsed time: 2.33 seconds; current allocated memory: 1.314 GB.
+Execute         syn_report -verbosereport -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_timestep_L_curr_state.verbose.bind.rpt 
+Execute           AP::get_flow_target_display_name
+Command         syn_report done; 2.43 sec.
+Execute         db_write -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_timestep_L_curr_state.bind.adb -f 
+INFO-FLOW: Finish binding viterbi_Pipeline_L_timestep_L_curr_state.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'viterbi_Pipeline_L_end' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+Execute         set_default_model viterbi_Pipeline_L_end 
+Execute         schedule -model viterbi_Pipeline_L_end 
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'llike'. Use bind_storage pragma to override this type.
+INFO: [SCHED 204-61] Pipelining loop 'L_end'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 5, loop 'L_end'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 2.54 seconds. CPU system time: 0.01 seconds. Elapsed time: 2.59 seconds; current allocated memory: 1.314 GB.
+Execute         syn_report -verbosereport -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_end.verbose.sched.rpt 
+Execute           AP::get_flow_target_display_name
+Execute         db_write -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_end.sched.adb -f 
+INFO-FLOW: Finish scheduling viterbi_Pipeline_L_end.
+Execute         set_default_model viterbi_Pipeline_L_end 
+Execute         bind -model viterbi_Pipeline_L_end 
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.05 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.06 seconds; current allocated memory: 1.314 GB.
+Execute         syn_report -verbosereport -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_end.verbose.bind.rpt 
+Execute           AP::get_flow_target_display_name
+Execute         db_write -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_end.bind.adb -f 
+INFO-FLOW: Finish binding viterbi_Pipeline_L_end.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'viterbi_Pipeline_L_backtrack' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+Execute         set_default_model viterbi_Pipeline_L_backtrack 
+Execute         schedule -model viterbi_Pipeline_L_backtrack 
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'llike'. Use bind_storage pragma to override this type.
+INFO: [SCHED 204-61] Pipelining loop 'L_backtrack'.
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_backtrack' (loop 'L_backtrack'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between 'select' operation ('select_ln55_80', viterbi.c:55) and 'select' operation ('reuse_select', viterbi.c:52).
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_backtrack' (loop 'L_backtrack'): Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 1) between 'select' operation ('select_ln55_80', viterbi.c:55) and 'select' operation ('reuse_select', viterbi.c:52).
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_backtrack' (loop 'L_backtrack'): Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 1) between 'select' operation ('select_ln55_80', viterbi.c:55) and 'select' operation ('reuse_select', viterbi.c:52).
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_backtrack' (loop 'L_backtrack'): Unable to enforce a carried dependence constraint (II = 4, distance = 1, offset = 1) between 'select' operation ('select_ln55_80', viterbi.c:55) and 'select' operation ('reuse_select', viterbi.c:52).
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_backtrack' (loop 'L_backtrack'): Unable to enforce a carried dependence constraint (II = 130, distance = 1, offset = 1) between 'dcmp' operation ('tmp_376', viterbi.c:55) and 'load' operation ('transition_load_1', viterbi.c:52) on array 'transition'.
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_backtrack' (loop 'L_backtrack'): Unable to enforce a carried dependence constraint (II = 131, distance = 1, offset = 1) between 'dcmp' operation ('tmp_379', viterbi.c:55) and 'load' operation ('transition_load_1', viterbi.c:52) on array 'transition'.
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_backtrack' (loop 'L_backtrack'): Unable to enforce a carried dependence constraint (II = 132, distance = 1, offset = 1) between 'dcmp' operation ('tmp_379', viterbi.c:55) and 'load' operation ('transition_load_1', viterbi.c:52) on array 'transition'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 133, Depth = 135, loop 'L_backtrack'
+INFO: [SCHED 204-11] Finished scheduling.
+Command         schedule done; 88.78 sec.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 88.73 seconds. CPU system time: 0.05 seconds. Elapsed time: 88.84 seconds; current allocated memory: 1.362 GB.
+Execute         syn_report -verbosereport -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_backtrack.verbose.sched.rpt 
+Execute           AP::get_flow_target_display_name
+Command         syn_report done; 1.26 sec.
+Execute         db_write -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_backtrack.sched.adb -f 
+Command         db_write done; 0.37 sec.
+INFO-FLOW: Finish scheduling viterbi_Pipeline_L_backtrack.
+Execute         set_default_model viterbi_Pipeline_L_backtrack 
+Execute         bind -model viterbi_Pipeline_L_backtrack 
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+Command         bind done; 0.91 sec.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 2.49 seconds. CPU system time: 0.01 seconds. Elapsed time: 2.55 seconds; current allocated memory: 1.362 GB.
+Execute         syn_report -verbosereport -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_backtrack.verbose.bind.rpt 
+Execute           AP::get_flow_target_display_name
+Command         syn_report done; 2.46 sec.
+Execute         db_write -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_backtrack.bind.adb -f 
+Command         db_write done; 0.39 sec.
+INFO-FLOW: Finish binding viterbi_Pipeline_L_backtrack.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'viterbi' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+Execute         set_default_model viterbi 
+Execute         schedule -model viterbi 
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'llike'. Use bind_storage pragma to override this type.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 2.81 seconds. CPU system time: 0.03 seconds. Elapsed time: 2.9 seconds; current allocated memory: 1.362 GB.
+Execute         syn_report -verbosereport -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.verbose.sched.rpt 
+Execute           AP::get_flow_target_display_name
+Execute         db_write -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.sched.adb -f 
+INFO-FLOW: Finish scheduling viterbi.
+Execute         set_default_model viterbi 
+Execute         bind -model viterbi 
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+Command         bind done; 0.95 sec.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.98 seconds. CPU system time: 0 seconds. Elapsed time: 0.99 seconds; current allocated memory: 1.362 GB.
+Execute         syn_report -verbosereport -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.verbose.bind.rpt 
+Execute           AP::get_flow_target_display_name
+Command         syn_report done; 2.74 sec.
+Execute         db_write -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.bind.adb -f 
+INFO-FLOW: Finish binding viterbi.
+Execute         get_model_list viterbi -filter all-wo-channel 
+INFO-FLOW: Preprocessing for RTLGen ...
+Execute         rtl_gen_preprocess viterbi_Pipeline_L_init 
+Execute         rtl_gen_preprocess viterbi_Pipeline_L_timestep_L_curr_state 
+Execute         rtl_gen_preprocess viterbi_Pipeline_L_end 
+Execute         rtl_gen_preprocess viterbi_Pipeline_L_backtrack 
+Execute         rtl_gen_preprocess viterbi 
+INFO-FLOW: Model list for RTL generation: viterbi_Pipeline_L_init viterbi_Pipeline_L_timestep_L_curr_state viterbi_Pipeline_L_end viterbi_Pipeline_L_backtrack viterbi
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'viterbi_Pipeline_L_init' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+Execute         create_rtl_model viterbi_Pipeline_L_init -top_prefix viterbi_ -sub_prefix viterbi_ -mg_file /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_init.compgen.tcl 
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'viterbi_Pipeline_L_init' pipeline 'L_init' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'dadd_64ns_64ns_64_5_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'viterbi_Pipeline_L_init'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 2.75 seconds. CPU system time: 0.01 seconds. Elapsed time: 2.77 seconds; current allocated memory: 1.362 GB.
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.rtl_wrap.cfg.tcl 
+Execute         gen_rtl viterbi_Pipeline_L_init -style xilinx -f -lang vhdl -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/vhdl/viterbi_viterbi_Pipeline_L_init 
+Execute         gen_rtl viterbi_Pipeline_L_init -style xilinx -f -lang vlog -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/verilog/viterbi_viterbi_Pipeline_L_init 
+Execute         syn_report -csynth -model viterbi_Pipeline_L_init -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/report/viterbi_Pipeline_L_init_csynth.rpt 
+Execute           AP::get_flow_target_display_name
+Execute         syn_report -rtlxml -model viterbi_Pipeline_L_init -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/report/viterbi_Pipeline_L_init_csynth.xml 
+Execute         syn_report -verbosereport -model viterbi_Pipeline_L_init -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_init.verbose.rpt 
+Execute           AP::get_flow_target_display_name
+Execute         db_write -model viterbi_Pipeline_L_init -f -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_init.adb 
+Execute         db_write -model viterbi_Pipeline_L_init -bindview -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/design.bindinfo.xml 
+Execute         gen_tb_info viterbi_Pipeline_L_init -p /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_init 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'viterbi_Pipeline_L_timestep_L_curr_state' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+Execute         create_rtl_model viterbi_Pipeline_L_timestep_L_curr_state -top_prefix viterbi_ -sub_prefix viterbi_ -mg_file /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_timestep_L_curr_state.compgen.tcl 
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'viterbi_Pipeline_L_timestep_L_curr_state' pipeline 'L_timestep_L_curr_state' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'dadd_64ns_64ns_64_5_full_dsp_1': 5 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dcmp_64ns_64ns_1_2_no_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'viterbi_Pipeline_L_timestep_L_curr_state'.
+Command         create_rtl_model done; 0.25 sec.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.31 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.34 seconds; current allocated memory: 1.362 GB.
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.rtl_wrap.cfg.tcl 
+Execute         gen_rtl viterbi_Pipeline_L_timestep_L_curr_state -style xilinx -f -lang vhdl -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/vhdl/viterbi_viterbi_Pipeline_L_timestep_L_curr_state 
+Execute         gen_rtl viterbi_Pipeline_L_timestep_L_curr_state -style xilinx -f -lang vlog -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/verilog/viterbi_viterbi_Pipeline_L_timestep_L_curr_state 
+Execute         syn_report -csynth -model viterbi_Pipeline_L_timestep_L_curr_state -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/report/viterbi_Pipeline_L_timestep_L_curr_state_csynth.rpt 
+Execute           AP::get_flow_target_display_name
+Command         syn_report done; 0.93 sec.
+Execute         syn_report -rtlxml -model viterbi_Pipeline_L_timestep_L_curr_state -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/report/viterbi_Pipeline_L_timestep_L_curr_state_csynth.xml 
+Command         syn_report done; 0.45 sec.
+Execute         syn_report -verbosereport -model viterbi_Pipeline_L_timestep_L_curr_state -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_timestep_L_curr_state.verbose.rpt 
+Execute           AP::get_flow_target_display_name
+Command         syn_report done; 2.95 sec.
+Execute         db_write -model viterbi_Pipeline_L_timestep_L_curr_state -f -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_timestep_L_curr_state.adb 
+Command         db_write done; 0.62 sec.
+Execute         db_write -model viterbi_Pipeline_L_timestep_L_curr_state -bindview -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/design.bindinfo.xml 
+Command         db_write done; 0.14 sec.
+Execute         gen_tb_info viterbi_Pipeline_L_timestep_L_curr_state -p /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_timestep_L_curr_state 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'viterbi_Pipeline_L_end' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+Execute         create_rtl_model viterbi_Pipeline_L_end -top_prefix viterbi_ -sub_prefix viterbi_ -mg_file /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_end.compgen.tcl 
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'viterbi_Pipeline_L_end' pipeline 'L_end' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'dcmp_64ns_64ns_1_2_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'viterbi_Pipeline_L_end'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 5.28 seconds. CPU system time: 0.07 seconds. Elapsed time: 5.47 seconds; current allocated memory: 1.369 GB.
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.rtl_wrap.cfg.tcl 
+Execute         gen_rtl viterbi_Pipeline_L_end -style xilinx -f -lang vhdl -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/vhdl/viterbi_viterbi_Pipeline_L_end 
+Execute         gen_rtl viterbi_Pipeline_L_end -style xilinx -f -lang vlog -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/verilog/viterbi_viterbi_Pipeline_L_end 
+Execute         syn_report -csynth -model viterbi_Pipeline_L_end -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/report/viterbi_Pipeline_L_end_csynth.rpt 
+Execute           AP::get_flow_target_display_name
+Execute         syn_report -rtlxml -model viterbi_Pipeline_L_end -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/report/viterbi_Pipeline_L_end_csynth.xml 
+Execute         syn_report -verbosereport -model viterbi_Pipeline_L_end -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_end.verbose.rpt 
+Execute           AP::get_flow_target_display_name
+Execute         db_write -model viterbi_Pipeline_L_end -f -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_end.adb 
+Execute         db_write -model viterbi_Pipeline_L_end -bindview -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/design.bindinfo.xml 
+Execute         gen_tb_info viterbi_Pipeline_L_end -p /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_end 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'viterbi_Pipeline_L_backtrack' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+Execute         create_rtl_model viterbi_Pipeline_L_backtrack -top_prefix viterbi_ -sub_prefix viterbi_ -mg_file /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_backtrack.compgen.tcl 
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'viterbi_Pipeline_L_backtrack' pipeline 'L_backtrack' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'dadd_64ns_64ns_64_5_full_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dcmp_64ns_64ns_1_2_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'viterbi_Pipeline_L_backtrack'.
+Command         create_rtl_model done; 0.28 sec.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.4 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.45 seconds; current allocated memory: 1.378 GB.
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.rtl_wrap.cfg.tcl 
+Execute         gen_rtl viterbi_Pipeline_L_backtrack -style xilinx -f -lang vhdl -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/vhdl/viterbi_viterbi_Pipeline_L_backtrack 
+Execute         gen_rtl viterbi_Pipeline_L_backtrack -style xilinx -f -lang vlog -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/verilog/viterbi_viterbi_Pipeline_L_backtrack 
+Execute         syn_report -csynth -model viterbi_Pipeline_L_backtrack -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/report/viterbi_Pipeline_L_backtrack_csynth.rpt 
+Execute           AP::get_flow_target_display_name
+Command         syn_report done; 1.14 sec.
+Execute         syn_report -rtlxml -model viterbi_Pipeline_L_backtrack -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/report/viterbi_Pipeline_L_backtrack_csynth.xml 
+Command         syn_report done; 0.54 sec.
+Execute         syn_report -verbosereport -model viterbi_Pipeline_L_backtrack -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_backtrack.verbose.rpt 
+Execute           AP::get_flow_target_display_name
+Command         syn_report done; 2.96 sec.
+Execute         db_write -model viterbi_Pipeline_L_backtrack -f -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_backtrack.adb 
+Command         db_write done; 0.91 sec.
+Execute         db_write -model viterbi_Pipeline_L_backtrack -bindview -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/design.bindinfo.xml 
+Execute         gen_tb_info viterbi_Pipeline_L_backtrack -p /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_backtrack 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'viterbi' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+Execute         create_rtl_model viterbi -top_prefix  -sub_prefix viterbi_ -mg_file /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.compgen.tcl 
+INFO: [RTGEN 206-500] Setting interface mode on port 'viterbi/obs' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'viterbi/init' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'viterbi/transition' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'viterbi/emission' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'viterbi/path' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'viterbi' to 'ap_ctrl_hs'.
+INFO: [RTGEN 206-100] Generating core module 'dadd_64ns_64ns_64_5_full_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dcmp_64ns_64ns_1_2_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'viterbi'.
+INFO: [RTMG 210-278] Implementing memory 'viterbi_llike_RAM_1WNR_AUTO_1R1W' using auto RAMs.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 6.45 seconds. CPU system time: 0.11 seconds. Elapsed time: 6.73 seconds; current allocated memory: 1.492 GB.
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.rtl_wrap.cfg.tcl 
+Execute         gen_rtl viterbi -istop -style xilinx -f -lang vhdl -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/vhdl/viterbi 
+Execute         gen_rtl viterbi -istop -style xilinx -f -lang vlog -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/verilog/viterbi 
+Execute         syn_report -csynth -model viterbi -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/report/viterbi_csynth.rpt 
+Execute           AP::get_flow_target_display_name
+Execute         syn_report -rtlxml -model viterbi -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/report/viterbi_csynth.xml 
+Execute         syn_report -verbosereport -model viterbi -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.verbose.rpt 
+Execute           AP::get_flow_target_display_name
+Command         syn_report done; 2.76 sec.
+Execute         db_write -model viterbi -f -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.adb 
+Execute         db_write -model viterbi -bindview -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/design.bindinfo.xml 
+Execute         gen_tb_info viterbi -p /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi 
+Execute         export_constraint_db -f -tool general -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.constraint.tcl 
+Execute         syn_report -designview -model viterbi -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.design.xml 
+Command         syn_report done; 2.02 sec.
+Execute         syn_report -csynthDesign -model viterbi -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/report/csynth.rpt 
+Execute           AP::get_flow_target_display_name
+Execute         syn_report -wcfg -model viterbi -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_dataflow_ana.wcfg 
+Execute         syn_report -protoinst -model viterbi -o /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.protoinst 
+Execute         sc_get_clocks viterbi 
+Execute         sc_get_portdomain viterbi 
+INFO-FLOW: Model list for RTL component generation: viterbi_Pipeline_L_init viterbi_Pipeline_L_timestep_L_curr_state viterbi_Pipeline_L_end viterbi_Pipeline_L_backtrack viterbi
+INFO-FLOW: Handling components in module [viterbi_Pipeline_L_init] ... 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_init.compgen.tcl 
+INFO-FLOW: Found component viterbi_flow_control_loop_pipe_sequential_init.
+INFO-FLOW: Append model viterbi_flow_control_loop_pipe_sequential_init
+INFO-FLOW: Handling components in module [viterbi_Pipeline_L_timestep_L_curr_state] ... 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_timestep_L_curr_state.compgen.tcl 
+INFO-FLOW: Found component viterbi_dcmp_64ns_64ns_1_2_no_dsp_1.
+INFO-FLOW: Append model viterbi_dcmp_64ns_64ns_1_2_no_dsp_1
+INFO-FLOW: Found component viterbi_flow_control_loop_pipe_sequential_init.
+INFO-FLOW: Append model viterbi_flow_control_loop_pipe_sequential_init
+INFO-FLOW: Handling components in module [viterbi_Pipeline_L_end] ... 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_end.compgen.tcl 
+INFO-FLOW: Found component viterbi_flow_control_loop_pipe_sequential_init.
+INFO-FLOW: Append model viterbi_flow_control_loop_pipe_sequential_init
+INFO-FLOW: Handling components in module [viterbi_Pipeline_L_backtrack] ... 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_backtrack.compgen.tcl 
+INFO-FLOW: Found component viterbi_flow_control_loop_pipe_sequential_init.
+INFO-FLOW: Append model viterbi_flow_control_loop_pipe_sequential_init
+INFO-FLOW: Handling components in module [viterbi] ... 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.compgen.tcl 
+INFO-FLOW: Found component viterbi_dadd_64ns_64ns_64_5_full_dsp_1.
+INFO-FLOW: Append model viterbi_dadd_64ns_64ns_64_5_full_dsp_1
+INFO-FLOW: Found component viterbi_dcmp_64ns_64ns_1_2_no_dsp_1.
+INFO-FLOW: Append model viterbi_dcmp_64ns_64ns_1_2_no_dsp_1
+INFO-FLOW: Found component viterbi_llike_RAM_1WNR_AUTO_1R1W.
+INFO-FLOW: Append model viterbi_llike_RAM_1WNR_AUTO_1R1W
+INFO-FLOW: Append model viterbi_Pipeline_L_init
+INFO-FLOW: Append model viterbi_Pipeline_L_timestep_L_curr_state
+INFO-FLOW: Append model viterbi_Pipeline_L_end
+INFO-FLOW: Append model viterbi_Pipeline_L_backtrack
+INFO-FLOW: Append model viterbi
+INFO-FLOW: Generating RTL model list ...
+INFO-FLOW: All models in this session: viterbi_flow_control_loop_pipe_sequential_init viterbi_dcmp_64ns_64ns_1_2_no_dsp_1 viterbi_flow_control_loop_pipe_sequential_init viterbi_flow_control_loop_pipe_sequential_init viterbi_flow_control_loop_pipe_sequential_init viterbi_dadd_64ns_64ns_64_5_full_dsp_1 viterbi_dcmp_64ns_64ns_1_2_no_dsp_1 viterbi_llike_RAM_1WNR_AUTO_1R1W viterbi_Pipeline_L_init viterbi_Pipeline_L_timestep_L_curr_state viterbi_Pipeline_L_end viterbi_Pipeline_L_backtrack viterbi
+INFO-FLOW: Generating /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/autopilot.rtl.models.txt file...
+INFO-FLOW: To file: write model viterbi_flow_control_loop_pipe_sequential_init
+INFO-FLOW: To file: write model viterbi_dcmp_64ns_64ns_1_2_no_dsp_1
+INFO-FLOW: To file: write model viterbi_flow_control_loop_pipe_sequential_init
+INFO-FLOW: To file: write model viterbi_flow_control_loop_pipe_sequential_init
+INFO-FLOW: To file: write model viterbi_flow_control_loop_pipe_sequential_init
+INFO-FLOW: To file: write model viterbi_dadd_64ns_64ns_64_5_full_dsp_1
+INFO-FLOW: To file: write model viterbi_dcmp_64ns_64ns_1_2_no_dsp_1
+INFO-FLOW: To file: write model viterbi_llike_RAM_1WNR_AUTO_1R1W
+INFO-FLOW: To file: write model viterbi_Pipeline_L_init
+INFO-FLOW: To file: write model viterbi_Pipeline_L_timestep_L_curr_state
+INFO-FLOW: To file: write model viterbi_Pipeline_L_end
+INFO-FLOW: To file: write model viterbi_Pipeline_L_backtrack
+INFO-FLOW: To file: write model viterbi
+INFO-FLOW: Generating /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/autopilot.rtl.models.tcl file...
+INFO-FLOW: Finished generating RTL model list.
+
+
+INFO-FLOW: RTL Generation done.
+INFO-FLOW: CAS Generation done.
+INFO-FLOW: CBC Generation done.
+INFO-FLOW: DBG:PROC: ::AESL_AUTOMG::auto_generate_csynth_design
+INFO-FLOW: DBG:PUTS: read_platform_lib /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/global.setting.tcl
+Execute         source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/generic/autopilot/common.gen 
+Execute           source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/generic/autopilot/APCoreGen.gen 
+Execute         source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/generic/autopilot/op.gen 
+Execute         source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/generic/autopilot/op_simcore.gen 
+Execute         source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/generic/autopilot/interface.gen 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/global.setting.tcl 
+Execute         source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/common/xilinx.gen 
+Execute           source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/interface/plb46.gen 
+Execute           source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/interface/axi4.gen 
+Execute           source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute             source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/interface/saxilite.gen 
+Execute           source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute           source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute           source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/ip/dds_compiler.gen 
+Execute           source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/ip/xfft.gen 
+Execute           source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/ip/util.gen 
+Execute           source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/ip/xfir.gen 
+Execute           source /tools/Xilinx/new/Vitis_HLS/2022.2/common/technology/xilinx/DSP48/dsp48.gen 
+INFO-FLOW: DBG:PUTS:   using AESL_AUTOCG::g_clock_period=5.000 (was NA)
+INFO-FLOW: DBG:PROC: ::AESL_AUTOMG::generate_ip_cores gen_sim_model='1' gen_fp_models='0' gen_for_export='0' dstSCDir='' dstVhdlDir='/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/vhdl' dstVlogDir='/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/vlog' tclDir='/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db' modelList='viterbi_flow_control_loop_pipe_sequential_init
+viterbi_dcmp_64ns_64ns_1_2_no_dsp_1
+viterbi_flow_control_loop_pipe_sequential_init
+viterbi_flow_control_loop_pipe_sequential_init
+viterbi_flow_control_loop_pipe_sequential_init
+viterbi_dadd_64ns_64ns_64_5_full_dsp_1
+viterbi_dcmp_64ns_64ns_1_2_no_dsp_1
+viterbi_llike_RAM_1WNR_AUTO_1R1W
+viterbi_Pipeline_L_init
+viterbi_Pipeline_L_timestep_L_curr_state
+viterbi_Pipeline_L_end
+viterbi_Pipeline_L_backtrack
+viterbi
+' expOnly='0'
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/global.setting.tcl 
+Execute         ap_part_info -name xcu55c-fsvh2892-2L-e -data names -quiet 
+Execute         ap_part_info -name xcu55c-fsvh2892-2L-e -data info -quiet 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/global.setting.tcl 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/global.setting.tcl 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_init.compgen.tcl 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_timestep_L_curr_state.compgen.tcl 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_end.compgen.tcl 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_backtrack.compgen.tcl 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.compgen.tcl 
+INFO: [HLS 200-111] Finished Generating all RTL models: CPU user time: 4.95 seconds. CPU system time: 0.05 seconds. Elapsed time: 5.09 seconds; current allocated memory: 1.500 GB.
+INFO-FLOW: DBG:PROC: ::HLSREPORTS::create_csynth_xml bind_info_var='bind_info' RtlSubPrefix='viterbi_' outfile=''
+INFO-FLOW: Running: create_csynth_xml read xml data
+INFO-FLOW: Done: create_csynth_xml read xml data time: 0 seconds per iteration
+INFO-FLOW: Running: create_csynth_xml bind info
+INFO-FLOW: Done: create_csynth_xml bind info time: 0.1 seconds per iteration
+INFO-FLOW: Running: create_csynth_xml config info
+INFO-FLOW: Done: create_csynth_xml config info time: 0 seconds per iteration
+INFO-FLOW: Running: create_csynth_xml write xml
+INFO-FLOW: Done: create_csynth_xml write xml time: 0 seconds per iteration
+INFO-FLOW: DBG:PUTS:      create_csynth_xml wrote csynth_xml=/home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/syn/report/csynth.xml
+INFO-FLOW: DBG:PROC: ::AP::DESIGN_DATA::generate_json generate_bd_files='0' generate_xo_files='0' modelList='viterbi_flow_control_loop_pipe_sequential_init
+viterbi_dcmp_64ns_64ns_1_2_no_dsp_1
+viterbi_flow_control_loop_pipe_sequential_init
+viterbi_flow_control_loop_pipe_sequential_init
+viterbi_flow_control_loop_pipe_sequential_init
+viterbi_dadd_64ns_64ns_64_5_full_dsp_1
+viterbi_dcmp_64ns_64ns_1_2_no_dsp_1
+viterbi_llike_RAM_1WNR_AUTO_1R1W
+viterbi_Pipeline_L_init
+viterbi_Pipeline_L_timestep_L_curr_state
+viterbi_Pipeline_L_end
+viterbi_Pipeline_L_backtrack
+viterbi
+' rtl_lang='both' bootstrap_tcl='false' outdir='' outfilename=''
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/global.setting.tcl 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/global.setting.tcl 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/top-io-be.tcl 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.tbgen.tcl 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.rtl_wrap.cfg.tcl 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.compgen.dataonly.tcl 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_init.tbgen.tcl 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_timestep_L_curr_state.tbgen.tcl 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_end.tbgen.tcl 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi_Pipeline_L_backtrack.tbgen.tcl 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.tbgen.tcl 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/global.setting.tcl 
+Execute         ap_part_info -name xcu55c-fsvh2892-2L-e -data names -quiet 
+Execute         ap_part_info -name xcu55c-fsvh2892-2L-e -data info -quiet 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/viterbi.constraint.tcl 
+Execute         sc_get_clocks viterbi 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/.autopilot/db/global.setting.tcl 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/impl/misc/viterbi_dadd_64ns_64ns_64_5_full_dsp_1_ip.tcl 
+Execute         source /home/zqy/LLM4CHIP/HLSFactory/hlsfactory/hls_dataset_sources/machsuite/viterbi/hls_prj/solution/impl/misc/viterbi_dcmp_64ns_64ns_1_2_no_dsp_1_ip.tcl 
+INFO-FLOW: DBG:PROC: ::HLSREPORTS::add_csynth_report_sections bind_info_dict='adapter_nodes {} report_dict {TOPINST viterbi MODULE2INSTS {viterbi viterbi viterbi_Pipeline_L_init grp_viterbi_Pipeline_L_init_fu_91 viterbi_Pipeline_L_timestep_L_curr_state grp_viterbi_Pipeline_L_timestep_L_curr_state_fu_102 viterbi_Pipeline_L_end grp_viterbi_Pipeline_L_end_fu_113 viterbi_Pipeline_L_backtrack grp_viterbi_Pipeline_L_backtrack_fu_120} INST2MODULE {viterbi viterbi grp_viterbi_Pipeline_L_init_fu_91 viterbi_Pipeline_L_init grp_viterbi_Pipeline_L_timestep_L_curr_state_fu_102 viterbi_Pipeline_L_timestep_L_curr_state grp_viterbi_Pipeline_L_end_fu_113 viterbi_Pipeline_L_end grp_viterbi_Pipeline_L_backtrack_fu_120 viterbi_Pipeline_L_backtrack} INSTDATA {viterbi {DEPTH 1 CHILDREN {grp_viterbi_Pipeline_L_init_fu_91 grp_viterbi_Pipeline_L_timestep_L_curr_state_fu_102 grp_viterbi_Pipeline_L_end_fu_113 grp_viterbi_Pipeline_L_backtrack_fu_120}} grp_viterbi_Pipeline_L_init_fu_91 {DEPTH 2 CHILDREN {}} grp_viterbi_Pipeline_L_timestep_L_curr_state_fu_102 {DEPTH 2 CHILDREN {}} grp_viterbi_Pipeline_L_end_fu_113 {DEPTH 2 CHILDREN {}} grp_viterbi_Pipeline_L_backtrack_fu_120 {DEPTH 2 CHILDREN {}}} MODULEDATA {viterbi_Pipeline_L_init {BINDINFO {{BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln13_fu_117_p2 SOURCE viterbi.c:13 VARIABLE add_ln13 LOOP L_init BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln14_fu_135_p2 SOURCE viterbi.c:14 VARIABLE add_ln14 LOOP L_init BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}}} AREA {DSP 0 BRAM 0 URAM 0}} viterbi_Pipeline_L_timestep_L_curr_state {BINDINFO {{BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln18_1_fu_1716_p2 SOURCE viterbi.c:18 VARIABLE add_ln18_1 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln18_fu_1728_p2 SOURCE viterbi.c:18 VARIABLE add_ln18 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME empty_11_fu_1756_p2 SOURCE viterbi.c:18 VARIABLE empty_11 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln33_fu_8061_p2 SOURCE viterbi.c:33 VARIABLE add_ln33 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln24_fu_1852_p2 SOURCE viterbi.c:24 VARIABLE add_ln24 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_1 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:27 VARIABLE p_1 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_4 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:27 VARIABLE p_4 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_10 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U10 SOURCE viterbi.c:26 VARIABLE add3_11 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_12 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U10 SOURCE viterbi.c:26 VARIABLE add3_13 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_14 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_15 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_16 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_17 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_18 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_19 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_20 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_21 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_22 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_23 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_24 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_25 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_26 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_27 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_28 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_29 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_30 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_31 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_32 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_33 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_34 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_35 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_36 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_37 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_38 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_39 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_40 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_41 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_42 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_43 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_44 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_45 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_46 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_47 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_48 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_49 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_50 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_51 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_52 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_53 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_54 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:27 VARIABLE p_54 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_55 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U10 SOURCE viterbi.c:27 VARIABLE p_55 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_56 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:27 VARIABLE p_56 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_57 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U10 SOURCE viterbi.c:27 VARIABLE p_57 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_58 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:27 VARIABLE p_58 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:26 VARIABLE add3_59 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U9 SOURCE viterbi.c:27 VARIABLE p_59 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:26 VARIABLE add3_60 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U8 SOURCE viterbi.c:27 VARIABLE p_60 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U10 SOURCE viterbi.c:26 VARIABLE add3_61 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fulldsp LATENCY 4 OPTYPE dadd PRAGMA {} RTLNAME dadd_64ns_64ns_64_5_full_dsp_1_U10 SOURCE viterbi.c:27 VARIABLE p_61 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 3 BRAM 0 URAM 0 DISPNAME {bind_op dadd}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln19_fu_4191_p2 SOURCE viterbi.c:19 VARIABLE add_ln19 LOOP L_timestep_L_curr_state BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}}} AREA {DSP 9 BRAM 0 URAM 0}} viterbi_Pipeline_L_end {BINDINFO {{BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln41_fu_118_p2 SOURCE viterbi.c:41 VARIABLE add_ln41 LOOP L_end BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln40_fu_128_p2 SOURCE viterbi.c:40 VARIABLE add_ln40 LOOP L_end BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}}} AREA {DSP 0 BRAM 0 URAM 0}} viterbi_Pipeline_L_backtrack {BINDINFO {{BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln52_fu_1666_p2 SOURCE viterbi.c:52 VARIABLE add_ln52 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_fu_1725_p2 SOURCE viterbi.c:54 VARIABLE add_ln54 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_1_fu_1756_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_1 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_2_fu_1766_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_2 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_3_fu_1821_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_3 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_4_fu_1862_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_4 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_5_fu_1872_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_5 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_6_fu_1924_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_6 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_7_fu_1964_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_7 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_8_fu_1974_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_8 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_9_fu_2025_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_9 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_10_fu_2066_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_10 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_11_fu_2076_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_11 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_12_fu_2220_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_12 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_13_fu_2260_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_13 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_14_fu_2270_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_14 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_15_fu_2412_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_15 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_16_fu_2452_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_16 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_17_fu_2462_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_17 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_18_fu_2809_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_18 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_19_fu_2850_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_19 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_20_fu_2860_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_20 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_21_fu_3026_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_21 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_22_fu_3066_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_22 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_23_fu_3076_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_23 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_24_fu_3218_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_24 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_25_fu_3258_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_25 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_26_fu_3268_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_26 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_27_fu_3430_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_27 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_28_fu_3470_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_28 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_29_fu_3480_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_29 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_30_fu_3622_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_30 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_31_fu_3662_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_31 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_32_fu_3672_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_32 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_33_fu_4400_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_33 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln54_34_fu_4438_p2 SOURCE viterbi.c:54 VARIABLE add_ln54_34 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}} {BINDTYPE op ID {} IMPL fabric LATENCY 0 OPTYPE add PRAGMA {} RTLNAME add_ln50_fu_9313_p2 SOURCE viterbi.c:50 VARIABLE add_ln50 LOOP L_backtrack BUNDLEDNAME {} DSP 0 BRAM 0 URAM 0 DISPNAME {bind_op add}}} AREA {DSP 0 BRAM 0 URAM 0}} viterbi {BINDINFO {{BINDTYPE storage ID {} IMPL auto LATENCY 1 OPTYPE rom_np PRAGMA {} RTLNAME llike_U SOURCE viterbi.c:5 VARIABLE llike LOOP {} BUNDLEDNAME {} DSP 0 BRAM 58 URAM 0 DISPNAME {bind_storage rom_np}}} AREA {DSP 15 BRAM 58 URAM 0}}}}'
+INFO-FLOW: DBG:PUTS:      update_csynth_reports json2rpt_hw_sw_interfaces
+INFO-FLOW: Running: gen_csynth_sec_pragma
+INFO-FLOW: Done: gen_csynth_sec_pragma time: 0 seconds per iteration
+INFO-FLOW: DBG:PUTS:      update_csynth_reports wrote xml
+INFO-FLOW: DBG:PUTS:      update_csynth_reports appended to csynth rpt file
+INFO: [HLS 200-111] Finished Updating report files: CPU user time: 0.48 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.52 seconds; current allocated memory: 1.501 GB.
+INFO: [VHDL 208-304] Generating VHDL RTL for viterbi.
+INFO: [VLOG 209-307] Generating Verilog RTL for viterbi.
+Execute         syn_report -model viterbi -printsummary 
+INFO: [HLS 200-790] **** Loop Constraint Status: All loop constraints were NOT satisfied.
+INFO: [HLS 200-789] **** Estimated Fmax: 276.39 MHz
+Command       autosyn done; 124.54 sec.
+Command     csynth_design done; 128.5 sec.
+INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 126.49 seconds. CPU system time: 0.95 seconds. Elapsed time: 128.5 seconds; current allocated memory: 312.488 MB.
+Execute     close_project 
+INFO: [HLS 200-1510] Running: close_project 
+Execute       close_solution 
+Execute         cleanup_all 
+Execute         cleanup_all 

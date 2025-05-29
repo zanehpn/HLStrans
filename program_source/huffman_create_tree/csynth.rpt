@@ -1,0 +1,147 @@
+
+
+================================================================
+== Synthesis Summary Report of 'huffman_create_tree'
+================================================================
++ General Information: 
+    * Date:           Fri May  2 19:55:42 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        huffman_create_tree
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +-------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+---------+----+-----------+-----------+-----+
+    |                     Modules                     | Issue|      | Latency |  Latency  | Iteration|         | Trip |          |         |    |           |           |     |
+    |                     & Loops                     | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined|  BRAM   | DSP|     FF    |    LUT    | URAM|
+    +-------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+---------+----+-----------+-----------+-----+
+    |+ huffman_create_tree                            |     -|  0.27|      769|  3.845e+03|         -|      770|     -|        no|  1 (~0%)|   -|  203 (~0%)|  619 (~0%)|    -|
+    | + huffman_create_tree_Pipeline_VITIS_LOOP_15_1  |     -|  0.27|      767|  3.835e+03|         -|      767|     -|        no|  1 (~0%)|   -|  174 (~0%)|  528 (~0%)|    -|
+    |  o VITIS_LOOP_15_1                              |     -|  3.65|      765|  3.825e+03|         3|        3|   255|       yes|        -|   -|          -|          -|    -|
+    +-------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+---------+----+-----------+-----------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_MEMORY
++------------------+----------+
+| Interface        | Bitwidth |
++------------------+----------+
+| in_r_address0    | 8        |
+| in_r_q0          | 42       |
+| left_r_address0  | 8        |
+| left_r_d0        | 10       |
+| parent_address0  | 8        |
+| parent_d0        | 10       |
+| right_r_address0 | 8        |
+| right_r_d0       | 10       |
++------------------+----------+
+
+* Other Ports
++-------------+---------+----------+
+| Interface   | Mode    | Bitwidth |
++-------------+---------+----------+
+| num_symbols | ap_none | 32       |
++-------------+---------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++-------------+-----------+--------------+
+| Argument    | Direction | Datatype     |
++-------------+-----------+--------------+
+| in          | in        | Symbol*      |
+| num_symbols | in        | int          |
+| parent      | out       | ap_uint<10>* |
+| left        | out       | ap_uint<10>* |
+| right       | out       | ap_uint<10>* |
++-------------+-----------+--------------+
+
+* SW-to-HW Mapping
++-------------+------------------+---------+----------+
+| Argument    | HW Interface     | HW Type | HW Usage |
++-------------+------------------+---------+----------+
+| in          | in_r_address0    | port    | offset   |
+| in          | in_r_ce0         | port    |          |
+| in          | in_r_q0          | port    |          |
+| num_symbols | num_symbols      | port    |          |
+| parent      | parent_address0  | port    | offset   |
+| parent      | parent_ce0       | port    |          |
+| parent      | parent_we0       | port    |          |
+| parent      | parent_d0        | port    |          |
+| left        | left_r_address0  | port    | offset   |
+| left        | left_r_ce0       | port    |          |
+| left        | left_r_we0       | port    |          |
+| left        | left_r_d0        | port    |          |
+| right       | right_r_address0 | port    | offset   |
+| right       | right_r_ce0      | port    |          |
+| right       | right_r_we0      | port    |          |
+| right       | right_r_d0       | port    |          |
++-------------+------------------+---------+----------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+  No burst in design
+
+================================================================
+== Bind Op Report
+================================================================
++-------------------------------------------------+-----+--------+----------------+-----+--------+---------+
+| Name                                            | DSP | Pragma | Variable       | Op  | Impl   | Latency |
++-------------------------------------------------+-----+--------+----------------+-----+--------+---------+
+| + huffman_create_tree                           | 0   |        |                |     |        |         |
+|   add_ln15_fu_88_p2                             | -   |        | add_ln15       | add | fabric | 0       |
+|  + huffman_create_tree_Pipeline_VITIS_LOOP_15_1 | 0   |        |                |     |        |         |
+|    i_2_fu_300_p2                                | -   |        | i_2            | add | fabric | 0       |
+|    tree_count_V_6_fu_358_p2                     | -   |        | tree_count_V_6 | add | fabric | 0       |
+|    in_count_V_6_fu_364_p2                       | -   |        | in_count_V_6   | add | fabric | 0       |
+|    add_ln186_1_fu_412_p2                        | -   |        | add_ln186_1    | add | fabric | 0       |
+|    tree_count_V_7_fu_419_p2                     | -   |        | tree_count_V_7 | add | fabric | 0       |
+|    add_ln186_fu_426_p2                          | -   |        | add_ln186      | add | fabric | 0       |
+|    in_count_V_7_fu_433_p2                       | -   |        | in_count_V_7   | add | fabric | 0       |
++-------------------------------------------------+-----+--------+----------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++-------------------------------------------------+------+------+--------+-------------+---------+------+---------+
+| Name                                            | BRAM | URAM | Pragma | Variable    | Storage | Impl | Latency |
++-------------------------------------------------+------+------+--------+-------------+---------+------+---------+
+| + huffman_create_tree                           | 1    | 0    |        |             |         |      |         |
+|  + huffman_create_tree_Pipeline_VITIS_LOOP_15_1 | 1    | 0    |        |             |         |      |         |
+|    frequency_V_U                                | 1    | -    |        | frequency_V | ram_1p  | auto | 1       |
++-------------------------------------------------+------+------+--------+-------------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++----------+---------+--------------------------------------------------------+
+| Type     | Options | Location                                               |
++----------+---------+--------------------------------------------------------+
+| pipeline | II=5    | huffman_create_tree_fast.cpp:16 in huffman_create_tree |
++----------+---------+--------------------------------------------------------+
+
+

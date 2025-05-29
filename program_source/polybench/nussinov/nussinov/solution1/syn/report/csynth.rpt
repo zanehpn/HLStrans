@@ -1,0 +1,129 @@
+
+
+================================================================
+== Synthesis Summary Report of 'nussinov'
+================================================================
++ General Information: 
+    * Date:           Thu May 22 09:32:36 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        nussinov
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +----------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----+-----------+------------+-----+
+    |                 Modules                | Issue|      | Latency |  Latency  | Iteration|         | Trip |          |      |    |           |            |     |
+    |                 & Loops                | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined| BRAM | DSP|     FF    |     LUT    | URAM|
+    +----------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----+-----------+------------+-----+
+    |+ nussinov                              |     -|  0.04|   673381|  3.367e+06|         -|   673382|     -|        no|     -|   -|  483 (~0%)|  1042 (~0%)|    -|
+    | o VITIS_LOOP_9_1                       |     -|  3.65|   673380|  3.367e+06|     11223|        -|    60|        no|     -|   -|          -|           -|    -|
+    |  o VITIS_LOOP_11_2                     |     -|  3.65|    11220|  5.610e+04|       187|        -|    60|        no|     -|   -|          -|           -|    -|
+    |   + nussinov_Pipeline_VITIS_LOOP_40_3  |     -|  0.04|      182|    910.000|         -|      182|     -|        no|     -|   -|  235 (~0%)|   345 (~0%)|    -|
+    |    o VITIS_LOOP_40_3                   |    II|  3.65|      180|    900.000|         4|        3|    60|       yes|     -|   -|          -|           -|    -|
+    +----------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----+-----------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_MEMORY
++------------------+----------+
+| Interface        | Bitwidth |
++------------------+----------+
+| seq_address0     | 6        |
+| seq_q0           | 8        |
+| table_r_address0 | 12       |
+| table_r_address1 | 12       |
+| table_r_d0       | 32       |
+| table_r_q0       | 32       |
+| table_r_q1       | 32       |
++------------------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| seq      | in        | char*    |
+| table    | inout     | int*     |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+------------------+---------+----------+
+| Argument | HW Interface     | HW Type | HW Usage |
++----------+------------------+---------+----------+
+| seq      | seq_address0     | port    | offset   |
+| seq      | seq_ce0          | port    |          |
+| seq      | seq_q0           | port    |          |
+| table    | table_r_address0 | port    | offset   |
+| table    | table_r_ce0      | port    |          |
+| table    | table_r_we0      | port    |          |
+| table    | table_r_d0       | port    |          |
+| table    | table_r_q0       | port    |          |
+| table    | table_r_address1 | port    | offset   |
+| table    | table_r_ce1      | port    |          |
+| table    | table_r_q1       | port    |          |
++----------+------------------+---------+----------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++--------------------------------------+-----+--------+------------+-----+--------+---------+
+| Name                                 | DSP | Pragma | Variable   | Op  | Impl   | Latency |
++--------------------------------------+-----+--------+------------+-----+--------+---------+
+| + nussinov                           | 0   |        |            |     |        |         |
+|   sub_ln16_fu_218_p2                 | -   |        | sub_ln16   | sub | fabric | 0       |
+|   add_ln11_fu_231_p2                 | -   |        | add_ln11   | add | fabric | 0       |
+|   sub_ln20_fu_256_p2                 | -   |        | sub_ln20   | sub | fabric | 0       |
+|   add_ln16_fu_277_p2                 | -   |        | add_ln16   | add | fabric | 0       |
+|   add_ln20_fu_335_p2                 | -   |        | add_ln20   | add | fabric | 0       |
+|   add_ln14_fu_287_p2                 | -   |        | add_ln14   | add | fabric | 0       |
+|   add_ln16_1_fu_293_p2               | -   |        | add_ln16_1 | add | fabric | 0       |
+|   add_ln28_1_fu_345_p2               | -   |        | add_ln28_1 | add | fabric | 0       |
+|   add_ln29_fu_378_p2                 | -   |        | add_ln29   | add | fabric | 0       |
+|   add_ln28_fu_410_p2                 | -   |        | add_ln28   | add | fabric | 0       |
+|   add_ln11_1_fu_308_p2               | -   |        | add_ln11_1 | add | fabric | 0       |
+|   add_ln9_fu_314_p2                  | -   |        | add_ln9    | add | fabric | 0       |
+|   add_ln9_1_fu_319_p2                | -   |        | add_ln9_1  | add | fabric | 0       |
+|  + nussinov_Pipeline_VITIS_LOOP_40_3 | 0   |        |            |     |        |         |
+|    add_ln43_2_fu_161_p2              | -   |        | add_ln43_2 | add | fabric | 0       |
+|    add_ln43_fu_176_p2                | -   |        | add_ln43   | add | fabric | 0       |
+|    add_ln43_1_fu_227_p2              | -   |        | add_ln43_1 | add | fabric | 0       |
++--------------------------------------+-----+--------+------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
+  No bind storage info in design
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++----------------+--------------+--------------------------------+
+| Type           | Options      | Location                       |
++----------------+--------------+--------------------------------+
+| loop_tripcount | min=1 max=60 | nussinov_slow.c:10 in nussinov |
+| loop_tripcount | min=1 max=60 | nussinov_slow.c:12 in nussinov |
+| loop_tripcount | min=1 max=60 | nussinov_slow.c:41 in nussinov |
++----------------+--------------+--------------------------------+
+
+

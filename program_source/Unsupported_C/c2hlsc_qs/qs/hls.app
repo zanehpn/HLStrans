@@ -1,0 +1,9 @@
+<AutoPilot:project xmlns:AutoPilot="com.autoesl.autopilot.project" projectType="C/C++" name="qs" top="qs">
+    <files>
+        <file name="/home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/c2hlsc/c2hlsc_quicksort__WIP/qs_fast.cpp" sc="0" tb="false" cflags="" csimflags="" blackbox="false"/>
+    </files>
+    <solutions>
+        <solution name="solution1" status=""/>
+    </solutions>
+</AutoPilot:project>
+

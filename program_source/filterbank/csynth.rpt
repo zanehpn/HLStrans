@@ -1,0 +1,288 @@
+
+
+================================================================
+== Synthesis Summary Report of 'filterbank'
+================================================================
++ General Information: 
+    * Date:           Fri May  2 19:54:44 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        filterbank
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+----------+----------+-------------+------------+-----+
+    |                  Modules                 |  Issue |       | Latency |  Latency  | Iteration|         | Trip |          |          |          |             |            |     |
+    |                  & Loops                 |  Type  | Slack | (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined|   BRAM   |    DSP   |      FF     |     LUT    | URAM|
+    +------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+----------+----------+-------------+------------+-----+
+    |+ filterbank                              |  Timing|  -0.10|    42516|  2.126e+05|         -|    42517|     -|        no|  17 (~0%)|  80 (~0%)|  25149 (~0%)|  13840 (1%)|    -|
+    | + filterbank_Pipeline_VITIS_LOOP_25_1    |       -|   1.86|      258|  1.290e+03|         -|      258|     -|        no|         -|         -|     11 (~0%)|    63 (~0%)|    -|
+    |  o VITIS_LOOP_25_1                       |       -|   3.65|      256|  1.280e+03|         1|        1|   256|       yes|         -|         -|            -|           -|    -|
+    | o VITIS_LOOP_30_2                        |       -|   3.65|    42256|  2.113e+05|      5282|        -|     8|        no|         -|         -|            -|           -|    -|
+    |  + filterbank_Pipeline_VITIS_LOOP_39_3   |  Timing|  -0.10|     4247|  2.124e+04|         -|     4247|     -|        no|         -|         -|   6271 (~0%)|  3502 (~0%)|    -|
+    |   o VITIS_LOOP_39_3                      |      II|   3.65|     4245|  2.122e+04|       166|       16|   256|       yes|         -|         -|            -|           -|    -|
+    |  + filterbank_Pipeline_VITIS_LOOP_55_6   |       -|   1.86|      258|  1.290e+03|         -|      258|     -|        no|         -|         -|     11 (~0%)|    54 (~0%)|    -|
+    |   o VITIS_LOOP_55_6                      |       -|   3.65|      256|  1.280e+03|         1|        1|   256|       yes|         -|         -|            -|           -|    -|
+    |  + filterbank_Pipeline_VITIS_LOOP_49_5   |       -|   1.75|       34|    170.000|         -|       34|     -|        no|         -|         -|     15 (~0%)|    61 (~0%)|    -|
+    |   o VITIS_LOOP_49_5                      |       -|   3.65|       32|    160.000|         2|        1|    32|       yes|         -|         -|            -|           -|    -|
+    |  + filterbank_Pipeline_VITIS_LOOP_60_7   |       -|   1.75|       34|    170.000|         -|       34|     -|        no|         -|         -|     14 (~0%)|    61 (~0%)|    -|
+    |   o VITIS_LOOP_60_7                      |       -|   3.65|       32|    160.000|         2|        1|    32|       yes|         -|         -|            -|           -|    -|
+    |  + filterbank_Pipeline_VITIS_LOOP_67_8   |       -|   0.13|      677|  3.385e+03|         -|      677|     -|        no|         -|  70 (~0%)|  13833 (~0%)|  8050 (~0%)|    -|
+    |   o VITIS_LOOP_67_8                      |      II|   3.65|      675|  3.375e+03|       166|        2|   256|       yes|         -|         -|            -|           -|    -|
+    |  + filterbank_Pipeline_VITIS_LOOP_76_10  |       -|   0.67|      264|  1.320e+03|         -|      264|     -|        no|         -|         -|    192 (~0%)|   106 (~0%)|    -|
+    |   o VITIS_LOOP_76_10                     |       -|   3.65|      262|  1.310e+03|         8|        1|   256|       yes|         -|         -|            -|           -|    -|
+    +------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+----------+----------+-------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* BRAM
++-----------+------------+---------------+
+| Interface | Data Width | Address Width |
++-----------+------------+---------------+
+| F_PORTA   | 32         | 32            |
+| F_PORTB   | 32         | 32            |
+| H_PORTA   | 32         | 32            |
+| H_PORTB   | 32         | 32            |
+| r_PORTA   | 32         | 32            |
+| r_PORTB   | 32         | 32            |
+| y_PORTA   | 32         | 32            |
+| y_PORTB   | 32         | 32            |
++-----------+------------+---------------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| r        | in        | float*   |
+| y        | inout     | float*   |
+| H        | in        | float*   |
+| F        | in        | float*   |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+--------------+-----------+
+| Argument | HW Interface | HW Type   |
++----------+--------------+-----------+
+| r        | r_PORTA      | interface |
+| r        | r_PORTB      | interface |
+| y        | y_PORTA      | interface |
+| y        | y_PORTB      | interface |
+| H        | H_PORTA      | interface |
+| H        | H_PORTB      | interface |
+| F        | F_PORTA      | interface |
+| F        | F_PORTB      | interface |
++----------+--------------+-----------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++-----------------------------------------+-----+--------+-------------+------+---------+---------+
+| Name                                    | DSP | Pragma | Variable    | Op   | Impl    | Latency |
++-----------------------------------------+-----+--------+-------------+------+---------+---------+
+| + filterbank                            | 80  |        |             |      |         |         |
+|   add_ln30_fu_801_p2                    | -   |        | add_ln30    | add  | fabric  | 0       |
+|  + filterbank_Pipeline_VITIS_LOOP_25_1  | 0   |        |             |      |         |         |
+|    add_ln25_fu_64_p2                    | -   |        | add_ln25    | add  | fabric  | 0       |
+|  + filterbank_Pipeline_VITIS_LOOP_39_3  | 0   |        |             |      |         |         |
+|    add_ln39_fu_1411_p2                  | -   |        | add_ln39    | add  | fabric  | 0       |
+|    add_ln43_fu_748_p2                   | -   |        | add_ln43    | add  | fabric  | 0       |
+|    add_ln43_1_fu_777_p2                 | -   |        | add_ln43_1  | add  | fabric  | 0       |
+|    add_ln43_2_fu_795_p2                 | -   |        | add_ln43_2  | add  | fabric  | 0       |
+|    add_ln43_3_fu_823_p2                 | -   |        | add_ln43_3  | add  | fabric  | 0       |
+|    add_ln43_4_fu_841_p2                 | -   |        | add_ln43_4  | add  | fabric  | 0       |
+|    add_ln43_5_fu_869_p2                 | -   |        | add_ln43_5  | add  | fabric  | 0       |
+|    add_ln43_6_fu_887_p2                 | -   |        | add_ln43_6  | add  | fabric  | 0       |
+|    add_ln43_7_fu_915_p2                 | -   |        | add_ln43_7  | add  | fabric  | 0       |
+|    add_ln43_8_fu_933_p2                 | -   |        | add_ln43_8  | add  | fabric  | 0       |
+|    add_ln43_9_fu_961_p2                 | -   |        | add_ln43_9  | add  | fabric  | 0       |
+|    add_ln43_10_fu_979_p2                | -   |        | add_ln43_10 | add  | fabric  | 0       |
+|    add_ln43_11_fu_1007_p2               | -   |        | add_ln43_11 | add  | fabric  | 0       |
+|    add_ln43_12_fu_1025_p2               | -   |        | add_ln43_12 | add  | fabric  | 0       |
+|    add_ln43_13_fu_1053_p2               | -   |        | add_ln43_13 | add  | fabric  | 0       |
+|    add_ln43_14_fu_1071_p2               | -   |        | add_ln43_14 | add  | fabric  | 0       |
+|    add_ln43_15_fu_1099_p2               | -   |        | add_ln43_15 | add  | fabric  | 0       |
+|    add_ln43_16_fu_1117_p2               | -   |        | add_ln43_16 | add  | fabric  | 0       |
+|    add_ln43_17_fu_1145_p2               | -   |        | add_ln43_17 | add  | fabric  | 0       |
+|    add_ln43_18_fu_1163_p2               | -   |        | add_ln43_18 | add  | fabric  | 0       |
+|    add_ln43_19_fu_1191_p2               | -   |        | add_ln43_19 | add  | fabric  | 0       |
+|    add_ln43_20_fu_1209_p2               | -   |        | add_ln43_20 | add  | fabric  | 0       |
+|    add_ln43_21_fu_1237_p2               | -   |        | add_ln43_21 | add  | fabric  | 0       |
+|    add_ln43_22_fu_1255_p2               | -   |        | add_ln43_22 | add  | fabric  | 0       |
+|    add_ln43_23_fu_1283_p2               | -   |        | add_ln43_23 | add  | fabric  | 0       |
+|    add_ln43_24_fu_1301_p2               | -   |        | add_ln43_24 | add  | fabric  | 0       |
+|    add_ln43_25_fu_1329_p2               | -   |        | add_ln43_25 | add  | fabric  | 0       |
+|    add_ln43_26_fu_1347_p2               | -   |        | add_ln43_26 | add  | fabric  | 0       |
+|    add_ln43_27_fu_1375_p2               | -   |        | add_ln43_27 | add  | fabric  | 0       |
+|    add_ln43_28_fu_1393_p2               | -   |        | add_ln43_28 | add  | fabric  | 0       |
+|    add_ln43_29_fu_1426_p2               | -   |        | add_ln43_29 | add  | fabric  | 0       |
+|    add_ln43_30_fu_1444_p2               | -   |        | add_ln43_30 | add  | fabric  | 0       |
+|  + filterbank_Pipeline_VITIS_LOOP_55_6  | 0   |        |             |      |         |         |
+|    add_ln55_fu_62_p2                    | -   |        | add_ln55    | add  | fabric  | 0       |
+|  + filterbank_Pipeline_VITIS_LOOP_49_5  | 0   |        |             |      |         |         |
+|    add_ln49_fu_79_p2                    | -   |        | add_ln49    | add  | fabric  | 0       |
+|  + filterbank_Pipeline_VITIS_LOOP_60_7  | 0   |        |             |      |         |         |
+|    add_ln60_fu_79_p2                    | -   |        | add_ln60    | add  | fabric  | 0       |
+|  + filterbank_Pipeline_VITIS_LOOP_67_8  | 70  |        |             |      |         |         |
+|    add_ln67_fu_922_p2                   | -   |        | add_ln67    | add  | fabric  | 0       |
+|    add_ln71_fu_934_p2                   | -   |        | add_ln71    | add  | fabric  | 0       |
+|    add_ln71_1_fu_953_p2                 | -   |        | add_ln71_1  | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U61    | 3   |        | mul77_2     | fmul | maxdsp  | 3       |
+|    add_ln71_2_fu_972_p2                 | -   |        | add_ln71_2  | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U62    | 3   |        | mul77_3     | fmul | maxdsp  | 3       |
+|    add_ln71_3_fu_991_p2                 | -   |        | add_ln71_3  | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U63    | 3   |        | mul77_4     | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U45   | 2   |        | add80_4     | fadd | fulldsp | 4       |
+|    add_ln71_4_fu_1010_p2                | -   |        | add_ln71_4  | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U64    | 3   |        | mul77_5     | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U45   | 2   |        | add80_5     | fadd | fulldsp | 4       |
+|    add_ln71_5_fu_1029_p2                | -   |        | add_ln71_5  | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U65    | 3   |        | mul77_6     | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U46   | 2   |        | add80_6     | fadd | fulldsp | 4       |
+|    add_ln71_6_fu_1048_p2                | -   |        | add_ln71_6  | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U66    | 3   |        | mul77_7     | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U46   | 2   |        | add80_7     | fadd | fulldsp | 4       |
+|    add_ln71_7_fu_1067_p2                | -   |        | add_ln71_7  | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U67    | 3   |        | mul77_8     | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U47   | 2   |        | add80_8     | fadd | fulldsp | 4       |
+|    add_ln71_8_fu_1086_p2                | -   |        | add_ln71_8  | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U68    | 3   |        | mul77_9     | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U47   | 2   |        | add80_9     | fadd | fulldsp | 4       |
+|    add_ln71_9_fu_1105_p2                | -   |        | add_ln71_9  | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U69    | 3   |        | mul77_s     | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U48   | 2   |        | add80_s     | fadd | fulldsp | 4       |
+|    add_ln71_10_fu_1124_p2               | -   |        | add_ln71_10 | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U70    | 3   |        | mul77_10    | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U48   | 2   |        | add80_10    | fadd | fulldsp | 4       |
+|    add_ln71_11_fu_1143_p2               | -   |        | add_ln71_11 | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U71    | 3   |        | mul77_11    | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U49   | 2   |        | add80_11    | fadd | fulldsp | 4       |
+|    add_ln71_12_fu_1162_p2               | -   |        | add_ln71_12 | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U72    | 3   |        | mul77_12    | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U49   | 2   |        | add80_12    | fadd | fulldsp | 4       |
+|    add_ln71_13_fu_1181_p2               | -   |        | add_ln71_13 | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U73    | 3   |        | mul77_13    | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U50   | 2   |        | add80_13    | fadd | fulldsp | 4       |
+|    add_ln71_14_fu_1200_p2               | -   |        | add_ln71_14 | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U74    | 3   |        | mul77_14    | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U50   | 2   |        | add80_14    | fadd | fulldsp | 4       |
+|    add_ln71_15_fu_1224_p2               | -   |        | add_ln71_15 | add  | fabric  | 0       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U51   | 2   |        | add80_15    | fadd | fulldsp | 4       |
+|    add_ln71_16_fu_1242_p2               | -   |        | add_ln71_16 | add  | fabric  | 0       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U51   | 2   |        | add80_16    | fadd | fulldsp | 4       |
+|    add_ln71_17_fu_1260_p2               | -   |        | add_ln71_17 | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U61    | 3   |        | mul77_17    | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U52   | 2   |        | add80_17    | fadd | fulldsp | 4       |
+|    add_ln71_18_fu_1278_p2               | -   |        | add_ln71_18 | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U62    | 3   |        | mul77_18    | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U52   | 2   |        | add80_18    | fadd | fulldsp | 4       |
+|    add_ln71_19_fu_1296_p2               | -   |        | add_ln71_19 | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U63    | 3   |        | mul77_19    | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U53   | 2   |        | add80_19    | fadd | fulldsp | 4       |
+|    add_ln71_20_fu_1314_p2               | -   |        | add_ln71_20 | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U64    | 3   |        | mul77_20    | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U53   | 2   |        | add80_20    | fadd | fulldsp | 4       |
+|    add_ln71_21_fu_1332_p2               | -   |        | add_ln71_21 | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U65    | 3   |        | mul77_21    | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U54   | 2   |        | add80_21    | fadd | fulldsp | 4       |
+|    add_ln71_22_fu_1350_p2               | -   |        | add_ln71_22 | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U66    | 3   |        | mul77_22    | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U54   | 2   |        | add80_22    | fadd | fulldsp | 4       |
+|    add_ln71_23_fu_1368_p2               | -   |        | add_ln71_23 | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U67    | 3   |        | mul77_23    | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U55   | 2   |        | add80_23    | fadd | fulldsp | 4       |
+|    add_ln71_24_fu_1386_p2               | -   |        | add_ln71_24 | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U68    | 3   |        | mul77_24    | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U55   | 2   |        | add80_24    | fadd | fulldsp | 4       |
+|    add_ln71_25_fu_1404_p2               | -   |        | add_ln71_25 | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U69    | 3   |        | mul77_25    | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U56   | 2   |        | add80_25    | fadd | fulldsp | 4       |
+|    add_ln71_26_fu_1422_p2               | -   |        | add_ln71_26 | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U70    | 3   |        | mul77_26    | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U56   | 2   |        | add80_26    | fadd | fulldsp | 4       |
+|    add_ln71_27_fu_1440_p2               | -   |        | add_ln71_27 | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U71    | 3   |        | mul77_27    | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U57   | 2   |        | add80_27    | fadd | fulldsp | 4       |
+|    add_ln71_28_fu_1458_p2               | -   |        | add_ln71_28 | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U72    | 3   |        | mul77_28    | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U57   | 2   |        | add80_28    | fadd | fulldsp | 4       |
+|    add_ln71_29_fu_1476_p2               | -   |        | add_ln71_29 | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U73    | 3   |        | mul77_29    | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U58   | 2   |        | add80_29    | fadd | fulldsp | 4       |
+|    add_ln71_30_fu_1494_p2               | -   |        | add_ln71_30 | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U74    | 3   |        | mul77_30    | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U58   | 2   |        | add80_30    | fadd | fulldsp | 4       |
+|  + filterbank_Pipeline_VITIS_LOOP_76_10 | 0   |        |             |      |         |         |
+|    add_ln76_fu_86_p2                    | -   |        | add_ln76    | add  | fabric  | 0       |
++-----------------------------------------+-----+--------+-------------+------+---------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++--------------+------+------+--------+----------+---------+------+---------+
+| Name         | BRAM | URAM | Pragma | Variable | Storage | Impl | Latency |
++--------------+------+------+--------+----------+---------+------+---------+
+| + filterbank | 17   | 0    |        |          |         |      |         |
+|   Vect_H_U   | 1    | -    |        | Vect_H   | ram_1p  | auto | 1       |
+|   Vect_Dn_U  | -    | -    |        | Vect_Dn  | ram_1p  | auto | 1       |
+|   Vect_Up_U  | 1    | -    |        | Vect_Up  | rom_np  | auto | 1       |
+|   Vect_F_U   | 1    | -    |        | Vect_F   | ram_1p  | auto | 1       |
++--------------+------+------+--------+----------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Pragmas with Warnings
++----------+-----------------------------+-----------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+| Type     | Options                     | Location                                | Messages                                                                                                                         |
++----------+-----------------------------+-----------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+| resource | variable=r core=RAM_1P_BRAM | filterbank_fast.cpp:11 in filterbank, r | 'Resource pragma' is deprecated, use 'bind_op/bind_storage pragma' instead                                                       |
+|          |                             |                                         | The resource pragma (bind_storage) on top-level function argument, in 'call' is unsupported, please use INTERFACE pragma instead |
+| resource | variable=y core=RAM_1P_BRAM | filterbank_fast.cpp:14 in filterbank, y | 'Resource pragma' is deprecated, use 'bind_op/bind_storage pragma' instead                                                       |
+|          |                             |                                         | The resource pragma (bind_storage) on top-level function argument, in 'call' is unsupported, please use INTERFACE pragma instead |
+| resource | variable=H core=RAM_1P_BRAM | filterbank_fast.cpp:17 in filterbank, H | 'Resource pragma' is deprecated, use 'bind_op/bind_storage pragma' instead                                                       |
+|          |                             |                                         | The resource pragma (bind_storage) on top-level function argument, in 'call' is unsupported, please use INTERFACE pragma instead |
+| resource | variable=F core=RAM_1P_BRAM | filterbank_fast.cpp:20 in filterbank, F | 'Resource pragma' is deprecated, use 'bind_op/bind_storage pragma' instead                                                       |
+|          |                             |                                         | The resource pragma (bind_storage) on top-level function argument, in 'call' is unsupported, please use INTERFACE pragma instead |
++----------+-----------------------------+-----------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+
+* Valid Pragma Syntax
++-----------+------------------------+---------------------------------------------+
+| Type      | Options                | Location                                    |
++-----------+------------------------+---------------------------------------------+
+| interface | ap_ctrl_hs port=return | filterbank_fast.cpp:9 in filterbank, return |
+| interface | bram port=r            | filterbank_fast.cpp:12 in filterbank, r     |
+| interface | bram port=y            | filterbank_fast.cpp:15 in filterbank, y     |
+| interface | bram port=H            | filterbank_fast.cpp:18 in filterbank, H     |
+| interface | bram port=F            | filterbank_fast.cpp:21 in filterbank, F     |
+| pipeline  |                        | filterbank_fast.cpp:26 in filterbank        |
+| pipeline  |                        | filterbank_fast.cpp:40 in filterbank        |
+| pipeline  |                        | filterbank_fast.cpp:50 in filterbank        |
+| pipeline  |                        | filterbank_fast.cpp:56 in filterbank        |
+| pipeline  |                        | filterbank_fast.cpp:61 in filterbank        |
+| pipeline  |                        | filterbank_fast.cpp:68 in filterbank        |
+| pipeline  |                        | filterbank_fast.cpp:77 in filterbank        |
++-----------+------------------------+---------------------------------------------+
+
+

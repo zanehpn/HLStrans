@@ -1,0 +1,135 @@
+
+
+================================================================
+== Synthesis Summary Report of 'seidel'
+================================================================
++ General Information: 
+    * Date:           Mon May  5 03:22:07 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        seidel
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +-------------------------------------+------+------+----------+-----------+----------+----------+------+----------+------+---------+------------+------------+-----+
+    |               Modules               | Issue|      | Latency  |  Latency  | Iteration|          | Trip |          |      |         |            |            |     |
+    |               & Loops               | Type | Slack| (cycles) |    (ns)   |  Latency | Interval | Count| Pipelined| BRAM |   DSP   |     FF     |     LUT    | URAM|
+    +-------------------------------------+------+------+----------+-----------+----------+----------+------+----------+------+---------+------------+------------+-----+
+    |+ seidel                             |     -|  0.26|  34588161|  1.729e+08|         -|  34588162|     -|        no|     -|  3 (~0%)|  1670 (~0%)|  1828 (~0%)|    -|
+    | o VITIS_LOOP_8_1_VITIS_LOOP_10_2    |     -|  3.65|  34588160|  1.729e+08|      7328|         -|  4720|        no|     -|        -|           -|           -|    -|
+    |  + seidel_Pipeline_VITIS_LOOP_12_3  |     -|  0.26|      7323|  3.662e+04|         -|      7323|     -|        no|     -|  3 (~0%)|  1475 (~0%)|  1587 (~0%)|    -|
+    |   o VITIS_LOOP_12_3                 |    II|  3.65|      7321|  3.660e+04|        68|        62|   118|       yes|     -|        -|           -|           -|    -|
+    +-------------------------------------+------+------+----------+-----------+----------+----------+------+----------+------+---------+------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_MEMORY
++------------+----------+
+| Interface  | Bitwidth |
++------------+----------+
+| A_address0 | 14       |
+| A_address1 | 14       |
+| A_d0       | 64       |
+| A_q0       | 64       |
+| A_q1       | 64       |
++------------+----------+
+
+* Other Ports
++-----------+---------+----------+
+| Interface | Mode    | Bitwidth |
++-----------+---------+----------+
+| n         | ap_none | 32       |
+| tsteps    | ap_none | 32       |
++-----------+---------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| tsteps   | in        | int      |
+| n        | in        | int      |
+| A        | inout     | double*  |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+--------------+---------+----------+
+| Argument | HW Interface | HW Type | HW Usage |
++----------+--------------+---------+----------+
+| tsteps   | tsteps       | port    |          |
+| n        | n            | port    |          |
+| A        | A_address0   | port    | offset   |
+| A        | A_ce0        | port    |          |
+| A        | A_we0        | port    |          |
+| A        | A_d0         | port    |          |
+| A        | A_q0         | port    |          |
+| A        | A_address1   | port    | offset   |
+| A        | A_ce1        | port    |          |
+| A        | A_q1         | port    |          |
++----------+--------------+---------+----------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++--------------------------------------+-----+--------+-------------------+------+---------+---------+
+| Name                                 | DSP | Pragma | Variable          | Op   | Impl    | Latency |
++--------------------------------------+-----+--------+-------------------+------+---------+---------+
+| + seidel                             | 3   |        |                   |      |         |         |
+|   add_ln8_fu_110_p2                  | -   |        | add_ln8           | add  | fabric  | 0       |
+|   empty_10_fu_153_p2                 | -   |        | empty_10          | sub  | fabric  | 0       |
+|   empty_11_fu_168_p2                 | -   |        | empty_11          | add  | fabric  | 0       |
+|   sub_ln13_fu_193_p2                 | -   |        | sub_ln13          | sub  | fabric  | 0       |
+|   indvars_iv_next16_fu_200_p2        | -   |        | indvars_iv_next16 | add  | fabric  | 0       |
+|   sub_ln13_1_fu_225_p2               | -   |        | sub_ln13_1        | sub  | fabric  | 0       |
+|  + seidel_Pipeline_VITIS_LOOP_12_3   | 3   |        |                   |      |         |         |
+|    add_ln13_2_fu_225_p2              | -   |        | add_ln13_2        | add  | fabric  | 0       |
+|    add_ln13_3_fu_251_p2              | -   |        | add_ln13_3        | add  | fabric  | 0       |
+|    add_ln13_4_fu_255_p2              | -   |        | add_ln13_4        | add  | fabric  | 0       |
+|    add_ln13_fu_231_p2                | -   |        | add_ln13          | add  | fabric  | 0       |
+|    add_ln13_5_fu_241_p2              | -   |        | add_ln13_5        | add  | fabric  | 0       |
+|    add_ln13_6_fu_263_p2              | -   |        | add_ln13_6        | add  | fabric  | 0       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add               | dadd | fulldsp | 4       |
+|    add_ln13_1_fu_273_p2              | -   |        | add_ln13_1        | add  | fabric  | 0       |
+|    add_ln13_7_fu_282_p2              | -   |        | add_ln13_7        | add  | fabric  | 0       |
+|    add_ln13_8_fu_287_p2              | -   |        | add_ln13_8        | add  | fabric  | 0       |
+|    add_ln13_9_fu_292_p2              | -   |        | add_ln13_9        | add  | fabric  | 0       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add1              | dadd | fulldsp | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add2              | dadd | fulldsp | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add3              | dadd | fulldsp | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add4              | dadd | fulldsp | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add5              | dadd | fulldsp | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add6              | dadd | fulldsp | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add7              | dadd | fulldsp | 4       |
+|    ddiv_64ns_64ns_64_22_no_dsp_1_U2  | -   |        | div               | ddiv | fabric  | 21      |
++--------------------------------------+-----+--------+-------------------+------+---------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
+  No bind storage info in design
+
+================================================================
+== Pragma Report
+================================================================
+  No pragmas found
+

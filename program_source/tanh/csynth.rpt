@@ -1,0 +1,189 @@
+
+
+================================================================
+== Synthesis Summary Report of 'tanh'
+================================================================
++ General Information: 
+    * Date:           Fri May  2 20:35:12 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        tanh
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +--------------------------------------------------------+------+------+---------+-----------+----------+---------+-------+----------+----------+---------+------------+------------+-----+
+    |                         Modules                        | Issue|      | Latency |  Latency  | Iteration|         |  Trip |          |          |         |            |            |     |
+    |                         & Loops                        | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count | Pipelined|   BRAM   |   DSP   |     FF     |     LUT    | URAM|
+    +--------------------------------------------------------+------+------+---------+-----------+----------+---------+-------+----------+----------+---------+------------+------------+-----+
+    |+ tanh                                                  |     -|  0.29|   451670|  2.258e+06|         -|   451671|      -|        no|  32 (~0%)|  3 (~0%)|  3217 (~0%)|  4239 (~0%)|    -|
+    | + load_feature_map                                     |     -|  0.35|    50179|  2.509e+05|         -|    50179|      -|        no|         -|        -|    81 (~0%)|   296 (~0%)|    -|
+    |  o VITIS_LOOP_24_1_VITIS_LOOP_26_2_VITIS_LOOP_28_3     |     -|  3.65|    50177|  2.509e+05|         3|        1|  50176|       yes|         -|        -|           -|           -|    -|
+    | + compute_exp                                          |     -|  0.29|    50185|  2.509e+05|         -|    50185|      -|        no|         -|  3 (~0%)|   896 (~0%)|   902 (~0%)|    -|
+    |  o VITIS_LOOP_54_1_VITIS_LOOP_56_2_VITIS_LOOP_58_3     |     -|  3.65|    50183|  2.509e+05|         9|        1|  50176|       yes|         -|        -|           -|           -|    -|
+    |   + exp_16_5_s                                         |    II|  0.29|        6|     30.000|         -|        1|      -|       yes|         -|  3 (~0%)|   738 (~0%)|   574 (~0%)|    -|
+    | + negative                                             |     -|  0.35|    50179|  2.509e+05|         -|    50179|      -|        no|         -|        -|    81 (~0%)|   319 (~0%)|    -|
+    |  o VITIS_LOOP_70_1_VITIS_LOOP_72_2_VITIS_LOOP_74_3     |     -|  3.65|    50177|  2.509e+05|         3|        1|  50176|       yes|         -|        -|           -|           -|    -|
+    | + compute_add                                          |     -|  0.35|    50179|  2.509e+05|         -|    50179|      -|        no|         -|        -|    81 (~0%)|   319 (~0%)|    -|
+    |  o VITIS_LOOP_100_1_VITIS_LOOP_102_2_VITIS_LOOP_104_3  |     -|  3.65|    50177|  2.509e+05|         3|        1|  50176|       yes|         -|        -|           -|           -|    -|
+    | + compute_div                                          |     -|  0.35|    50209|  2.510e+05|         -|    50209|      -|        no|         -|        -|  1973 (~0%)|  1665 (~0%)|    -|
+    |  o VITIS_LOOP_85_1_VITIS_LOOP_87_2_VITIS_LOOP_89_3     |     -|  3.65|    50207|  2.510e+05|        33|        1|  50176|       yes|         -|        -|           -|           -|    -|
+    | + store_feature_map                                    |     -|  0.35|    50179|  2.509e+05|         -|    50179|      -|        no|         -|        -|    81 (~0%)|   296 (~0%)|    -|
+    |  o VITIS_LOOP_39_1_VITIS_LOOP_41_2_VITIS_LOOP_43_3     |     -|  3.65|    50177|  2.509e+05|         3|        1|  50176|       yes|         -|        -|           -|           -|    -|
+    +--------------------------------------------------------+------+------+---------+-----------+----------+---------+-------+----------+----------+---------+------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_MEMORY
++-------------------+----------+
+| Interface         | Bitwidth |
++-------------------+----------+
+| input_r_address0  | 16       |
+| input_r_q0        | 16       |
+| output_r_address0 | 16       |
+| output_r_d0       | 16       |
++-------------------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+--------------------------------------+
+| Argument | Direction | Datatype                             |
++----------+-----------+--------------------------------------+
+| input    | in        | ap_fixed<16, 5, AP_TRN, AP_WRAP, 0>* |
+| output   | out       | ap_fixed<16, 5, AP_TRN, AP_WRAP, 0>* |
++----------+-----------+--------------------------------------+
+
+* SW-to-HW Mapping
++----------+-------------------+---------+----------+
+| Argument | HW Interface      | HW Type | HW Usage |
++----------+-------------------+---------+----------+
+| input    | input_r_address0  | port    | offset   |
+| input    | input_r_ce0       | port    |          |
+| input    | input_r_q0        | port    |          |
+| output   | output_r_address0 | port    | offset   |
+| output   | output_r_ce0      | port    |          |
+| output   | output_r_we0      | port    |          |
+| output   | output_r_d0       | port    |          |
++----------+-------------------+---------+----------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++-------------------------------------+-----+--------+-----------------------+-----+--------+---------+
+| Name                                | DSP | Pragma | Variable              | Op  | Impl   | Latency |
++-------------------------------------+-----+--------+-----------------------+-----+--------+---------+
+| + tanh                              | 3   |        |                       |     |        |         |
+|  + load_feature_map                 | 0   |        |                       |     |        |         |
+|    add_ln24_1_fu_149_p2             | -   |        | add_ln24_1            | add | fabric | 0       |
+|    add_ln24_fu_167_p2               | -   |        | add_ln24              | add | fabric | 0       |
+|    sub_ln30_fu_219_p2               | -   |        | sub_ln30              | sub | fabric | 0       |
+|    add_ln26_fu_247_p2               | -   |        | add_ln26              | add | fabric | 0       |
+|    add_ln30_fu_279_p2               | -   |        | add_ln30              | add | fabric | 0       |
+|    add_ln28_fu_321_p2               | -   |        | add_ln28              | add | fabric | 0       |
+|    add_ln26_1_fu_327_p2             | -   |        | add_ln26_1            | add | fabric | 0       |
+|  + compute_exp                      | 3   |        |                       |     |        |         |
+|    add_ln54_1_fu_163_p2             | -   |        | add_ln54_1            | add | fabric | 0       |
+|    add_ln54_fu_181_p2               | -   |        | add_ln54              | add | fabric | 0       |
+|    sub_ln60_fu_233_p2               | -   |        | sub_ln60              | sub | fabric | 0       |
+|    add_ln56_fu_261_p2               | -   |        | add_ln56              | add | fabric | 0       |
+|    add_ln60_fu_293_p2               | -   |        | add_ln60              | add | fabric | 0       |
+|    add_ln58_fu_335_p2               | -   |        | add_ln58              | add | fabric | 0       |
+|    add_ln56_1_fu_341_p2             | -   |        | add_ln56_1            | add | fabric | 0       |
+|   + exp_16_5_s                      | 3   |        |                       |     |        |         |
+|     mul_mul_25ns_18ns_43_4_1_U4     | 1   |        | r_V                   | mul | dsp48  | 3       |
+|     ret_V_fu_259_p2                 | -   |        | ret_V                 | add | fabric | 0       |
+|     exp_x_msb_2_lsb_m_1_V_fu_269_p2 | -   |        | exp_x_msb_2_lsb_m_1_V | add | fabric | 0       |
+|     mul_25ns_25ns_50_1_1_U3         | 2   |        | r_V_4                 | mul | auto   | 0       |
+|     y_l_V_fu_331_p2                 | -   |        | y_l_V                 | add | fabric | 0       |
+|  + negative                         | 0   |        |                       |     |        |         |
+|    add_ln70_1_fu_142_p2             | -   |        | add_ln70_1            | add | fabric | 0       |
+|    add_ln70_fu_160_p2               | -   |        | add_ln70              | add | fabric | 0       |
+|    sub_ln813_1_fu_212_p2            | -   |        | sub_ln813_1           | sub | fabric | 0       |
+|    add_ln72_fu_240_p2               | -   |        | add_ln72              | add | fabric | 0       |
+|    add_ln813_fu_272_p2              | -   |        | add_ln813             | add | fabric | 0       |
+|    output_r_d0                      | -   |        | sub_ln813             | sub | fabric | 0       |
+|    add_ln74_fu_314_p2               | -   |        | add_ln74              | add | fabric | 0       |
+|    add_ln72_1_fu_320_p2             | -   |        | add_ln72_1            | add | fabric | 0       |
+|  + compute_add                      | 0   |        |                       |     |        |         |
+|    add_ln100_1_fu_157_p2            | -   |        | add_ln100_1           | add | fabric | 0       |
+|    add_ln100_fu_175_p2              | -   |        | add_ln100             | add | fabric | 0       |
+|    sub_ln813_fu_227_p2              | -   |        | sub_ln813             | sub | fabric | 0       |
+|    add_ln102_fu_255_p2              | -   |        | add_ln102             | add | fabric | 0       |
+|    add_ln813_2_fu_287_p2            | -   |        | add_ln813_2           | add | fabric | 0       |
+|    output_r_d0                      | -   |        | add_ln813             | add | fabric | 0       |
+|    add_ln104_fu_329_p2              | -   |        | add_ln104             | add | fabric | 0       |
+|    add_ln102_1_fu_335_p2            | -   |        | add_ln102_1           | add | fabric | 0       |
+|  + compute_div                      | 0   |        |                       |     |        |         |
+|    add_ln85_1_fu_161_p2             | -   |        | add_ln85_1            | add | fabric | 0       |
+|    add_ln85_fu_179_p2               | -   |        | add_ln85              | add | fabric | 0       |
+|    sub_ln837_fu_231_p2              | -   |        | sub_ln837             | sub | fabric | 0       |
+|    add_ln87_fu_259_p2               | -   |        | add_ln87              | add | fabric | 0       |
+|    add_ln837_fu_291_p2              | -   |        | add_ln837             | add | fabric | 0       |
+|    add_ln89_fu_333_p2               | -   |        | add_ln89              | add | fabric | 0       |
+|    add_ln87_1_fu_339_p2             | -   |        | add_ln87_1            | add | fabric | 0       |
+|  + store_feature_map                | 0   |        |                       |     |        |         |
+|    add_ln39_1_fu_149_p2             | -   |        | add_ln39_1            | add | fabric | 0       |
+|    add_ln39_fu_167_p2               | -   |        | add_ln39              | add | fabric | 0       |
+|    sub_ln45_fu_219_p2               | -   |        | sub_ln45              | sub | fabric | 0       |
+|    add_ln41_fu_247_p2               | -   |        | add_ln41              | add | fabric | 0       |
+|    add_ln45_fu_279_p2               | -   |        | add_ln45              | add | fabric | 0       |
+|    add_ln43_fu_321_p2               | -   |        | add_ln43              | add | fabric | 0       |
+|    add_ln41_1_fu_327_p2             | -   |        | add_ln41_1            | add | fabric | 0       |
++-------------------------------------+-----+--------+-----------------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++-------------------------------+------+------+--------+-------------------------+---------+------+---------+
+| Name                          | BRAM | URAM | Pragma | Variable                | Storage | Impl | Latency |
++-------------------------------+------+------+--------+-------------------------+---------+------+---------+
+| + tanh                        | 32   | 0    |        |                         |         |      |         |
+|   FM_buffer_1_V_U             | 8    | -    |        | FM_buffer_1_V           | ram_1p  | auto | 1       |
+|   FM_buffer_2_V_U             | 8    | -    |        | FM_buffer_2_V           | ram_1p  | auto | 1       |
+|   FM_buffer_3_V_U             | 8    | -    |        | FM_buffer_3_V           | ram_1p  | auto | 1       |
+|   FM_buffer_4_V_U             | 8    | -    |        | FM_buffer_4_V           | ram_1p  | auto | 1       |
+|  + compute_exp                | 0    | 0    |        |                         |         |      |         |
+|   + exp_16_5_s                | 0    | 0    |        |                         |         |      |         |
+|     f_x_lsb_table_V_U         | -    | -    |        | f_x_lsb_table_V         | rom_1p  | auto | 1       |
+|     exp_x_msb_2_m_1_table_V_U | -    | -    |        | exp_x_msb_2_m_1_table_V | rom_1p  | auto | 1       |
+|     exp_x_msb_1_table_V_U     | -    | -    |        | exp_x_msb_1_table_V     | rom_1p  | auto | 1       |
++-------------------------------+------+------+--------+-------------------------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++--------+---------+---------------------------------------+
+| Type   | Options | Location                              |
++--------+---------+---------------------------------------+
+| inline | off     | tanh_fast.cpp:23 in load_feature_map  |
+| inline | off     | tanh_fast.cpp:38 in store_feature_map |
+| inline | off     | tanh_fast.cpp:53 in compute_exp       |
+| inline | off     | tanh_fast.cpp:69 in negative          |
+| inline | off     | tanh_fast.cpp:84 in compute_div       |
+| inline | off     | tanh_fast.cpp:99 in compute_add       |
+| inline | off     | tanh_fast.cpp:114 in compute_mul      |
+| inline | off     | tanh_fast.cpp:129 in tanh             |
++--------+---------+---------------------------------------+
+
+

@@ -1,0 +1,149 @@
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2022.2.2 (64-bit)
+Tool Version Limit: 2019.12
+Copyright 1986-2023 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [HLS 200-1505] Using default flow_target 'vivado'
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vivado' configuration: config_interface -m_axi_latency=0
+INFO: [HLS 200-1510] Running: set_part xcu55c-fsvh2892-2L-e 
+INFO: [HLS 200-1611] Setting target device to 'xcu55c-fsvh2892-2L-e'
+INFO: [HLS 200-1510] Running: create_clock -period 5 -name default 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 5ns.
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0 seconds. CPU system time: 0.02 seconds. Elapsed time: 10.24 seconds; current allocated memory: 1.196 GB.
+INFO: [HLS 200-10] Analyzing design file 'viterbi.c' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 0.22 seconds. CPU system time: 0.25 seconds. Elapsed time: 0.52 seconds; current allocated memory: 1.198 GB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 2.24 seconds. CPU system time: 0.24 seconds. Elapsed time: 2.54 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.02 seconds; current allocated memory: 1.200 GB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 1.200 GB.
+INFO: [XFORM 203-510] Pipelining loop 'L_init' (viterbi.c:9) in function 'viterbi' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'L_curr_state' (viterbi.c:7) in function 'viterbi' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'L_end' (viterbi.c:8) in function 'viterbi' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'L_backtrack' (viterbi.c:9) in function 'viterbi' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'L_curr_state' (viterbi.c:7) in function 'viterbi' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'L_backtrack' (viterbi.c:9) in function 'viterbi' for pipelining.
+INFO: [HLS 200-489] Unrolling loop 'L_prev_state' (viterbi.c:7) in function 'viterbi' completely with a factor of 63.
+INFO: [HLS 200-489] Unrolling loop 'L_state' (viterbi.c:8) in function 'viterbi' completely with a factor of 63.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.2 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.24 seconds; current allocated memory: 1.226 GB.
+INFO: [XFORM 203-541] Flattening a loop nest 'L_timestep' (viterbi.c:6:10) in function 'viterbi'.
+INFO: [HLS 200-472] Inferring partial write operation for 'llike' (viterbi.c:14:17)
+INFO: [HLS 200-472] Inferring partial write operation for 'llike' (viterbi.c:33:22)
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.5 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.51 seconds; current allocated memory: 1.275 GB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'viterbi' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'viterbi_Pipeline_L_init' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'llike'. Use bind_storage pragma to override this type.
+INFO: [SCHED 204-61] Pipelining loop 'L_init'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 8, loop 'L_init'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.07 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.11 seconds; current allocated memory: 1.276 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.05 seconds. CPU system time: 0 seconds. Elapsed time: 0.06 seconds; current allocated memory: 1.276 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'viterbi_Pipeline_L_timestep_L_curr_state' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'llike'. Use bind_storage pragma to override this type.
+INFO: [SCHED 204-61] Pipelining loop 'L_timestep_L_curr_state'.
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_timestep_L_curr_state' (loop 'L_timestep_L_curr_state'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between 'dadd' operation ('p_61', viterbi.c:27) and 'select' operation ('reuse_select', viterbi.c:26).
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_timestep_L_curr_state' (loop 'L_timestep_L_curr_state'): Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 1) between 'dadd' operation ('p_61', viterbi.c:27) and 'select' operation ('reuse_select', viterbi.c:26).
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_timestep_L_curr_state' (loop 'L_timestep_L_curr_state'): Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 1) between 'dadd' operation ('p_61', viterbi.c:27) and 'select' operation ('reuse_select', viterbi.c:26).
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_timestep_L_curr_state' (loop 'L_timestep_L_curr_state'): Unable to enforce a carried dependence constraint (II = 4, distance = 1, offset = 1) between 'dadd' operation ('p_61', viterbi.c:27) and 'select' operation ('reuse_select', viterbi.c:26).
+WARNING: [HLS 200-885] The II Violation in module 'viterbi_Pipeline_L_timestep_L_curr_state' (loop 'L_timestep_L_curr_state'): Unable to schedule 'load' operation ('transition_load_37', viterbi.c:27) on array 'transition' due to limited memory ports (II = 19). Please consider using a memory core with more ports or partitioning the array 'transition'.
+WARNING: [HLS 200-885] The II Violation in module 'viterbi_Pipeline_L_timestep_L_curr_state' (loop 'L_timestep_L_curr_state'): Unable to schedule 'load' operation ('transition_load_53', viterbi.c:27) on array 'transition' due to limited memory ports (II = 27). Please consider using a memory core with more ports or partitioning the array 'transition'.
+WARNING: [HLS 200-885] The II Violation in module 'viterbi_Pipeline_L_timestep_L_curr_state' (loop 'L_timestep_L_curr_state'): Unable to schedule 'load' operation ('transition_load_61', viterbi.c:27) on array 'transition' due to limited memory ports (II = 31). Please consider using a memory core with more ports or partitioning the array 'transition'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 32, Depth = 140, loop 'L_timestep_L_curr_state'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 2.65 seconds. CPU system time: 0.01 seconds. Elapsed time: 2.68 seconds; current allocated memory: 1.314 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 2.3 seconds. CPU system time: 0 seconds. Elapsed time: 2.33 seconds; current allocated memory: 1.314 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'viterbi_Pipeline_L_end' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'llike'. Use bind_storage pragma to override this type.
+INFO: [SCHED 204-61] Pipelining loop 'L_end'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 5, loop 'L_end'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 2.54 seconds. CPU system time: 0.01 seconds. Elapsed time: 2.59 seconds; current allocated memory: 1.314 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.05 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.06 seconds; current allocated memory: 1.314 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'viterbi_Pipeline_L_backtrack' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'llike'. Use bind_storage pragma to override this type.
+INFO: [SCHED 204-61] Pipelining loop 'L_backtrack'.
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_backtrack' (loop 'L_backtrack'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between 'select' operation ('select_ln55_80', viterbi.c:55) and 'select' operation ('reuse_select', viterbi.c:52).
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_backtrack' (loop 'L_backtrack'): Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 1) between 'select' operation ('select_ln55_80', viterbi.c:55) and 'select' operation ('reuse_select', viterbi.c:52).
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_backtrack' (loop 'L_backtrack'): Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 1) between 'select' operation ('select_ln55_80', viterbi.c:55) and 'select' operation ('reuse_select', viterbi.c:52).
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_backtrack' (loop 'L_backtrack'): Unable to enforce a carried dependence constraint (II = 4, distance = 1, offset = 1) between 'select' operation ('select_ln55_80', viterbi.c:55) and 'select' operation ('reuse_select', viterbi.c:52).
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_backtrack' (loop 'L_backtrack'): Unable to enforce a carried dependence constraint (II = 130, distance = 1, offset = 1) between 'dcmp' operation ('tmp_376', viterbi.c:55) and 'load' operation ('transition_load_1', viterbi.c:52) on array 'transition'.
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_backtrack' (loop 'L_backtrack'): Unable to enforce a carried dependence constraint (II = 131, distance = 1, offset = 1) between 'dcmp' operation ('tmp_379', viterbi.c:55) and 'load' operation ('transition_load_1', viterbi.c:52) on array 'transition'.
+WARNING: [HLS 200-880] The II Violation in module 'viterbi_Pipeline_L_backtrack' (loop 'L_backtrack'): Unable to enforce a carried dependence constraint (II = 132, distance = 1, offset = 1) between 'dcmp' operation ('tmp_379', viterbi.c:55) and 'load' operation ('transition_load_1', viterbi.c:52) on array 'transition'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 133, Depth = 135, loop 'L_backtrack'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 88.73 seconds. CPU system time: 0.05 seconds. Elapsed time: 88.84 seconds; current allocated memory: 1.362 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 2.49 seconds. CPU system time: 0.01 seconds. Elapsed time: 2.55 seconds; current allocated memory: 1.362 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'viterbi' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'llike'. Use bind_storage pragma to override this type.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 2.81 seconds. CPU system time: 0.03 seconds. Elapsed time: 2.9 seconds; current allocated memory: 1.362 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.98 seconds. CPU system time: 0 seconds. Elapsed time: 0.99 seconds; current allocated memory: 1.362 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'viterbi_Pipeline_L_init' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'viterbi_Pipeline_L_init' pipeline 'L_init' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'dadd_64ns_64ns_64_5_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'viterbi_Pipeline_L_init'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 2.75 seconds. CPU system time: 0.01 seconds. Elapsed time: 2.77 seconds; current allocated memory: 1.362 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'viterbi_Pipeline_L_timestep_L_curr_state' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'viterbi_Pipeline_L_timestep_L_curr_state' pipeline 'L_timestep_L_curr_state' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'dadd_64ns_64ns_64_5_full_dsp_1': 5 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dcmp_64ns_64ns_1_2_no_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'viterbi_Pipeline_L_timestep_L_curr_state'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.31 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.34 seconds; current allocated memory: 1.362 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'viterbi_Pipeline_L_end' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'viterbi_Pipeline_L_end' pipeline 'L_end' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'dcmp_64ns_64ns_1_2_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'viterbi_Pipeline_L_end'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 5.28 seconds. CPU system time: 0.07 seconds. Elapsed time: 5.47 seconds; current allocated memory: 1.369 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'viterbi_Pipeline_L_backtrack' 
+INFO: [HLS 200-10] ----------------------------------------------------------------

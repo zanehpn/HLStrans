@@ -1,0 +1,15 @@
+set SynModuleInfo {
+  {SRCNAME sort_radix_Pipeline_init_1 MODELNAME sort_radix_Pipeline_init_1 RTLNAME sort_radix_sort_radix_Pipeline_init_1
+    SUBMODULES {
+      {MODELNAME sort_radix_flow_control_loop_pipe_sequential_init RTLNAME sort_radix_flow_control_loop_pipe_sequential_init BINDTYPE interface TYPE internal_upc_flow_control INSTNAME sort_radix_flow_control_loop_pipe_sequential_init_U}
+    }
+  }
+  {SRCNAME sort_radix_Pipeline_hist_1_hist_2 MODELNAME sort_radix_Pipeline_hist_1_hist_2 RTLNAME sort_radix_sort_radix_Pipeline_hist_1_hist_2}
+  {SRCNAME sort_radix_Pipeline_hist_1_hist_21 MODELNAME sort_radix_Pipeline_hist_1_hist_21 RTLNAME sort_radix_sort_radix_Pipeline_hist_1_hist_21}
+  {SRCNAME sort_radix_Pipeline_local_1 MODELNAME sort_radix_Pipeline_local_1 RTLNAME sort_radix_sort_radix_Pipeline_local_1}
+  {SRCNAME sort_radix_Pipeline_sum_1 MODELNAME sort_radix_Pipeline_sum_1 RTLNAME sort_radix_sort_radix_Pipeline_sum_1}
+  {SRCNAME sort_radix_Pipeline_last_1 MODELNAME sort_radix_Pipeline_last_1 RTLNAME sort_radix_sort_radix_Pipeline_last_1}
+  {SRCNAME sort_radix_Pipeline_update_1_update_2 MODELNAME sort_radix_Pipeline_update_1_update_2 RTLNAME sort_radix_sort_radix_Pipeline_update_1_update_2}
+  {SRCNAME sort_radix_Pipeline_update_1_update_22 MODELNAME sort_radix_Pipeline_update_1_update_22 RTLNAME sort_radix_sort_radix_Pipeline_update_1_update_22}
+  {SRCNAME sort_radix MODELNAME sort_radix RTLNAME sort_radix IS_TOP 1}
+}

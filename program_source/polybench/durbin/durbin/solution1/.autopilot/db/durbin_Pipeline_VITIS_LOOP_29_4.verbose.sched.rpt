@@ -1,0 +1,147 @@
+
+
+================================================================
+== Vitis HLS Report for 'durbin_Pipeline_VITIS_LOOP_29_4'
+================================================================
+* Date:           Tue May  6 12:10:00 2025
+
+* Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+* Project:        durbin
+* Solution:       solution1 (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu55c-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  5.00 ns|  1.428 ns|     1.35 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+-----------+----------+-----+-----+---------+
+    |  Latency (cycles) |  Latency (absolute)  |  Interval | Pipeline|
+    |   min   |   max   |    min    |    max   | min | max |   Type  |
+    +---------+---------+-----------+----------+-----+-----+---------+
+    |        3|       41|  15.000 ns|  0.205 us|    3|   41|       no|
+    +---------+---------+-----------+----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +-------------------+---------+---------+----------+-----------+-----------+--------+----------+
+        |                   |  Latency (cycles) | Iteration|  Initiation Interval  |  Trip  |          |
+        |     Loop Name     |   min   |   max   |  Latency |  achieved |   target  |  Count | Pipelined|
+        +-------------------+---------+---------+----------+-----------+-----------+--------+----------+
+        |- VITIS_LOOP_29_4  |        1|       39|         2|          1|          1|  1 ~ 39|       yes|
+        +-------------------+---------+---------+----------+-----------+-----------+--------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 2
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
++ Individual pipeline summary: 
+  * Pipeline-0: initiation interval (II) = 1, depth = 2
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 2
+* Pipeline : 1
+  Pipeline-0 : II = 1, D = 2, States = { 1 2 }
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 1.09>
+ST_1 : Operation 5 [1/1] (0.00ns)   --->   "%i = alloca i32 1"   --->   Operation 5 'alloca' 'i' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 6 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i64 %y, void @empty, i32 0, i32 0, void @empty_0, i32 4294967295, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 6 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 7 [1/1] (0.00ns)   --->   "%k_read = read i6 @_ssdm_op_Read.ap_auto.i6, i6 %k"   --->   Operation 7 'read' 'k_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 8 [1/1] (0.38ns)   --->   "%store_ln0 = store i6 0, i6 %i"   --->   Operation 8 'store' 'store_ln0' <Predicate = true> <Delay = 0.38>
+ST_1 : Operation 9 [1/1] (0.00ns)   --->   "%br_ln0 = br void %for.inc42"   --->   Operation 9 'br' 'br_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 10 [1/1] (0.00ns)   --->   "%i_1 = load i6 %i" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:29]   --->   Operation 10 'load' 'i_1' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 11 [1/1] (0.00ns)   --->   "%specpipeline_ln0 = specpipeline void @_ssdm_op_SpecPipeline, i32 4294967295, i32 0, i32 1, i32 0, void @p_str"   --->   Operation 11 'specpipeline' 'specpipeline_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 12 [1/1] (0.61ns)   --->   "%icmp_ln29 = icmp_eq  i6 %i_1, i6 %k_read" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:29]   --->   Operation 12 'icmp' 'icmp_ln29' <Predicate = true> <Delay = 0.61> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.61> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 13 [1/1] (0.00ns)   --->   "%empty = speclooptripcount i32 @_ssdm_op_SpecLoopTripCount, i64 1, i64 39, i64 0"   --->   Operation 13 'speclooptripcount' 'empty' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 14 [1/1] (0.70ns)   --->   "%add_ln29 = add i6 %i_1, i6 1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:29]   --->   Operation 14 'add' 'add_ln29' <Predicate = true> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 15 [1/1] (0.00ns)   --->   "%br_ln29 = br i1 %icmp_ln29, void %for.inc42.split, void %for.inc47.exitStub" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:29]   --->   Operation 15 'br' 'br_ln29' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 16 [1/1] (0.00ns)   --->   "%i_2_cast = zext i6 %i_1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:29]   --->   Operation 16 'zext' 'i_2_cast' <Predicate = (!icmp_ln29)> <Delay = 0.00>
+ST_1 : Operation 17 [1/1] (0.00ns)   --->   "%z_addr = getelementptr i64 %z, i64 0, i64 %i_2_cast" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:30]   --->   Operation 17 'getelementptr' 'z_addr' <Predicate = (!icmp_ln29)> <Delay = 0.00>
+ST_1 : Operation 18 [2/2] (0.71ns)   --->   "%z_load = load i6 %z_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:30]   --->   Operation 18 'load' 'z_load' <Predicate = (!icmp_ln29)> <Delay = 0.71> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 0.71> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 64> <Depth = 40> <RAM>
+ST_1 : Operation 19 [1/1] (0.38ns)   --->   "%store_ln29 = store i6 %add_ln29, i6 %i" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:29]   --->   Operation 19 'store' 'store_ln29' <Predicate = (!icmp_ln29)> <Delay = 0.38>
+ST_1 : Operation 26 [1/1] (0.00ns)   --->   "%ret_ln0 = ret"   --->   Operation 26 'ret' 'ret_ln0' <Predicate = (icmp_ln29)> <Delay = 0.00>
+
+State 2 <SV = 1> <Delay = 1.42>
+ST_2 : Operation 20 [1/1] (0.00ns)   --->   "%specloopname_ln12 = specloopname void @_ssdm_op_SpecLoopName, void @empty_4" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:12]   --->   Operation 20 'specloopname' 'specloopname_ln12' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 21 [1/2] (0.71ns)   --->   "%z_load = load i6 %z_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:30]   --->   Operation 21 'load' 'z_load' <Predicate = true> <Delay = 0.71> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 0.71> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 64> <Depth = 40> <RAM>
+ST_2 : Operation 22 [1/1] (0.00ns)   --->   "%bitcast_ln30 = bitcast i64 %z_load" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:30]   --->   Operation 22 'bitcast' 'bitcast_ln30' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 23 [1/1] (0.00ns)   --->   "%y_addr = getelementptr i64 %y, i64 0, i64 %i_2_cast" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:30]   --->   Operation 23 'getelementptr' 'y_addr' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 24 [1/1] (0.71ns)   --->   "%store_ln30 = store i64 %bitcast_ln30, i6 %y_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:30]   --->   Operation 24 'store' 'store_ln30' <Predicate = true> <Delay = 0.71> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 0.71> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 64> <Depth = 40> <RAM>
+ST_2 : Operation 25 [1/1] (0.00ns)   --->   "%br_ln29 = br void %for.inc42" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:29]   --->   Operation 25 'br' 'br_ln29' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 5ns, clock uncertainty: 1.35ns.
+
+ <State 1>: 1.09ns
+The critical path consists of the following:
+	'alloca' operation ('i') [4]  (0 ns)
+	'load' operation ('i', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:29) on local variable 'i' [10]  (0 ns)
+	'add' operation ('add_ln29', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:29) [14]  (0.706 ns)
+	'store' operation ('store_ln29', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:29) of variable 'add_ln29', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:29 on local variable 'i' [24]  (0.387 ns)
+
+ <State 2>: 1.43ns
+The critical path consists of the following:
+	'load' operation ('z_load', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:30) on array 'z' [20]  (0.714 ns)
+	'store' operation ('store_ln30', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:30) of variable 'bitcast_ln30', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/New/polybench/durbin/durbin_slow.cpp:30 on array 'y' [23]  (0.714 ns)
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

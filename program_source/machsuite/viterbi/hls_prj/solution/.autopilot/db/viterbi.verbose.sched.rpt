@@ -1,0 +1,222 @@
+
+
+================================================================
+== Vitis HLS Report for 'viterbi'
+================================================================
+* Date:           Sat Apr  5 07:04:30 2025
+
+* Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+* Project:        hls_prj
+* Solution:       solution (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu55c-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  5.00 ns|  3.618 ns|     1.35 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+--------+--------+---------+
+    |  Latency (cycles) |  Latency (absolute) |     Interval    | Pipeline|
+    |   min   |   max   |    min   |    max   |   min  |   max  |   Type  |
+    +---------+---------+----------+----------+--------+--------+---------+
+    |   303421|   303421|  1.517 ms|  1.517 ms|  303422|  303422|       no|
+    +---------+---------+----------+----------+--------+--------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        N/A
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 1
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 0
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 12
+* Pipeline : 0
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 3 
+3 --> 4 
+4 --> 5 
+5 --> 6 
+6 --> 7 
+7 --> 8 
+8 --> 9 
+9 --> 10 
+10 --> 11 
+11 --> 12 
+12 --> 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 0.62>
+ST_1 : Operation 13 [1/1] (0.00ns)   --->   "%min_s_loc = alloca i64 1"   --->   Operation 13 'alloca' 'min_s_loc' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 14 [1/1] (0.00ns)   --->   "%llike = alloca i64 1" [viterbi.c:5]   --->   Operation 14 'alloca' 'llike' <Predicate = true> <Delay = 0.00> <CoreInst = "RAM_1WnR">   --->   Core 84 'RAM_1WnR' <Latency = 1> <II = 1> <Delay = 2.98> <Storage> <Opcode : 'load' 'store'> <Ports = 17> <Width = 64> <Depth = 8960> <RAM>
+ST_1 : Operation 15 [1/1] (0.00ns)   --->   "%obs_addr = getelementptr i8 %obs, i64 0, i64 0"   --->   Operation 15 'getelementptr' 'obs_addr' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 16 [2/2] (0.62ns)   --->   "%obs_load = load i8 %obs_addr"   --->   Operation 16 'load' 'obs_load' <Predicate = true> <Delay = 0.62> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 0.62> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 8> <Depth = 140> <RAM>
+
+State 2 <SV = 1> <Delay = 3.01>
+ST_2 : Operation 17 [1/2] (0.62ns)   --->   "%obs_load = load i8 %obs_addr"   --->   Operation 17 'load' 'obs_load' <Predicate = true> <Delay = 0.62> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 0.62> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 8> <Depth = 140> <RAM>
+ST_2 : Operation 18 [2/2] (2.39ns)   --->   "%call_ln0 = call void @viterbi_Pipeline_L_init, i64 %llike, i64 %init, i8 %obs_load, i64 %emission"   --->   Operation 18 'call' 'call_ln0' <Predicate = true> <Delay = 2.39> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 3 <SV = 2> <Delay = 0.00>
+ST_3 : Operation 19 [1/2] (0.00ns)   --->   "%call_ln0 = call void @viterbi_Pipeline_L_init, i64 %llike, i64 %init, i8 %obs_load, i64 %emission"   --->   Operation 19 'call' 'call_ln0' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 4 <SV = 3> <Delay = 0.00>
+ST_4 : Operation 20 [2/2] (0.00ns)   --->   "%call_ln0 = call void @viterbi_Pipeline_L_timestep_L_curr_state, i64 %llike, i8 %obs, i64 %transition, i64 %emission"   --->   Operation 20 'call' 'call_ln0' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 5 <SV = 4> <Delay = 0.00>
+ST_5 : Operation 21 [1/2] (0.00ns)   --->   "%call_ln0 = call void @viterbi_Pipeline_L_timestep_L_curr_state, i64 %llike, i8 %obs, i64 %transition, i64 %emission"   --->   Operation 21 'call' 'call_ln0' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 6 <SV = 5> <Delay = 2.98>
+ST_6 : Operation 22 [1/1] (0.00ns)   --->   "%llike_addr_1 = getelementptr i64 %llike, i64 0, i64 8896" [viterbi.c:39]   --->   Operation 22 'getelementptr' 'llike_addr_1' <Predicate = true> <Delay = 0.00>
+ST_6 : Operation 23 [2/2] (2.98ns)   --->   "%min_p = load i14 %llike_addr_1" [viterbi.c:39]   --->   Operation 23 'load' 'min_p' <Predicate = true> <Delay = 2.98> <CoreInst = "RAM_1WnR">   --->   Core 84 'RAM_1WnR' <Latency = 1> <II = 1> <Delay = 2.98> <Storage> <Opcode : 'load' 'store'> <Ports = 17> <Width = 64> <Depth = 8960> <RAM>
+
+State 7 <SV = 6> <Delay = 2.98>
+ST_7 : Operation 24 [1/2] (2.98ns)   --->   "%min_p = load i14 %llike_addr_1" [viterbi.c:39]   --->   Operation 24 'load' 'min_p' <Predicate = true> <Delay = 2.98> <CoreInst = "RAM_1WnR">   --->   Core 84 'RAM_1WnR' <Latency = 1> <II = 1> <Delay = 2.98> <Storage> <Opcode : 'load' 'store'> <Ports = 17> <Width = 64> <Depth = 8960> <RAM>
+
+State 8 <SV = 7> <Delay = 0.38>
+ST_8 : Operation 25 [2/2] (0.38ns)   --->   "%call_ln39 = call void @viterbi_Pipeline_L_end, i64 %min_p, i64 %llike, i8 %min_s_loc" [viterbi.c:39]   --->   Operation 25 'call' 'call_ln39' <Predicate = true> <Delay = 0.38> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 9 <SV = 8> <Delay = 0.00>
+ST_9 : Operation 26 [1/2] (0.00ns)   --->   "%call_ln39 = call void @viterbi_Pipeline_L_end, i64 %min_p, i64 %llike, i8 %min_s_loc" [viterbi.c:39]   --->   Operation 26 'call' 'call_ln39' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 10 <SV = 9> <Delay = 0.62>
+ST_10 : Operation 27 [1/1] (0.00ns)   --->   "%min_s_loc_load = load i8 %min_s_loc"   --->   Operation 27 'load' 'min_s_loc_load' <Predicate = true> <Delay = 0.00>
+ST_10 : Operation 28 [1/1] (0.00ns)   --->   "%path_addr = getelementptr i8 %path, i64 0, i64 139" [viterbi.c:47]   --->   Operation 28 'getelementptr' 'path_addr' <Predicate = true> <Delay = 0.00>
+ST_10 : Operation 29 [1/1] (0.62ns)   --->   "%store_ln47 = store i8 %min_s_loc_load, i8 %path_addr" [viterbi.c:47]   --->   Operation 29 'store' 'store_ln47' <Predicate = true> <Delay = 0.62> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 0.62> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 8> <Depth = 140> <RAM>
+
+State 11 <SV = 10> <Delay = 0.00>
+ST_11 : Operation 30 [2/2] (0.00ns)   --->   "%call_ln0 = call void @viterbi_Pipeline_L_backtrack, i64 %llike, i8 %path, i64 %transition"   --->   Operation 30 'call' 'call_ln0' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 12 <SV = 11> <Delay = 0.00>
+ST_12 : Operation 31 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i32 0"   --->   Operation 31 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 32 [1/1] (0.00ns)   --->   "%spectopmodule_ln3 = spectopmodule void @_ssdm_op_SpecTopModule, void @empty_1" [viterbi.c:3]   --->   Operation 32 'spectopmodule' 'spectopmodule_ln3' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 33 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i8 %obs, void @empty, i32 0, i32 0, void @empty_0, i32 4294967295, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 33 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 34 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i8 %obs"   --->   Operation 34 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 35 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i64 %init, void @empty, i32 0, i32 0, void @empty_0, i32 4294967295, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 35 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 36 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i64 %init"   --->   Operation 36 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 37 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i64 %transition, void @empty, i32 0, i32 0, void @empty_0, i32 4294967295, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 37 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 38 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i64 %transition"   --->   Operation 38 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 39 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i64 %emission, void @empty, i32 0, i32 0, void @empty_0, i32 4294967295, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 39 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 40 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i64 %emission"   --->   Operation 40 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 41 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i8 %path, void @empty, i32 0, i32 0, void @empty_0, i32 4294967295, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 41 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 42 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i8 %path"   --->   Operation 42 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 43 [1/2] (0.00ns)   --->   "%call_ln0 = call void @viterbi_Pipeline_L_backtrack, i64 %llike, i8 %path, i64 %transition"   --->   Operation 43 'call' 'call_ln0' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_12 : Operation 44 [1/1] (0.00ns)   --->   "%ret_ln63 = ret i32 0" [viterbi.c:63]   --->   Operation 44 'ret' 'ret_ln63' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 5ns, clock uncertainty: 1.35ns.
+
+ <State 1>: 0.626ns
+The critical path consists of the following:
+	'getelementptr' operation ('obs_addr') [21]  (0 ns)
+	'load' operation ('obs_load') on array 'obs' [22]  (0.626 ns)
+
+ <State 2>: 3.02ns
+The critical path consists of the following:
+	'load' operation ('obs_load') on array 'obs' [22]  (0.626 ns)
+	'call' operation ('call_ln0') to 'viterbi_Pipeline_L_init' [23]  (2.39 ns)
+
+ <State 3>: 0ns
+The critical path consists of the following:
+
+ <State 4>: 0ns
+The critical path consists of the following:
+
+ <State 5>: 0ns
+The critical path consists of the following:
+
+ <State 6>: 2.98ns
+The critical path consists of the following:
+	'getelementptr' operation ('llike_addr_1', viterbi.c:39) [20]  (0 ns)
+	'load' operation ('min_p', viterbi.c:39) on array 'llike', viterbi.c:5 [25]  (2.98 ns)
+
+ <State 7>: 2.98ns
+The critical path consists of the following:
+	'load' operation ('min_p', viterbi.c:39) on array 'llike', viterbi.c:5 [25]  (2.98 ns)
+
+ <State 8>: 0.387ns
+The critical path consists of the following:
+	'call' operation ('call_ln39', viterbi.c:39) to 'viterbi_Pipeline_L_end' [26]  (0.387 ns)
+
+ <State 9>: 0ns
+The critical path consists of the following:
+
+ <State 10>: 0.626ns
+The critical path consists of the following:
+	'load' operation ('min_s_loc_load') on local variable 'min_s_loc' [27]  (0 ns)
+	'store' operation ('store_ln47', viterbi.c:47) of variable 'min_s_loc_load' on array 'path' [29]  (0.626 ns)
+
+ <State 11>: 0ns
+The critical path consists of the following:
+
+ <State 12>: 0ns
+The critical path consists of the following:
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+	State 4
+	State 5
+	State 6
+	State 7
+	State 8
+	State 9
+	State 10
+	State 11
+	State 12
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

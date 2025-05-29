@@ -1,0 +1,328 @@
+
+
+================================================================
+== Synthesis Summary Report of 'linear_search'
+================================================================
++ General Information: 
+    * Date:           Fri May  2 19:59:18 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        linear_search
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +--------------------------------------------------------------+------+------+---------+-----------+----------+---------+-------+----------+---------+---------+-------------+------------+-----+
+    |                            Modules                           | Issue|      | Latency |  Latency  | Iteration|         |  Trip |          |         |         |             |            |     |
+    |                            & Loops                           | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count | Pipelined|  BRAM   |   DSP   |      FF     |     LUT    | URAM|
+    +--------------------------------------------------------------+------+------+---------+-----------+----------+---------+-------+----------+---------+---------+-------------+------------+-----+
+    |+ linear_search                                               |     -|  0.08|  5363496|  2.682e+07|         -|  5363497|      -|        no|  48 (1%)|  8 (~0%)|   26812 (1%)|  22880 (1%)|    -|
+    | + linear_search_Pipeline_QUERIES_LOOP                        |     -|  0.11|     3002|  1.501e+04|         -|     3002|      -|        no|        -|        -|    316 (~0%)|  1486 (~0%)|    -|
+    |  o QUERIES_LOOP                                              |     -|  3.65|     3000|  1.500e+04|         2|        1|   3000|       yes|        -|        -|            -|           -|    -|
+    | + linear_search_Pipeline_TARGETS_LOOP                        |     -|  0.11|     9002|  4.501e+04|         -|     9002|      -|        no|        -|        -|    328 (~0%)|  1500 (~0%)|    -|
+    |  o TARGETS_LOOP                                              |     -|  3.65|     9000|  4.500e+04|         2|        1|   9000|       yes|        -|        -|            -|           -|    -|
+    | + linear_search_Pipeline_INDICES_LOOP                        |     -|  2.46|     1002|  5.010e+03|         -|     1002|      -|        no|        -|        -|     17 (~0%)|   131 (~0%)|    -|
+    |  o INDICES_LOOP                                              |     -|  3.65|     1000|  5.000e+03|         2|        1|   1000|       yes|        -|        -|            -|           -|    -|
+    | o COMPUTE_LOOP                                               |     -|  3.65|  5353488|  2.677e+07|       452|        -|  11844|        no|        -|        -|            -|           -|    -|
+    |  + linear_search_Pipeline_VITIS_LOOP_97_1                    |     -|  2.56|       18|     90.000|         -|       18|      -|        no|        -|        -|   1127 (~0%)|   499 (~0%)|    -|
+    |   o VITIS_LOOP_97_1                                          |     -|  3.65|       16|     80.000|         1|        1|     16|       yes|        -|        -|            -|           -|    -|
+    |  + linear_search_Pipeline_VITIS_LOOP_110_2_VITIS_LOOP_111_3  |     -|  2.12|       50|    250.000|         -|       50|      -|        no|        -|        -|   1551 (~0%)|   411 (~0%)|    -|
+    |   o VITIS_LOOP_110_2_VITIS_LOOP_111_3                        |     -|  3.65|       48|    240.000|         1|        1|     48|       yes|        -|        -|            -|           -|    -|
+    |  + linear_search_Pipeline_VITIS_LOOP_127_6_VITIS_LOOP_128_7  |     -|  0.49|      261|  1.305e+03|         -|      261|      -|        no|        -|  8 (~0%)|  10076 (~0%)|  4508 (~0%)|    -|
+    |   o VITIS_LOOP_127_6_VITIS_LOOP_128_7                        |     -|  3.65|      259|  1.295e+03|         5|        1|    256|       yes|        -|        -|            -|           -|    -|
+    |  + linear_search_Pipeline_VITIS_LOOP_145_8                   |     -|  0.08|      114|    570.000|         -|      114|      -|        no|        -|        -|   5764 (~0%)|  5619 (~0%)|    -|
+    |   o VITIS_LOOP_145_8                                         |    II|  3.65|      112|    560.000|         8|        7|     16|       yes|        -|        -|            -|           -|    -|
+    |  + linear_search_Pipeline_VITIS_LOOP_154_10                  |     -|  2.30|       18|     90.000|         -|       18|      -|        no|        -|        -|      7 (~0%)|   179 (~0%)|    -|
+    |   o VITIS_LOOP_154_10                                        |     -|  3.65|       16|     80.000|         1|        1|     16|       yes|        -|        -|            -|           -|    -|
+    +--------------------------------------------------------------+------+------+---------+-----------+----------+---------+-------+----------+---------+---------+-------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* Other Ports
++-----------+---------+----------+
+| Interface | Mode    | Bitwidth |
++-----------+---------+----------+
+| indices   | ap_vld  | 32       |
+| queries   | ap_none | 32       |
+| targets   | ap_none | 32       |
++-----------+---------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+---------------+
+| Argument | Direction | Datatype      |
++----------+-----------+---------------+
+| targets  | in        | float*        |
+| queries  | in        | float*        |
+| indices  | out       | unsigned int* |
++----------+-----------+---------------+
+
+* SW-to-HW Mapping
++----------+----------------+---------+
+| Argument | HW Interface   | HW Type |
++----------+----------------+---------+
+| targets  | targets        | port    |
+| queries  | queries        | port    |
+| indices  | indices        | port    |
+| indices  | indices_ap_vld | port    |
++----------+----------------+---------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++-------------------------------------------------------------+-----+--------+--------------+-----+--------+---------+
+| Name                                                        | DSP | Pragma | Variable     | Op  | Impl   | Latency |
++-------------------------------------------------------------+-----+--------+--------------+-----+--------+---------+
+| + linear_search                                             | 8   |        |              |     |        |         |
+|   add_ln83_fu_4997_p2                                       | -   |        | add_ln83     | add | fabric | 0       |
+|   i_6_fu_5009_p2                                            | -   |        | i_6          | add | fabric | 0       |
+|   add_ln83_2_fu_5122_p2                                     | -   |        | add_ln83_2   | add | fabric | 0       |
+|  + linear_search_Pipeline_QUERIES_LOOP                      | 0   |        |              |     |        |         |
+|    i_4_fu_960_p2                                            | -   |        | i_4          | add | fabric | 0       |
+|    add_ln173_fu_969_p2                                      | -   |        | add_ln173    | add | fabric | 0       |
+|    add_ln174_fu_1286_p2                                     | -   |        | add_ln174    | add | fabric | 0       |
+|    man_V_4_fu_1003_p2                                       | -   |        | man_V_4      | sub | fabric | 0       |
+|    F2_fu_1016_p2                                            | -   |        | F2           | sub | fabric | 0       |
+|    add_ln570_fu_1028_p2                                     | -   |        | add_ln570    | add | fabric | 0       |
+|    sub_ln570_fu_1034_p2                                     | -   |        | sub_ln570    | sub | fabric | 0       |
+|    add_ln601_fu_1148_p2                                     | -   |        | add_ln601    | add | fabric | 0       |
+|    pos1_fu_1170_p2                                          | -   |        | pos1         | add | fabric | 0       |
+|    pos2_fu_1180_p2                                          | -   |        | pos2         | add | fabric | 0       |
+|    add_ln170_1_fu_1248_p2                                   | -   |        | add_ln170_1  | add | fabric | 0       |
+|  + linear_search_Pipeline_TARGETS_LOOP                      | 0   |        |              |     |        |         |
+|    i_2_fu_960_p2                                            | -   |        | i_2          | add | fabric | 0       |
+|    add_ln188_fu_969_p2                                      | -   |        | add_ln188    | add | fabric | 0       |
+|    add_ln189_fu_1286_p2                                     | -   |        | add_ln189    | add | fabric | 0       |
+|    man_V_1_fu_1003_p2                                       | -   |        | man_V_1      | sub | fabric | 0       |
+|    F2_fu_1016_p2                                            | -   |        | F2           | sub | fabric | 0       |
+|    add_ln570_fu_1028_p2                                     | -   |        | add_ln570    | add | fabric | 0       |
+|    sub_ln570_fu_1034_p2                                     | -   |        | sub_ln570    | sub | fabric | 0       |
+|    add_ln601_fu_1148_p2                                     | -   |        | add_ln601    | add | fabric | 0       |
+|    pos1_fu_1170_p2                                          | -   |        | pos1         | add | fabric | 0       |
+|    pos2_fu_1180_p2                                          | -   |        | pos2         | add | fabric | 0       |
+|    add_ln185_1_fu_1248_p2                                   | -   |        | add_ln185_1  | add | fabric | 0       |
+|  + linear_search_Pipeline_INDICES_LOOP                      | 0   |        |              |     |        |         |
+|    i_5_fu_301_p2                                            | -   |        | i_5          | add | fabric | 0       |
+|  + linear_search_Pipeline_VITIS_LOOP_97_1                   | 0   |        |              |     |        |         |
+|    j_2_fu_768_p2                                            | -   |        | j_2          | add | fabric | 0       |
+|  + linear_search_Pipeline_VITIS_LOOP_110_2_VITIS_LOOP_111_3 | 0   |        |              |     |        |         |
+|    add_ln110_fu_1118_p2                                     | -   |        | add_ln110    | add | fabric | 0       |
+|    add_ln110_1_fu_1144_p2                                   | -   |        | add_ln110_1  | add | fabric | 0       |
+|    k_2_fu_1632_p2                                           | -   |        | k_2          | add | fabric | 0       |
+|  + linear_search_Pipeline_VITIS_LOOP_127_6_VITIS_LOOP_128_7 | 8   |        |              |     |        |         |
+|    add94_i_fu_4275_p2                                       | -   |        | add94_i      | add | fabric | 0       |
+|    add_ln127_fu_4293_p2                                     | -   |        | add_ln127    | add | fabric | 0       |
+|    add_ln127_1_fu_4316_p2                                   | -   |        | add_ln127_1  | add | fabric | 0       |
+|    add94_i_mid1_fu_4326_p2                                  | -   |        | add94_i_mid1 | add | fabric | 0       |
+|    add_ln129_fu_4362_p2                                     | -   |        | add_ln129    | add | fabric | 0       |
+|    sub_18s_18s_18_1_1_U298                                  | 1   | yes    | ret_V        | sub | dsp    | 0       |
+|    sub_18s_18s_18_1_1_U299                                  | 1   | yes    | ret_V_1      | sub | dsp    | 0       |
+|    sub_18s_18s_18_1_1_U300                                  | 1   | yes    | ret_V_2      | sub | dsp    | 0       |
+|    mul_mul_18s_18s_36_4_1_U303                              | 1   |        | r_V          | mul | dsp48  | 3       |
+|    mul_mul_18s_18s_36_4_1_U304                              | 1   |        | r_V_6        | mul | dsp48  | 3       |
+|    mul_mul_18s_18s_36_4_1_U305                              | 1   |        | r_V_7        | mul | dsp48  | 3       |
+|    add_37ns_37ns_37_1_1_U301                                | 1   | yes    | ret_V_3      | add | dsp    | 0       |
+|    add_38ns_38ns_38_1_1_U302                                | 1   | yes    | ldists_V_257 | add | dsp    | 0       |
+|    k_1_fu_5290_p2                                           | -   |        | k_1          | add | fabric | 0       |
+|  + linear_search_Pipeline_VITIS_LOOP_145_8                  | 0   |        |              |     |        |         |
+|    j_6_fu_17786_p2                                          | -   |        | j_6          | add | fabric | 0       |
+|  + linear_search_Pipeline_VITIS_LOOP_154_10                 | 0   |        |              |     |        |         |
+|    j_4_fu_864_p2                                            | -   |        | j_4          | add | fabric | 0       |
++-------------------------------------------------------------+-----+--------+--------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++--------------------+------+------+--------+----------------+---------+------+---------+
+| Name               | BRAM | URAM | Pragma | Variable       | Storage | Impl | Latency |
++--------------------+------+------+--------+----------------+---------+------+---------+
+| + linear_search    | 48   | 0    |        |                |         |      |         |
+|   dists_V_U        | -    | -    |        | dists_V        | ram_1p  | auto | 1       |
+|   dists_V_1_U      | -    | -    |        | dists_V_1      | ram_1p  | auto | 1       |
+|   dists_V_2_U      | -    | -    |        | dists_V_2      | ram_1p  | auto | 1       |
+|   dists_V_3_U      | -    | -    |        | dists_V_3      | ram_1p  | auto | 1       |
+|   dists_V_4_U      | -    | -    |        | dists_V_4      | ram_1p  | auto | 1       |
+|   dists_V_5_U      | -    | -    |        | dists_V_5      | ram_1p  | auto | 1       |
+|   dists_V_6_U      | -    | -    |        | dists_V_6      | ram_1p  | auto | 1       |
+|   dists_V_7_U      | -    | -    |        | dists_V_7      | ram_1p  | auto | 1       |
+|   dists_V_8_U      | -    | -    |        | dists_V_8      | ram_1p  | auto | 1       |
+|   dists_V_9_U      | -    | -    |        | dists_V_9      | ram_1p  | auto | 1       |
+|   dists_V_10_U     | -    | -    |        | dists_V_10     | ram_1p  | auto | 1       |
+|   dists_V_11_U     | -    | -    |        | dists_V_11     | ram_1p  | auto | 1       |
+|   dists_V_12_U     | -    | -    |        | dists_V_12     | ram_1p  | auto | 1       |
+|   dists_V_13_U     | -    | -    |        | dists_V_13     | ram_1p  | auto | 1       |
+|   dists_V_14_U     | -    | -    |        | dists_V_14     | ram_1p  | auto | 1       |
+|   dists_V_15_U     | -    | -    |        | dists_V_15     | ram_1p  | auto | 1       |
+|   queries_buf_U    | -    | -    |        | queries_buf    | ram_1p  | auto | 1       |
+|   queries_buf_1_U  | -    | -    |        | queries_buf_1  | ram_1p  | auto | 1       |
+|   queries_buf_2_U  | -    | -    |        | queries_buf_2  | ram_1p  | auto | 1       |
+|   queries_buf_3_U  | -    | -    |        | queries_buf_3  | ram_1p  | auto | 1       |
+|   queries_buf_4_U  | -    | -    |        | queries_buf_4  | ram_1p  | auto | 1       |
+|   queries_buf_5_U  | -    | -    |        | queries_buf_5  | ram_1p  | auto | 1       |
+|   queries_buf_6_U  | -    | -    |        | queries_buf_6  | ram_1p  | auto | 1       |
+|   queries_buf_7_U  | -    | -    |        | queries_buf_7  | ram_1p  | auto | 1       |
+|   queries_buf_8_U  | -    | -    |        | queries_buf_8  | ram_1p  | auto | 1       |
+|   queries_buf_9_U  | -    | -    |        | queries_buf_9  | ram_1p  | auto | 1       |
+|   queries_buf_10_U | -    | -    |        | queries_buf_10 | ram_1p  | auto | 1       |
+|   queries_buf_11_U | -    | -    |        | queries_buf_11 | ram_1p  | auto | 1       |
+|   queries_buf_12_U | -    | -    |        | queries_buf_12 | ram_1p  | auto | 1       |
+|   queries_buf_13_U | -    | -    |        | queries_buf_13 | ram_1p  | auto | 1       |
+|   queries_buf_14_U | -    | -    |        | queries_buf_14 | ram_1p  | auto | 1       |
+|   queries_buf_15_U | -    | -    |        | queries_buf_15 | ram_1p  | auto | 1       |
+|   queries_buf_16_U | -    | -    |        | queries_buf_16 | ram_1p  | auto | 1       |
+|   queries_buf_17_U | -    | -    |        | queries_buf_17 | ram_1p  | auto | 1       |
+|   queries_buf_18_U | -    | -    |        | queries_buf_18 | ram_1p  | auto | 1       |
+|   queries_buf_19_U | -    | -    |        | queries_buf_19 | ram_1p  | auto | 1       |
+|   queries_buf_20_U | -    | -    |        | queries_buf_20 | ram_1p  | auto | 1       |
+|   queries_buf_21_U | -    | -    |        | queries_buf_21 | ram_1p  | auto | 1       |
+|   queries_buf_22_U | -    | -    |        | queries_buf_22 | ram_1p  | auto | 1       |
+|   queries_buf_23_U | -    | -    |        | queries_buf_23 | ram_1p  | auto | 1       |
+|   queries_buf_24_U | -    | -    |        | queries_buf_24 | ram_1p  | auto | 1       |
+|   queries_buf_25_U | -    | -    |        | queries_buf_25 | ram_1p  | auto | 1       |
+|   queries_buf_26_U | -    | -    |        | queries_buf_26 | ram_1p  | auto | 1       |
+|   queries_buf_27_U | -    | -    |        | queries_buf_27 | ram_1p  | auto | 1       |
+|   queries_buf_28_U | -    | -    |        | queries_buf_28 | ram_1p  | auto | 1       |
+|   queries_buf_29_U | -    | -    |        | queries_buf_29 | ram_1p  | auto | 1       |
+|   queries_buf_30_U | -    | -    |        | queries_buf_30 | ram_1p  | auto | 1       |
+|   queries_buf_31_U | -    | -    |        | queries_buf_31 | ram_1p  | auto | 1       |
+|   queries_buf_32_U | -    | -    |        | queries_buf_32 | ram_1p  | auto | 1       |
+|   queries_buf_33_U | -    | -    |        | queries_buf_33 | ram_1p  | auto | 1       |
+|   queries_buf_34_U | -    | -    |        | queries_buf_34 | ram_1p  | auto | 1       |
+|   queries_buf_35_U | -    | -    |        | queries_buf_35 | ram_1p  | auto | 1       |
+|   queries_buf_36_U | -    | -    |        | queries_buf_36 | ram_1p  | auto | 1       |
+|   queries_buf_37_U | -    | -    |        | queries_buf_37 | ram_1p  | auto | 1       |
+|   queries_buf_38_U | -    | -    |        | queries_buf_38 | ram_1p  | auto | 1       |
+|   queries_buf_39_U | -    | -    |        | queries_buf_39 | ram_1p  | auto | 1       |
+|   queries_buf_40_U | -    | -    |        | queries_buf_40 | ram_1p  | auto | 1       |
+|   queries_buf_41_U | -    | -    |        | queries_buf_41 | ram_1p  | auto | 1       |
+|   queries_buf_42_U | -    | -    |        | queries_buf_42 | ram_1p  | auto | 1       |
+|   queries_buf_43_U | -    | -    |        | queries_buf_43 | ram_1p  | auto | 1       |
+|   queries_buf_44_U | -    | -    |        | queries_buf_44 | ram_1p  | auto | 1       |
+|   queries_buf_45_U | -    | -    |        | queries_buf_45 | ram_1p  | auto | 1       |
+|   queries_buf_46_U | -    | -    |        | queries_buf_46 | ram_1p  | auto | 1       |
+|   queries_buf_47_U | -    | -    |        | queries_buf_47 | ram_1p  | auto | 1       |
+|   targets_buf_U    | 1    | -    |        | targets_buf    | ram_1p  | auto | 1       |
+|   targets_buf_1_U  | 1    | -    |        | targets_buf_1  | ram_1p  | auto | 1       |
+|   targets_buf_2_U  | 1    | -    |        | targets_buf_2  | ram_1p  | auto | 1       |
+|   targets_buf_3_U  | 1    | -    |        | targets_buf_3  | ram_1p  | auto | 1       |
+|   targets_buf_4_U  | 1    | -    |        | targets_buf_4  | ram_1p  | auto | 1       |
+|   targets_buf_5_U  | 1    | -    |        | targets_buf_5  | ram_1p  | auto | 1       |
+|   targets_buf_6_U  | 1    | -    |        | targets_buf_6  | ram_1p  | auto | 1       |
+|   targets_buf_7_U  | 1    | -    |        | targets_buf_7  | ram_1p  | auto | 1       |
+|   targets_buf_8_U  | 1    | -    |        | targets_buf_8  | ram_1p  | auto | 1       |
+|   targets_buf_9_U  | 1    | -    |        | targets_buf_9  | ram_1p  | auto | 1       |
+|   targets_buf_10_U | 1    | -    |        | targets_buf_10 | ram_1p  | auto | 1       |
+|   targets_buf_11_U | 1    | -    |        | targets_buf_11 | ram_1p  | auto | 1       |
+|   targets_buf_12_U | 1    | -    |        | targets_buf_12 | ram_1p  | auto | 1       |
+|   targets_buf_13_U | 1    | -    |        | targets_buf_13 | ram_1p  | auto | 1       |
+|   targets_buf_14_U | 1    | -    |        | targets_buf_14 | ram_1p  | auto | 1       |
+|   targets_buf_15_U | 1    | -    |        | targets_buf_15 | ram_1p  | auto | 1       |
+|   targets_buf_16_U | 1    | -    |        | targets_buf_16 | ram_1p  | auto | 1       |
+|   targets_buf_17_U | 1    | -    |        | targets_buf_17 | ram_1p  | auto | 1       |
+|   targets_buf_18_U | 1    | -    |        | targets_buf_18 | ram_1p  | auto | 1       |
+|   targets_buf_19_U | 1    | -    |        | targets_buf_19 | ram_1p  | auto | 1       |
+|   targets_buf_20_U | 1    | -    |        | targets_buf_20 | ram_1p  | auto | 1       |
+|   targets_buf_21_U | 1    | -    |        | targets_buf_21 | ram_1p  | auto | 1       |
+|   targets_buf_22_U | 1    | -    |        | targets_buf_22 | ram_1p  | auto | 1       |
+|   targets_buf_23_U | 1    | -    |        | targets_buf_23 | ram_1p  | auto | 1       |
+|   targets_buf_24_U | 1    | -    |        | targets_buf_24 | ram_1p  | auto | 1       |
+|   targets_buf_25_U | 1    | -    |        | targets_buf_25 | ram_1p  | auto | 1       |
+|   targets_buf_26_U | 1    | -    |        | targets_buf_26 | ram_1p  | auto | 1       |
+|   targets_buf_27_U | 1    | -    |        | targets_buf_27 | ram_1p  | auto | 1       |
+|   targets_buf_28_U | 1    | -    |        | targets_buf_28 | ram_1p  | auto | 1       |
+|   targets_buf_29_U | 1    | -    |        | targets_buf_29 | ram_1p  | auto | 1       |
+|   targets_buf_30_U | 1    | -    |        | targets_buf_30 | ram_1p  | auto | 1       |
+|   targets_buf_31_U | 1    | -    |        | targets_buf_31 | ram_1p  | auto | 1       |
+|   targets_buf_32_U | 1    | -    |        | targets_buf_32 | ram_1p  | auto | 1       |
+|   targets_buf_33_U | 1    | -    |        | targets_buf_33 | ram_1p  | auto | 1       |
+|   targets_buf_34_U | 1    | -    |        | targets_buf_34 | ram_1p  | auto | 1       |
+|   targets_buf_35_U | 1    | -    |        | targets_buf_35 | ram_1p  | auto | 1       |
+|   targets_buf_36_U | 1    | -    |        | targets_buf_36 | ram_1p  | auto | 1       |
+|   targets_buf_37_U | 1    | -    |        | targets_buf_37 | ram_1p  | auto | 1       |
+|   targets_buf_38_U | 1    | -    |        | targets_buf_38 | ram_1p  | auto | 1       |
+|   targets_buf_39_U | 1    | -    |        | targets_buf_39 | ram_1p  | auto | 1       |
+|   targets_buf_40_U | 1    | -    |        | targets_buf_40 | ram_1p  | auto | 1       |
+|   targets_buf_41_U | 1    | -    |        | targets_buf_41 | ram_1p  | auto | 1       |
+|   targets_buf_42_U | 1    | -    |        | targets_buf_42 | ram_1p  | auto | 1       |
+|   targets_buf_43_U | 1    | -    |        | targets_buf_43 | ram_1p  | auto | 1       |
+|   targets_buf_44_U | 1    | -    |        | targets_buf_44 | ram_1p  | auto | 1       |
+|   targets_buf_45_U | 1    | -    |        | targets_buf_45 | ram_1p  | auto | 1       |
+|   targets_buf_46_U | 1    | -    |        | targets_buf_46 | ram_1p  | auto | 1       |
+|   targets_buf_47_U | 1    | -    |        | targets_buf_47 | ram_1p  | auto | 1       |
+|   indices_buf_U    | -    | -    |        | indices_buf    | ram_1p  | auto | 1       |
+|   indices_buf_1_U  | -    | -    |        | indices_buf_1  | ram_1p  | auto | 1       |
+|   indices_buf_2_U  | -    | -    |        | indices_buf_2  | ram_1p  | auto | 1       |
+|   indices_buf_3_U  | -    | -    |        | indices_buf_3  | ram_1p  | auto | 1       |
+|   indices_buf_4_U  | -    | -    |        | indices_buf_4  | ram_1p  | auto | 1       |
+|   indices_buf_5_U  | -    | -    |        | indices_buf_5  | ram_1p  | auto | 1       |
+|   indices_buf_6_U  | -    | -    |        | indices_buf_6  | ram_1p  | auto | 1       |
+|   indices_buf_7_U  | -    | -    |        | indices_buf_7  | ram_1p  | auto | 1       |
+|   indices_buf_8_U  | -    | -    |        | indices_buf_8  | ram_1p  | auto | 1       |
+|   indices_buf_9_U  | -    | -    |        | indices_buf_9  | ram_1p  | auto | 1       |
+|   indices_buf_10_U | -    | -    |        | indices_buf_10 | ram_1p  | auto | 1       |
+|   indices_buf_11_U | -    | -    |        | indices_buf_11 | ram_1p  | auto | 1       |
+|   indices_buf_12_U | -    | -    |        | indices_buf_12 | ram_1p  | auto | 1       |
+|   indices_buf_13_U | -    | -    |        | indices_buf_13 | ram_1p  | auto | 1       |
+|   indices_buf_14_U | -    | -    |        | indices_buf_14 | ram_1p  | auto | 1       |
+|   indices_buf_15_U | -    | -    |        | indices_buf_15 | ram_1p  | auto | 1       |
++--------------------+------+------+--------+----------------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Pragmas with Warnings
++----------+------------------------------------+--------------------------------------------------------------------+----------------------------------------------------------------------------+
+| Type     | Options                            | Location                                                           | Messages                                                                   |
++----------+------------------------------------+--------------------------------------------------------------------+----------------------------------------------------------------------------+
+| resource | variable=dist_x core=AddSub_DSP    | linear_search_fast.cpp:53 in linear_search_compute_elem, dist_x    | 'Resource pragma' is deprecated, use 'bind_op/bind_storage pragma' instead |
+| resource | variable=dist_y core=AddSub_DSP    | linear_search_fast.cpp:54 in linear_search_compute_elem, dist_y    | 'Resource pragma' is deprecated, use 'bind_op/bind_storage pragma' instead |
+| resource | variable=dist_z core=AddSub_DSP    | linear_search_fast.cpp:55 in linear_search_compute_elem, dist_z    | 'Resource pragma' is deprecated, use 'bind_op/bind_storage pragma' instead |
+| resource | variable=pair_dist core=AddSub_DSP | linear_search_fast.cpp:65 in linear_search_compute_elem, pair_dist | 'Resource pragma' is deprecated, use 'bind_op/bind_storage pragma' instead |
+| pipeline | II=1                               | linear_search_fast.cpp:87 in linear_search_compute                 | Only for/while/do support the pipeline  pragma                             |
++----------+------------------------------------+--------------------------------------------------------------------+----------------------------------------------------------------------------+
+
+* Valid Pragma Syntax
++-----------------+-----------------------------------------+-----------------------------------------------------------------+
+| Type            | Options                                 | Location                                                        |
++-----------------+-----------------------------------------+-----------------------------------------------------------------+
+| inline          |                                         | linear_search_fast.cpp:30 in linear_search_compute_elem         |
+| inline          |                                         | linear_search_fast.cpp:77 in linear_search_compute              |
+| array_partition | variable=dists complete dim=2           | linear_search_fast.cpp:80 in linear_search_compute, dists       |
+| array_partition | variable=ldists complete dim=0          | linear_search_fast.cpp:90 in linear_search_compute, ldists      |
+| array_partition | variable=min_dist complete              | linear_search_fast.cpp:94 in linear_search_compute, min_dist    |
+| array_partition | variable=min_indices complete           | linear_search_fast.cpp:95 in linear_search_compute, min_indices |
+| array_partition | variable=lqueries complete dim=0        | linear_search_fast.cpp:108 in linear_search_compute, lqueries   |
+| array_partition | variable=ltargets complete dim=0        | linear_search_fast.cpp:117 in linear_search_compute, ltargets   |
+| unroll          |                                         | linear_search_fast.cpp:120 in linear_search_compute             |
+| unroll          |                                         | linear_search_fast.cpp:122 in linear_search_compute             |
+| array_partition | variable = queries_buf complete dim = 2 | linear_search_fast.cpp:165 in linear_search                     |
+| array_partition | variable = queries_buf complete dim = 3 | linear_search_fast.cpp:166 in linear_search                     |
+| pipeline        | II=1                                    | linear_search_fast.cpp:171 in linear_search                     |
+| array_partition | variable = targets_buf complete dim = 2 | linear_search_fast.cpp:180 in linear_search                     |
+| array_partition | variable = targets_buf complete dim = 3 | linear_search_fast.cpp:181 in linear_search                     |
+| pipeline        | II=1                                    | linear_search_fast.cpp:186 in linear_search                     |
+| array_partition | variable = indices_buf complete dim = 2 | linear_search_fast.cpp:195 in linear_search                     |
+| pipeline        | II=1                                    | linear_search_fast.cpp:202 in linear_search                     |
++-----------------+-----------------------------------------+-----------------------------------------------------------------+
+
+

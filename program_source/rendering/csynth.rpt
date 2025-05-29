@@ -1,0 +1,730 @@
+
+
+================================================================
+== Synthesis Summary Report of 'rendering'
+================================================================
++ General Information: 
+    * Date:           Sat Apr 26 07:53:13 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        hls_prj
+    * Solution:       solution (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +-----------------------------------------------+------+------+-----------+-----------+----------+-----------+-------+----------+---------+---------+-------------+------------+-----+
+    |                    Modules                    | Issue|      |  Latency  |  Latency  | Iteration|           |  Trip |          |         |         |             |            |     |
+    |                    & Loops                    | Type | Slack|  (cycles) |    (ns)   |  Latency |  Interval | Count | Pipelined|  BRAM   |   DSP   |      FF     |     LUT    | URAM|
+    +-----------------------------------------------+------+------+-----------+-----------+----------+-----------+-------+----------+---------+---------+-------------+------------+-----+
+    |+ rendering                                    |     -|  0.05|  838565748|  4.193e+09|         -|  838565749|      -|        no|  7 (~0%)|  3 (~0%)|  10254 (~0%)|  65161 (4%)|    -|
+    | + rendering_Pipeline_OUTPUT_FB_ROW            |     -|  1.78|       8194|  4.097e+04|         -|       8194|      -|        no|        -|        -|   1549 (~0%)|  1725 (~0%)|    -|
+    |  o OUTPUT_FB_ROW                              |    II|  3.65|       8192|  4.096e+04|        33|         32|    256|       yes|        -|        -|            -|           -|    -|
+    | o TRIANGLES                                   |     -|  3.65|  838557552|  4.193e+09|    262706|          -|   3192|        no|        -|        -|            -|           -|    -|
+    |  + projection                                 |     -|  1.11|          0|      0.000|         -|          0|      -|        no|        -|        -|            -|   224 (~0%)|    -|
+    |  + rasterization1                             |     -|  0.05|          1|      5.000|         -|          1|      -|        no|        -|        -|    148 (~0%)|   793 (~0%)|    -|
+    |  + rasterization2                             |     -|  0.08|      65560|  3.278e+05|         -|      65560|      -|        no|        -|  3 (~0%)|   1803 (~0%)|  1576 (~0%)|    -|
+    |   + rasterization2_Pipeline_RAST2             |     -|  0.08|      65558|  3.278e+05|         -|      65558|      -|        no|        -|  3 (~0%)|   1712 (~0%)|  1425 (~0%)|    -|
+    |    o RAST2                                    |     -|  3.65|      65556|  3.278e+05|        23|          1|  65535|       yes|        -|        -|            -|           -|    -|
+    |  + zculling                                   |     -|  0.21|     131335|  6.567e+05|         -|     131335|      -|        no|        -|        -|   4242 (~0%)|  27978 (2%)|    -|
+    |   + zculling_Pipeline_ZCULLING_INIT_ROW       |     -|  2.43|        258|  1.290e+03|         -|        258|      -|        no|        -|        -|     11 (~0%)|    54 (~0%)|    -|
+    |    o ZCULLING_INIT_ROW                        |     -|  3.65|        256|  1.280e+03|         1|          1|    256|       yes|        -|        -|            -|           -|    -|
+    |   + zculling_Pipeline_ZCULLING                |     -|  0.21|     131073|  6.554e+05|         -|     131073|      -|        no|        -|        -|   2175 (~0%)|  5095 (~0%)|    -|
+    |    o ZCULLING                                 |    II|  3.65|     131071|  6.554e+05|         4|          2|  65535|       yes|        -|        -|            -|           -|    -|
+    |  + coloringFB                                 |     -|  1.85|      65798|  3.290e+05|         -|      65798|      -|        no|        -|        -|     37 (~0%)|  14504 (1%)|    -|
+    |   + coloringFB_Pipeline_COLORING_FB_INIT_ROW  |     -|  2.43|        258|  1.290e+03|         -|        258|      -|        no|        -|        -|     11 (~0%)|    54 (~0%)|    -|
+    |    o COLORING_FB_INIT_ROW                     |     -|  3.65|        256|  1.280e+03|         1|          1|    256|       yes|        -|        -|            -|           -|    -|
+    |   + coloringFB_Pipeline_COLORING_FB           |     -|  1.85|      65537|  3.277e+05|         -|      65537|      -|        no|        -|        -|     19 (~0%)|    74 (~0%)|    -|
+    |    o COLORING_FB                              |     -|  3.65|      65535|  3.277e+05|         2|          1|  65535|       yes|        -|        -|            -|           -|    -|
+    +-----------------------------------------------+------+------+-----------+-----------+----------+-----------+-------+----------+---------+---------+-------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_MEMORY
++-------------------+----------+
+| Interface         | Bitwidth |
++-------------------+----------+
+| input_r_address0  | 14       |
+| input_r_address1  | 14       |
+| input_r_q0        | 32       |
+| input_r_q1        | 32       |
+| output_r_address0 | 14       |
+| output_r_address1 | 14       |
+| output_r_d0       | 32       |
+| output_r_d1       | 32       |
++-------------------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+--------------+
+| Argument | Direction | Datatype     |
++----------+-----------+--------------+
+| input    | in        | ap_uint<32>* |
+| output   | out       | ap_uint<32>* |
++----------+-----------+--------------+
+
+* SW-to-HW Mapping
++----------+-------------------+---------+----------+
+| Argument | HW Interface      | HW Type | HW Usage |
++----------+-------------------+---------+----------+
+| input    | input_r_address0  | port    | offset   |
+| input    | input_r_ce0       | port    |          |
+| input    | input_r_q0        | port    |          |
+| input    | input_r_address1  | port    | offset   |
+| input    | input_r_ce1       | port    |          |
+| input    | input_r_q1        | port    |          |
+| output   | output_r_address0 | port    | offset   |
+| output   | output_r_ce0      | port    |          |
+| output   | output_r_we0      | port    |          |
+| output   | output_r_d0       | port    |          |
+| output   | output_r_address1 | port    | offset   |
+| output   | output_r_ce1      | port    |          |
+| output   | output_r_we1      | port    |          |
+| output   | output_r_d1       | port    |          |
++----------+-------------------+---------+----------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++----------------------------------------------+-----+--------+--------------+-----+--------+---------+
+| Name                                         | DSP | Pragma | Variable     | Op  | Impl   | Latency |
++----------------------------------------------+-----+--------+--------------+-----+--------+---------+
+| + rendering                                  | 3   |        |              |     |        |         |
+|   i_V_fu_2850_p2                             | -   |        | i_V          | add | fabric | 0       |
+|   ret_V_66_fu_2868_p2                        | -   |        | ret_V_66     | sub | fabric | 0       |
+|   ret_V_fu_2884_p2                           | -   |        | ret_V        | add | fabric | 0       |
+|   ret_V_65_fu_2894_p2                        | -   |        | ret_V_65     | add | fabric | 0       |
+|  + rendering_Pipeline_OUTPUT_FB_ROW          | 0   |        |              |     |        |         |
+|    add_ln840_fu_4543_p2                      | -   |        | add_ln840    | add | fabric | 0       |
+|  + projection                                | 0   |        |              |     |        |         |
+|    mul_8ns_10ns_17_1_1_U1                    | -   |        | mul_ln1513   | mul | auto   | 0       |
+|    mul_8ns_10ns_17_1_1_U2                    | -   |        | mul_ln1513_1 | mul | auto   | 0       |
+|    mul_8ns_10ns_17_1_1_U3                    | -   |        | mul_ln1513_2 | mul | auto   | 0       |
+|  + rasterization1                            | 0   |        |              |     |        |         |
+|    ret_V_100_fu_178_p2                       | -   |        | ret_V_100    | sub | fabric | 0       |
+|    ret_V_101_fu_192_p2                       | -   |        | ret_V_101    | sub | fabric | 0       |
+|    mul_9s_9s_18_1_1_U14                      | -   |        | ret_V_102    | mul | auto   | 0       |
+|    ret_V_103_fu_216_p2                       | -   |        | ret_V_103    | sub | fabric | 0       |
+|    ret_V_104_fu_226_p2                       | -   |        | ret_V_104    | sub | fabric | 0       |
+|    mul_9s_9s_18_1_1_U15                      | -   |        | ret_V_105    | mul | auto   | 0       |
+|    ret_V_fu_246_p2                           | -   |        | ret_V        | sub | fabric | 0       |
+|    ret_V_98_fu_434_p2                        | -   |        | ret_V_98     | sub | fabric | 0       |
+|    ret_V_99_fu_452_p2                        | -   |        | ret_V_99     | sub | fabric | 0       |
+|    mul_9s_9s_16_1_1_U16                      | -   |        | mul_ln186    | mul | auto   | 0       |
+|  + rasterization2                            | 3   |        |              |     |        |         |
+|    ret_V_146_fu_188_p2                       | -   |        | ret_V_146    | sub | fabric | 0       |
+|    ret_V_149_fu_203_p2                       | -   |        | ret_V_149    | sub | fabric | 0       |
+|    ret_V_152_fu_214_p2                       | -   |        | ret_V_152    | sub | fabric | 0       |
+|    ret_V_155_fu_225_p2                       | -   |        | ret_V_155    | sub | fabric | 0       |
+|    ret_V_158_fu_232_p2                       | -   |        | ret_V_158    | sub | fabric | 0       |
+|    ret_V_161_fu_239_p2                       | -   |        | ret_V_161    | sub | fabric | 0       |
+|   + rasterization2_Pipeline_RAST2            | 3   |        |              |     |        |         |
+|     add_ln840_fu_321_p2                      | -   |        | add_ln840    | add | fabric | 0       |
+|     x_V_fu_348_p2                            | -   |        | x_V          | add | fabric | 0       |
+|     y_V_fu_357_p2                            | -   |        | y_V          | add | fabric | 0       |
+|     ret_V_80_fu_396_p2                       | -   |        | ret_V_80     | sub | fabric | 0       |
+|     mul_9s_9s_18_1_1_U41                     | -   |        | ret_V_81     | mul | auto   | 0       |
+|     ret_V_82_fu_366_p2                       | -   |        | ret_V_82     | sub | fabric | 0       |
+|     mac_mulsub_9s_9s_18s_18_4_1_U44          | 1   |        | ret_V_83     | mul | dsp48  | 3       |
+|     mac_mulsub_9s_9s_18s_18_4_1_U44          | 1   |        | sub_ln101    | sub | dsp48  | 3       |
+|     ret_V_84_fu_410_p2                       | -   |        | ret_V_84     | sub | fabric | 0       |
+|     mul_9s_9s_18_1_1_U42                     | -   |        | ret_V_85     | mul | auto   | 0       |
+|     ret_V_86_fu_375_p2                       | -   |        | ret_V_86     | sub | fabric | 0       |
+|     mac_mulsub_9s_9s_18s_18_4_1_U45          | 1   |        | ret_V_87     | mul | dsp48  | 3       |
+|     mac_mulsub_9s_9s_18s_18_4_1_U45          | 1   |        | sub_ln101_1  | sub | dsp48  | 3       |
+|     ret_V_88_fu_424_p2                       | -   |        | ret_V_88     | sub | fabric | 0       |
+|     mul_9s_9s_18_1_1_U43                     | -   |        | ret_V_89     | mul | auto   | 0       |
+|     ret_V_90_fu_384_p2                       | -   |        | ret_V_90     | sub | fabric | 0       |
+|     mac_mulsub_9s_9s_18s_18_4_1_U46          | 1   |        | ret_V_91     | mul | dsp48  | 3       |
+|     mac_mulsub_9s_9s_18s_18_4_1_U46          | 1   |        | ret_V_79     | sub | dsp48  | 3       |
+|     i_V_3_fu_466_p2                          | -   |        | i_V_3        | add | fabric | 0       |
+|  + zculling                                  | 0   |        |              |     |        |         |
+|   + zculling_Pipeline_ZCULLING_INIT_ROW      | 0   |        |              |     |        |         |
+|     add_ln840_fu_4140_p2                     | -   |        | add_ln840    | add | fabric | 0       |
+|   + zculling_Pipeline_ZCULLING               | 0   |        |              |     |        |         |
+|     add_ln840_fu_4537_p2                     | -   |        | add_ln840    | add | fabric | 0       |
+|     pixel_cntr_V_fu_5346_p2                  | -   |        | pixel_cntr_V | add | fabric | 0       |
+|  + coloringFB                                | 0   |        |              |     |        |         |
+|   + coloringFB_Pipeline_COLORING_FB_INIT_ROW | 0   |        |              |     |        |         |
+|     add_ln840_fu_4140_p2                     | -   |        | add_ln840    | add | fabric | 0       |
+|   + coloringFB_Pipeline_COLORING_FB          | 0   |        |              |     |        |         |
+|     add_ln840_fu_4701_p2                     | -   |        | add_ln840    | add | fabric | 0       |
++----------------------------------------------+-----+--------+--------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++----------------------------------------------------------------------------+------+------+--------+-----------------------------------------------------------------------+---------+------+---------+
+| Name                                                                       | BRAM | URAM | Pragma | Variable                                                              | Storage | Impl | Latency |
++----------------------------------------------------------------------------+------+------+--------+-----------------------------------------------------------------------+---------+------+---------+
+| + rendering                                                                | 7    | 0    |        |                                                                       |         |      |         |
+|   fragment_x_V_U                                                           | 1    | -    |        | fragment_x_V                                                          | ram_1p  | auto | 1       |
+|   fragment_y_V_U                                                           | 1    | -    |        | fragment_y_V                                                          | ram_1p  | auto | 1       |
+|   fragment_z_V_U                                                           | 1    | -    |        | fragment_z_V                                                          | ram_1p  | auto | 1       |
+|   fragment_color_V_U                                                       | 1    | -    |        | fragment_color_V                                                      | ram_1p  | auto | 1       |
+|   pixels_x_V_U                                                             | 1    | -    |        | pixels_x_V                                                            | ram_1p  | auto | 1       |
+|   pixels_y_V_U                                                             | 1    | -    |        | pixels_y_V                                                            | ram_1p  | auto | 1       |
+|   pixels_color_V_U                                                         | 1    | -    |        | pixels_color_V                                                        | ram_1p  | auto | 1       |
+|   frame_buffer_0_U                                                         | -    | -    |        | frame_buffer_0                                                        | ram_1p  | auto | 1       |
+|   frame_buffer_1_U                                                         | -    | -    |        | frame_buffer_1                                                        | ram_1p  | auto | 1       |
+|   frame_buffer_2_U                                                         | -    | -    |        | frame_buffer_2                                                        | ram_1p  | auto | 1       |
+|   frame_buffer_3_U                                                         | -    | -    |        | frame_buffer_3                                                        | ram_1p  | auto | 1       |
+|   frame_buffer_4_U                                                         | -    | -    |        | frame_buffer_4                                                        | ram_1p  | auto | 1       |
+|   frame_buffer_5_U                                                         | -    | -    |        | frame_buffer_5                                                        | ram_1p  | auto | 1       |
+|   frame_buffer_6_U                                                         | -    | -    |        | frame_buffer_6                                                        | ram_1p  | auto | 1       |
+|   frame_buffer_7_U                                                         | -    | -    |        | frame_buffer_7                                                        | ram_1p  | auto | 1       |
+|   frame_buffer_8_U                                                         | -    | -    |        | frame_buffer_8                                                        | ram_1p  | auto | 1       |
+|   frame_buffer_9_U                                                         | -    | -    |        | frame_buffer_9                                                        | ram_1p  | auto | 1       |
+|   frame_buffer_10_U                                                        | -    | -    |        | frame_buffer_10                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_11_U                                                        | -    | -    |        | frame_buffer_11                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_12_U                                                        | -    | -    |        | frame_buffer_12                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_13_U                                                        | -    | -    |        | frame_buffer_13                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_14_U                                                        | -    | -    |        | frame_buffer_14                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_15_U                                                        | -    | -    |        | frame_buffer_15                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_16_U                                                        | -    | -    |        | frame_buffer_16                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_17_U                                                        | -    | -    |        | frame_buffer_17                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_18_U                                                        | -    | -    |        | frame_buffer_18                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_19_U                                                        | -    | -    |        | frame_buffer_19                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_20_U                                                        | -    | -    |        | frame_buffer_20                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_21_U                                                        | -    | -    |        | frame_buffer_21                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_22_U                                                        | -    | -    |        | frame_buffer_22                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_23_U                                                        | -    | -    |        | frame_buffer_23                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_24_U                                                        | -    | -    |        | frame_buffer_24                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_25_U                                                        | -    | -    |        | frame_buffer_25                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_26_U                                                        | -    | -    |        | frame_buffer_26                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_27_U                                                        | -    | -    |        | frame_buffer_27                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_28_U                                                        | -    | -    |        | frame_buffer_28                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_29_U                                                        | -    | -    |        | frame_buffer_29                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_30_U                                                        | -    | -    |        | frame_buffer_30                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_31_U                                                        | -    | -    |        | frame_buffer_31                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_32_U                                                        | -    | -    |        | frame_buffer_32                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_33_U                                                        | -    | -    |        | frame_buffer_33                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_34_U                                                        | -    | -    |        | frame_buffer_34                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_35_U                                                        | -    | -    |        | frame_buffer_35                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_36_U                                                        | -    | -    |        | frame_buffer_36                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_37_U                                                        | -    | -    |        | frame_buffer_37                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_38_U                                                        | -    | -    |        | frame_buffer_38                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_39_U                                                        | -    | -    |        | frame_buffer_39                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_40_U                                                        | -    | -    |        | frame_buffer_40                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_41_U                                                        | -    | -    |        | frame_buffer_41                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_42_U                                                        | -    | -    |        | frame_buffer_42                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_43_U                                                        | -    | -    |        | frame_buffer_43                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_44_U                                                        | -    | -    |        | frame_buffer_44                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_45_U                                                        | -    | -    |        | frame_buffer_45                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_46_U                                                        | -    | -    |        | frame_buffer_46                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_47_U                                                        | -    | -    |        | frame_buffer_47                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_48_U                                                        | -    | -    |        | frame_buffer_48                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_49_U                                                        | -    | -    |        | frame_buffer_49                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_50_U                                                        | -    | -    |        | frame_buffer_50                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_51_U                                                        | -    | -    |        | frame_buffer_51                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_52_U                                                        | -    | -    |        | frame_buffer_52                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_53_U                                                        | -    | -    |        | frame_buffer_53                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_54_U                                                        | -    | -    |        | frame_buffer_54                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_55_U                                                        | -    | -    |        | frame_buffer_55                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_56_U                                                        | -    | -    |        | frame_buffer_56                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_57_U                                                        | -    | -    |        | frame_buffer_57                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_58_U                                                        | -    | -    |        | frame_buffer_58                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_59_U                                                        | -    | -    |        | frame_buffer_59                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_60_U                                                        | -    | -    |        | frame_buffer_60                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_61_U                                                        | -    | -    |        | frame_buffer_61                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_62_U                                                        | -    | -    |        | frame_buffer_62                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_63_U                                                        | -    | -    |        | frame_buffer_63                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_64_U                                                        | -    | -    |        | frame_buffer_64                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_65_U                                                        | -    | -    |        | frame_buffer_65                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_66_U                                                        | -    | -    |        | frame_buffer_66                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_67_U                                                        | -    | -    |        | frame_buffer_67                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_68_U                                                        | -    | -    |        | frame_buffer_68                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_69_U                                                        | -    | -    |        | frame_buffer_69                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_70_U                                                        | -    | -    |        | frame_buffer_70                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_71_U                                                        | -    | -    |        | frame_buffer_71                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_72_U                                                        | -    | -    |        | frame_buffer_72                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_73_U                                                        | -    | -    |        | frame_buffer_73                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_74_U                                                        | -    | -    |        | frame_buffer_74                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_75_U                                                        | -    | -    |        | frame_buffer_75                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_76_U                                                        | -    | -    |        | frame_buffer_76                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_77_U                                                        | -    | -    |        | frame_buffer_77                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_78_U                                                        | -    | -    |        | frame_buffer_78                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_79_U                                                        | -    | -    |        | frame_buffer_79                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_80_U                                                        | -    | -    |        | frame_buffer_80                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_81_U                                                        | -    | -    |        | frame_buffer_81                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_82_U                                                        | -    | -    |        | frame_buffer_82                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_83_U                                                        | -    | -    |        | frame_buffer_83                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_84_U                                                        | -    | -    |        | frame_buffer_84                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_85_U                                                        | -    | -    |        | frame_buffer_85                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_86_U                                                        | -    | -    |        | frame_buffer_86                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_87_U                                                        | -    | -    |        | frame_buffer_87                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_88_U                                                        | -    | -    |        | frame_buffer_88                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_89_U                                                        | -    | -    |        | frame_buffer_89                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_90_U                                                        | -    | -    |        | frame_buffer_90                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_91_U                                                        | -    | -    |        | frame_buffer_91                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_92_U                                                        | -    | -    |        | frame_buffer_92                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_93_U                                                        | -    | -    |        | frame_buffer_93                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_94_U                                                        | -    | -    |        | frame_buffer_94                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_95_U                                                        | -    | -    |        | frame_buffer_95                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_96_U                                                        | -    | -    |        | frame_buffer_96                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_97_U                                                        | -    | -    |        | frame_buffer_97                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_98_U                                                        | -    | -    |        | frame_buffer_98                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_99_U                                                        | -    | -    |        | frame_buffer_99                                                       | ram_1p  | auto | 1       |
+|   frame_buffer_100_U                                                       | -    | -    |        | frame_buffer_100                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_101_U                                                       | -    | -    |        | frame_buffer_101                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_102_U                                                       | -    | -    |        | frame_buffer_102                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_103_U                                                       | -    | -    |        | frame_buffer_103                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_104_U                                                       | -    | -    |        | frame_buffer_104                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_105_U                                                       | -    | -    |        | frame_buffer_105                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_106_U                                                       | -    | -    |        | frame_buffer_106                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_107_U                                                       | -    | -    |        | frame_buffer_107                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_108_U                                                       | -    | -    |        | frame_buffer_108                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_109_U                                                       | -    | -    |        | frame_buffer_109                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_110_U                                                       | -    | -    |        | frame_buffer_110                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_111_U                                                       | -    | -    |        | frame_buffer_111                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_112_U                                                       | -    | -    |        | frame_buffer_112                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_113_U                                                       | -    | -    |        | frame_buffer_113                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_114_U                                                       | -    | -    |        | frame_buffer_114                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_115_U                                                       | -    | -    |        | frame_buffer_115                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_116_U                                                       | -    | -    |        | frame_buffer_116                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_117_U                                                       | -    | -    |        | frame_buffer_117                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_118_U                                                       | -    | -    |        | frame_buffer_118                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_119_U                                                       | -    | -    |        | frame_buffer_119                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_120_U                                                       | -    | -    |        | frame_buffer_120                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_121_U                                                       | -    | -    |        | frame_buffer_121                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_122_U                                                       | -    | -    |        | frame_buffer_122                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_123_U                                                       | -    | -    |        | frame_buffer_123                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_124_U                                                       | -    | -    |        | frame_buffer_124                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_125_U                                                       | -    | -    |        | frame_buffer_125                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_126_U                                                       | -    | -    |        | frame_buffer_126                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_127_U                                                       | -    | -    |        | frame_buffer_127                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_128_U                                                       | -    | -    |        | frame_buffer_128                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_129_U                                                       | -    | -    |        | frame_buffer_129                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_130_U                                                       | -    | -    |        | frame_buffer_130                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_131_U                                                       | -    | -    |        | frame_buffer_131                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_132_U                                                       | -    | -    |        | frame_buffer_132                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_133_U                                                       | -    | -    |        | frame_buffer_133                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_134_U                                                       | -    | -    |        | frame_buffer_134                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_135_U                                                       | -    | -    |        | frame_buffer_135                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_136_U                                                       | -    | -    |        | frame_buffer_136                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_137_U                                                       | -    | -    |        | frame_buffer_137                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_138_U                                                       | -    | -    |        | frame_buffer_138                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_139_U                                                       | -    | -    |        | frame_buffer_139                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_140_U                                                       | -    | -    |        | frame_buffer_140                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_141_U                                                       | -    | -    |        | frame_buffer_141                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_142_U                                                       | -    | -    |        | frame_buffer_142                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_143_U                                                       | -    | -    |        | frame_buffer_143                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_144_U                                                       | -    | -    |        | frame_buffer_144                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_145_U                                                       | -    | -    |        | frame_buffer_145                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_146_U                                                       | -    | -    |        | frame_buffer_146                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_147_U                                                       | -    | -    |        | frame_buffer_147                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_148_U                                                       | -    | -    |        | frame_buffer_148                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_149_U                                                       | -    | -    |        | frame_buffer_149                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_150_U                                                       | -    | -    |        | frame_buffer_150                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_151_U                                                       | -    | -    |        | frame_buffer_151                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_152_U                                                       | -    | -    |        | frame_buffer_152                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_153_U                                                       | -    | -    |        | frame_buffer_153                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_154_U                                                       | -    | -    |        | frame_buffer_154                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_155_U                                                       | -    | -    |        | frame_buffer_155                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_156_U                                                       | -    | -    |        | frame_buffer_156                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_157_U                                                       | -    | -    |        | frame_buffer_157                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_158_U                                                       | -    | -    |        | frame_buffer_158                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_159_U                                                       | -    | -    |        | frame_buffer_159                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_160_U                                                       | -    | -    |        | frame_buffer_160                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_161_U                                                       | -    | -    |        | frame_buffer_161                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_162_U                                                       | -    | -    |        | frame_buffer_162                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_163_U                                                       | -    | -    |        | frame_buffer_163                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_164_U                                                       | -    | -    |        | frame_buffer_164                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_165_U                                                       | -    | -    |        | frame_buffer_165                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_166_U                                                       | -    | -    |        | frame_buffer_166                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_167_U                                                       | -    | -    |        | frame_buffer_167                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_168_U                                                       | -    | -    |        | frame_buffer_168                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_169_U                                                       | -    | -    |        | frame_buffer_169                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_170_U                                                       | -    | -    |        | frame_buffer_170                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_171_U                                                       | -    | -    |        | frame_buffer_171                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_172_U                                                       | -    | -    |        | frame_buffer_172                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_173_U                                                       | -    | -    |        | frame_buffer_173                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_174_U                                                       | -    | -    |        | frame_buffer_174                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_175_U                                                       | -    | -    |        | frame_buffer_175                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_176_U                                                       | -    | -    |        | frame_buffer_176                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_177_U                                                       | -    | -    |        | frame_buffer_177                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_178_U                                                       | -    | -    |        | frame_buffer_178                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_179_U                                                       | -    | -    |        | frame_buffer_179                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_180_U                                                       | -    | -    |        | frame_buffer_180                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_181_U                                                       | -    | -    |        | frame_buffer_181                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_182_U                                                       | -    | -    |        | frame_buffer_182                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_183_U                                                       | -    | -    |        | frame_buffer_183                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_184_U                                                       | -    | -    |        | frame_buffer_184                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_185_U                                                       | -    | -    |        | frame_buffer_185                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_186_U                                                       | -    | -    |        | frame_buffer_186                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_187_U                                                       | -    | -    |        | frame_buffer_187                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_188_U                                                       | -    | -    |        | frame_buffer_188                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_189_U                                                       | -    | -    |        | frame_buffer_189                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_190_U                                                       | -    | -    |        | frame_buffer_190                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_191_U                                                       | -    | -    |        | frame_buffer_191                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_192_U                                                       | -    | -    |        | frame_buffer_192                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_193_U                                                       | -    | -    |        | frame_buffer_193                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_194_U                                                       | -    | -    |        | frame_buffer_194                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_195_U                                                       | -    | -    |        | frame_buffer_195                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_196_U                                                       | -    | -    |        | frame_buffer_196                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_197_U                                                       | -    | -    |        | frame_buffer_197                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_198_U                                                       | -    | -    |        | frame_buffer_198                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_199_U                                                       | -    | -    |        | frame_buffer_199                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_200_U                                                       | -    | -    |        | frame_buffer_200                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_201_U                                                       | -    | -    |        | frame_buffer_201                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_202_U                                                       | -    | -    |        | frame_buffer_202                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_203_U                                                       | -    | -    |        | frame_buffer_203                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_204_U                                                       | -    | -    |        | frame_buffer_204                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_205_U                                                       | -    | -    |        | frame_buffer_205                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_206_U                                                       | -    | -    |        | frame_buffer_206                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_207_U                                                       | -    | -    |        | frame_buffer_207                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_208_U                                                       | -    | -    |        | frame_buffer_208                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_209_U                                                       | -    | -    |        | frame_buffer_209                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_210_U                                                       | -    | -    |        | frame_buffer_210                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_211_U                                                       | -    | -    |        | frame_buffer_211                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_212_U                                                       | -    | -    |        | frame_buffer_212                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_213_U                                                       | -    | -    |        | frame_buffer_213                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_214_U                                                       | -    | -    |        | frame_buffer_214                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_215_U                                                       | -    | -    |        | frame_buffer_215                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_216_U                                                       | -    | -    |        | frame_buffer_216                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_217_U                                                       | -    | -    |        | frame_buffer_217                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_218_U                                                       | -    | -    |        | frame_buffer_218                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_219_U                                                       | -    | -    |        | frame_buffer_219                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_220_U                                                       | -    | -    |        | frame_buffer_220                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_221_U                                                       | -    | -    |        | frame_buffer_221                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_222_U                                                       | -    | -    |        | frame_buffer_222                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_223_U                                                       | -    | -    |        | frame_buffer_223                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_224_U                                                       | -    | -    |        | frame_buffer_224                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_225_U                                                       | -    | -    |        | frame_buffer_225                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_226_U                                                       | -    | -    |        | frame_buffer_226                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_227_U                                                       | -    | -    |        | frame_buffer_227                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_228_U                                                       | -    | -    |        | frame_buffer_228                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_229_U                                                       | -    | -    |        | frame_buffer_229                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_230_U                                                       | -    | -    |        | frame_buffer_230                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_231_U                                                       | -    | -    |        | frame_buffer_231                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_232_U                                                       | -    | -    |        | frame_buffer_232                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_233_U                                                       | -    | -    |        | frame_buffer_233                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_234_U                                                       | -    | -    |        | frame_buffer_234                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_235_U                                                       | -    | -    |        | frame_buffer_235                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_236_U                                                       | -    | -    |        | frame_buffer_236                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_237_U                                                       | -    | -    |        | frame_buffer_237                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_238_U                                                       | -    | -    |        | frame_buffer_238                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_239_U                                                       | -    | -    |        | frame_buffer_239                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_240_U                                                       | -    | -    |        | frame_buffer_240                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_241_U                                                       | -    | -    |        | frame_buffer_241                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_242_U                                                       | -    | -    |        | frame_buffer_242                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_243_U                                                       | -    | -    |        | frame_buffer_243                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_244_U                                                       | -    | -    |        | frame_buffer_244                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_245_U                                                       | -    | -    |        | frame_buffer_245                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_246_U                                                       | -    | -    |        | frame_buffer_246                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_247_U                                                       | -    | -    |        | frame_buffer_247                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_248_U                                                       | -    | -    |        | frame_buffer_248                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_249_U                                                       | -    | -    |        | frame_buffer_249                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_250_U                                                       | -    | -    |        | frame_buffer_250                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_251_U                                                       | -    | -    |        | frame_buffer_251                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_252_U                                                       | -    | -    |        | frame_buffer_252                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_253_U                                                       | -    | -    |        | frame_buffer_253                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_254_U                                                       | -    | -    |        | frame_buffer_254                                                      | ram_1p  | auto | 1       |
+|   frame_buffer_255_U                                                       | -    | -    |        | frame_buffer_255                                                      | ram_1p  | auto | 1       |
+|  + zculling                                                                | 0    | 0    |        |                                                                       |         |      |         |
+|    zculling_ap_uint_16_CandidatePixel_ap_uint_16_Pixel_z_buffer_U          | -    | -    |        | zculling_ap_uint_16_CandidatePixel_ap_uint_16_Pixel_z_buffer          | ram_1p  | auto | 1       |
+|    zculling_ap_uint_16_CandidatePixel_ap_uint_16_Pixel_z_buffer_1_U        | -    | -    |        | zculling_ap_uint_16_CandidatePixel_ap_uint_16_Pixel_z_buffer_1        | ram_1p  | auto | 1       |
+|    zculling_ap_uint_16_CandidatePixel_ap_uint_16_Pixel_z_buffer_2_U        | -    | -    |        | zculling_ap_uint_16_CandidatePixel_ap_uint_16_Pixel_z_buffer_2        | ram_1p  | auto | 1       |
+|    zculling_ap_uint_16_CandidatePixel_ap_uint_16_Pixel_z_buffer_3_U        | -    | -    |        | zculling_ap_uint_16_CandidatePixel_ap_uint_16_Pixel_z_buffer_3        | ram_1p  | auto | 1       |
+|    zculling_ap_uint_16_CandidatePixel_ap_uint_16_Pixel_z_buffer_4_U        | -    | -    |        | zculling_ap_uint_16_CandidatePixel_ap_uint_16_Pixel_z_buffer_4        | ram_1p  | auto | 1       |
+|    zculling_ap_uint_16_CandidatePixel_ap_uint_16_Pixel_z_buffer_5_U        | -    | -    |        | zculling_ap_uint_16_CandidatePixel_ap_uint_16_Pixel_z_buffer_5        | ram_1p  | auto | 1       |
+|    zculling_ap_uint_16_CandidatePixel_ap_uint_16_Pixel_z_buffer_6_U        | -    | -    |        | zculling_ap_uint_16_CandidatePixel_ap_uint_16_Pixel_z_buffer_6        | ram_1p  | auto | 1       |
+|    zculling_ap_uint_16_CandidatePixel_ap_uint_16_Pixel_z_buffer_7_U        | -    | -    |        | zculling_ap_uint_16_CandidatePixel_ap_uint_16_Pixel_z_buffer_7        | ram_1p  | auto | 1       |
+|    zculling_ap_uint_16_CandidatePixel_ap_uint_16_Pixel_z_buffer_8_U        | -    | -    |        | zculling_ap_uint_16_CandidatePixel_ap_uint_16_Pixel_z_buffer_8        | ram_1p  | auto | 1       |
+|    zculling_ap_uint_16_CandidatePixel_ap_uint_16_Pixel_z_buffer_9_U        | -    | -    |        | zculling_ap_uint_16_CandidatePixel_ap_uint_16_Pixel_z_buffer_9        | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_10_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_10  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_11_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_11  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_12_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_12  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_13_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_13  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_14_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_14  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_15_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_15  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_16_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_16  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_17_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_17  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_18_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_18  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_19_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_19  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_20_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_20  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_21_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_21  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_22_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_22  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_23_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_23  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_24_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_24  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_25_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_25  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_26_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_26  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_27_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_27  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_28_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_28  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_29_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_29  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_30_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_30  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_31_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_31  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_32_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_32  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_33_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_33  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_34_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_34  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_35_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_35  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_36_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_36  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_37_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_37  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_38_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_38  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_39_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_39  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_40_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_40  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_41_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_41  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_42_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_42  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_43_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_43  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_44_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_44  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_45_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_45  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_46_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_46  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_47_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_47  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_48_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_48  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_49_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_49  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_50_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_50  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_51_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_51  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_52_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_52  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_53_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_53  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_54_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_54  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_55_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_55  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_56_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_56  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_57_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_57  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_58_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_58  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_59_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_59  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_60_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_60  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_61_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_61  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_62_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_62  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_63_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_63  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_64_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_64  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_65_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_65  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_66_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_66  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_67_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_67  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_68_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_68  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_69_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_69  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_70_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_70  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_71_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_71  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_72_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_72  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_73_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_73  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_74_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_74  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_75_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_75  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_76_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_76  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_77_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_77  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_78_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_78  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_79_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_79  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_80_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_80  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_81_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_81  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_82_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_82  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_83_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_83  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_84_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_84  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_85_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_85  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_86_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_86  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_87_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_87  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_88_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_88  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_89_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_89  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_90_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_90  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_91_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_91  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_92_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_92  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_93_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_93  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_94_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_94  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_95_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_95  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_96_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_96  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_97_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_97  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_98_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_98  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_99_U  | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_99  | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_100_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_100 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_101_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_101 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_102_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_102 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_103_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_103 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_104_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_104 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_105_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_105 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_106_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_106 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_107_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_107 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_108_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_108 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_109_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_109 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_110_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_110 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_111_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_111 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_112_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_112 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_113_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_113 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_114_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_114 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_115_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_115 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_116_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_116 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_117_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_117 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_118_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_118 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_119_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_119 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_120_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_120 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_121_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_121 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_122_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_122 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_123_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_123 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_124_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_124 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_125_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_125 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_126_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_126 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_127_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_127 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_128_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_128 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_129_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_129 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_130_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_130 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_131_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_131 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_132_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_132 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_133_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_133 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_134_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_134 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_135_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_135 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_136_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_136 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_137_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_137 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_138_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_138 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_139_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_139 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_140_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_140 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_141_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_141 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_142_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_142 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_143_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_143 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_144_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_144 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_145_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_145 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_146_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_146 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_147_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_147 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_148_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_148 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_149_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_149 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_150_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_150 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_151_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_151 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_152_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_152 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_153_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_153 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_154_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_154 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_155_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_155 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_156_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_156 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_157_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_157 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_158_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_158 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_159_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_159 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_160_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_160 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_161_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_161 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_162_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_162 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_163_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_163 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_164_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_164 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_165_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_165 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_166_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_166 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_167_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_167 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_168_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_168 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_169_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_169 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_170_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_170 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_171_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_171 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_172_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_172 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_173_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_173 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_174_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_174 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_175_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_175 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_176_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_176 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_177_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_177 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_178_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_178 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_179_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_179 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_180_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_180 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_181_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_181 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_182_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_182 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_183_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_183 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_184_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_184 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_185_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_185 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_186_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_186 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_187_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_187 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_188_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_188 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_189_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_189 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_190_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_190 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_191_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_191 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_192_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_192 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_193_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_193 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_194_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_194 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_195_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_195 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_196_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_196 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_197_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_197 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_198_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_198 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_199_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_199 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_200_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_200 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_201_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_201 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_202_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_202 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_203_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_203 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_204_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_204 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_205_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_205 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_206_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_206 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_207_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_207 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_208_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_208 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_209_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_209 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_210_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_210 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_211_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_211 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_212_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_212 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_213_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_213 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_214_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_214 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_215_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_215 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_216_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_216 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_217_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_217 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_218_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_218 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_219_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_219 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_220_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_220 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_221_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_221 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_222_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_222 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_223_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_223 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_224_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_224 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_225_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_225 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_226_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_226 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_227_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_227 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_228_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_228 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_229_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_229 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_230_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_230 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_231_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_231 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_232_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_232 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_233_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_233 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_234_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_234 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_235_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_235 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_236_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_236 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_237_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_237 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_238_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_238 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_239_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_239 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_240_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_240 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_241_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_241 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_242_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_242 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_243_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_243 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_244_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_244 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_245_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_245 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_246_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_246 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_247_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_247 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_248_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_248 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_249_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_249 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_250_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_250 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_251_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_251 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_252_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_252 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_253_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_253 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_254_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_254 | ram_1p  | auto | 1       |
+|    p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_255_U | -    | -    |        | p_ZZ8zculling7ap_uintILi16EEP14CandidatePixelS0_P5PixelE8z_buffer_255 | ram_1p  | auto | 1       |
++----------------------------------------------------------------------------+------+------+--------+-----------------------------------------------------------------------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++----------+---------+------------------------------------------+
+| Type     | Options | Location                                 |
++----------+---------+------------------------------------------+
+| inline   | off     | rendering_fast.cpp:148 in projection     |
+| inline   | off     | rendering_fast.cpp:190 in rasterization1 |
+| inline   | off     | rendering_fast.cpp:222 in rasterization2 |
+| pipeline | II=1    | rendering_fast.cpp:233 in rasterization2 |
+| inline   | off     | rendering_fast.cpp:253 in zculling       |
+| pipeline | II=1    | rendering_fast.cpp:261 in zculling       |
+| pipeline | II=1    | rendering_fast.cpp:275 in zculling       |
+| inline   | off     | rendering_fast.cpp:292 in coloringfb     |
+| pipeline | II=1    | rendering_fast.cpp:299 in coloringfb     |
+| pipeline | II=1    | rendering_fast.cpp:308 in coloringfb     |
+| inline   |         | rendering_fast.cpp:317 in output_fb      |
+| pipeline | II=1    | rendering_fast.cpp:321 in output_fb      |
++----------+---------+------------------------------------------+
+
+* Inferred Pragmas
++---------------------------------+-----------------+--------------------------------------------+------------------------------------+
+| Source Pragma                   | Inferred Pragma | Options                                    | Location                           |
++---------------------------------+-----------------+--------------------------------------------+------------------------------------+
+| pipeline rendering_fast.cpp:299 | array_partition | dim=2 type=complete  variable=frame_buffer | variable frame_buffer in rendering |
++---------------------------------+-----------------+--------------------------------------------+------------------------------------+
+
+

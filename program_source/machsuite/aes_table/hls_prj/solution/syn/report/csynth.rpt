@@ -1,0 +1,251 @@
+
+
+================================================================
+== Synthesis Summary Report of 'aes256_encrypt_ecb'
+================================================================
++ General Information: 
+    * Date:           Thu Apr  3 13:14:24 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        hls_prj
+    * Solution:       solution (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +---------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----+-------------+---------------+-----+
+    |                Modules                | Issue|      | Latency |  Latency  | Iteration|         | Trip |          |      |    |             |               |     |
+    |                & Loops                | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined| BRAM | DSP|      FF     |      LUT      | URAM|
+    +---------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----+-------------+---------------+-----+
+    |+ aes256_encrypt_ecb                   |     -|  0.02|      693|  3.465e+03|         -|      694|     -|        no|     -|   -|  220468 (8%)|  1124662 (86%)|    -|
+    | + aes256_encrypt_ecb_Pipeline_ecb1    |     -|  1.13|       34|    170.000|         -|       34|     -|        no|     -|   -|    782 (~0%)|     14893 (1%)|    -|
+    |  o ecb1                               |     -|  3.65|       32|    160.000|         2|        1|    32|       yes|     -|   -|            -|              -|    -|
+    | + aes256_encrypt_ecb_Pipeline_ecb2    |     -|  0.02|      192|    960.000|         -|      192|     -|        no|     -|   -|   72203 (2%)|   365089 (28%)|    -|
+    |  o ecb2                               |    II|  3.65|      190|    950.000|        29|       27|     7|       yes|     -|   -|            -|              -|    -|
+    |   + aes_expandEncKey                  |    II|  0.02|       27|    135.000|         -|        1|     -|       yes|     -|   -|   71389 (2%)|   364840 (27%)|    -|
+    | + aes256_encrypt_ecb_Pipeline_cpkey   |     -|  0.06|       19|     95.000|         -|       19|     -|        no|     -|   -|   1558 (~0%)|     9863 (~0%)|    -|
+    |  o cpkey                              |     -|  3.65|       17|     85.000|         2|        1|    16|       yes|     -|   -|            -|              -|    -|
+    | + aes256_encrypt_ecb_Pipeline_ecb3    |     -|  0.02|      371|  1.855e+03|         -|      371|     -|        no|     -|   -|   72832 (2%)|   366675 (28%)|    -|
+    |  o ecb3                               |    II|  3.65|      369|  1.845e+03|        40|       27|    13|       yes|     -|   -|            -|              -|    -|
+    |   + aes_expandEncKey                  |    II|  0.02|       27|    135.000|         -|        1|     -|       yes|     -|   -|   71389 (2%)|   364840 (27%)|    -|
+    | + aes256_encrypt_ecb_Pipeline_sub     |     -|  2.36|       20|    100.000|         -|       20|     -|        no|     -|   -|     18 (~0%)|       59 (~0%)|    -|
+    |  o sub                                |     -|  3.65|       18|     90.000|         3|        1|    16|       yes|     -|   -|            -|              -|    -|
+    | + aes_expandEncKey                    |    II|  0.02|       27|    135.000|         -|        1|     -|       yes|     -|   -|   71389 (2%)|   364840 (27%)|    -|
+    | + aes256_encrypt_ecb_Pipeline_addkey  |     -|  0.87|       19|     95.000|         -|       19|     -|        no|     -|   -|     16 (~0%)|     2238 (~0%)|    -|
+    |  o addkey                             |     -|  3.65|       17|     85.000|         2|        1|    16|       yes|     -|   -|            -|              -|    -|
+    +---------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----+-------------+---------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_MEMORY
++----------------+----------+
+| Interface      | Bitwidth |
++----------------+----------+
+| buf_r_address0 | 4        |
+| buf_r_address1 | 4        |
+| buf_r_d0       | 8        |
+| buf_r_d1       | 8        |
+| buf_r_q0       | 8        |
+| buf_r_q1       | 8        |
+| k_address0     | 5        |
+| k_q0           | 8        |
++----------------+----------+
+
+* Other Ports
++-----------+---------+----------+
+| Interface | Mode    | Bitwidth |
++-----------+---------+----------+
+| ctx_i     | ap_ovld | 768      |
+| ctx_o     | ap_ovld | 768      |
++-----------+---------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------------+
+| Argument | Direction | Datatype       |
++----------+-----------+----------------+
+| ctx      | inout     | pointer        |
+| k        | in        | unsigned char* |
+| buf      | inout     | unsigned char* |
++----------+-----------+----------------+
+
+* SW-to-HW Mapping
++----------+----------------+---------+----------+
+| Argument | HW Interface   | HW Type | HW Usage |
++----------+----------------+---------+----------+
+| ctx      | ctx_i          | port    |          |
+| ctx      | ctx_o          | port    |          |
+| ctx      | ctx_o_ap_vld   | port    |          |
+| k        | k_address0     | port    | offset   |
+| k        | k_ce0          | port    |          |
+| k        | k_q0           | port    |          |
+| buf      | buf_r_address0 | port    | offset   |
+| buf      | buf_r_ce0      | port    |          |
+| buf      | buf_r_we0      | port    |          |
+| buf      | buf_r_d0       | port    |          |
+| buf      | buf_r_q0       | port    |          |
+| buf      | buf_r_address1 | port    | offset   |
+| buf      | buf_r_ce1      | port    |          |
+| buf      | buf_r_we1      | port    |          |
+| buf      | buf_r_d1       | port    |          |
+| buf      | buf_r_q1       | port    |          |
++----------+----------------+---------+----------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+  No burst in design
+
+================================================================
+== Bind Op Report
+================================================================
++----------------------------------------------------+-----+--------+-------------+-----+--------+---------+
+| Name                                               | DSP | Pragma | Variable    | Op  | Impl   | Latency |
++----------------------------------------------------+-----+--------+-------------+-----+--------+---------+
+| + aes256_encrypt_ecb                               | 0   |        |             |     |        |         |
+|  + aes256_encrypt_ecb_Pipeline_ecb1                | 0   |        |             |     |        |         |
+|    add_ln134_fu_123_p2                             | -   |        | add_ln134   | add | fabric | 0       |
+|  + aes256_encrypt_ecb_Pipeline_ecb2                | 0   |        |             |     |        |         |
+|    add_ln137_fu_105_p2                             | -   |        | add_ln137   | add | fabric | 0       |
+|   + aes_expandEncKey (grp_aes_expandEncKey_fu_63)  | 0   |        |             |     |        |         |
+|     add_ln109_fu_641_p2                            | -   |        | add_ln109   | add | fabric | 0       |
+|     add_ln110_fu_790_p2                            | -   |        | add_ln110   | add | fabric | 0       |
+|     add_ln110_1_fu_823_p2                          | -   |        | add_ln110_1 | add | fabric | 0       |
+|     add_ln111_fu_925_p2                            | -   |        | add_ln111   | add | fabric | 0       |
+|     add_ln111_1_fu_958_p2                          | -   |        | add_ln111_1 | add | fabric | 0       |
+|     add_ln112_fu_1060_p2                           | -   |        | add_ln112   | add | fabric | 0       |
+|     add_ln112_1_fu_1093_p2                         | -   |        | add_ln112_1 | add | fabric | 0       |
+|     add_ln115_fu_1170_p2                           | -   |        | add_ln115   | add | fabric | 0       |
+|     add_ln115_1_fu_1327_p2                         | -   |        | add_ln115_1 | add | fabric | 0       |
+|     add_ln116_fu_1382_p2                           | -   |        | add_ln116   | add | fabric | 0       |
+|     add_ln116_1_fu_1571_p2                         | -   |        | add_ln116_1 | add | fabric | 0       |
+|     add_ln115_2_fu_1626_p2                         | -   |        | add_ln115_2 | add | fabric | 0       |
+|     add_ln115_3_fu_1815_p2                         | -   |        | add_ln115_3 | add | fabric | 0       |
+|     add_ln116_2_fu_1870_p2                         | -   |        | add_ln116_2 | add | fabric | 0       |
+|     add_ln116_3_fu_2059_p2                         | -   |        | add_ln116_3 | add | fabric | 0       |
+|     add_ln115_4_fu_2114_p2                         | -   |        | add_ln115_4 | add | fabric | 0       |
+|     add_ln115_5_fu_2303_p2                         | -   |        | add_ln115_5 | add | fabric | 0       |
+|     add_ln116_4_fu_2358_p2                         | -   |        | add_ln116_4 | add | fabric | 0       |
+|     add_ln116_5_fu_2547_p2                         | -   |        | add_ln116_5 | add | fabric | 0       |
+|     add_ln117_fu_2673_p2                           | -   |        | add_ln117   | add | fabric | 0       |
+|     add_ln118_fu_2797_p2                           | -   |        | add_ln118   | add | fabric | 0       |
+|     add_ln119_fu_2921_p2                           | -   |        | add_ln119   | add | fabric | 0       |
+|     add_ln120_fu_3045_p2                           | -   |        | add_ln120   | add | fabric | 0       |
+|     add_ln122_fu_3165_p2                           | -   |        | add_ln122   | add | fabric | 0       |
+|     add_ln122_1_fu_3220_p2                         | -   |        | add_ln122_1 | add | fabric | 0       |
+|     add_ln123_fu_3409_p2                           | -   |        | add_ln123   | add | fabric | 0       |
+|     add_ln123_1_fu_3464_p2                         | -   |        | add_ln123_1 | add | fabric | 0       |
+|     add_ln122_2_fu_3653_p2                         | -   |        | add_ln122_2 | add | fabric | 0       |
+|     add_ln122_3_fu_3708_p2                         | -   |        | add_ln122_3 | add | fabric | 0       |
+|     add_ln123_2_fu_3897_p2                         | -   |        | add_ln123_2 | add | fabric | 0       |
+|     add_ln123_3_fu_3952_p2                         | -   |        | add_ln123_3 | add | fabric | 0       |
+|  + aes256_encrypt_ecb_Pipeline_cpkey               | 0   |        |             |     |        |         |
+|    add_ln74_fu_361_p2                              | -   |        | add_ln74    | add | fabric | 0       |
+|  + aes256_encrypt_ecb_Pipeline_ecb3                | 0   |        |             |     |        |         |
+|    i_5_fu_1585_p2                                  | -   |        | i_5         | add | fabric | 0       |
+|   + aes_expandEncKey (grp_aes_expandEncKey_fu_539) | 0   |        |             |     |        |         |
+|     add_ln109_fu_641_p2                            | -   |        | add_ln109   | add | fabric | 0       |
+|     add_ln110_fu_790_p2                            | -   |        | add_ln110   | add | fabric | 0       |
+|     add_ln110_1_fu_823_p2                          | -   |        | add_ln110_1 | add | fabric | 0       |
+|     add_ln111_fu_925_p2                            | -   |        | add_ln111   | add | fabric | 0       |
+|     add_ln111_1_fu_958_p2                          | -   |        | add_ln111_1 | add | fabric | 0       |
+|     add_ln112_fu_1060_p2                           | -   |        | add_ln112   | add | fabric | 0       |
+|     add_ln112_1_fu_1093_p2                         | -   |        | add_ln112_1 | add | fabric | 0       |
+|     add_ln115_fu_1170_p2                           | -   |        | add_ln115   | add | fabric | 0       |
+|     add_ln115_1_fu_1327_p2                         | -   |        | add_ln115_1 | add | fabric | 0       |
+|     add_ln116_fu_1382_p2                           | -   |        | add_ln116   | add | fabric | 0       |
+|     add_ln116_1_fu_1571_p2                         | -   |        | add_ln116_1 | add | fabric | 0       |
+|     add_ln115_2_fu_1626_p2                         | -   |        | add_ln115_2 | add | fabric | 0       |
+|     add_ln115_3_fu_1815_p2                         | -   |        | add_ln115_3 | add | fabric | 0       |
+|     add_ln116_2_fu_1870_p2                         | -   |        | add_ln116_2 | add | fabric | 0       |
+|     add_ln116_3_fu_2059_p2                         | -   |        | add_ln116_3 | add | fabric | 0       |
+|     add_ln115_4_fu_2114_p2                         | -   |        | add_ln115_4 | add | fabric | 0       |
+|     add_ln115_5_fu_2303_p2                         | -   |        | add_ln115_5 | add | fabric | 0       |
+|     add_ln116_4_fu_2358_p2                         | -   |        | add_ln116_4 | add | fabric | 0       |
+|     add_ln116_5_fu_2547_p2                         | -   |        | add_ln116_5 | add | fabric | 0       |
+|     add_ln117_fu_2673_p2                           | -   |        | add_ln117   | add | fabric | 0       |
+|     add_ln118_fu_2797_p2                           | -   |        | add_ln118   | add | fabric | 0       |
+|     add_ln119_fu_2921_p2                           | -   |        | add_ln119   | add | fabric | 0       |
+|     add_ln120_fu_3045_p2                           | -   |        | add_ln120   | add | fabric | 0       |
+|     add_ln122_fu_3165_p2                           | -   |        | add_ln122   | add | fabric | 0       |
+|     add_ln122_1_fu_3220_p2                         | -   |        | add_ln122_1 | add | fabric | 0       |
+|     add_ln123_fu_3409_p2                           | -   |        | add_ln123   | add | fabric | 0       |
+|     add_ln123_1_fu_3464_p2                         | -   |        | add_ln123_1 | add | fabric | 0       |
+|     add_ln122_2_fu_3653_p2                         | -   |        | add_ln122_2 | add | fabric | 0       |
+|     add_ln122_3_fu_3708_p2                         | -   |        | add_ln122_3 | add | fabric | 0       |
+|     add_ln123_2_fu_3897_p2                         | -   |        | add_ln123_2 | add | fabric | 0       |
+|     add_ln123_3_fu_3952_p2                         | -   |        | add_ln123_3 | add | fabric | 0       |
+|  + aes256_encrypt_ecb_Pipeline_sub                 | 0   |        |             |     |        |         |
+|    add_ln58_fu_82_p2                               | -   |        | add_ln58    | add | fabric | 0       |
+|  + aes_expandEncKey (grp_aes_expandEncKey_fu_267)  | 0   |        |             |     |        |         |
+|    add_ln109_fu_641_p2                             | -   |        | add_ln109   | add | fabric | 0       |
+|    add_ln110_fu_790_p2                             | -   |        | add_ln110   | add | fabric | 0       |
+|    add_ln110_1_fu_823_p2                           | -   |        | add_ln110_1 | add | fabric | 0       |
+|    add_ln111_fu_925_p2                             | -   |        | add_ln111   | add | fabric | 0       |
+|    add_ln111_1_fu_958_p2                           | -   |        | add_ln111_1 | add | fabric | 0       |
+|    add_ln112_fu_1060_p2                            | -   |        | add_ln112   | add | fabric | 0       |
+|    add_ln112_1_fu_1093_p2                          | -   |        | add_ln112_1 | add | fabric | 0       |
+|    add_ln115_fu_1170_p2                            | -   |        | add_ln115   | add | fabric | 0       |
+|    add_ln115_1_fu_1327_p2                          | -   |        | add_ln115_1 | add | fabric | 0       |
+|    add_ln116_fu_1382_p2                            | -   |        | add_ln116   | add | fabric | 0       |
+|    add_ln116_1_fu_1571_p2                          | -   |        | add_ln116_1 | add | fabric | 0       |
+|    add_ln115_2_fu_1626_p2                          | -   |        | add_ln115_2 | add | fabric | 0       |
+|    add_ln115_3_fu_1815_p2                          | -   |        | add_ln115_3 | add | fabric | 0       |
+|    add_ln116_2_fu_1870_p2                          | -   |        | add_ln116_2 | add | fabric | 0       |
+|    add_ln116_3_fu_2059_p2                          | -   |        | add_ln116_3 | add | fabric | 0       |
+|    add_ln115_4_fu_2114_p2                          | -   |        | add_ln115_4 | add | fabric | 0       |
+|    add_ln115_5_fu_2303_p2                          | -   |        | add_ln115_5 | add | fabric | 0       |
+|    add_ln116_4_fu_2358_p2                          | -   |        | add_ln116_4 | add | fabric | 0       |
+|    add_ln116_5_fu_2547_p2                          | -   |        | add_ln116_5 | add | fabric | 0       |
+|    add_ln117_fu_2673_p2                            | -   |        | add_ln117   | add | fabric | 0       |
+|    add_ln118_fu_2797_p2                            | -   |        | add_ln118   | add | fabric | 0       |
+|    add_ln119_fu_2921_p2                            | -   |        | add_ln119   | add | fabric | 0       |
+|    add_ln120_fu_3045_p2                            | -   |        | add_ln120   | add | fabric | 0       |
+|    add_ln122_fu_3165_p2                            | -   |        | add_ln122   | add | fabric | 0       |
+|    add_ln122_1_fu_3220_p2                          | -   |        | add_ln122_1 | add | fabric | 0       |
+|    add_ln123_fu_3409_p2                            | -   |        | add_ln123   | add | fabric | 0       |
+|    add_ln123_1_fu_3464_p2                          | -   |        | add_ln123_1 | add | fabric | 0       |
+|    add_ln122_2_fu_3653_p2                          | -   |        | add_ln122_2 | add | fabric | 0       |
+|    add_ln122_3_fu_3708_p2                          | -   |        | add_ln122_3 | add | fabric | 0       |
+|    add_ln123_2_fu_3897_p2                          | -   |        | add_ln123_2 | add | fabric | 0       |
+|    add_ln123_3_fu_3952_p2                          | -   |        | add_ln123_3 | add | fabric | 0       |
+|  + aes256_encrypt_ecb_Pipeline_addkey              | 0   |        |             |     |        |         |
+|    add_ln66_fu_80_p2                               | -   |        | add_ln66    | add | fabric | 0       |
++----------------------------------------------------+-----+--------+-------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++----------------------+------+------+--------+----------+---------+------+---------+
+| Name                 | BRAM | URAM | Pragma | Variable | Storage | Impl | Latency |
++----------------------+------+------+--------+----------+---------+------+---------+
+| + aes256_encrypt_ecb | 0    | 0    |        |          |         |      |         |
+|   sbox_U             | -    | -    |        | sbox     | rom_np  | auto | 1       |
++----------------------+------+------+--------+----------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+  No pragmas found
+

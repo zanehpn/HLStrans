@@ -1,0 +1,136 @@
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2022.2.2 (64-bit)
+Tool Version Limit: 2019.12
+Copyright 1986-2023 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [HLS 200-1505] Using default flow_target 'vivado'
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vivado' configuration: config_interface -m_axi_latency=0
+INFO: [HLS 200-1510] Running: create_clock -period 5 -name default 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 5ns.
+INFO: [HLS 200-1510] Running: set_part xcu55c-fsvh2892-2L-e 
+INFO: [HLS 200-1611] Setting target device to 'xcu55c-fsvh2892-2L-e'
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0.02 seconds. Elapsed time: 10.07 seconds; current allocated memory: 1.196 GB.
+INFO: [HLS 200-10] Analyzing design file '/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c' ... 
+WARNING: [HLS 207-5292] unused parameter 'm' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:2:66)
+WARNING: [HLS 207-5292] unused parameter 'n' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:2:72)
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 0.17 seconds. CPU system time: 0.67 seconds. Elapsed time: 0.9 seconds; current allocated memory: 1.198 GB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 2.12 seconds. CPU system time: 0.58 seconds. Elapsed time: 2.76 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.02 seconds; current allocated memory: 1.200 GB.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_14_2' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:4) in function 'covariance' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_22_4' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:5) in function 'covariance' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_32_7' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:6) in function 'covariance' automatically.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.04 seconds. CPU system time: 0 seconds. Elapsed time: 0.06 seconds; current allocated memory: 1.220 GB.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_11_1' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:5:7) in function 'covariance'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_20_3' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:4:7) in function 'covariance'.
+WARNING: [HLS 200-960] Cannot flatten loop 'VITIS_LOOP_29_6' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:5:7) in function 'covariance' the outer loop is not a perfect loop because there is nontrivial logic in the loop latch.
+WARNING: [HLS 200-960] Cannot flatten loop 'VITIS_LOOP_27_5' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:4:7) in function 'covariance' the outer loop is not a perfect loop.
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.04 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.07 seconds; current allocated memory: 1.247 GB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'covariance' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'covariance_Pipeline_VITIS_LOOP_11_1_VITIS_LOOP_14_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_11_1_VITIS_LOOP_14_2'.
+WARNING: [HLS 200-880] The II Violation in module 'covariance_Pipeline_VITIS_LOOP_11_1_VITIS_LOOP_14_2' (loop 'VITIS_LOOP_11_1_VITIS_LOOP_14_2'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between 'dadd' operation ('add', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:15) and 'select' operation ('select_ln11_1', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:11).
+WARNING: [HLS 200-880] The II Violation in module 'covariance_Pipeline_VITIS_LOOP_11_1_VITIS_LOOP_14_2' (loop 'VITIS_LOOP_11_1_VITIS_LOOP_14_2'): Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 1) between 'dadd' operation ('add', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:15) and 'select' operation ('select_ln11_1', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:11).
+WARNING: [HLS 200-880] The II Violation in module 'covariance_Pipeline_VITIS_LOOP_11_1_VITIS_LOOP_14_2' (loop 'VITIS_LOOP_11_1_VITIS_LOOP_14_2'): Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 1) between 'dadd' operation ('add', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:15) and 'select' operation ('select_ln11_1', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:11).
+WARNING: [HLS 200-880] The II Violation in module 'covariance_Pipeline_VITIS_LOOP_11_1_VITIS_LOOP_14_2' (loop 'VITIS_LOOP_11_1_VITIS_LOOP_14_2'): Unable to enforce a carried dependence constraint (II = 4, distance = 1, offset = 1) between 'dadd' operation ('add', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:15) and 'select' operation ('select_ln11_1', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:11).
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 5, Depth = 31, loop 'VITIS_LOOP_11_1_VITIS_LOOP_14_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.1 seconds. CPU system time: 0.07 seconds. Elapsed time: 0.19 seconds; current allocated memory: 1.248 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.13 seconds. CPU system time: 0 seconds. Elapsed time: 0.14 seconds; current allocated memory: 1.248 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'covariance_Pipeline_VITIS_LOOP_20_3_VITIS_LOOP_22_4' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_20_3_VITIS_LOOP_22_4'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 9, loop 'VITIS_LOOP_20_3_VITIS_LOOP_22_4'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.12 seconds. CPU system time: 0 seconds. Elapsed time: 0.13 seconds; current allocated memory: 1.249 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.06 seconds. CPU system time: 0 seconds. Elapsed time: 0.13 seconds; current allocated memory: 1.249 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'covariance_Pipeline_VITIS_LOOP_32_7' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_32_7'.
+WARNING: [HLS 200-880] The II Violation in module 'covariance_Pipeline_VITIS_LOOP_32_7' (loop 'VITIS_LOOP_32_7'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 0) between 'store' operation ('empty_write_ln32', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:32) of variable 'add1', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:33 on local variable 'empty' and 'load' operation ('p_load', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:33) on local variable 'empty'.
+WARNING: [HLS 200-880] The II Violation in module 'covariance_Pipeline_VITIS_LOOP_32_7' (loop 'VITIS_LOOP_32_7'): Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 0) between 'store' operation ('empty_write_ln32', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:32) of variable 'add1', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:33 on local variable 'empty' and 'load' operation ('p_load', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:33) on local variable 'empty'.
+WARNING: [HLS 200-880] The II Violation in module 'covariance_Pipeline_VITIS_LOOP_32_7' (loop 'VITIS_LOOP_32_7'): Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 0) between 'store' operation ('empty_write_ln32', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:32) of variable 'add1', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:33 on local variable 'empty' and 'load' operation ('p_load', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/covariance/covariance_slow.c:33) on local variable 'empty'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 4, Depth = 13, loop 'VITIS_LOOP_32_7'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.11 seconds. CPU system time: 0 seconds. Elapsed time: 0.13 seconds; current allocated memory: 1.249 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.07 seconds. CPU system time: 0 seconds. Elapsed time: 0.07 seconds; current allocated memory: 1.249 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'covariance' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.1 seconds. CPU system time: 0 seconds. Elapsed time: 0.11 seconds; current allocated memory: 1.249 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.17 seconds. CPU system time: 0 seconds. Elapsed time: 0.19 seconds; current allocated memory: 1.250 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'covariance_Pipeline_VITIS_LOOP_11_1_VITIS_LOOP_14_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'covariance_Pipeline_VITIS_LOOP_11_1_VITIS_LOOP_14_2' pipeline 'VITIS_LOOP_11_1_VITIS_LOOP_14_2' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'dadddsub_64ns_64ns_64_5_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'ddiv_64ns_64ns_64_22_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'covariance_Pipeline_VITIS_LOOP_11_1_VITIS_LOOP_14_2'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.16 seconds. CPU system time: 0 seconds. Elapsed time: 0.23 seconds; current allocated memory: 1.250 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'covariance_Pipeline_VITIS_LOOP_20_3_VITIS_LOOP_22_4' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'covariance_Pipeline_VITIS_LOOP_20_3_VITIS_LOOP_22_4' pipeline 'VITIS_LOOP_20_3_VITIS_LOOP_22_4' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'dadddsub_64ns_64ns_64_5_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'covariance_Pipeline_VITIS_LOOP_20_3_VITIS_LOOP_22_4'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.15 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.19 seconds; current allocated memory: 1.251 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'covariance_Pipeline_VITIS_LOOP_32_7' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'covariance_Pipeline_VITIS_LOOP_32_7' pipeline 'VITIS_LOOP_32_7' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'dadddsub_64ns_64ns_64_5_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dmul_64ns_64ns_64_5_max_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'covariance_Pipeline_VITIS_LOOP_32_7'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.1 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.12 seconds; current allocated memory: 1.253 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'covariance' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-500] Setting interface mode on port 'covariance/m' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'covariance/n' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'covariance/float_n' to 'ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'covariance/data' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'covariance/cov' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'covariance/mean' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'covariance' to 'ap_ctrl_hs'.
+WARNING: [RTGEN 206-101] Port 'covariance/m' has no fanin or fanout and is left dangling.
+               Please use C simulation to confirm this function argument can be read from or written to.
+WARNING: [RTGEN 206-101] Port 'covariance/n' has no fanin or fanout and is left dangling.
+               Please use C simulation to confirm this function argument can be read from or written to.
+INFO: [RTGEN 206-100] Generating core module 'dadd_64ns_64ns_64_5_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dadddsub_64ns_64ns_64_5_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'ddiv_64ns_64ns_64_22_no_dsp_1': 1 instance(s).

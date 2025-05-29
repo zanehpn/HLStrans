@@ -1,0 +1,158 @@
+
+
+================================================================
+== Vitis HLS Report for 'doitgen_Pipeline_VITIS_LOOP_22_5'
+================================================================
+* Date:           Mon May  5 03:28:03 2025
+
+* Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+* Project:        doitgen
+* Solution:       solution1 (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu55c-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  5.00 ns|  2.983 ns|     1.35 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-----+-----+---------+
+    |  Latency (cycles) |  Latency (absolute) |  Interval | Pipeline|
+    |   min   |   max   |    min   |    max   | min | max |   Type  |
+    +---------+---------+----------+----------+-----+-----+---------+
+    |       33|       33|  0.165 us|  0.165 us|   33|   33|       no|
+    +---------+---------+----------+----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |                   |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |     Loop Name     |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- VITIS_LOOP_22_5  |       31|       31|         3|          1|          1|    30|       yes|
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 2
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
++ Individual pipeline summary: 
+  * Pipeline-0: initiation interval (II) = 1, depth = 3
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 3
+* Pipeline : 1
+  Pipeline-0 : II = 1, D = 3, States = { 1 2 3 }
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 3 
+3 --> 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 1.09>
+ST_1 : Operation 6 [1/1] (0.00ns)   --->   "%p = alloca i32 1"   --->   Operation 6 'alloca' 'p' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 7 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i64 %sum, void @empty_1, i32 0, i32 0, void @empty_0, i32 4294967295, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 7 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 8 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i64 %A, void @empty_1, i32 0, i32 0, void @empty_0, i32 4294967295, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 8 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 9 [1/1] (0.00ns)   --->   "%sub_ln19_read = read i14 @_ssdm_op_Read.ap_auto.i14, i14 %sub_ln19"   --->   Operation 9 'read' 'sub_ln19_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 10 [1/1] (0.38ns)   --->   "%store_ln0 = store i5 0, i5 %p"   --->   Operation 10 'store' 'store_ln0' <Predicate = true> <Delay = 0.38>
+ST_1 : Operation 11 [1/1] (0.00ns)   --->   "%br_ln0 = br void %for.inc36"   --->   Operation 11 'br' 'br_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 12 [1/1] (0.00ns)   --->   "%p_1 = load i5 %p" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:22]   --->   Operation 12 'load' 'p_1' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 13 [1/1] (0.00ns)   --->   "%specpipeline_ln0 = specpipeline void @_ssdm_op_SpecPipeline, i32 4294967295, i32 0, i32 1, i32 0, void @p_str"   --->   Operation 13 'specpipeline' 'specpipeline_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 14 [1/1] (0.63ns)   --->   "%icmp_ln22 = icmp_eq  i5 %p_1, i5 30" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:22]   --->   Operation 14 'icmp' 'icmp_ln22' <Predicate = true> <Delay = 0.63> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.63> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 15 [1/1] (0.00ns)   --->   "%empty = speclooptripcount i32 @_ssdm_op_SpecLoopTripCount, i64 30, i64 30, i64 30"   --->   Operation 15 'speclooptripcount' 'empty' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 16 [1/1] (0.70ns)   --->   "%add_ln22 = add i5 %p_1, i5 1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:22]   --->   Operation 16 'add' 'add_ln22' <Predicate = true> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 17 [1/1] (0.00ns)   --->   "%br_ln22 = br i1 %icmp_ln22, void %for.inc36.split, void %for.inc39.exitStub" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:22]   --->   Operation 17 'br' 'br_ln22' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 18 [1/1] (0.00ns)   --->   "%p_1_cast = zext i5 %p_1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:22]   --->   Operation 18 'zext' 'p_1_cast' <Predicate = (!icmp_ln22)> <Delay = 0.00>
+ST_1 : Operation 19 [1/1] (0.00ns)   --->   "%sum_addr = getelementptr i64 %sum, i64 0, i64 %p_1_cast" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:23]   --->   Operation 19 'getelementptr' 'sum_addr' <Predicate = (!icmp_ln22)> <Delay = 0.00>
+ST_1 : Operation 20 [2/2] (0.71ns)   --->   "%sum_load = load i5 %sum_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:23]   --->   Operation 20 'load' 'sum_load' <Predicate = (!icmp_ln22)> <Delay = 0.71> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 0.71> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 64> <Depth = 30> <RAM>
+ST_1 : Operation 21 [1/1] (0.38ns)   --->   "%store_ln22 = store i5 %add_ln22, i5 %p" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:22]   --->   Operation 21 'store' 'store_ln22' <Predicate = (!icmp_ln22)> <Delay = 0.38>
+
+State 2 <SV = 1> <Delay = 0.76>
+ST_2 : Operation 22 [1/1] (0.00ns)   --->   "%zext_ln23 = zext i5 %p_1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:23]   --->   Operation 22 'zext' 'zext_ln23' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 23 [1/1] (0.76ns)   --->   "%add_ln23 = add i14 %sub_ln19_read, i14 %zext_ln23" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:23]   --->   Operation 23 'add' 'add_ln23' <Predicate = true> <Delay = 0.76> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.76> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 24 [1/2] (0.71ns)   --->   "%sum_load = load i5 %sum_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:23]   --->   Operation 24 'load' 'sum_load' <Predicate = true> <Delay = 0.71> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 0.71> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 64> <Depth = 30> <RAM>
+ST_2 : Operation 30 [1/1] (0.00ns)   --->   "%ret_ln0 = ret"   --->   Operation 30 'ret' 'ret_ln0' <Predicate = (icmp_ln22)> <Delay = 0.00>
+
+State 3 <SV = 2> <Delay = 2.98>
+ST_3 : Operation 25 [1/1] (0.00ns)   --->   "%zext_ln23_1 = zext i14 %add_ln23" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:23]   --->   Operation 25 'zext' 'zext_ln23_1' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 26 [1/1] (0.00ns)   --->   "%A_addr = getelementptr i64 %A, i64 0, i64 %zext_ln23_1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:23]   --->   Operation 26 'getelementptr' 'A_addr' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 27 [1/1] (0.00ns)   --->   "%specloopname_ln6 = specloopname void @_ssdm_op_SpecLoopName, void @empty_4" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:6]   --->   Operation 27 'specloopname' 'specloopname_ln6' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 28 [1/1] (2.98ns)   --->   "%store_ln23 = store i64 %sum_load, i14 %A_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:23]   --->   Operation 28 'store' 'store_ln23' <Predicate = true> <Delay = 2.98> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 2.98> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 64> <Depth = 15000> <RAM>
+ST_3 : Operation 29 [1/1] (0.00ns)   --->   "%br_ln22 = br void %for.inc36" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:22]   --->   Operation 29 'br' 'br_ln22' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 5ns, clock uncertainty: 1.35ns.
+
+ <State 1>: 1.09ns
+The critical path consists of the following:
+	'alloca' operation ('p') [4]  (0 ns)
+	'load' operation ('p', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:22) on local variable 'p' [11]  (0 ns)
+	'add' operation ('add_ln22', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:22) [15]  (0.707 ns)
+	'store' operation ('store_ln22', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:22) of variable 'add_ln22', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:22 on local variable 'p' [27]  (0.387 ns)
+
+ <State 2>: 0.765ns
+The critical path consists of the following:
+	'add' operation ('add_ln23', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:23) [20]  (0.765 ns)
+
+ <State 3>: 2.98ns
+The critical path consists of the following:
+	'getelementptr' operation ('A_addr', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:23) [22]  (0 ns)
+	'store' operation ('store_ln23', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:23) of variable 'sum_load', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/doitgen/doitgen_slow.c:23 on array 'A' [26]  (2.98 ns)
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

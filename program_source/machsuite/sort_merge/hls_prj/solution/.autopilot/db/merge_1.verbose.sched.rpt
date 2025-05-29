@@ -1,0 +1,165 @@
+
+
+================================================================
+== Vitis HLS Report for 'merge_1'
+================================================================
+* Date:           Wed May  7 15:15:08 2025
+
+* Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+* Project:        hls_prj
+* Solution:       solution (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu55c-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  5.00 ns|  3.265 ns|     1.35 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+-----------+-----------+-----+------+---------+
+    |  Latency (cycles) |   Latency (absolute)  |  Interval  | Pipeline|
+    |   min   |   max   |    min    |    max    | min |  max |   Type  |
+    +---------+---------+-----------+-----------+-----+------+---------+
+    |       14|     6155|  70.000 ns|  30.775 us|   14|  6155|       no|
+    +---------+---------+-----------+-----------+-----+------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        N/A
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 0
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 6
+* Pipeline : 0
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 3 
+3 --> 4 
+4 --> 5 
+5 --> 6 
+6 --> 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 2.53>
+ST_1 : Operation 7 [1/1] (0.00ns)   --->   "%m_read = read i32 @_ssdm_op_Read.ap_auto.i32, i32 %m"   --->   Operation 7 'read' 'm_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 8 [1/1] (0.00ns)   --->   "%start_read = read i32 @_ssdm_op_Read.ap_auto.i32, i32 %start_r"   --->   Operation 8 'read' 'start_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 9 [1/1] (0.00ns)   --->   "%temp = alloca i64 1" [sort.c:4]   --->   Operation 9 'alloca' 'temp' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 10 [1/1] (0.00ns)   --->   "%sext_ln7 = sext i32 %m_read" [sort.c:7]   --->   Operation 10 'sext' 'sext_ln7' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 11 [1/1] (0.88ns)   --->   "%add_ln7 = add i33 %sext_ln7, i33 1" [sort.c:7]   --->   Operation 11 'add' 'add_ln7' <Predicate = true> <Delay = 0.88> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.88> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 12 [2/2] (1.65ns)   --->   "%call_ln7 = call void @merge.1_Pipeline_merge_label1, i32 %start_read, i33 %add_ln7, i32 %a, i32 %temp" [sort.c:7]   --->   Operation 12 'call' 'call_ln7' <Predicate = true> <Delay = 1.65> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_1 : Operation 13 [1/1] (0.00ns)   --->   "%trunc_ln12 = trunc i32 %m_read" [sort.c:12]   --->   Operation 13 'trunc' 'trunc_ln12' <Predicate = true> <Delay = 0.00>
+
+State 2 <SV = 1> <Delay = 0.00>
+ST_2 : Operation 14 [1/2] (0.00ns)   --->   "%call_ln7 = call void @merge.1_Pipeline_merge_label1, i32 %start_read, i33 %add_ln7, i32 %a, i32 %temp" [sort.c:7]   --->   Operation 14 'call' 'call_ln7' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 3 <SV = 2> <Delay = 1.26>
+ST_3 : Operation 15 [1/1] (0.00ns)   --->   "%stop_read = read i32 @_ssdm_op_Read.ap_auto.i32, i32 %stop"   --->   Operation 15 'read' 'stop_read' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 16 [1/1] (0.00ns)   --->   "%empty = trunc i32 %stop_read"   --->   Operation 16 'trunc' 'empty' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 17 [1/1] (0.88ns)   --->   "%j = add i32 %m_read, i32 1" [sort.c:12]   --->   Operation 17 'add' 'j' <Predicate = true> <Delay = 0.88> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.88> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 18 [1/1] (0.00ns) (grouped into TernaryAdder)   --->   "%add_ln5 = add i11 %trunc_ln12, i11 1" [sort.c:5]   --->   Operation 18 'add' 'add_ln5' <Predicate = true> <Delay = 0.00> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.38> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_3 : Operation 19 [1/1] (0.77ns) (root node of TernaryAdder)   --->   "%add9 = add i11 %add_ln5, i11 %empty" [sort.c:5]   --->   Operation 19 'add' 'add9' <Predicate = true> <Delay = 0.77> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.38> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_3 : Operation 20 [1/1] (0.88ns)   --->   "%add_ln12 = add i32 %stop_read, i32 1" [sort.c:12]   --->   Operation 20 'add' 'add_ln12' <Predicate = true> <Delay = 0.88> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.88> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 21 [2/2] (0.38ns)   --->   "%call_ln12 = call void @merge.1_Pipeline_merge_label2, i32 %j, i32 %add_ln12, i32 %a, i11 %add9, i32 %temp" [sort.c:12]   --->   Operation 21 'call' 'call_ln12' <Predicate = true> <Delay = 0.38> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 4 <SV = 3> <Delay = 0.00>
+ST_4 : Operation 22 [1/2] (0.00ns)   --->   "%call_ln12 = call void @merge.1_Pipeline_merge_label2, i32 %j, i32 %add_ln12, i32 %a, i11 %add9, i32 %temp" [sort.c:12]   --->   Operation 22 'call' 'call_ln12' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 5 <SV = 4> <Delay = 0.38>
+ST_5 : Operation 23 [2/2] (0.38ns)   --->   "%call_ln12 = call void @merge.1_Pipeline_merge_label3, i32 %start_read, i32 %stop_read, i32 %start_read, i32 %add_ln12, i32 %temp, i32 %a" [sort.c:12]   --->   Operation 23 'call' 'call_ln12' <Predicate = true> <Delay = 0.38> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 6 <SV = 5> <Delay = 0.00>
+ST_6 : Operation 24 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i32 %a, void @empty, i32 0, i32 0, void @empty_0, i32 4294967295, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 24 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_6 : Operation 25 [1/2] (0.00ns)   --->   "%call_ln12 = call void @merge.1_Pipeline_merge_label3, i32 %start_read, i32 %stop_read, i32 %start_read, i32 %add_ln12, i32 %temp, i32 %a" [sort.c:12]   --->   Operation 25 'call' 'call_ln12' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_6 : Operation 26 [1/1] (0.00ns)   --->   "%ret_ln32 = ret" [sort.c:32]   --->   Operation 26 'ret' 'ret_ln32' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 5ns, clock uncertainty: 1.35ns.
+
+ <State 1>: 2.54ns
+The critical path consists of the following:
+	wire read operation ('m_read') on port 'm' [6]  (0 ns)
+	'add' operation ('add_ln7', sort.c:7) [12]  (0.88 ns)
+	'call' operation ('call_ln7', sort.c:7) to 'merge.1_Pipeline_merge_label1' [13]  (1.66 ns)
+
+ <State 2>: 0ns
+The critical path consists of the following:
+
+ <State 3>: 1.27ns
+The critical path consists of the following:
+	wire read operation ('stop_read') on port 'stop' [5]  (0 ns)
+	'add' operation ('add_ln12', sort.c:12) [18]  (0.88 ns)
+	'call' operation ('call_ln12', sort.c:12) to 'merge.1_Pipeline_merge_label2' [19]  (0.387 ns)
+
+ <State 4>: 0ns
+The critical path consists of the following:
+
+ <State 5>: 0.387ns
+The critical path consists of the following:
+	'call' operation ('call_ln12', sort.c:12) to 'merge.1_Pipeline_merge_label3' [20]  (0.387 ns)
+
+ <State 6>: 0ns
+The critical path consists of the following:
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+	State 4
+	State 5
+	State 6
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

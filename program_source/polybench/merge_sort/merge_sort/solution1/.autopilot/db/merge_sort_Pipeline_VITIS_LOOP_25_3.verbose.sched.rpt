@@ -1,0 +1,146 @@
+
+
+================================================================
+== Vitis HLS Report for 'merge_sort_Pipeline_VITIS_LOOP_25_3'
+================================================================
+* Date:           Thu May 22 09:31:37 2025
+
+* Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+* Project:        merge_sort
+* Solution:       solution1 (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu55c-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  5.00 ns|  1.398 ns|     1.35 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+-----------+-----------+-----+-----+---------+
+    |  Latency (cycles) |   Latency (absolute)  |  Interval | Pipeline|
+    |   min   |   max   |    min    |    max    | min | max |   Type  |
+    +---------+---------+-----------+-----------+-----+-----+---------+
+    |       18|       18|  90.000 ns|  90.000 ns|   18|   18|       no|
+    +---------+---------+-----------+-----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |                   |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |     Loop Name     |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- VITIS_LOOP_25_3  |       16|       16|         2|          1|          1|    16|       yes|
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 2
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
++ Individual pipeline summary: 
+  * Pipeline-0: initiation interval (II) = 1, depth = 2
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 2
+* Pipeline : 1
+  Pipeline-0 : II = 1, D = 2, States = { 1 2 }
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 1.09>
+ST_1 : Operation 5 [1/1] (0.00ns)   --->   "%i = alloca i32 1"   --->   Operation 5 'alloca' 'i' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 6 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i32 %A, void @empty, i32 0, i32 0, void @empty_0, i32 4294967295, i32 0, void @empty_0, void @empty_0, void @empty_0, i32 0, i32 0, i32 0, i32 0, void @empty_0, void @empty_0, i32 4294967295, i32 0"   --->   Operation 6 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 7 [1/1] (0.38ns)   --->   "%store_ln0 = store i5 0, i5 %i"   --->   Operation 7 'store' 'store_ln0' <Predicate = true> <Delay = 0.38>
+ST_1 : Operation 8 [1/1] (0.00ns)   --->   "%br_ln0 = br void %for.inc18"   --->   Operation 8 'br' 'br_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 9 [1/1] (0.00ns)   --->   "%i_1 = load i5 %i" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:25]   --->   Operation 9 'load' 'i_1' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 10 [1/1] (0.00ns)   --->   "%specpipeline_ln0 = specpipeline void @_ssdm_op_SpecPipeline, i32 4294967295, i32 0, i32 1, i32 0, void @p_str"   --->   Operation 10 'specpipeline' 'specpipeline_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 11 [1/1] (0.63ns)   --->   "%icmp_ln25 = icmp_eq  i5 %i_1, i5 16" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:25]   --->   Operation 11 'icmp' 'icmp_ln25' <Predicate = true> <Delay = 0.63> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.63> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 12 [1/1] (0.00ns)   --->   "%empty = speclooptripcount i32 @_ssdm_op_SpecLoopTripCount, i64 16, i64 16, i64 16"   --->   Operation 12 'speclooptripcount' 'empty' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 13 [1/1] (0.70ns)   --->   "%add_ln25 = add i5 %i_1, i5 1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:25]   --->   Operation 13 'add' 'add_ln25' <Predicate = true> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 14 [1/1] (0.00ns)   --->   "%br_ln25 = br i1 %icmp_ln25, void %for.inc18.split, void %for.inc20.exitStub" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:25]   --->   Operation 14 'br' 'br_ln25' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 15 [1/1] (0.00ns)   --->   "%i_cast = zext i5 %i_1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:25]   --->   Operation 15 'zext' 'i_cast' <Predicate = (!icmp_ln25)> <Delay = 0.00>
+ST_1 : Operation 16 [1/1] (0.00ns)   --->   "%temp_addr = getelementptr i32 %temp, i64 0, i64 %i_cast" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:26]   --->   Operation 16 'getelementptr' 'temp_addr' <Predicate = (!icmp_ln25)> <Delay = 0.00>
+ST_1 : Operation 17 [2/2] (0.69ns)   --->   "%temp_load = load i4 %temp_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:26]   --->   Operation 17 'load' 'temp_load' <Predicate = (!icmp_ln25)> <Delay = 0.69> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 0.69> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16> <RAM>
+ST_1 : Operation 18 [1/1] (0.38ns)   --->   "%store_ln25 = store i5 %add_ln25, i5 %i" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:25]   --->   Operation 18 'store' 'store_ln25' <Predicate = (!icmp_ln25)> <Delay = 0.38>
+ST_1 : Operation 25 [1/1] (0.00ns)   --->   "%ret_ln0 = ret"   --->   Operation 25 'ret' 'ret_ln0' <Predicate = (icmp_ln25)> <Delay = 0.00>
+
+State 2 <SV = 1> <Delay = 1.39>
+ST_2 : Operation 19 [1/1] (0.00ns)   --->   "%specloopname_ln25 = specloopname void @_ssdm_op_SpecLoopName, void @empty_4" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:25]   --->   Operation 19 'specloopname' 'specloopname_ln25' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 20 [1/2] (0.69ns)   --->   "%temp_load = load i4 %temp_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:26]   --->   Operation 20 'load' 'temp_load' <Predicate = true> <Delay = 0.69> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 0.69> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16> <RAM>
+ST_2 : Operation 21 [1/1] (0.00ns)   --->   "%bitcast_ln26 = bitcast i32 %temp_load" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:26]   --->   Operation 21 'bitcast' 'bitcast_ln26' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 22 [1/1] (0.00ns)   --->   "%A_addr = getelementptr i32 %A, i64 0, i64 %i_cast" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:26]   --->   Operation 22 'getelementptr' 'A_addr' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 23 [1/1] (0.69ns)   --->   "%store_ln26 = store i32 %bitcast_ln26, i4 %A_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:26]   --->   Operation 23 'store' 'store_ln26' <Predicate = true> <Delay = 0.69> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 0.69> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16> <RAM>
+ST_2 : Operation 24 [1/1] (0.00ns)   --->   "%br_ln25 = br void %for.inc18" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:25]   --->   Operation 24 'br' 'br_ln25' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 5ns, clock uncertainty: 1.35ns.
+
+ <State 1>: 1.09ns
+The critical path consists of the following:
+	'alloca' operation ('i') [3]  (0 ns)
+	'load' operation ('i', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:25) on local variable 'i' [8]  (0 ns)
+	'add' operation ('add_ln25', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:25) [12]  (0.707 ns)
+	'store' operation ('store_ln25', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:25) of variable 'add_ln25', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:25 on local variable 'i' [22]  (0.387 ns)
+
+ <State 2>: 1.4ns
+The critical path consists of the following:
+	'load' operation ('temp_load', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:26) on array 'temp' [18]  (0.699 ns)
+	'store' operation ('store_ln26', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:26) of variable 'bitcast_ln26', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/polybench/merge_sort/merge_sort_slow.c:26 on array 'A' [21]  (0.699 ns)
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

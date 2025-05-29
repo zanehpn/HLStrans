@@ -1,0 +1,328 @@
+
+
+================================================================
+== Synthesis Summary Report of 'fft_multistage'
+================================================================
++ General Information: 
+    * Date:           Wed May  7 07:16:10 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        fft_multistage
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +------------------------------------+------+------+---------+-----------+----------+---------+------+----------+----------+----------+-------------+------------+-----+
+    |               Modules              | Issue|      | Latency |  Latency  | Iteration|         | Trip |          |          |          |             |            |     |
+    |               & Loops              | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined|   BRAM   |    DSP   |      FF     |     LUT    | URAM|
+    +------------------------------------+------+------+---------+-----------+----------+---------+------+----------+----------+----------+-------------+------------+-----+
+    |+ fft_multistage*                   |     -|  0.04|     2704|  1.352e+04|         -|     2051|     -|  dataflow|  16 (~0%)|   98 (1%)|  10660 (~0%)|  15169 (1%)|    -|
+    | + bit_reverse                      |     -|  1.25|     2050|  1.025e+04|         -|     2050|     -|        no|         -|         -|    103 (~0%)|   171 (~0%)|    -|
+    |  o VITIS_LOOP_19_1                 |    II|  3.65|     2048|  1.024e+04|         3|        2|  1024|       yes|         -|         -|            -|           -|    -|
+    | + fft_stage                        |     -|  0.04|      555|  2.775e+03|         -|      555|     -|        no|         -|  48 (~0%)|   5147 (~0%)|  7328 (~0%)|    -|
+    |  + sin_or_cos_float_s              |     -|  0.04|       26|    130.000|         -|       26|     -|        no|         -|  12 (~0%)|   1320 (~0%)|  2751 (~0%)|    -|
+    |   o Loop 1                         |     -|  3.65|        4|     20.000|         2|        -|     2|        no|         -|         -|            -|           -|    -|
+    |   o Loop 2                         |     -|  3.65|        5|     25.000|         2|        -|     2|        no|         -|         -|            -|           -|    -|
+    |  + sin_or_cos_float_s              |     -|  0.04|       26|    130.000|         -|       26|     -|        no|         -|  12 (~0%)|   1320 (~0%)|  2751 (~0%)|    -|
+    |   o Loop 1                         |     -|  3.65|        4|     20.000|         2|        -|     2|        no|         -|         -|            -|           -|    -|
+    |   o Loop 2                         |     -|  3.65|        5|     25.000|         2|        -|     2|        no|         -|         -|            -|           -|    -|
+    |  o dft_loop                        |     -|  3.65|      526|  2.630e+03|        16|        1|   512|       yes|         -|         -|            -|           -|    -|
+    | + fft_stage_1                      |     -|  0.04|       97|    485.000|         -|       97|     -|        no|         -|  50 (~0%)|   5406 (~0%)|  7608 (~0%)|    -|
+    |  o butterfly_loop                  |     -|  3.65|       96|    480.000|        48|        -|     2|        no|         -|         -|            -|           -|    -|
+    |   + sin_or_cos_float_s             |     -|  0.04|       26|    130.000|         -|       26|     -|        no|         -|  12 (~0%)|   1320 (~0%)|  2751 (~0%)|    -|
+    |    o Loop 1                        |     -|  3.65|        4|     20.000|         2|        -|     2|        no|         -|         -|            -|           -|    -|
+    |    o Loop 2                        |     -|  3.65|        5|     25.000|         2|        -|     2|        no|         -|         -|            -|           -|    -|
+    |   + sin_or_cos_float_s             |     -|  0.04|       26|    130.000|         -|       26|     -|        no|         -|  12 (~0%)|   1320 (~0%)|  2751 (~0%)|    -|
+    |    o Loop 1                        |     -|  3.65|        4|     20.000|         2|        -|     2|        no|         -|         -|            -|           -|    -|
+    |    o Loop 2                        |     -|  3.65|        5|     25.000|         2|        -|     2|        no|         -|         -|            -|           -|    -|
+    |   + fft_stage_1_Pipeline_dft_loop  |     -|  0.13|       17|     85.000|         -|       17|     -|        no|         -|  24 (~0%)|   2452 (~0%)|  1801 (~0%)|    -|
+    |    o dft_loop                      |     -|  3.65|       15|     75.000|        16|        1|     1|       yes|         -|         -|            -|           -|    -|
+    +------------------------------------+------+------+---------+-----------+----------+---------+------+----------+----------+----------+-------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_MEMORY
++----------------+----------+
+| Interface      | Bitwidth |
++----------------+----------+
+| OUT_I_address0 | 10       |
+| OUT_I_address1 | 10       |
+| OUT_I_d0       | 32       |
+| OUT_I_d1       | 32       |
+| OUT_I_q0       | 32       |
+| OUT_I_q1       | 32       |
+| OUT_R_address0 | 10       |
+| OUT_R_address1 | 10       |
+| OUT_R_d0       | 32       |
+| OUT_R_d1       | 32       |
+| OUT_R_q0       | 32       |
+| OUT_R_q1       | 32       |
+| X_I_address0   | 10       |
+| X_I_address1   | 10       |
+| X_I_d0         | 32       |
+| X_I_d1         | 32       |
+| X_I_q0         | 32       |
+| X_I_q1         | 32       |
+| X_R_address0   | 10       |
+| X_R_address1   | 10       |
+| X_R_d0         | 32       |
+| X_R_d1         | 32       |
+| X_R_q0         | 32       |
+| X_R_q1         | 32       |
++----------------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| X_R      | in        | float*   |
+| X_I      | in        | float*   |
+| OUT_R    | out       | float*   |
+| OUT_I    | out       | float*   |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+----------------+---------+----------+
+| Argument | HW Interface   | HW Type | HW Usage |
++----------+----------------+---------+----------+
+| X_R      | X_R_address0   | port    | offset   |
+| X_R      | X_R_ce0        | port    |          |
+| X_R      | X_R_d0         | port    |          |
+| X_R      | X_R_q0         | port    |          |
+| X_R      | X_R_we0        | port    |          |
+| X_R      | X_R_address1   | port    | offset   |
+| X_R      | X_R_ce1        | port    |          |
+| X_R      | X_R_d1         | port    |          |
+| X_R      | X_R_q1         | port    |          |
+| X_R      | X_R_we1        | port    |          |
+| X_I      | X_I_address0   | port    | offset   |
+| X_I      | X_I_ce0        | port    |          |
+| X_I      | X_I_d0         | port    |          |
+| X_I      | X_I_q0         | port    |          |
+| X_I      | X_I_we0        | port    |          |
+| X_I      | X_I_address1   | port    | offset   |
+| X_I      | X_I_ce1        | port    |          |
+| X_I      | X_I_d1         | port    |          |
+| X_I      | X_I_q1         | port    |          |
+| X_I      | X_I_we1        | port    |          |
+| OUT_R    | OUT_R_address0 | port    | offset   |
+| OUT_R    | OUT_R_ce0      | port    |          |
+| OUT_R    | OUT_R_d0       | port    |          |
+| OUT_R    | OUT_R_q0       | port    |          |
+| OUT_R    | OUT_R_we0      | port    |          |
+| OUT_R    | OUT_R_address1 | port    | offset   |
+| OUT_R    | OUT_R_ce1      | port    |          |
+| OUT_R    | OUT_R_d1       | port    |          |
+| OUT_R    | OUT_R_q1       | port    |          |
+| OUT_R    | OUT_R_we1      | port    |          |
+| OUT_I    | OUT_I_address0 | port    | offset   |
+| OUT_I    | OUT_I_ce0      | port    |          |
+| OUT_I    | OUT_I_d0       | port    |          |
+| OUT_I    | OUT_I_q0       | port    |          |
+| OUT_I    | OUT_I_we0      | port    |          |
+| OUT_I    | OUT_I_address1 | port    | offset   |
+| OUT_I    | OUT_I_ce1      | port    |          |
+| OUT_I    | OUT_I_d1       | port    |          |
+| OUT_I    | OUT_I_q1       | port    |          |
+| OUT_I    | OUT_I_we1      | port    |          |
++----------+----------------+---------+----------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+  No burst in design
+
+================================================================
+== Bind Op Report
+================================================================
++--------------------------------------------------------+-----+--------+--------------+------+---------+---------+
+| Name                                                   | DSP | Pragma | Variable     | Op   | Impl    | Latency |
++--------------------------------------------------------+-----+--------+--------------+------+---------+---------+
+| + fft_multistage                                       | 98  |        |              |      |         |         |
+|  + bit_reverse                                         | 0   |        |              |      |         |         |
+|    add_ln19_fu_154_p2                                  | -   |        | add_ln19     | add  | fabric  | 0       |
+|  + fft_stage                                           | 48  |        |              |      |         |         |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U35                   | 3   |        | mul          | fmul | maxdsp  | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U36                   | 3   |        | mul4         | fmul | maxdsp  | 3       |
+|    fsub_32ns_32ns_32_5_full_dsp_1_U29                  | 2   |        | temp_R       | fsub | fulldsp | 4       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U37                   | 3   |        | mul5         | fmul | maxdsp  | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U38                   | 3   |        | mul6         | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U30                  | 2   |        | temp_I       | fadd | fulldsp | 4       |
+|    fsub_32ns_32ns_32_5_full_dsp_1_U31                  | 2   |        | sub          | fsub | fulldsp | 4       |
+|    fsub_32ns_32ns_32_5_full_dsp_1_U32                  | 2   |        | sub2         | fsub | fulldsp | 4       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U33                  | 2   |        | add          | fadd | fulldsp | 4       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U34                  | 2   |        | add4         | fadd | fulldsp | 4       |
+|    add_ln52_fu_266_p2                                  | -   |        | add_ln52     | add  | fabric  | 0       |
+|   + sin_or_cos_float_s (grp_sin_or_cos_float_s_fu_158) | 12  |        |              |      |         |         |
+|     Ex_V_fu_474_p2                                     | -   |        | Ex_V         | add  | fabric  | 0       |
+|     add_ln214_fu_381_p2                                | -   |        | add_ln214    | add  | fabric  | 0       |
+|     mul_80s_24ns_80_2_1_U5                             | 5   |        | ret_V        | mul  | auto    | 1       |
+|     Mx_bits_V_1_fu_510_p2                              | -   |        | Mx_bits_V_1  | sub  | fabric  | 0       |
+|     Ex_V_3_fu_598_p2                                   | -   |        | Ex_V_3       | sub  | fabric  | 0       |
+|     sub_ln1512_fu_615_p2                               | -   |        | sub_ln1512   | sub  | fabric  | 0       |
+|     mul_mul_15ns_15ns_30_4_1_U11                       | 1   |        | r_V          | mul  | dsp48   | 3       |
+|     mul_23s_22ns_45_1_1_U7                             | 2   |        | r_V_2        | mul  | auto    | 0       |
+|     mul_mul_15ns_15s_30_4_1_U12                        | 1   |        | r_V_4        | mul  | dsp48   | 3       |
+|     add_ln1347_fu_808_p2                               | -   |        | add_ln1347   | add  | fabric  | 0       |
+|     ret_V_1_fu_818_p2                                  | -   |        | ret_V_1      | add  | fabric  | 0       |
+|     mul_30s_29ns_58_1_1_U8                             | 3   |        | r_V_6        | mul  | auto    | 0       |
+|     add_ln311_fu_903_p2                                | -   |        | add_ln311    | add  | fabric  | 0       |
+|     add_ln318_fu_981_p2                                | -   |        | add_ln318    | add  | fabric  | 0       |
+|     shift_3_fu_987_p2                                  | -   |        | shift_3      | add  | fabric  | 0       |
+|     sub_ln1512_1_fu_1000_p2                            | -   |        | sub_ln1512_1 | sub  | fabric  | 0       |
+|     add_ln329_fu_1210_p2                               | -   |        | add_ln329    | add  | fabric  | 0       |
+|     newexp_fu_1219_p2                                  | -   |        | newexp       | sub  | fabric  | 0       |
+|   + sin_or_cos_float_s (grp_sin_or_cos_float_s_fu_174) | 12  |        |              |      |         |         |
+|     Ex_V_fu_474_p2                                     | -   |        | Ex_V         | add  | fabric  | 0       |
+|     add_ln214_fu_381_p2                                | -   |        | add_ln214    | add  | fabric  | 0       |
+|     mul_80s_24ns_80_2_1_U5                             | 5   |        | ret_V        | mul  | auto    | 1       |
+|     Mx_bits_V_1_fu_510_p2                              | -   |        | Mx_bits_V_1  | sub  | fabric  | 0       |
+|     Ex_V_3_fu_598_p2                                   | -   |        | Ex_V_3       | sub  | fabric  | 0       |
+|     sub_ln1512_fu_615_p2                               | -   |        | sub_ln1512   | sub  | fabric  | 0       |
+|     mul_mul_15ns_15ns_30_4_1_U11                       | 1   |        | r_V          | mul  | dsp48   | 3       |
+|     mul_23s_22ns_45_1_1_U7                             | 2   |        | r_V_2        | mul  | auto    | 0       |
+|     mul_mul_15ns_15s_30_4_1_U12                        | 1   |        | r_V_4        | mul  | dsp48   | 3       |
+|     add_ln1347_fu_808_p2                               | -   |        | add_ln1347   | add  | fabric  | 0       |
+|     ret_V_1_fu_818_p2                                  | -   |        | ret_V_1      | add  | fabric  | 0       |
+|     mul_30s_29ns_58_1_1_U8                             | 3   |        | r_V_6        | mul  | auto    | 0       |
+|     add_ln311_fu_903_p2                                | -   |        | add_ln311    | add  | fabric  | 0       |
+|     add_ln318_fu_981_p2                                | -   |        | add_ln318    | add  | fabric  | 0       |
+|     shift_3_fu_987_p2                                  | -   |        | shift_3      | add  | fabric  | 0       |
+|     sub_ln1512_1_fu_1000_p2                            | -   |        | sub_ln1512_1 | sub  | fabric  | 0       |
+|     add_ln329_fu_1210_p2                               | -   |        | add_ln329    | add  | fabric  | 0       |
+|     newexp_fu_1219_p2                                  | -   |        | newexp       | sub  | fabric  | 0       |
+|  + fft_stage_1                                         | 50  |        |              |      |         |         |
+|    add_ln45_fu_131_p2                                  | -   |        | add_ln45     | add  | fabric  | 0       |
+|    fadd_32ns_32ns_32_5_full_dsp_1_U63                  | 2   |        | a            | fadd | fulldsp | 4       |
+|   + sin_or_cos_float_s (grp_sin_or_cos_float_s_fu_62)  | 12  |        |              |      |         |         |
+|     Ex_V_fu_474_p2                                     | -   |        | Ex_V         | add  | fabric  | 0       |
+|     add_ln214_fu_381_p2                                | -   |        | add_ln214    | add  | fabric  | 0       |
+|     mul_80s_24ns_80_2_1_U5                             | 5   |        | ret_V        | mul  | auto    | 1       |
+|     Mx_bits_V_1_fu_510_p2                              | -   |        | Mx_bits_V_1  | sub  | fabric  | 0       |
+|     Ex_V_3_fu_598_p2                                   | -   |        | Ex_V_3       | sub  | fabric  | 0       |
+|     sub_ln1512_fu_615_p2                               | -   |        | sub_ln1512   | sub  | fabric  | 0       |
+|     mul_mul_15ns_15ns_30_4_1_U11                       | 1   |        | r_V          | mul  | dsp48   | 3       |
+|     mul_23s_22ns_45_1_1_U7                             | 2   |        | r_V_2        | mul  | auto    | 0       |
+|     mul_mul_15ns_15s_30_4_1_U12                        | 1   |        | r_V_4        | mul  | dsp48   | 3       |
+|     add_ln1347_fu_808_p2                               | -   |        | add_ln1347   | add  | fabric  | 0       |
+|     ret_V_1_fu_818_p2                                  | -   |        | ret_V_1      | add  | fabric  | 0       |
+|     mul_30s_29ns_58_1_1_U8                             | 3   |        | r_V_6        | mul  | auto    | 0       |
+|     add_ln311_fu_903_p2                                | -   |        | add_ln311    | add  | fabric  | 0       |
+|     add_ln318_fu_981_p2                                | -   |        | add_ln318    | add  | fabric  | 0       |
+|     shift_3_fu_987_p2                                  | -   |        | shift_3      | add  | fabric  | 0       |
+|     sub_ln1512_1_fu_1000_p2                            | -   |        | sub_ln1512_1 | sub  | fabric  | 0       |
+|     add_ln329_fu_1210_p2                               | -   |        | add_ln329    | add  | fabric  | 0       |
+|     newexp_fu_1219_p2                                  | -   |        | newexp       | sub  | fabric  | 0       |
+|   + sin_or_cos_float_s (grp_sin_or_cos_float_s_fu_77)  | 12  |        |              |      |         |         |
+|     Ex_V_fu_474_p2                                     | -   |        | Ex_V         | add  | fabric  | 0       |
+|     add_ln214_fu_381_p2                                | -   |        | add_ln214    | add  | fabric  | 0       |
+|     mul_80s_24ns_80_2_1_U5                             | 5   |        | ret_V        | mul  | auto    | 1       |
+|     Mx_bits_V_1_fu_510_p2                              | -   |        | Mx_bits_V_1  | sub  | fabric  | 0       |
+|     Ex_V_3_fu_598_p2                                   | -   |        | Ex_V_3       | sub  | fabric  | 0       |
+|     sub_ln1512_fu_615_p2                               | -   |        | sub_ln1512   | sub  | fabric  | 0       |
+|     mul_mul_15ns_15ns_30_4_1_U11                       | 1   |        | r_V          | mul  | dsp48   | 3       |
+|     mul_23s_22ns_45_1_1_U7                             | 2   |        | r_V_2        | mul  | auto    | 0       |
+|     mul_mul_15ns_15s_30_4_1_U12                        | 1   |        | r_V_4        | mul  | dsp48   | 3       |
+|     add_ln1347_fu_808_p2                               | -   |        | add_ln1347   | add  | fabric  | 0       |
+|     ret_V_1_fu_818_p2                                  | -   |        | ret_V_1      | add  | fabric  | 0       |
+|     mul_30s_29ns_58_1_1_U8                             | 3   |        | r_V_6        | mul  | auto    | 0       |
+|     add_ln311_fu_903_p2                                | -   |        | add_ln311    | add  | fabric  | 0       |
+|     add_ln318_fu_981_p2                                | -   |        | add_ln318    | add  | fabric  | 0       |
+|     shift_3_fu_987_p2                                  | -   |        | shift_3      | add  | fabric  | 0       |
+|     sub_ln1512_1_fu_1000_p2                            | -   |        | sub_ln1512_1 | sub  | fabric  | 0       |
+|     add_ln329_fu_1210_p2                               | -   |        | add_ln329    | add  | fabric  | 0       |
+|     newexp_fu_1219_p2                                  | -   |        | newexp       | sub  | fabric  | 0       |
+|   + fft_stage_1_Pipeline_dft_loop                      | 24  |        |              |      |         |         |
+|     add_ln54_fu_242_p2                                 | -   |        | add_ln54     | add  | fabric  | 0       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U52                  | 3   |        | mul          | fmul | maxdsp  | 3       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U53                  | 3   |        | mul1         | fmul | maxdsp  | 3       |
+|     fsub_32ns_32ns_32_5_full_dsp_1_U46                 | 2   |        | temp_R       | fsub | fulldsp | 4       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U54                  | 3   |        | mul2         | fmul | maxdsp  | 3       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U55                  | 3   |        | mul3         | fmul | maxdsp  | 3       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U47                 | 2   |        | temp_I       | fadd | fulldsp | 4       |
+|     fsub_32ns_32ns_32_5_full_dsp_1_U48                 | 2   |        | sub          | fsub | fulldsp | 4       |
+|     fsub_32ns_32ns_32_5_full_dsp_1_U49                 | 2   |        | sub1         | fsub | fulldsp | 4       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U50                 | 2   |        | add2         | fadd | fulldsp | 4       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U51                 | 2   |        | add3         | fadd | fulldsp | 4       |
+|     add_ln52_fu_254_p2                                 | -   |        | add_ln52     | add  | fabric  | 0       |
++--------------------------------------------------------+-----+--------+--------------+------+---------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++--------------------------------------------------------+------+------+--------+---------------------------------+---------+--------+---------+
+| Name                                                   | BRAM | URAM | Pragma | Variable                        | Storage | Impl   | Latency |
++--------------------------------------------------------+------+------+--------+---------------------------------+---------+--------+---------+
+| + fft_multistage                                       | 16   | 0    |        |                                 |         |        |         |
+|   Stage1_R_U                                           | 4    | -    |        | Stage1_R                        | ram_s2p | auto   | 1       |
+|   Stage1_I_U                                           | 4    | -    |        | Stage1_I                        | ram_s2p | auto   | 1       |
+|   Stage2_R_U                                           | 4    | -    |        | Stage2_R                        | ram_t2p | auto   | 1       |
+|   Stage2_I_U                                           | 4    | -    |        | Stage2_I                        | ram_t2p | auto   | 1       |
+|  + fft_stage                                           | 0    | 0    |        |                                 |         |        |         |
+|   + sin_or_cos_float_s (grp_sin_or_cos_float_s_fu_158) | 0    | 0    |        |                                 |         |        |         |
+|     out_bits_V_U                                       | -    | -    |        | out_bits_V                      | ram_t2p | auto   | 1       |
+|     c_U                                                | -    | -    |        | c                               | ram_1p  | auto   | 1       |
+|     ref_4oPi_table_100_V_U                             | -    | -    | pragma | ref_4oPi_table_100_V            | rom_1p  | lutram | 1       |
+|     second_order_float_sin_cos_K0_V_U                  | -    | -    | pragma | second_order_float_sin_cos_K0_V | rom_1p  | lutram | 1       |
+|     second_order_float_sin_cos_K1_V_U                  | -    | -    | pragma | second_order_float_sin_cos_K1_V | rom_1p  | lutram | 1       |
+|     second_order_float_sin_cos_K2_V_U                  | -    | -    | pragma | second_order_float_sin_cos_K2_V | rom_1p  | lutram | 1       |
+|   + sin_or_cos_float_s (grp_sin_or_cos_float_s_fu_174) | 0    | 0    |        |                                 |         |        |         |
+|     out_bits_V_U                                       | -    | -    |        | out_bits_V                      | ram_t2p | auto   | 1       |
+|     c_U                                                | -    | -    |        | c                               | ram_1p  | auto   | 1       |
+|     ref_4oPi_table_100_V_U                             | -    | -    | pragma | ref_4oPi_table_100_V            | rom_1p  | lutram | 1       |
+|     second_order_float_sin_cos_K0_V_U                  | -    | -    | pragma | second_order_float_sin_cos_K0_V | rom_1p  | lutram | 1       |
+|     second_order_float_sin_cos_K1_V_U                  | -    | -    | pragma | second_order_float_sin_cos_K1_V | rom_1p  | lutram | 1       |
+|     second_order_float_sin_cos_K2_V_U                  | -    | -    | pragma | second_order_float_sin_cos_K2_V | rom_1p  | lutram | 1       |
+|  + fft_stage_1                                         | 0    | 0    |        |                                 |         |        |         |
+|   + sin_or_cos_float_s (grp_sin_or_cos_float_s_fu_62)  | 0    | 0    |        |                                 |         |        |         |
+|     out_bits_V_U                                       | -    | -    |        | out_bits_V                      | ram_t2p | auto   | 1       |
+|     c_U                                                | -    | -    |        | c                               | ram_1p  | auto   | 1       |
+|     ref_4oPi_table_100_V_U                             | -    | -    | pragma | ref_4oPi_table_100_V            | rom_1p  | lutram | 1       |
+|     second_order_float_sin_cos_K0_V_U                  | -    | -    | pragma | second_order_float_sin_cos_K0_V | rom_1p  | lutram | 1       |
+|     second_order_float_sin_cos_K1_V_U                  | -    | -    | pragma | second_order_float_sin_cos_K1_V | rom_1p  | lutram | 1       |
+|     second_order_float_sin_cos_K2_V_U                  | -    | -    | pragma | second_order_float_sin_cos_K2_V | rom_1p  | lutram | 1       |
+|   + sin_or_cos_float_s (grp_sin_or_cos_float_s_fu_77)  | 0    | 0    |        |                                 |         |        |         |
+|     out_bits_V_U                                       | -    | -    |        | out_bits_V                      | ram_t2p | auto   | 1       |
+|     c_U                                                | -    | -    |        | c                               | ram_1p  | auto   | 1       |
+|     ref_4oPi_table_100_V_U                             | -    | -    | pragma | ref_4oPi_table_100_V            | rom_1p  | lutram | 1       |
+|     second_order_float_sin_cos_K0_V_U                  | -    | -    | pragma | second_order_float_sin_cos_K0_V | rom_1p  | lutram | 1       |
+|     second_order_float_sin_cos_K1_V_U                  | -    | -    | pragma | second_order_float_sin_cos_K1_V | rom_1p  | lutram | 1       |
+|     second_order_float_sin_cos_K2_V_U                  | -    | -    | pragma | second_order_float_sin_cos_K2_V | rom_1p  | lutram | 1       |
++--------------------------------------------------------+------+------+--------+---------------------------------+---------+--------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++----------------+---------------+----------------------------------------------+
+| Type           | Options       | Location                                     |
++----------------+---------------+----------------------------------------------+
+| loop_tripcount | min=1 max=512 | fft_multistage_fast.cpp:46 in fft_stage      |
+| loop_tripcount | min=1 max=1   | fft_multistage_fast.cpp:53 in fft_stage      |
+| dataflow       |               | fft_multistage_fast.cpp:68 in fft_multistage |
++----------------+---------------+----------------------------------------------+
+
+
