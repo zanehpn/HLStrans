@@ -6,10 +6,7 @@ import random
 import subprocess
 import requests
 import glob
-from prompt import *
 from typing import List, Iterable
-from optimization_table import optimization_table
-from bug_table import bug_table
 from typing import Dict, List
 import shutil
 from typing import List, Tuple, Union
@@ -211,38 +208,6 @@ def extract_error_lines(file_path: str) -> List[str]:
     with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
         return extract_error_lines_from_iter(f)
 
-def compile_and_check_machsuite(top_function: str) -> Tuple[bool, List[str]]:
-    """
-    在指定子目录中执行 `make run`，并提取任何包含 'error'（不区分大小写）的行。
-
-    Returns:
-        (True, [])      # 编译与运行成功，且无错误行
-        (False, issues) # 编译/运行出错，issues 列表包含所有匹配行
-    """
-    dir_path = os.path.join(
-        "/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset",
-        "machsuite_gen", top_function, "generate"
-    )
-
-    try:
-        result = subprocess.run(
-            ["make", "run"],
-            capture_output=True,
-            text=True,
-            timeout=60,
-            cwd=dir_path,
-            check=True
-        )
-    except subprocess.TimeoutExpired as e:
-        return False, [f"Timeout after {e.timeout}s"]
-    except subprocess.CalledProcessError as e:
-        output = (e.stdout or "") + (e.stderr or "")
-        issues = extract_error_lines_from_iter(output.splitlines())
-        return False, issues
-
-    combined = (result.stdout or "") + (result.stderr or "")
-    issues = extract_error_lines_from_iter(combined.splitlines())
-    return (len(issues) == 0), issues
 
 
 def parse_hls_report_with_checks(file_path):
@@ -348,7 +313,7 @@ def grasp_latency(base_folder):
                     latency_value = int(result["total_latency_cycles"])
                     latency_list.append(latency_value)
             except Exception as e:
-                print(f"读取文件 {csynth_path} 失败: {e}")
+                print(f"read file {csynth_path} failed: {e}")
     return latency_list
 
 def sum_final_ii_numbers(text):
@@ -379,9 +344,8 @@ def list_fast_cpp(folder: str, xxx: str):
     return files
 
 # if __name__ == "__main__":
-#     base_folder = "/home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/gemm/true"  
+#     base_folder = "gemm/true"  
 #     latencies = grasp_latency(base_folder)
-#     print("提取到的 latency 信息:", latencies)
 
 # if __name__ == "__main__":
 #     top_function = "aes_table"

@@ -30,16 +30,12 @@ def clean_genetic_dse():
     在单次 Bash 调用中启用 extglob 与 dotglob，然后执行删除命令，
     最后恢复默认设置。
     """
-    # 构造一段多行的 shell 脚本
     bash_script = "\n".join([
-        # 启用扩展通配与隐藏文件匹配
         "shopt -s extglob dotglob",
-        # 逐层删除，排除特定目录／文件
         "rm -rf GENETIC_DSE_*/!(solution1)",
         "rm -rf GENETIC_DSE_*/solution1/!(syn)",
         "rm -rf GENETIC_DSE_*/solution1/syn/!(report)",
         "rm -rf GENETIC_DSE_*/solution1/syn/report/!(csynth.rpt)",
-        # 关闭扩展通配与隐藏文件匹配
         "shopt -u extglob dotglob"
     ])
 

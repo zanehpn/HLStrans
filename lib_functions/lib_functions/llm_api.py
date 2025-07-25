@@ -3,10 +3,7 @@ import subprocess
 import requests
 import re
 import os
-from prompt import *
 from typing import List
-from optimization_table import optimization_table
-from bug_table import bug_table
 import shutil
 import json
 from typing import Dict, List
@@ -117,15 +114,12 @@ def deepseek_R1(prompt: str) -> str:
     Replace 'your_api_key_here' with your actual API key.
     """
     client = OpenAI(
-        api_key = " ",
+        api_key = "sk-mYDMUkBi0LXmnCqjxF81CARnouWkHzFv3tNDFZaEjVigjQrZ",
         base_url = "https://api.chatfire.cn/v1",
     )
     try:
         full_prompt = f"""Request: {prompt}, Must Only return the code use the format. \n
         Example response format:
-        ```h \n
-        // header content here
-        ```
         ```cpp \n
         // implementation content here
         ```
@@ -151,33 +145,79 @@ def deepseek_R1(prompt: str) -> str:
                           #"tokens_used": client.total_tokens_used } 
         return error_response
 
-def deepseek_judge(prompt: str, lista) -> str:
-
-    client = DeepseekR1Client(api_key="IM9GM9IVjPU4OeBFzoaVY6SlaVarR1h7")
-    
-    full_prompt = f""" {prompt}\n According to the analysis of the code, optimize, there are many actions {lista}, decide which one can be
-    used next, give a value of 0 to 1, the higher value is, the more possible it can be used:
-    Example: given code:, given actions: [A,B,C]
-        After analysis, if A can better optimize the code
-    output must be: [0.8, 0.2, 0.2]  
+def gpt(prompt: str) -> str:
     """
-    completions = client.chat_with_gpt(full_prompt, n=1)
-    response_text = completions[0] if completions else ""
-    print("deepseek judge:\n", response_text)
-    return response_text
-
-def deepseek_expansion(code, llvm_analysis, lista) -> str:
-    model = "deepseek-ai/DeepSeek-V3"
-    client = DeepseekR1Client(model=model, api_key="IM9GM9IVjPU4OeBFzoaVY6SlaVarR1h7")
-    
-    full_prompt = f""" According to the llvm analysis of the code {llvm_analysis} and the code {code}, decide which one optimization from the optimization list {lista} can be
-    used to optimize the code. The output must be one from the list. 
-    Example input:  given code: code, given actions: [A,B,C], after analysis, if A can better optimize the code
-            output: A
+    Use the Deepseek-R1 API to generate code based on the prompt.
+    Only returns the generated code, filtering out any chain-of-thought.
+    Replace 'your_api_key_here' with your actual API key.
     """
-    completions = client.chat_with_gpt(full_prompt, n=1)
-    response_text = completions[0] if completions else ""
-    if model == "deepseek-ai/DeepSeek-R1":
-        response_text = extract_after_think(response_text)
-        print("deepseek expansion:\n", response_text)
-    return response_text
+    client = OpenAI(
+        api_key = "sk-mYDMUkBi0LXmnCqjxF81CARnouWkHzFv3tNDFZaEjVigjQrZ",
+        base_url = "https://api.chatfire.cn/v1",
+    )
+    try:
+        full_prompt = f"""Request: {prompt}, Must Only return the code use the format. \n
+        Example response format:
+        ```cpp \n
+        // implementation content here
+        ```
+        """
+        completions = client.chat.completions.create(
+            model = "gpt-4o",  # your model endpoint ID
+            messages = [
+                {"role": "system", "content": "You are a FPGA engineer."},
+                {"role": "user", "content": f"{full_prompt}"},
+        ],
+        )
+        #print("completions: ", completions)
+        if completions:
+            # Assume the generated code is enclosed in triple backticks.
+            response_text = completions.choices[0].message.content
+            code_blocks = parse_code_blocks(response_text)
+            #print("code_blocks: ", code_blocks)
+            return code_blocks 
+    except Exception as e: 
+        error_response = { "header": "", 
+                          "cpp": "", 
+                          "error": f"API Error: {str(e)}"}
+                          #"tokens_used": client.total_tokens_used } 
+        return error_response
+
+
+def Qwen32B(prompt: str) -> str:
+    """
+    Use the Deepseek-R1 API to generate code based on the prompt.
+    Only returns the generated code, filtering out any chain-of-thought.
+    Replace 'your_api_key_here' with your actual API key.
+    """
+    client = OpenAI(
+        api_key = "sk-mYDMUkBi0LXmnCqjxF81CARnouWkHzFv3tNDFZaEjVigjQrZ",
+        base_url = "https://api.chatfire.cn/v1",
+    )
+    try:
+        full_prompt = f"""Request: {prompt}, Must Only return the code use the format. \n
+        Example response format:
+        ```cpp \n
+        // implementation content here
+        ```
+        """
+        completions = client.chat.completions.create(
+            model = "qwen2.5-coder-32b-instruct",  # your model endpoint ID
+            messages = [
+                {"role": "system", "content": "You are a FPGA engineer."},
+                {"role": "user", "content": f"{full_prompt}"},
+        ],
+        )
+        #print("completions: ", completions)
+        if completions:
+            # Assume the generated code is enclosed in triple backticks.
+            response_text = completions.choices[0].message.content
+            code_blocks = parse_code_blocks(response_text)
+            #print("code_blocks: ", code_blocks)
+            return code_blocks 
+    except Exception as e: 
+        error_response = { "header": "", 
+                          "cpp": "", 
+                          "error": f"API Error: {str(e)}"}
+                          #"tokens_used": client.total_tokens_used } 
+        return error_response

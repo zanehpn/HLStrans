@@ -1,13 +1,9 @@
-import torch
 import json
-from transformers import AutoTokenizer, AutoModelForCausalLM
 import re
 import os
-import torch
-from transformers import AutoConfig, AutoTokenizer, AutoModelForCausalLM
 import re
 from typing import Dict
-from llm_api import Qwen32B
+from lib_functions.llm_api import Qwen32B
 
 
 few_shot_template = '''
@@ -82,11 +78,11 @@ void vector_add(const int A[32], const int B[32], int C[32]) {
     }
 }
 ```
-1. Identify memory contention: single‐port arrays limit one access per cycle.
+1. Identify memory contention: single-port arrays limit one access per cycle.
 
 2. Partition arrays: use #pragma HLS ARRAY_PARTITION variable=A/B/C cyclic factor=4 to split each into 4 banks for parallel access.
 
-3. Unroll the loop: add #pragma HLS UNROLL factor=4 so 4 additions execute in one cycle, matching the 4‐way partition.
+3. Unroll the loop: add #pragma HLS UNROLL factor=4 so 4 additions execute in one cycle, matching the 4-way partition.
 
 4. Keep pipelining: you may optionally add #pragma HLS PIPELINE II=1 for consistency.
 
@@ -105,9 +101,9 @@ Now apply the same step-by-step reasoning to the following slow HLS code and pro
 
 def load_prompt_data(path):
     """
-    智能识别是 JSONL 还是 JSON 数组，然后返回一个 Python list。
+    to load prompt data from a JSON or JSONL file.
     """
-    # 先尝试当作 JSON 数组一次性加载
+    # First, try to load it as a JSON array all at once
     try:
         with open(path, 'r', encoding='utf-8-sig') as f:
             data = json.load(f)
@@ -116,46 +112,49 @@ def load_prompt_data(path):
     except json.JSONDecodeError:
         pass
 
-    # 否则退回到按行解析 JSONL：
+    # Otherwise, fall back to line-by-line parsing for JSONL:
     items = []
     with open(path, 'r', encoding='utf-8-sig') as f:
         for lineno, raw in enumerate(f, start=1):
             line = raw.strip()
-            # 跳过空行
+            # Skip empty lines
             if not line:
                 continue
-            # 去掉行尾的 // 注释
+            # Remove trailing // comments
             line = re.sub(r'//.*$', '', line).strip()
             if not line:
                 continue
             try:
                 items.append(json.loads(line))
             except json.JSONDecodeError as e:
-                print(f"[Warning] 跳过第 {lineno} 行，解析失败：{e}")
+                print(f"[Warning] skip {lineno}, failed to parse: {e}")
     return items
 
 if __name__ == "__main__":
-    file_path = '/shared/hdd/qingyun/prompt_data.json'
+    here = os.path.dirname(__file__)                # folder where test_model_best1.py lives
+    file_path = os.path.join(here, "prompt_data.json")
 
-    # 加载全部 prompt 记录
+    # Load all prompt records
     data_list = load_prompt_data(file_path)
     if not data_list:
-        raise RuntimeError("没有读到任何 prompt 数据，请检查文件格式。")
+        raise RuntimeError("No prompt data found, please check the file format.")
 
-    # 对 JSON 中的每条记录依次推理并保存结果
+    # Process each record in the JSON
     for entry in data_list:
         prompt = entry.get('input', '')
         app = entry.get('app', 'unknown_app')
 
-        # 批量创建目录
-        dir_path = os.path.join("generate_32B_cot_best1", app)
+        # Create directories
+        here = os.path.dirname(__file__)                # folder where test_model_best1.py lives
+        here = os.path.join(here, "generate_cot_best1")
+        dir_path = os.path.join(here, app)
         if not os.path.exists(dir_path):
             os.makedirs(dir_path)
         prompt = COT + prompt
         parsed = Qwen32B(prompt)
         #parsed = parse_code_blocks(raw_result)
 
-        # 写入文件
+        # Write to files
         with open(os.path.join(dir_path, f"{app}_fast.cpp"), "w", encoding="utf-8") as f_cpp:
             f_cpp.write(parsed.get('cpp', ''))
             print(parsed.get('cpp', ''))
