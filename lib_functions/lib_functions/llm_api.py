@@ -83,7 +83,7 @@ def deepseek_R1_mcts(prompt: str) -> str:
     Replace 'your_api_key_here' with your actual API key.
     """
     client = OpenAI(
-        api_key = "sk-mYDMUkBi0LXmnCqjxF81CARnouWkHzFv3tNDFZaEjVigjQrZ",
+        api_key = "",
         base_url = "https://api.chatfire.cn/v1",
     )
     try:
@@ -124,7 +124,7 @@ def deepseek_R1(prompt: str) -> str:
     Replace 'your_api_key_here' with your actual API key.
     """
     client = OpenAI(
-        api_key = "sk-mYDMUkBi0LXmnCqjxF81CARnouWkHzFv3tNDFZaEjVigjQrZ",
+        api_key = "",
         base_url = "https://api.chatfire.cn/v1",
     )
     try:
@@ -163,7 +163,7 @@ def gpt(prompt: str) -> str:
     Replace 'your_api_key_here' with your actual API key.
     """
     client = OpenAI(
-        api_key = "sk-mYDMUkBi0LXmnCqjxF81CARnouWkHzFv3tNDFZaEjVigjQrZ",
+        api_key = "",
         base_url = "https://api.chatfire.cn/v1",
     )
     try:
@@ -202,7 +202,7 @@ def Qwen32B(prompt: str) -> str:
     Replace 'your_api_key_here' with your actual API key.
     """
     client = OpenAI(
-        api_key = "sk-mYDMUkBi0LXmnCqjxF81CARnouWkHzFv3tNDFZaEjVigjQrZ",
+        api_key = "",
         base_url = "https://api.chatfire.cn/v1",
     )
     try:

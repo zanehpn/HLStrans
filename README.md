@@ -54,8 +54,8 @@ The Dataset_Augmentation pipeline proceeds in two stages. First, it applies an M
   * BRAM%, DSP%, LUT%, and FF% Utilization
 
 It is based on the following tools. 
-[HLSAnalysisTools](https://github.com/aferikoglou/HLSAnalysisTools)
-[GenHLSOptimizer](https://github.com/aferikoglou/GenHLSOptimizer)
+* [HLSAnalysisTools](https://github.com/aferikoglou/HLSAnalysisTools)
+* [GenHLSOptimizer](https://github.com/aferikoglou/GenHLSOptimizer)
 
 How to use the DSE flow, the detailed informations is in DSE_flow/README
 
