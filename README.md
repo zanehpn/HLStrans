@@ -1,6 +1,6 @@
-# HILSmith
+# HLStrans
 
-HILSmith, a first Dataset for LLM-Driven C-to-HLS Hardware Code Synthesis for [HLStrans](https://huggingface.co/datasets/qingyun777yes/HLStrans). The dataset generation pipeline is below:
+HLStrans, a first Dataset for LLM-Driven C-to-HLS Hardware Code Synthesis for [HLStrans](https://huggingface.co/datasets/qingyun777yes/HLStrans). The dataset generation pipeline is below:
 
 ![](./data/datagen.png)
 
