@@ -1,0 +1,433 @@
+
+
+================================================================
+== Vitis HLS Report for 'edge_detect'
+================================================================
+* Date:           Mon Jul 28 11:58:14 2025
+
+* Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+* Project:        edge_detect
+* Solution:       solution1 (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu55c-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  5.00 ns|  3.650 ns|     1.35 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+-----------+-----------+------+------+---------+
+    |  Latency (cycles) |   Latency (absolute)  |   Interval  | Pipeline|
+    |   min   |   max   |    min    |    max    |  min |  max |   Type  |
+    +---------+---------+-----------+-----------+------+------+---------+
+    |     4241|     4241|  21.205 us|  21.205 us|  4242|  4242|       no|
+    +---------+---------+-----------+-----------+------+------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +-----------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |                                   |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |             Loop Name             |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +-----------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- VITIS_LOOP_24_1_VITIS_LOOP_25_2  |     4239|     4239|        17|          1|          1|  4224|       yes|
+        +-----------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 1
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 2
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
++ Individual pipeline summary: 
+  * Pipeline-0: initiation interval (II) = 1, depth = 17
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 19
+* Pipeline : 1
+  Pipeline-0 : II = 1, D = 17, States = { 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 }
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 3 
+3 --> 4 
+4 --> 5 
+5 --> 6 
+6 --> 7 
+7 --> 8 
+8 --> 9 
+9 --> 10 
+10 --> 11 
+11 --> 19 12 
+12 --> 13 
+13 --> 14 
+14 --> 15 
+15 --> 16 
+16 --> 17 
+17 --> 18 
+18 --> 2 
+19 --> 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 1.00>
+ST_1 : Operation 20 [1/1] (0.00ns)   --->   "%empty = alloca i32 1"   --->   Operation 20 'alloca' 'empty' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 21 [1/1] (0.00ns)   --->   "%empty_19 = alloca i32 1"   --->   Operation 21 'alloca' 'empty_19' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 22 [1/1] (0.00ns)   --->   "%empty_20 = alloca i32 1"   --->   Operation 22 'alloca' 'empty_20' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 23 [1/1] (0.00ns)   --->   "%col = alloca i32 1"   --->   Operation 23 'alloca' 'col' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 24 [1/1] (0.00ns)   --->   "%row = alloca i32 1"   --->   Operation 24 'alloca' 'row' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 25 [1/1] (0.00ns)   --->   "%indvar_flatten = alloca i32 1"   --->   Operation 25 'alloca' 'indvar_flatten' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 26 [1/1] (0.00ns)   --->   "%newPixel = alloca i32 1"   --->   Operation 26 'alloca' 'newPixel' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 27 [1/1] (0.00ns)   --->   "%empty_21 = alloca i32 1"   --->   Operation 27 'alloca' 'empty_21' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 28 [1/1] (0.00ns)   --->   "%empty_22 = alloca i32 1"   --->   Operation 28 'alloca' 'empty_22' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 29 [1/1] (0.00ns)   --->   "%spectopmodule_ln11 = spectopmodule void @_ssdm_op_SpecTopModule, void @empty_8" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:11]   --->   Operation 29 'spectopmodule' 'spectopmodule_ln11' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 30 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i32 %in_r, void @empty_10, i32 0, i32 0, void @empty, i32 0, i32 4096, void @empty_0, void @empty_1, void @empty, i32 16, i32 16, i32 16, i32 16, void @empty, void @empty, i32 4294967295, i32 0"   --->   Operation 30 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 31 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i32 %in_r"   --->   Operation 31 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 32 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i32 %out_r, void @empty_10, i32 0, i32 0, void @empty, i32 0, i32 4096, void @empty_2, void @empty_1, void @empty, i32 16, i32 16, i32 16, i32 16, void @empty, void @empty, i32 4294967295, i32 0"   --->   Operation 32 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 33 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i32 %out_r"   --->   Operation 33 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 34 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i64 %inputImage, void @empty_3, i32 0, i32 0, void @empty, i32 0, i32 0, void @empty_11, void @empty_4, void @empty, i32 0, i32 0, i32 0, i32 0, void @empty, void @empty_5, i32 4294967295, i32 0"   --->   Operation 34 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 35 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i64 %inputImage, void @empty_6, i32 0, i32 0, void @empty, i32 0, i32 0, void @empty, void @empty, void @empty, i32 0, i32 0, i32 0, i32 0, void @empty, void @empty_5, i32 4294967295, i32 0"   --->   Operation 35 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 36 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i64 %outputImage, void @empty_3, i32 0, i32 0, void @empty, i32 0, i32 0, void @empty_11, void @empty_7, void @empty, i32 0, i32 0, i32 0, i32 0, void @empty, void @empty_5, i32 4294967295, i32 0"   --->   Operation 36 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 37 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i64 %outputImage, void @empty_6, i32 0, i32 0, void @empty, i32 0, i32 0, void @empty, void @empty, void @empty, i32 0, i32 0, i32 0, i32 0, void @empty, void @empty_5, i32 4294967295, i32 0"   --->   Operation 37 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 38 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i32 %EDGE_THRESHOLD"   --->   Operation 38 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 39 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i32 %EDGE_THRESHOLD, void @empty_6, i32 0, i32 0, void @empty, i32 0, i32 0, void @empty, void @empty, void @empty, i32 0, i32 0, i32 0, i32 0, void @empty, void @empty, i32 4294967295, i32 0"   --->   Operation 39 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 40 [1/1] (0.00ns)   --->   "%EDGE_THRESHOLD_read = read i32 @_ssdm_op_Read.ap_auto.i32, i32 %EDGE_THRESHOLD"   --->   Operation 40 'read' 'EDGE_THRESHOLD_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 41 [1/1] (1.00ns)   --->   "%outputImage_read = read i64 @_ssdm_op_Read.s_axilite.i64, i64 %outputImage"   --->   Operation 41 'read' 'outputImage_read' <Predicate = true> <Delay = 1.00> <CoreInst = "s_axilite">   --->   Core 122 's_axilite' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : 'read' 'write'>
+ST_1 : Operation 42 [1/1] (1.00ns)   --->   "%inputImage_read = read i64 @_ssdm_op_Read.s_axilite.i64, i64 %inputImage"   --->   Operation 42 'read' 'inputImage_read' <Predicate = true> <Delay = 1.00> <CoreInst = "s_axilite">   --->   Core 122 's_axilite' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : 'read' 'write'>
+ST_1 : Operation 43 [1/1] (0.00ns)   --->   "%lineBuffer1 = alloca i64 1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:15]   --->   Operation 43 'alloca' 'lineBuffer1' <Predicate = true> <Delay = 0.00> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 8> <Depth = 66> <RAM>
+ST_1 : Operation 44 [1/1] (0.00ns)   --->   "%lineBuffer2 = alloca i64 1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:17]   --->   Operation 44 'alloca' 'lineBuffer2' <Predicate = true> <Delay = 0.00> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 8> <Depth = 66> <RAM>
+ST_1 : Operation 45 [1/1] (0.00ns)   --->   "%specmemcore_ln16 = specmemcore void @_ssdm_op_SpecMemCore, i8 %lineBuffer1, i64 666, i64 22, i64 18446744073709551615" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:16]   --->   Operation 45 'specmemcore' 'specmemcore_ln16' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 46 [1/1] (0.00ns)   --->   "%specmemcore_ln18 = specmemcore void @_ssdm_op_SpecMemCore, i8 %lineBuffer2, i64 666, i64 22, i64 18446744073709551615" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:18]   --->   Operation 46 'specmemcore' 'specmemcore_ln18' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 47 [1/1] (0.38ns)   --->   "%store_ln24 = store i13 0, i13 %indvar_flatten" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 47 'store' 'store_ln24' <Predicate = true> <Delay = 0.38>
+ST_1 : Operation 48 [1/1] (0.38ns)   --->   "%store_ln24 = store i7 0, i7 %row" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 48 'store' 'store_ln24' <Predicate = true> <Delay = 0.38>
+ST_1 : Operation 49 [1/1] (0.38ns)   --->   "%store_ln24 = store i7 0, i7 %col" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 49 'store' 'store_ln24' <Predicate = true> <Delay = 0.38>
+ST_1 : Operation 50 [1/1] (0.00ns)   --->   "%br_ln24 = br void %for.body4" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 50 'br' 'br_ln24' <Predicate = true> <Delay = 0.00>
+
+State 2 <SV = 1> <Delay = 3.50>
+ST_2 : Operation 51 [1/1] (0.00ns)   --->   "%indvar_flatten_load = load i13 %indvar_flatten" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 51 'load' 'indvar_flatten_load' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 52 [1/1] (0.64ns)   --->   "%icmp_ln24 = icmp_eq  i13 %indvar_flatten_load, i13 4224" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 52 'icmp' 'icmp_ln24' <Predicate = true> <Delay = 0.64> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.64> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 53 [1/1] (0.75ns)   --->   "%add_ln24 = add i13 %indvar_flatten_load, i13 1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 53 'add' 'add_ln24' <Predicate = true> <Delay = 0.75> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.75> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 54 [1/1] (0.00ns)   --->   "%br_ln24 = br i1 %icmp_ln24, void %for.inc115, void %for.cond.cleanup" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 54 'br' 'br_ln24' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 55 [1/1] (0.00ns)   --->   "%col_load = load i7 %col" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:25]   --->   Operation 55 'load' 'col_load' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_2 : Operation 56 [1/1] (0.00ns)   --->   "%row_load = load i7 %row" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 56 'load' 'row_load' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_2 : Operation 57 [1/1] (0.00ns)   --->   "%specloopname_ln0 = specloopname void @_ssdm_op_SpecLoopName, void @VITIS_LOOP_24_1_VITIS_LOOP_25_2_str"   --->   Operation 57 'specloopname' 'specloopname_ln0' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_2 : Operation 58 [1/1] (0.00ns)   --->   "%empty_23 = speclooptripcount i32 @_ssdm_op_SpecLoopTripCount, i64 4224, i64 4224, i64 4224"   --->   Operation 58 'speclooptripcount' 'empty_23' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_2 : Operation 59 [1/1] (0.59ns)   --->   "%icmp_ln25 = icmp_eq  i7 %col_load, i7 66" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:25]   --->   Operation 59 'icmp' 'icmp_ln25' <Predicate = (!icmp_ln24)> <Delay = 0.59> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.59> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 60 [1/1] (0.30ns)   --->   "%select_ln24 = select i1 %icmp_ln25, i7 0, i7 %col_load" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 60 'select' 'select_ln24' <Predicate = (!icmp_ln24)> <Delay = 0.30> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_2 : Operation 61 [1/1] (0.70ns)   --->   "%add_ln24_1 = add i7 %row_load, i7 1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 61 'add' 'add_ln24_1' <Predicate = (!icmp_ln24)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 62 [1/1] (0.59ns)   --->   "%cmp50_not_mid1 = icmp_eq  i7 %add_ln24_1, i7 0" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 62 'icmp' 'cmp50_not_mid1' <Predicate = (!icmp_ln24)> <Delay = 0.59> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.59> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 63 [1/1] (0.59ns)   --->   "%cmp50_not11 = icmp_eq  i7 %row_load, i7 0" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 63 'icmp' 'cmp50_not11' <Predicate = (!icmp_ln24)> <Delay = 0.59> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.59> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 64 [1/1] (0.27ns)   --->   "%select_ln24_1 = select i1 %icmp_ln25, i1 %cmp50_not_mid1, i1 %cmp50_not11" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 64 'select' 'select_ln24_1' <Predicate = (!icmp_ln24)> <Delay = 0.27> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_2 : Operation 65 [1/1] (0.30ns)   --->   "%select_ln24_2 = select i1 %icmp_ln25, i7 %add_ln24_1, i7 %row_load" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 65 'select' 'select_ln24_2' <Predicate = (!icmp_ln24)> <Delay = 0.30> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_2 : Operation 66 [1/1] (0.00ns)   --->   "%trunc_ln24 = trunc i7 %select_ln24_2" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 66 'trunc' 'trunc_ln24' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_2 : Operation 67 [1/1] (0.00ns)   --->   "%zext_ln25_mid2_v = bitconcatenate i12 @_ssdm_op_BitConcatenate.i12.i6.i6, i6 %trunc_ln24, i6 0" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 67 'bitconcatenate' 'zext_ln25_mid2_v' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_2 : Operation 68 [1/1] (0.00ns)   --->   "%zext_ln24 = zext i12 %zext_ln25_mid2_v" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 68 'zext' 'zext_ln24' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_2 : Operation 69 [1/1] (0.00ns)   --->   "%zext_ln24_1 = zext i12 %zext_ln25_mid2_v" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 69 'zext' 'zext_ln24_1' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_2 : Operation 70 [1/1] (0.00ns)   --->   "%specpipeline_ln0 = specpipeline void @_ssdm_op_SpecPipeline, i32 4294967295, i32 0, i32 1, i32 0, void @p_str"   --->   Operation 70 'specpipeline' 'specpipeline_ln0' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_2 : Operation 71 [1/1] (0.00ns)   --->   "%trunc_ln51_cast12 = zext i7 %select_ln24" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 71 'zext' 'trunc_ln51_cast12' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_2 : Operation 72 [1/1] (0.00ns)   --->   "%specloopname_ln25 = specloopname void @_ssdm_op_SpecLoopName, void @empty_9" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:25]   --->   Operation 72 'specloopname' 'specloopname_ln25' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_2 : Operation 73 [1/1] (0.00ns)   --->   "%zext_ln29 = zext i7 %select_ln24" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:29]   --->   Operation 73 'zext' 'zext_ln29' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_2 : Operation 74 [1/1] (0.59ns)   --->   "%empty_24 = icmp_eq  i7 %select_ln24, i7 65" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 74 'icmp' 'empty_24' <Predicate = (!icmp_ln24)> <Delay = 0.59> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.59> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 75 [1/1] (0.59ns)   --->   "%empty_25 = icmp_eq  i7 %select_ln24, i7 0" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 75 'icmp' 'empty_25' <Predicate = (!icmp_ln24)> <Delay = 0.59> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.59> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 76 [1/1] (0.12ns)   --->   "%empty_26 = or i1 %empty_25, i1 %empty_24" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 76 'or' 'empty_26' <Predicate = (!icmp_ln24)> <Delay = 0.12> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 77 [1/1] (0.38ns)   --->   "%br_ln24 = br i1 %empty_26, void %if.else, void %if.end" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24]   --->   Operation 77 'br' 'br_ln24' <Predicate = (!icmp_ln24)> <Delay = 0.38>
+ST_2 : Operation 78 [1/1] (0.70ns)   --->   "%add_ln32 = add i8 %zext_ln29, i8 255" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32]   --->   Operation 78 'add' 'add_ln32' <Predicate = (!icmp_ln24 & !empty_26)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 79 [1/1] (0.00ns)   --->   "%sext_ln32_1 = sext i8 %add_ln32" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32]   --->   Operation 79 'sext' 'sext_ln32_1' <Predicate = (!icmp_ln24 & !empty_26)> <Delay = 0.00>
+ST_2 : Operation 80 [1/1] (0.74ns)   --->   "%add_ln32_1 = add i14 %sext_ln32_1, i14 %zext_ln24_1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32]   --->   Operation 80 'add' 'add_ln32_1' <Predicate = (!icmp_ln24 & !empty_26)> <Delay = 0.74> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 81 [1/1] (0.00ns)   --->   "%tmp_1 = bitconcatenate i16 @_ssdm_op_BitConcatenate.i16.i14.i2, i14 %add_ln32_1, i2 0" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32]   --->   Operation 81 'bitconcatenate' 'tmp_1' <Predicate = (!icmp_ln24 & !empty_26)> <Delay = 0.00>
+ST_2 : Operation 82 [1/1] (0.00ns)   --->   "%sext_ln32_2 = sext i16 %tmp_1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32]   --->   Operation 82 'sext' 'sext_ln32_2' <Predicate = (!icmp_ln24 & !empty_26)> <Delay = 0.00>
+ST_2 : Operation 83 [1/1] (1.14ns)   --->   "%add_ln32_2 = add i64 %sext_ln32_2, i64 %inputImage_read" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32]   --->   Operation 83 'add' 'add_ln32_2' <Predicate = (!icmp_ln24 & !empty_26)> <Delay = 1.14> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 1.14> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 84 [1/1] (0.00ns)   --->   "%trunc_ln = partselect i62 @_ssdm_op_PartSelect.i62.i64.i32.i32, i64 %add_ln32_2, i32 2, i32 63" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32]   --->   Operation 84 'partselect' 'trunc_ln' <Predicate = (!icmp_ln24 & !empty_26)> <Delay = 0.00>
+ST_2 : Operation 85 [1/1] (0.00ns)   --->   "%sext_ln32 = sext i62 %trunc_ln" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32]   --->   Operation 85 'sext' 'sext_ln32' <Predicate = (!icmp_ln24 & !empty_26)> <Delay = 0.00>
+ST_2 : Operation 86 [1/1] (0.00ns)   --->   "%in_r_addr = getelementptr i32 %in_r, i64 %sext_ln32" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32]   --->   Operation 86 'getelementptr' 'in_r_addr' <Predicate = (!icmp_ln24 & !empty_26)> <Delay = 0.00>
+ST_2 : Operation 87 [1/1] (0.00ns)   --->   "%lineBuffer1_addr = getelementptr i8 %lineBuffer1, i64 0, i64 %trunc_ln51_cast12" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:38]   --->   Operation 87 'getelementptr' 'lineBuffer1_addr' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_2 : Operation 88 [1/1] (0.00ns)   --->   "%lineBuffer2_addr = getelementptr i8 %lineBuffer2, i64 0, i64 %trunc_ln51_cast12" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:41]   --->   Operation 88 'getelementptr' 'lineBuffer2_addr' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_2 : Operation 89 [2/2] (1.17ns)   --->   "%lineBuffer2_load = load i7 %lineBuffer2_addr" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:41]   --->   Operation 89 'load' 'lineBuffer2_load' <Predicate = (!icmp_ln24)> <Delay = 1.17> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 8> <Depth = 66> <RAM>
+ST_2 : Operation 90 [1/1] (0.70ns)   --->   "%add_ln51 = add i8 %zext_ln29, i8 255" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:51]   --->   Operation 90 'add' 'add_ln51' <Predicate = (!icmp_ln24)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 91 [1/1] (0.00ns)   --->   "%tmp = partselect i2 @_ssdm_op_PartSelect.i2.i8.i32.i32, i8 %add_ln51, i32 6, i32 7" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:51]   --->   Operation 91 'partselect' 'tmp' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_2 : Operation 92 [1/1] (0.34ns)   --->   "%icmp_ln51 = icmp_ne  i2 %tmp, i2 0" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:51]   --->   Operation 92 'icmp' 'icmp_ln51' <Predicate = (!icmp_ln24)> <Delay = 0.34> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 93 [1/1] (0.12ns)   --->   "%or_ln51 = or i1 %icmp_ln51, i1 %select_ln24_1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:51]   --->   Operation 93 'or' 'or_ln51' <Predicate = (!icmp_ln24)> <Delay = 0.12> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 94 [1/1] (0.00ns)   --->   "%br_ln51 = br i1 %or_ln51, void %if.then51, void %for.inc" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:51]   --->   Operation 94 'br' 'br_ln51' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_2 : Operation 95 [1/1] (0.70ns)   --->   "%add_ln67 = add i8 %zext_ln29, i8 191" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67]   --->   Operation 95 'add' 'add_ln67' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 96 [1/1] (0.00ns)   --->   "%sext_ln67_1 = sext i8 %add_ln67" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67]   --->   Operation 96 'sext' 'sext_ln67_1' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_2 : Operation 97 [1/1] (0.74ns)   --->   "%add_ln67_2 = add i13 %sext_ln67_1, i13 %zext_ln24" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67]   --->   Operation 97 'add' 'add_ln67_2' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.74> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.74> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 98 [1/1] (0.70ns)   --->   "%add_ln25 = add i7 %select_ln24, i7 1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:25]   --->   Operation 98 'add' 'add_ln25' <Predicate = (!icmp_ln24)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 99 [1/1] (0.38ns)   --->   "%store_ln25 = store i13 %add_ln24, i13 %indvar_flatten" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:25]   --->   Operation 99 'store' 'store_ln25' <Predicate = (!icmp_ln24)> <Delay = 0.38>
+ST_2 : Operation 100 [1/1] (0.38ns)   --->   "%store_ln25 = store i7 %select_ln24_2, i7 %row" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:25]   --->   Operation 100 'store' 'store_ln25' <Predicate = (!icmp_ln24)> <Delay = 0.38>
+ST_2 : Operation 101 [1/1] (0.38ns)   --->   "%store_ln25 = store i7 %add_ln25, i7 %col" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:25]   --->   Operation 101 'store' 'store_ln25' <Predicate = (!icmp_ln24)> <Delay = 0.38>
+
+State 3 <SV = 2> <Delay = 3.65>
+ST_3 : Operation 102 [7/7] (3.65ns)   --->   "%in_r_load_req = readreq i1 @_ssdm_op_ReadReq.m_axi.i32P1A, i32 %in_r_addr, i32 1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32]   --->   Operation 102 'readreq' 'in_r_load_req' <Predicate = (!icmp_ln24 & !empty_26)> <Delay = 3.65> <CoreInst = "m_axi">   --->   Core 121 'm_axi' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : 'read' 'write' 'readreq' 'writereq' 'writeresp'>
+ST_3 : Operation 103 [2/2] (1.17ns)   --->   "%lineBuffer1_load = load i7 %lineBuffer1_addr" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:38]   --->   Operation 103 'load' 'lineBuffer1_load' <Predicate = (!icmp_ln24)> <Delay = 1.17> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 8> <Depth = 66> <RAM>
+ST_3 : Operation 104 [1/2] (1.17ns)   --->   "%lineBuffer2_load = load i7 %lineBuffer2_addr" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:41]   --->   Operation 104 'load' 'lineBuffer2_load' <Predicate = (!icmp_ln24)> <Delay = 1.17> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 8> <Depth = 66> <RAM>
+ST_3 : Operation 105 [1/1] (1.17ns)   --->   "%store_ln47 = store i8 %lineBuffer2_load, i7 %lineBuffer1_addr" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:47]   --->   Operation 105 'store' 'store_ln47' <Predicate = (!icmp_ln24)> <Delay = 1.17> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 8> <Depth = 66> <RAM>
+
+State 4 <SV = 3> <Delay = 3.65>
+ST_4 : Operation 106 [6/7] (3.65ns)   --->   "%in_r_load_req = readreq i1 @_ssdm_op_ReadReq.m_axi.i32P1A, i32 %in_r_addr, i32 1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32]   --->   Operation 106 'readreq' 'in_r_load_req' <Predicate = (!icmp_ln24 & !empty_26)> <Delay = 3.65> <CoreInst = "m_axi">   --->   Core 121 'm_axi' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : 'read' 'write' 'readreq' 'writereq' 'writeresp'>
+ST_4 : Operation 107 [1/2] (1.17ns)   --->   "%lineBuffer1_load = load i7 %lineBuffer1_addr" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:38]   --->   Operation 107 'load' 'lineBuffer1_load' <Predicate = (!icmp_ln24)> <Delay = 1.17> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 8> <Depth = 66> <RAM>
+
+State 5 <SV = 4> <Delay = 3.65>
+ST_5 : Operation 108 [5/7] (3.65ns)   --->   "%in_r_load_req = readreq i1 @_ssdm_op_ReadReq.m_axi.i32P1A, i32 %in_r_addr, i32 1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32]   --->   Operation 108 'readreq' 'in_r_load_req' <Predicate = (!icmp_ln24 & !empty_26)> <Delay = 3.65> <CoreInst = "m_axi">   --->   Core 121 'm_axi' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : 'read' 'write' 'readreq' 'writereq' 'writeresp'>
+
+State 6 <SV = 5> <Delay = 3.65>
+ST_6 : Operation 109 [4/7] (3.65ns)   --->   "%in_r_load_req = readreq i1 @_ssdm_op_ReadReq.m_axi.i32P1A, i32 %in_r_addr, i32 1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32]   --->   Operation 109 'readreq' 'in_r_load_req' <Predicate = (!icmp_ln24 & !empty_26)> <Delay = 3.65> <CoreInst = "m_axi">   --->   Core 121 'm_axi' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : 'read' 'write' 'readreq' 'writereq' 'writeresp'>
+
+State 7 <SV = 6> <Delay = 3.65>
+ST_7 : Operation 110 [3/7] (3.65ns)   --->   "%in_r_load_req = readreq i1 @_ssdm_op_ReadReq.m_axi.i32P1A, i32 %in_r_addr, i32 1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32]   --->   Operation 110 'readreq' 'in_r_load_req' <Predicate = (!icmp_ln24 & !empty_26)> <Delay = 3.65> <CoreInst = "m_axi">   --->   Core 121 'm_axi' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : 'read' 'write' 'readreq' 'writereq' 'writeresp'>
+
+State 8 <SV = 7> <Delay = 3.65>
+ST_8 : Operation 111 [2/7] (3.65ns)   --->   "%in_r_load_req = readreq i1 @_ssdm_op_ReadReq.m_axi.i32P1A, i32 %in_r_addr, i32 1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32]   --->   Operation 111 'readreq' 'in_r_load_req' <Predicate = (!icmp_ln24 & !empty_26)> <Delay = 3.65> <CoreInst = "m_axi">   --->   Core 121 'm_axi' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : 'read' 'write' 'readreq' 'writereq' 'writeresp'>
+
+State 9 <SV = 8> <Delay = 3.65>
+ST_9 : Operation 112 [1/7] (3.65ns)   --->   "%in_r_load_req = readreq i1 @_ssdm_op_ReadReq.m_axi.i32P1A, i32 %in_r_addr, i32 1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32]   --->   Operation 112 'readreq' 'in_r_load_req' <Predicate = (!icmp_ln24 & !empty_26)> <Delay = 3.65> <CoreInst = "m_axi">   --->   Core 121 'm_axi' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : 'read' 'write' 'readreq' 'writereq' 'writeresp'>
+
+State 10 <SV = 9> <Delay = 3.65>
+ST_10 : Operation 113 [1/1] (3.65ns)   --->   "%in_r_addr_read = read i32 @_ssdm_op_Read.m_axi.i32P1A, i32 %in_r_addr" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32]   --->   Operation 113 'read' 'in_r_addr_read' <Predicate = (!icmp_ln24 & !empty_26)> <Delay = 3.65> <CoreInst = "m_axi">   --->   Core 121 'm_axi' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : 'read' 'write' 'readreq' 'writereq' 'writeresp'>
+ST_10 : Operation 114 [1/1] (0.00ns)   --->   "%newPixel_2 = trunc i32 %in_r_addr_read" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32]   --->   Operation 114 'trunc' 'newPixel_2' <Predicate = (!icmp_ln24 & !empty_26)> <Delay = 0.00>
+
+State 11 <SV = 10> <Delay = 2.92>
+ST_11 : Operation 115 [1/1] (0.00ns)   --->   "%newPixel_load = load i8 %newPixel" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:53]   --->   Operation 115 'load' 'newPixel_load' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 116 [1/1] (0.00ns)   --->   "%p_load21 = load i8 %empty_21"   --->   Operation 116 'load' 'p_load21' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 117 [1/1] (0.00ns)   --->   "%p_load = load i8 %empty_22" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:52]   --->   Operation 117 'load' 'p_load' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 118 [1/1] (0.00ns)   --->   "%specpipeline_ln0 = specpipeline void @_ssdm_op_SpecPipeline, i32 4294967295, i32 0, i32 1, i32 0, void @p_str"   --->   Operation 118 'specpipeline' 'specpipeline_ln0' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 119 [1/1] (0.38ns)   --->   "%br_ln0 = br void %if.end"   --->   Operation 119 'br' 'br_ln0' <Predicate = (!icmp_ln24 & !empty_26)> <Delay = 0.38>
+ST_11 : Operation 120 [1/1] (0.00ns)   --->   "%newPixel_1 = phi i8 %newPixel_2, void %if.else, i8 0, void %for.inc115"   --->   Operation 120 'phi' 'newPixel_1' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_11 : Operation 121 [1/1] (1.17ns)   --->   "%store_ln48 = store i8 %newPixel_1, i7 %lineBuffer2_addr" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:48]   --->   Operation 121 'store' 'store_ln48' <Predicate = (!icmp_ln24)> <Delay = 1.17> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 8> <Depth = 66> <RAM>
+ST_11 : Operation 122 [1/1] (0.00ns)   --->   "%p_load25 = load i8 %empty" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:53]   --->   Operation 122 'load' 'p_load25' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 123 [1/1] (0.00ns)   --->   "%p_load24 = load i8 %empty_19" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:54]   --->   Operation 123 'load' 'p_load24' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 124 [1/1] (0.00ns)   --->   "%p_load23 = load i8 %empty_20" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:52]   --->   Operation 124 'load' 'p_load23' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 125 [1/1] (0.00ns)   --->   "%zext_ln52 = zext i8 %p_load23" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:52]   --->   Operation 125 'zext' 'zext_ln52' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 126 [1/1] (0.00ns)   --->   "%zext_ln52_1 = zext i8 %p_load23" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:52]   --->   Operation 126 'zext' 'zext_ln52_1' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 127 [1/1] (0.00ns)   --->   "%shl_ln = bitconcatenate i9 @_ssdm_op_BitConcatenate.i9.i8.i1, i8 %p_load, i1 0" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:52]   --->   Operation 127 'bitconcatenate' 'shl_ln' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 128 [1/1] (0.00ns)   --->   "%zext_ln52_2 = zext i9 %shl_ln" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:52]   --->   Operation 128 'zext' 'zext_ln52_2' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 129 [1/1] (0.00ns)   --->   "%zext_ln53 = zext i8 %lineBuffer1_load" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:53]   --->   Operation 129 'zext' 'zext_ln53' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 130 [1/1] (0.00ns)   --->   "%zext_ln53_1 = zext i8 %p_load25" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:53]   --->   Operation 130 'zext' 'zext_ln53_1' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 131 [1/1] (0.00ns)   --->   "%zext_ln53_2 = zext i8 %p_load25" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:53]   --->   Operation 131 'zext' 'zext_ln53_2' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 132 [1/1] (0.00ns)   --->   "%shl_ln1 = bitconcatenate i9 @_ssdm_op_BitConcatenate.i9.i8.i1, i8 %newPixel_load, i1 0" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:53]   --->   Operation 132 'bitconcatenate' 'shl_ln1' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 133 [1/1] (0.00ns)   --->   "%zext_ln53_3 = zext i9 %shl_ln1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:53]   --->   Operation 133 'zext' 'zext_ln53_3' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 134 [1/1] (0.00ns)   --->   "%zext_ln52_3 = zext i8 %newPixel_1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:52]   --->   Operation 134 'zext' 'zext_ln52_3' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 135 [1/1] (0.71ns)   --->   "%add_ln52 = add i10 %zext_ln52_2, i10 %zext_ln52_1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:52]   --->   Operation 135 'add' 'add_ln52' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.71> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.71> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 136 [1/1] (0.00ns)   --->   "%zext_ln52_4 = zext i10 %add_ln52" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:52]   --->   Operation 136 'zext' 'zext_ln52_4' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 137 [1/1] (0.00ns) (grouped into TernaryAdder)   --->   "%sub_ln52 = sub i11 %zext_ln52_4, i11 %zext_ln53_2" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:52]   --->   Operation 137 'sub' 'sub_ln52' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.38> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_11 : Operation 138 [1/1] (0.77ns) (root node of TernaryAdder)   --->   "%sub_ln53 = sub i11 %sub_ln52, i11 %zext_ln53_3" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:53]   --->   Operation 138 'sub' 'sub_ln53' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.77> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.38> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_11 : Operation 139 [1/1] (0.00ns) (grouped into TernaryAdder)   --->   "%sub_ln53_1 = sub i11 %sub_ln53, i11 %zext_ln52_3" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:53]   --->   Operation 139 'sub' 'sub_ln53_1' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.38> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_11 : Operation 140 [1/1] (0.77ns) (root node of TernaryAdder)   --->   "%Gx = add i11 %sub_ln53_1, i11 %zext_ln53" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:52]   --->   Operation 140 'add' 'Gx' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.77> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.38> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_11 : Operation 141 [1/1] (0.00ns)   --->   "%shl_ln2 = bitconcatenate i9 @_ssdm_op_BitConcatenate.i9.i8.i1, i8 %p_load24, i1 0" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:54]   --->   Operation 141 'bitconcatenate' 'shl_ln2' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 142 [1/1] (0.00ns)   --->   "%zext_ln55 = zext i9 %shl_ln2" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:55]   --->   Operation 142 'zext' 'zext_ln55' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 143 [1/1] (0.00ns)   --->   "%shl_ln3 = bitconcatenate i9 @_ssdm_op_BitConcatenate.i9.i8.i1, i8 %lineBuffer2_load, i1 0" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:55]   --->   Operation 143 'bitconcatenate' 'shl_ln3' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 144 [1/1] (0.00ns)   --->   "%zext_ln54 = zext i9 %shl_ln3" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:54]   --->   Operation 144 'zext' 'zext_ln54' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 145 [1/1] (0.70ns)   --->   "%add_ln54 = add i9 %zext_ln52, i9 %zext_ln53_1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:54]   --->   Operation 145 'add' 'add_ln54' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 146 [1/1] (0.00ns)   --->   "%zext_ln54_1 = zext i9 %add_ln54" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:54]   --->   Operation 146 'zext' 'zext_ln54_1' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 147 [1/1] (0.71ns)   --->   "%add_ln54_1 = add i10 %zext_ln54_1, i10 %zext_ln55" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:54]   --->   Operation 147 'add' 'add_ln54_1' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.71> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.71> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 148 [1/1] (0.00ns)   --->   "%zext_ln55_1 = zext i10 %add_ln54_1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:55]   --->   Operation 148 'zext' 'zext_ln55_1' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 149 [1/1] (0.72ns)   --->   "%sub_ln55 = sub i11 %zext_ln55_1, i11 %zext_ln52_3" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:55]   --->   Operation 149 'sub' 'sub_ln55' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.72> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 150 [1/1] (0.00ns) (grouped into TernaryAdder)   --->   "%sub_ln55_1 = sub i11 %sub_ln55, i11 %zext_ln53" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:55]   --->   Operation 150 'sub' 'sub_ln55_1' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.38> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_11 : Operation 151 [1/1] (0.77ns) (root node of TernaryAdder)   --->   "%Gy = sub i11 %sub_ln55_1, i11 %zext_ln54" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:54]   --->   Operation 151 'sub' 'Gy' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.77> <CoreInst = "TAddSub">   --->   Core 10 'TAddSub' <Latency = 0> <II = 1> <Delay = 0.38> <IPBlock> <Opcode : 'add' 'sub'> <InPorts = 3> <OutPorts = 1> <Sync> <CReg>
+ST_11 : Operation 152 [1/1] (0.00ns)   --->   "%tmp_2 = bitconcatenate i15 @_ssdm_op_BitConcatenate.i15.i13.i2, i13 %add_ln67_2, i2 0" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67]   --->   Operation 152 'bitconcatenate' 'tmp_2' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 153 [1/1] (0.00ns)   --->   "%sext_ln67_2 = sext i15 %tmp_2" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67]   --->   Operation 153 'sext' 'sext_ln67_2' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 154 [1/1] (1.14ns)   --->   "%add_ln67_1 = add i64 %sext_ln67_2, i64 %outputImage_read" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67]   --->   Operation 154 'add' 'add_ln67_1' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 1.14> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 1.14> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 155 [1/1] (0.00ns)   --->   "%trunc_ln1 = partselect i62 @_ssdm_op_PartSelect.i62.i64.i32.i32, i64 %add_ln67_1, i32 2, i32 63" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67]   --->   Operation 155 'partselect' 'trunc_ln1' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 156 [1/1] (0.00ns)   --->   "%sext_ln67 = sext i62 %trunc_ln1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67]   --->   Operation 156 'sext' 'sext_ln67' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 157 [1/1] (0.00ns)   --->   "%out_r_addr = getelementptr i32 %out_r, i64 %sext_ln67" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67]   --->   Operation 157 'getelementptr' 'out_r_addr' <Predicate = (!icmp_ln24 & !or_ln51)> <Delay = 0.00>
+ST_11 : Operation 158 [1/1] (0.00ns)   --->   "%store_ln25 = store i8 %lineBuffer1_load, i8 %empty_22" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:25]   --->   Operation 158 'store' 'store_ln25' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_11 : Operation 159 [1/1] (0.00ns)   --->   "%store_ln25 = store i8 %lineBuffer2_load, i8 %empty_21" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:25]   --->   Operation 159 'store' 'store_ln25' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_11 : Operation 160 [1/1] (0.00ns)   --->   "%store_ln25 = store i8 %newPixel_1, i8 %newPixel" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:25]   --->   Operation 160 'store' 'store_ln25' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_11 : Operation 161 [1/1] (0.00ns)   --->   "%store_ln25 = store i8 %p_load, i8 %empty_20" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:25]   --->   Operation 161 'store' 'store_ln25' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_11 : Operation 162 [1/1] (0.00ns)   --->   "%store_ln25 = store i8 %p_load21, i8 %empty_19" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:25]   --->   Operation 162 'store' 'store_ln25' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_11 : Operation 163 [1/1] (0.00ns)   --->   "%store_ln25 = store i8 %newPixel_load, i8 %empty" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:25]   --->   Operation 163 'store' 'store_ln25' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+ST_11 : Operation 164 [1/1] (0.00ns)   --->   "%br_ln25 = br void %for.body4" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:25]   --->   Operation 164 'br' 'br_ln25' <Predicate = (!icmp_ln24)> <Delay = 0.00>
+
+State 12 <SV = 11> <Delay = 3.65>
+ST_12 : Operation 165 [1/1] (0.73ns)   --->   "%neg = sub i11 0, i11 %Gx" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:52]   --->   Operation 165 'sub' 'neg' <Predicate = (!or_ln51)> <Delay = 0.73> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.73> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 166 [1/1] (0.61ns)   --->   "%abscond = icmp_sgt  i11 %Gx, i11 0" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:52]   --->   Operation 166 'icmp' 'abscond' <Predicate = (!or_ln51)> <Delay = 0.61> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.61> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 167 [1/1] (0.00ns) (grouped into LUT with out node gradient)   --->   "%abs = select i1 %abscond, i11 %Gx, i11 %neg" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:52]   --->   Operation 167 'select' 'abs' <Predicate = (!or_ln51)> <Delay = 0.00> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_12 : Operation 168 [1/1] (0.00ns) (grouped into LUT with out node gradient)   --->   "%abs_cast = sext i11 %abs" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:52]   --->   Operation 168 'sext' 'abs_cast' <Predicate = (!or_ln51)> <Delay = 0.00>
+ST_12 : Operation 169 [1/1] (0.73ns)   --->   "%neg27 = sub i11 0, i11 %Gy" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:54]   --->   Operation 169 'sub' 'neg27' <Predicate = (!or_ln51)> <Delay = 0.73> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.73> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 170 [1/1] (0.61ns)   --->   "%abscond28 = icmp_sgt  i11 %Gy, i11 0" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:54]   --->   Operation 170 'icmp' 'abscond28' <Predicate = (!or_ln51)> <Delay = 0.61> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.61> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 171 [1/1] (0.00ns) (grouped into LUT with out node gradient)   --->   "%abs29 = select i1 %abscond28, i11 %Gy, i11 %neg27" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:54]   --->   Operation 171 'select' 'abs29' <Predicate = (!or_ln51)> <Delay = 0.00> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_12 : Operation 172 [1/1] (0.00ns) (grouped into LUT with out node gradient)   --->   "%sext_ln57 = sext i11 %abs29" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:57]   --->   Operation 172 'sext' 'sext_ln57' <Predicate = (!or_ln51)> <Delay = 0.00>
+ST_12 : Operation 173 [1/1] (0.73ns) (out node of the LUT)   --->   "%gradient = add i12 %sext_ln57, i12 %abs_cast" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:57]   --->   Operation 173 'add' 'gradient' <Predicate = (!or_ln51)> <Delay = 0.73> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.73> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 174 [1/1] (0.00ns)   --->   "%sext_ln57_1 = sext i12 %gradient" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:57]   --->   Operation 174 'sext' 'sext_ln57_1' <Predicate = (!or_ln51)> <Delay = 0.00>
+ST_12 : Operation 175 [1/1] (0.85ns)   --->   "%icmp_ln60 = icmp_slt  i32 %sext_ln57_1, i32 %EDGE_THRESHOLD_read" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:60]   --->   Operation 175 'icmp' 'icmp_ln60' <Predicate = (!or_ln51)> <Delay = 0.85> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.85> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 176 [1/1] (0.00ns) (grouped into LUT with out node select_ln57)   --->   "%gradient_1 = xor i1 %icmp_ln60, i1 1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:60]   --->   Operation 176 'xor' 'gradient_1' <Predicate = (!or_ln51)> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 177 [1/1] (0.30ns) (out node of the LUT)   --->   "%select_ln57 = select i1 %gradient_1, i32 255, i32 0" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:57]   --->   Operation 177 'select' 'select_ln57' <Predicate = (!or_ln51)> <Delay = 0.30> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_12 : Operation 178 [1/1] (3.65ns)   --->   "%out_r_addr_req = writereq i1 @_ssdm_op_WriteReq.m_axi.i32P1A, i32 %out_r_addr, i32 1" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67]   --->   Operation 178 'writereq' 'out_r_addr_req' <Predicate = (!or_ln51)> <Delay = 3.65> <CoreInst = "m_axi">   --->   Core 121 'm_axi' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : 'read' 'write' 'readreq' 'writereq' 'writeresp'>
+
+State 13 <SV = 12> <Delay = 3.65>
+ST_13 : Operation 179 [1/1] (3.65ns)   --->   "%write_ln67 = write void @_ssdm_op_Write.m_axi.i32P1A, i32 %out_r_addr, i32 %select_ln57, i4 15" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67]   --->   Operation 179 'write' 'write_ln67' <Predicate = (!or_ln51)> <Delay = 3.65> <CoreInst = "m_axi">   --->   Core 121 'm_axi' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : 'read' 'write' 'readreq' 'writereq' 'writeresp'>
+
+State 14 <SV = 13> <Delay = 3.65>
+ST_14 : Operation 180 [5/5] (3.65ns)   --->   "%out_r_addr_resp = writeresp i1 @_ssdm_op_WriteResp.m_axi.i32P1A, i32 %out_r_addr" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67]   --->   Operation 180 'writeresp' 'out_r_addr_resp' <Predicate = (!or_ln51)> <Delay = 3.65> <CoreInst = "m_axi">   --->   Core 121 'm_axi' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : 'read' 'write' 'readreq' 'writereq' 'writeresp'>
+
+State 15 <SV = 14> <Delay = 3.65>
+ST_15 : Operation 181 [4/5] (3.65ns)   --->   "%out_r_addr_resp = writeresp i1 @_ssdm_op_WriteResp.m_axi.i32P1A, i32 %out_r_addr" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67]   --->   Operation 181 'writeresp' 'out_r_addr_resp' <Predicate = (!or_ln51)> <Delay = 3.65> <CoreInst = "m_axi">   --->   Core 121 'm_axi' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : 'read' 'write' 'readreq' 'writereq' 'writeresp'>
+
+State 16 <SV = 15> <Delay = 3.65>
+ST_16 : Operation 182 [3/5] (3.65ns)   --->   "%out_r_addr_resp = writeresp i1 @_ssdm_op_WriteResp.m_axi.i32P1A, i32 %out_r_addr" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67]   --->   Operation 182 'writeresp' 'out_r_addr_resp' <Predicate = (!or_ln51)> <Delay = 3.65> <CoreInst = "m_axi">   --->   Core 121 'm_axi' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : 'read' 'write' 'readreq' 'writereq' 'writeresp'>
+
+State 17 <SV = 16> <Delay = 3.65>
+ST_17 : Operation 183 [2/5] (3.65ns)   --->   "%out_r_addr_resp = writeresp i1 @_ssdm_op_WriteResp.m_axi.i32P1A, i32 %out_r_addr" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67]   --->   Operation 183 'writeresp' 'out_r_addr_resp' <Predicate = (!or_ln51)> <Delay = 3.65> <CoreInst = "m_axi">   --->   Core 121 'm_axi' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : 'read' 'write' 'readreq' 'writereq' 'writeresp'>
+
+State 18 <SV = 17> <Delay = 3.65>
+ST_18 : Operation 184 [1/5] (3.65ns)   --->   "%out_r_addr_resp = writeresp i1 @_ssdm_op_WriteResp.m_axi.i32P1A, i32 %out_r_addr" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67]   --->   Operation 184 'writeresp' 'out_r_addr_resp' <Predicate = (!or_ln51)> <Delay = 3.65> <CoreInst = "m_axi">   --->   Core 121 'm_axi' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : 'read' 'write' 'readreq' 'writereq' 'writeresp'>
+ST_18 : Operation 185 [1/1] (0.00ns)   --->   "%br_ln68 = br void %for.inc" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:68]   --->   Operation 185 'br' 'br_ln68' <Predicate = (!or_ln51)> <Delay = 0.00>
+
+State 19 <SV = 11> <Delay = 0.00>
+ST_19 : Operation 186 [1/1] (0.00ns)   --->   "%ret_ln71 = ret" [/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:71]   --->   Operation 186 'ret' 'ret_ln71' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 5ns, clock uncertainty: 1.35ns.
+
+ <State 1>: 1ns
+The critical path consists of the following:
+	s_axi read operation ('outputImage') on port 'outputImage' [27]  (1 ns)
+
+ <State 2>: 3.51ns
+The critical path consists of the following:
+	'load' operation ('col_load', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:25) on local variable 'col' [47]  (0 ns)
+	'icmp' operation ('icmp_ln25', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:25) [51]  (0.6 ns)
+	'select' operation ('select_ln24', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:24) [52]  (0.308 ns)
+	'add' operation ('add_ln32', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32) [71]  (0.706 ns)
+	'add' operation ('add_ln32_1', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32) [73]  (0.745 ns)
+	'add' operation ('add_ln32_2', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32) [76]  (1.15 ns)
+
+ <State 3>: 3.65ns
+The critical path consists of the following:
+	bus request operation ('in_r_load_req', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32) on port 'in_r' (/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32) [80]  (3.65 ns)
+
+ <State 4>: 3.65ns
+The critical path consists of the following:
+	bus request operation ('in_r_load_req', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32) on port 'in_r' (/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32) [80]  (3.65 ns)
+
+ <State 5>: 3.65ns
+The critical path consists of the following:
+	bus request operation ('in_r_load_req', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32) on port 'in_r' (/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32) [80]  (3.65 ns)
+
+ <State 6>: 3.65ns
+The critical path consists of the following:
+	bus request operation ('in_r_load_req', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32) on port 'in_r' (/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32) [80]  (3.65 ns)
+
+ <State 7>: 3.65ns
+The critical path consists of the following:
+	bus request operation ('in_r_load_req', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32) on port 'in_r' (/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32) [80]  (3.65 ns)
+
+ <State 8>: 3.65ns
+The critical path consists of the following:
+	bus request operation ('in_r_load_req', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32) on port 'in_r' (/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32) [80]  (3.65 ns)
+
+ <State 9>: 3.65ns
+The critical path consists of the following:
+	bus request operation ('in_r_load_req', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32) on port 'in_r' (/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32) [80]  (3.65 ns)
+
+ <State 10>: 3.65ns
+The critical path consists of the following:
+	bus read operation ('in_r_addr_read', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32) on port 'in_r' (/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:32) [81]  (3.65 ns)
+
+ <State 11>: 2.92ns
+The critical path consists of the following:
+	'load' operation ('p_load25', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:53) on local variable 'empty' [98]  (0 ns)
+	'add' operation ('add_ln54', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:54) [121]  (0.705 ns)
+	'add' operation ('add_ln54_1', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:54) [123]  (0.715 ns)
+	'sub' operation ('sub_ln55', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:55) [125]  (0.725 ns)
+	'sub' operation ('sub_ln55_1', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:55) [126]  (0 ns)
+	'sub' operation ('Gy', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:54) [127]  (0.777 ns)
+
+ <State 12>: 3.65ns
+The critical path consists of the following:
+	bus request operation ('out_r_addr_req', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67) on port 'out_r' (/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67) [150]  (3.65 ns)
+
+ <State 13>: 3.65ns
+The critical path consists of the following:
+	bus write operation ('write_ln67', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67) on port 'out_r' (/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67) [151]  (3.65 ns)
+
+ <State 14>: 3.65ns
+The critical path consists of the following:
+	bus response operation ('out_r_addr_resp', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67) on port 'out_r' (/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67) [152]  (3.65 ns)
+
+ <State 15>: 3.65ns
+The critical path consists of the following:
+	bus response operation ('out_r_addr_resp', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67) on port 'out_r' (/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67) [152]  (3.65 ns)
+
+ <State 16>: 3.65ns
+The critical path consists of the following:
+	bus response operation ('out_r_addr_resp', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67) on port 'out_r' (/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67) [152]  (3.65 ns)
+
+ <State 17>: 3.65ns
+The critical path consists of the following:
+	bus response operation ('out_r_addr_resp', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67) on port 'out_r' (/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67) [152]  (3.65 ns)
+
+ <State 18>: 3.65ns
+The critical path consists of the following:
+	bus response operation ('out_r_addr_resp', /home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67) on port 'out_r' (/home/zqy/LLM4CHIP/C2HLS/eval_models/test_cases/edge_detect/edge_detect_fast.cpp:67) [152]  (3.65 ns)
+
+ <State 19>: 0ns
+The critical path consists of the following:
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+	State 4
+	State 5
+	State 6
+	State 7
+	State 8
+	State 9
+	State 10
+	State 11
+	State 12
+	State 13
+	State 14
+	State 15
+	State 16
+	State 17
+	State 18
+	State 19
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

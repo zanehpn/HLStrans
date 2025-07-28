@@ -1,0 +1,197 @@
+
+
+================================================================
+== Synthesis Summary Report of 'compute_attention_HLS'
+================================================================
++ General Information: 
+    * Date:           Sun May 11 11:27:27 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        compute_attention_HLS
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +-----------------------------------------------------------------------------------+------+------+----------+-----------+----------+----------+---------+----------+----------+----------+------------+------------+-----+
+    |                                      Modules                                      | Issue|      | Latency  |  Latency  | Iteration|          |   Trip  |          |          |          |            |            |     |
+    |                                      & Loops                                      | Type | Slack| (cycles) |    (ns)   |  Latency | Interval |  Count  | Pipelined|   BRAM   |    DSP   |     FF     |     LUT    | URAM|
+    +-----------------------------------------------------------------------------------+------+------+----------+-----------+----------+----------+---------+----------+----------+----------+------------+------------+-----+
+    |+ compute_attention_HLS                                                            |     -|  0.05|  41218433|  2.061e+08|         -|  41218434|        -|        no|  16 (~0%)|  16 (~0%)|  2993 (~0%)|  6890 (~0%)|    -|
+    | + compute_attention_HLS_Pipeline_VITIS_LOOP_48_1_VITIS_LOOP_50_3_VITIS_LOOP_52_4  |     -|  0.08|  20480015|  1.024e+08|         -|  20480015|        -|        no|         -|   1 (~0%)|   881 (~0%)|  2628 (~0%)|    -|
+    |  o VITIS_LOOP_48_1_VITIS_LOOP_50_3_VITIS_LOOP_52_4                                |    II|  3.65|  20480013|  1.024e+08|        18|         4|  5120000|       yes|         -|         -|           -|           -|    -|
+    | + compute_attention_HLS_Pipeline_VITIS_LOOP_64_5_VITIS_LOOP_66_7_VITIS_LOOP_68_8  |     -|  0.05|  20480015|  1.024e+08|         -|  20480015|        -|        no|         -|   1 (~0%)|   821 (~0%)|  2217 (~0%)|    -|
+    |  o VITIS_LOOP_64_5_VITIS_LOOP_66_7_VITIS_LOOP_68_8                                |    II|  3.65|  20480013|  1.024e+08|        18|         4|  5120000|       yes|         -|         -|           -|           -|    -|
+    | o VITIS_LOOP_21_1_VITIS_LOOP_22_2                                                 |     -|  3.65|    258400|  1.292e+06|       646|         -|      400|        no|         -|         -|           -|           -|    -|
+    |  + compute_attention_HLS_Pipeline_VITIS_LOOP_24_3                                 |     -|  0.75|       102|    510.000|         -|       102|        -|        no|         -|         -|   109 (~0%)|   197 (~0%)|    -|
+    |   o VITIS_LOOP_24_3                                                               |     -|  3.65|       100|    500.000|         3|         1|       99|       yes|         -|         -|           -|           -|    -|
+    |  + compute_attention_HLS_Pipeline_VITIS_LOOP_31_4                                 |     -|  0.29|       417|  2.085e+03|         -|       417|        -|        no|         -|   7 (~0%)|   562 (~0%)|  1004 (~0%)|    -|
+    |   o VITIS_LOOP_31_4                                                               |    II|  3.65|       415|  2.075e+03|        20|         4|      100|       yes|         -|         -|           -|           -|    -|
+    |  + compute_attention_HLS_Pipeline_VITIS_LOOP_36_5                                 |     -|  0.67|       113|    565.000|         -|       113|        -|        no|         -|         -|   176 (~0%)|   117 (~0%)|    -|
+    |   o VITIS_LOOP_36_5                                                               |     -|  3.65|       111|    555.000|        13|         1|      100|       yes|         -|         -|           -|           -|    -|
+    +-----------------------------------------------------------------------------------+------+------+----------+-----------+----------+----------+---------+----------+----------+----------+------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_MEMORY
++-------------------+----------+
+| Interface         | Bitwidth |
++-------------------+----------+
+| K_address0        | 16       |
+| K_q0              | 16       |
+| Output_r_address0 | 16       |
+| Output_r_d0       | 16       |
+| Q_address0        | 16       |
+| Q_q0              | 16       |
+| V_address0        | 16       |
+| V_q0              | 16       |
++-------------------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+--------------------------------------+
+| Argument | Direction | Datatype                             |
++----------+-----------+--------------------------------------+
+| Q        | in        | ap_fixed<16, 5, AP_TRN, AP_WRAP, 0>* |
+| K        | in        | ap_fixed<16, 5, AP_TRN, AP_WRAP, 0>* |
+| V        | in        | ap_fixed<16, 5, AP_TRN, AP_WRAP, 0>* |
+| Output   | out       | ap_fixed<16, 5, AP_TRN, AP_WRAP, 0>* |
++----------+-----------+--------------------------------------+
+
+* SW-to-HW Mapping
++----------+-------------------+---------+----------+
+| Argument | HW Interface      | HW Type | HW Usage |
++----------+-------------------+---------+----------+
+| Q        | Q_address0        | port    | offset   |
+| Q        | Q_ce0             | port    |          |
+| Q        | Q_q0              | port    |          |
+| K        | K_address0        | port    | offset   |
+| K        | K_ce0             | port    |          |
+| K        | K_q0              | port    |          |
+| V        | V_address0        | port    | offset   |
+| V        | V_ce0             | port    |          |
+| V        | V_q0              | port    |          |
+| Output   | Output_r_address0 | port    | offset   |
+| Output   | Output_r_ce0      | port    |          |
+| Output   | Output_r_we0      | port    |          |
+| Output   | Output_r_d0       | port    |          |
++----------+-------------------+---------+----------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++-----------------------------------------------------------------------------------+-----+--------+--------------+------+---------+---------+
+| Name                                                                              | DSP | Pragma | Variable     | Op   | Impl    | Latency |
++-----------------------------------------------------------------------------------+-----+--------+--------------+------+---------+---------+
+| + compute_attention_HLS                                                           | 16  |        |              |      |         |         |
+|   add_ln21_1_fu_172_p2                                                            | -   |        | add_ln21_1   | add  | fabric  | 0       |
+|   add_ln21_fu_184_p2                                                              | -   |        | add_ln21     | add  | fabric  | 0       |
+|   mac_muladd_3ns_7ns_7ns_10_4_1_U37                                               | 1   |        | mul_ln23     | mul  | dsp48   | 3       |
+|   mac_muladd_3ns_7ns_7ns_10_4_1_U37                                               | 1   |        | add_ln23     | add  | dsp48   | 3       |
+|   mul_mul_10ns_7ns_17_4_1_U38                                                     | 1   |        | mul_ln23_1   | mul  | dsp48   | 3       |
+|   add_ln22_fu_216_p2                                                              | -   |        | add_ln22     | add  | fabric  | 0       |
+|  + compute_attention_HLS_Pipeline_VITIS_LOOP_48_1_VITIS_LOOP_50_3_VITIS_LOOP_52_4 | 1   |        |              |      |         |         |
+|    add_ln48_1_fu_275_p2                                                           | -   |        | add_ln48_1   | add  | fabric  | 0       |
+|    add_ln48_fu_293_p2                                                             | -   |        | add_ln48     | add  | fabric  | 0       |
+|    mul_3ns_8ns_10_1_1_U3                                                          | -   |        | mul_ln1090   | mul  | auto    | 0       |
+|    add_ln49_fu_361_p2                                                             | -   |        | add_ln49     | add  | fabric  | 0       |
+|    add_ln1090_fu_393_p2                                                           | -   |        | add_ln1090   | add  | fabric  | 0       |
+|    mac_muladd_10ns_7ns_7ns_16_4_1_U4                                              | 1   |        | mul_ln50     | mul  | dsp48   | 3       |
+|    add_ln50_fu_421_p2                                                             | -   |        | add_ln50     | add  | fabric  | 0       |
+|    add_ln1090_4_fu_463_p2                                                         | -   |        | add_ln1090_4 | add  | fabric  | 0       |
+|    mac_muladd_10ns_7ns_7ns_16_4_1_U4                                              | 1   |        | add_ln55     | add  | dsp48   | 3       |
+|    add_ln1090_2_fu_545_p2                                                         | -   |        | add_ln1090_2 | add  | fabric  | 0       |
+|    add_ln1090_3_fu_556_p2                                                         | -   |        | add_ln1090_3 | add  | fabric  | 0       |
+|    tmp_V_fu_581_p2                                                                | -   |        | tmp_V        | sub  | fabric  | 0       |
+|    sub_ln1099_fu_625_p2                                                           | -   |        | sub_ln1099   | sub  | fabric  | 0       |
+|    lsb_index_fu_654_p2                                                            | -   |        | lsb_index    | add  | fabric  | 0       |
+|    sub_ln1102_fu_675_p2                                                           | -   |        | sub_ln1102   | sub  | fabric  | 0       |
+|    add_ln1104_fu_721_p2                                                           | -   |        | add_ln1104   | add  | fabric  | 0       |
+|    add_ln1113_fu_762_p2                                                           | -   |        | add_ln1113   | add  | fabric  | 0       |
+|    sub_ln1114_fu_777_p2                                                           | -   |        | sub_ln1114   | sub  | fabric  | 0       |
+|    m_8_fu_804_p2                                                                  | -   |        | m_8          | add  | fabric  | 0       |
+|    tmp_V_4_fu_833_p2                                                              | -   |        | tmp_V_4      | sub  | fabric  | 0       |
+|    sub_ln1099_1_fu_874_p2                                                         | -   |        | sub_ln1099_1 | sub  | fabric  | 0       |
+|    lsb_index_1_fu_964_p2                                                          | -   |        | lsb_index_1  | add  | fabric  | 0       |
+|    sub_ln1102_1_fu_985_p2                                                         | -   |        | sub_ln1102_1 | sub  | fabric  | 0       |
+|    add_ln1104_1_fu_1031_p2                                                        | -   |        | add_ln1104_1 | add  | fabric  | 0       |
+|    add_ln1113_1_fu_1072_p2                                                        | -   |        | add_ln1113_1 | add  | fabric  | 0       |
+|    sub_ln1114_1_fu_1087_p2                                                        | -   |        | sub_ln1114_1 | sub  | fabric  | 0       |
+|    m_13_fu_1114_p2                                                                | -   |        | m_13         | add  | fabric  | 0       |
+|    add_ln52_fu_469_p2                                                             | -   |        | add_ln52     | add  | fabric  | 0       |
+|    add_ln50_1_fu_481_p2                                                           | -   |        | add_ln50_1   | add  | fabric  | 0       |
+|    add_ln49_1_fu_892_p2                                                           | -   |        | add_ln49_1   | add  | fabric  | 0       |
+|  + compute_attention_HLS_Pipeline_VITIS_LOOP_64_5_VITIS_LOOP_66_7_VITIS_LOOP_68_8 | 1   |        |              |      |         |         |
+|    add_ln64_1_fu_301_p2                                                           | -   |        | add_ln64_1   | add  | fabric  | 0       |
+|    add_ln64_fu_319_p2                                                             | -   |        | add_ln64     | add  | fabric  | 0       |
+|    mul_3ns_8ns_10_1_1_U31                                                         | -   |        | mul_ln1090   | mul  | auto    | 0       |
+|    add_ln65_fu_381_p2                                                             | -   |        | add_ln65     | add  | fabric  | 0       |
+|    add_ln71_fu_413_p2                                                             | -   |        | add_ln71     | add  | fabric  | 0       |
+|    mac_muladd_10ns_7ns_7ns_16_4_1_U32                                             | 1   |        | mul_ln66     | mul  | dsp48   | 3       |
+|    add_ln66_fu_447_p2                                                             | -   |        | add_ln66     | add  | fabric  | 0       |
+|    add_ln71_1_fu_545_p2                                                           | -   |        | add_ln71_1   | add  | fabric  | 0       |
+|    add_ln1090_fu_489_p2                                                           | -   |        | add_ln1090   | add  | fabric  | 0       |
+|    add_ln1090_1_fu_558_p2                                                         | -   |        | add_ln1090_1 | add  | fabric  | 0       |
+|    mac_muladd_10ns_7ns_7ns_16_4_1_U32                                             | 1   |        | add_ln69     | add  | dsp48   | 3       |
+|    tmp_V_fu_583_p2                                                                | -   |        | tmp_V        | sub  | fabric  | 0       |
+|    sub_ln1099_fu_627_p2                                                           | -   |        | sub_ln1099   | sub  | fabric  | 0       |
+|    lsb_index_fu_648_p2                                                            | -   |        | lsb_index    | add  | fabric  | 0       |
+|    sub_ln1102_fu_669_p2                                                           | -   |        | sub_ln1102   | sub  | fabric  | 0       |
+|    add_ln1104_fu_715_p2                                                           | -   |        | add_ln1104   | add  | fabric  | 0       |
+|    add_ln1113_fu_756_p2                                                           | -   |        | add_ln1113   | add  | fabric  | 0       |
+|    sub_ln1114_fu_771_p2                                                           | -   |        | sub_ln1114   | sub  | fabric  | 0       |
+|    m_3_fu_798_p2                                                                  | -   |        | m_3          | add  | fabric  | 0       |
+|    add_ln68_fu_495_p2                                                             | -   |        | add_ln68     | add  | fabric  | 0       |
+|    man_V_1_fu_992_p2                                                              | -   |        | man_V_1      | sub  | fabric  | 0       |
+|    F2_fu_975_p2                                                                   | -   |        | F2           | sub  | fabric  | 0       |
+|    add_ln570_fu_1010_p2                                                           | -   |        | add_ln570    | add  | fabric  | 0       |
+|    sub_ln570_fu_1015_p2                                                           | -   |        | sub_ln570    | sub  | fabric  | 0       |
+|    add_ln66_1_fu_822_p2                                                           | -   |        | add_ln66_1   | add  | fabric  | 0       |
+|    add_ln65_1_fu_834_p2                                                           | -   |        | add_ln65_1   | add  | fabric  | 0       |
+|  + compute_attention_HLS_Pipeline_VITIS_LOOP_24_3                                 | 0   |        |              |      |         |         |
+|    add_ln25_fu_116_p2                                                             | -   |        | add_ln25     | add  | fabric  | 0       |
+|    add_ln24_fu_127_p2                                                             | -   |        | add_ln24     | add  | fabric  | 0       |
+|  + compute_attention_HLS_Pipeline_VITIS_LOOP_31_4                                 | 7   |        |              |      |         |         |
+|    add_ln31_fu_112_p2                                                             | -   |        | add_ln31     | add  | fabric  | 0       |
+|    add_ln32_fu_122_p2                                                             | -   |        | add_ln32     | add  | fabric  | 0       |
+|    fexp_32ns_32ns_32_8_full_dsp_1_U17                                             | 7   |        | tmp          | fexp | fulldsp | 7       |
+|  + compute_attention_HLS_Pipeline_VITIS_LOOP_36_5                                 | 0   |        |              |      |         |         |
+|    add_ln36_fu_87_p2                                                              | -   |        | add_ln36     | add  | fabric  | 0       |
+|    add_ln37_fu_97_p2                                                              | -   |        | add_ln37     | add  | fabric  | 0       |
+|    fdiv_32ns_32ns_32_10_no_dsp_1_U23                                              | -   |        | div_i        | fdiv | fabric  | 9       |
++-----------------------------------------------------------------------------------+-----+--------+--------------+------+---------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++-------------------------+------+------+--------+-----------+---------+------+---------+
+| Name                    | BRAM | URAM | Pragma | Variable  | Storage | Impl | Latency |
++-------------------------+------+------+--------+-----------+---------+------+---------+
+| + compute_attention_HLS | 16   | 0    |        |           |         |      |         |
+|   attention_U           | 16   | -    |        | attention | ram_s2p | auto | 1       |
++-------------------------+------+------+--------+-----------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+  No pragmas found
+

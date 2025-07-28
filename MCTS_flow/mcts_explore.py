@@ -16,6 +16,7 @@ from lib_functions.llm_api import *
 global_attempt_count = 0
 global_function_error_count = 0  # Counts errors from function compilation (compile_and_check)
 global_synthesis_error_count = 0  # Counts synthesis errors captured from Vitis logs
+global_list = []
 
 ###############################################
 # Monte Carlo Tree Search (MCTS) Implementation
@@ -102,21 +103,31 @@ class PromptState:
         if not strategies:
             return "Optimize code for performance."
         explanations = []
-        examples = []
-        code_path = ""
-        if not os.path.exists(f"../true/{top_function}/{top_function}.cpp"):
-            code_path = f"../demo_case/{top_function}/{top_function}.cpp"
-            with open(code_path, 'r') as code_file:
-                code_content = code_file.read()
-            combined_content = code_content    
-        else:
-            code_path = f"../true/{top_function}/{top_function}.cpp"
-            code_header = f"../true/{top_function}/{top_function}.h"   
-            with open(code_header, 'r') as header_file:
+        header_content = []
+        #code_path = ""
+        code_path = f"../demo_case/{top_function}/{top_function}.cpp"
+        with open(code_path, 'r') as code_file:
+            code_content = code_file.read()
+        if os.path.exists(f"../demo_case/{top_function}/{top_function}.h"):
+            with open(f"../demo_case/{top_function}/{top_function}.h", 'r') as header_file:
                 header_content = header_file.read()
-            with open(code_path, 'r') as code_file:
-                code_content = code_file.read()
-            combined_content = header_content + "\n" + code_content
+        combined_content = header_content + "\n" + code_content        
+        # if not os.path.exists(f"../true/{top_function}/{top_function}.cpp"):
+        #     code_path = f"../demo_case/{top_function}/{top_function}.cpp"
+        #     with open(code_path, 'r') as code_file:
+        #         code_content = code_file.read()
+        #     if os.path.exists(f"../demo_case/{top_function}/{top_function}.h"):
+        #         with open(f"../demo_case/{top_function}/{top_function}.h", 'r') as header_file:
+        #             header_content = header_file.read()
+        #     combined_content = header_content + "\n" + code_content
+        # else:
+        #     code_path = f"../true/{top_function}/{top_function}.cpp"
+        #     code_header = f"../true/{top_function}/{top_function}.h"   
+        #     with open(code_header, 'r') as header_file:
+        #         header_content = header_file.read()
+        #     with open(code_path, 'r') as code_file:
+        #         code_content = code_file.read()
+        #     combined_content = header_content + "\n" + code_content
         here = os.path.dirname(os.path.abspath(__file__))
         code_path = os.path.join(
             here,
@@ -187,9 +198,7 @@ class PromptState:
 
     def evaluate_prompt(self, top_function):
         full_prompt = self.current_prompt
-        code_path = f"../true/{top_function}/{top_function}.cpp"
-        code_header = f"../true/{top_function}/{top_function}.h"       
-        generated_result = deepseek_R1(full_prompt)
+        generated_result = deepseek_R1_mcts(full_prompt)
         print("generate_result cpp: ", generated_result['cpp'])
         print("generate_result header: ", generated_result['header'])
         if not os.path.exists(f"../generate/{top_function}"):
@@ -211,9 +220,13 @@ class PromptState:
         return score
 
     def run_vitis(self, top_function, prompt):
+        global global_list
+        true_path = f"../true/{top_function}"
+        if os.path.exists(true_path):
+            global_list = grasp_latency(true_path)        
         global global_attempt_count, global_function_error_count, global_synthesis_error_count
         tcl_template = f"""open_project {top_function}
-add_files ../generate/{top_function}/{top_function}.cpp
+add_files {top_function}.cpp
 set_top {top_function}
 open_solution solution1
 create_clock -period 5 -name default
@@ -238,13 +251,26 @@ exit
         error_history = []
         res_errors = []
         syn_errors = []
-        while attempts < 2:
+        while attempts < 3:
             global_attempt_count += 1  # Increment global attempt counter
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            output_path = os.path.abspath(
+                os.path.join(current_dir, "..", "generate", top_function)
+            )
+            header_file_generate = os.path.abspath(
+                os.path.join(output_path, f"{top_function}.h")
+            )
+            cpp_file = os.path.abspath(
+                os.path.join(output_path, f"{top_function}.cpp")
+            )
+            tb_file = os.path.abspath(
+                os.path.join(output_path, f"{top_function}_tb.cpp")
+            )
             function_errors = compile_and_check(
-                f"../generate/{top_function}/{top_function}.h", 
-                f"../generate/{top_function}/{top_function}.cpp", 
-                f"../generate/{top_function}/{top_function}_tb.cpp", 
-                "./a.out"
+                header_file_generate, 
+                cpp_file, 
+                tb_file, 
+                output_path
             )
             if function_errors:
                 # Count each error as a function error
@@ -253,7 +279,7 @@ exit
             else:
                 try:
                     with open(new_log_file, "w") as log:
-                        subprocess.run(command, stdout=log, stderr=log, timeout=600,cwd=f"../generate/{top_function}") 
+                        subprocess.run(command, stdout=log, stderr=log, timeout=600, cwd=f"../generate/{top_function}") 
                     print(f"Vitis HLS run completed. Logs are saved to {log_file}")
                     error_pattern = re.compile(r"ERROR: .*")
                     with open(log_file, "r") as log:
@@ -300,7 +326,7 @@ exit
 And generate new code to avoid the following errors:\n{errors}\n
 You can refer to these guidelines to correct the code:\n{error_debug}\n
 Check the error positions and repair the code.'''
-                generated_result = deepseek_R1(new_prompt)
+                generated_result = deepseek_R1_mcts(new_prompt)
                 print("Corrected results cpp: ", generated_result['cpp'])
                 print("Corrected results header: ", generated_result['header'])
                 with open(f"../generate/{top_function}/{top_function}.cpp", "w") as f:
@@ -308,50 +334,38 @@ Check the error positions and repair the code.'''
                 with open(f"../generate/{top_function}/{top_function}.h", "w") as f:
                     f.write(generated_result['header'])
                 attempts += 1
-                print(f"Vitis run error on attempt {attempts}. Regenerating code using deepseek_R1 with current prompt.")
+                print(f"Vitis run error on attempt {attempts}. Regenerating code using deepseek_R1_mcts with current prompt.")
             else:
                 print("No ERROR messages found in the log.")
                 break
 
         if not errors:
-            curr_log = f"../generate/{top_function}/{top_function}/solution1/syn/report/csynth.rpt"
-            if not os.path.exists(f"../true/{top_function}"):
-                copy_directory(f"../generate/{top_function}", f"../true/",curr_log, log_file)
-
-            previous_log_file = f"../true/{top_function}/vitis_hls.log"
+            curr_rpt = f"../generate/{top_function}/{top_function}/solution1/syn/report/csynth.rpt"
+            previous_log_file = f"../demo_case/{top_function}/vitis_hls.log"
             pre_non_one_final_ii = find_non_one_final_ii(previous_log_file)
             pre_non_II_number = sum_final_ii_numbers(pre_non_one_final_ii)
             curr_non_one_final_ii = find_non_one_final_ii(log_file)
             curr_non_II_number = sum_final_ii_numbers(curr_non_one_final_ii)
             print("curr_non_II_number: ", curr_non_II_number)
             print("pre_non_II_number: ", pre_non_II_number)
-            previous_log = f"../true/{top_function}/csynth.rpt"
+            previous_rpt = f"../demo_case/{top_function}/{top_function}/solution1/syn/report/csynth.rpt"
             reward = 0
-            if os.path.exists(previous_log):
-                result_previous = parse_hls_report_with_checks(previous_log)
-                if os.path.exists(curr_log):
-                    result_current = parse_hls_report_with_checks(curr_log)
+            if os.path.exists(previous_rpt):
+                result_previous = parse_hls_report_with_checks(previous_rpt)
+                if os.path.exists(curr_rpt):
+                    result_current = parse_hls_report_with_checks(curr_rpt)
                     print("Previous result latency: ", result_previous["total_latency_cycles"])
                     print("Current result latency: ", result_current["total_latency_cycles"])
                     if result_current["total_latency_cycles"] != '-' and result_previous["total_latency_cycles"] != '-':
-                        if int(result_previous["total_latency_cycles"]) > int(result_current["total_latency_cycles"]) and result_current["resource_constraint_met"] == True:
+                        if int(result_previous["total_latency_cycles"]) > int(result_current["total_latency_cycles"]) and result_current["resource_constraint_met"] == True and not int(result_current["total_latency_cycles"]) in global_list:
                             reward = 2
-                            rm_command = ["rm", "-rf", f"../true/{top_function}"]
-                            subprocess.run(rm_command)
-                            copy_directory(f"../generate/{top_function}", f"../true/", curr_log, log_file)
-                        elif result_previous["resource_constraint_met"] == True and int(curr_non_II_number) < int(pre_non_II_number):
-                            reward = 2
-                            rm_command = ["rm", "-rf", f"../true/{top_function}"]
-                            subprocess.run(rm_command)
-                            copy_directory(f"../generate/{top_function}", f"../true/", curr_log, log_file)
+                            copy_directory(f"../generate/{top_function}/", f"../true/", curr_rpt)
                     elif result_previous["resource_constraint_met"] == True and int(curr_non_II_number) < int(pre_non_II_number):
                         if result_previous["timing_constraint_met"] == True:
                             reward = 3
                         else:
                             reward = 2
-                        rm_command = ["rm", "-rf", f"../true/{top_function}"]
-                        subprocess.run(rm_command)
-                        copy_directory(f"../generate/{top_function}", f"../true/", curr_log, log_file)
+                        copy_directory(f"../generate/{top_function}", f"../true/", curr_rpt)
                 else:
                     reward = 0
         else:
@@ -370,7 +384,7 @@ Check the error positions and repair the code.'''
 ###############################################
 if __name__ == '__main__':
     initial_prompt = "You are a FPGA engineer, You should obey Xilinx HLS code guidelines. You should optimize the following HLS code."
-    top_function = "adi"
+    top_function = "atax"
     root_state = PromptState(initial_prompt, optimization_table)
     best_node = monte_carlo_tree_search(Node(root_state), top_function, iterations=32)
     

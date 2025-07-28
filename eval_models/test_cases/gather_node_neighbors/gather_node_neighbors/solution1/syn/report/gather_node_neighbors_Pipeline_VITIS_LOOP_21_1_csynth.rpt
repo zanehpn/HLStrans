@@ -1,0 +1,150 @@
+
+
+================================================================
+== Vitis HLS Report for 'gather_node_neighbors_Pipeline_VITIS_LOOP_21_1'
+================================================================
+* Date:           Mon Jul 28 11:42:50 2025
+
+* Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+* Project:        gather_node_neighbors
+* Solution:       solution1 (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu55c-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  5.00 ns|  2.403 ns|     1.35 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-----+-----+---------+
+    |  Latency (cycles) |  Latency (absolute) |  Interval | Pipeline|
+    |   min   |   max   |    min   |    max   | min | max |   Type  |
+    +---------+---------+----------+----------+-----+-----+---------+
+    |        ?|        ?|         ?|         ?|    ?|    ?|       no|
+    +---------+---------+----------+----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |                   |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |     Loop Name     |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- VITIS_LOOP_21_1  |        ?|        ?|         2|          1|          1|     ?|       yes|
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++---------------------+---------+------+---------+---------+-----+
+|         Name        | BRAM_18K|  DSP |    FF   |   LUT   | URAM|
++---------------------+---------+------+---------+---------+-----+
+|DSP                  |        -|     -|        -|        -|    -|
+|Expression           |        -|     -|        0|       57|    -|
+|FIFO                 |        -|     -|        -|        -|    -|
+|Instance             |        -|     -|        -|        -|    -|
+|Memory               |        -|     -|        -|        -|    -|
+|Multiplexer          |        -|     -|        -|       36|    -|
+|Register             |        -|     -|       25|        -|    -|
++---------------------+---------+------+---------+---------+-----+
+|Total                |        0|     0|       25|       93|    0|
++---------------------+---------+------+---------+---------+-----+
+|Available SLR        |     1344|  3008|   869120|   434560|  320|
++---------------------+---------+------+---------+---------+-----+
+|Utilization SLR (%)  |        0|     0|       ~0|       ~0|    0|
++---------------------+---------+------+---------+---------+-----+
+|Available            |     4032|  9024|  2607360|  1303680|  960|
++---------------------+---------+------+---------+---------+-----+
+|Utilization (%)      |        0|     0|       ~0|       ~0|    0|
++---------------------+---------+------+---------+---------+-----+
+
++ Detail: 
+    * Instance: 
+    N/A
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +--------------------+----------+----+---+----+------------+------------+
+    |    Variable Name   | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +--------------------+----------+----+---+----+------------+------------+
+    |add_ln21_fu_99_p2   |         +|   0|  0|  18|          11|           1|
+    |add_ln23_fu_109_p2  |         +|   0|  0|  17|          10|          10|
+    |icmp_ln21_fu_93_p2  |      icmp|   0|  0|  20|          32|          32|
+    |ap_enable_pp0       |       xor|   0|  0|   2|           1|           2|
+    +--------------------+----------+----+---+----+------------+------------+
+    |Total               |          |   0|  0|  57|          54|          45|
+    +--------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +-------------------------+----+-----------+-----+-----------+
+    |           Name          | LUT| Input Size| Bits| Total Bits|
+    +-------------------------+----+-----------+-----+-----------+
+    |ap_done_int              |   9|          2|    1|          2|
+    |ap_enable_reg_pp0_iter1  |   9|          2|    1|          2|
+    |ap_sig_allocacmp_i_1     |   9|          2|   11|         22|
+    |i_fu_38                  |   9|          2|   11|         22|
+    +-------------------------+----+-----------+-----+-----------+
+    |Total                    |  36|          8|   24|         48|
+    +-------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +-------------------------+----+----+-----+-----------+
+    |           Name          | FF | LUT| Bits| Const Bits|
+    +-------------------------+----+----+-----+-----------+
+    |ap_CS_fsm                |   1|   0|    1|          0|
+    |ap_done_reg              |   1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter1  |   1|   0|    1|          0|
+    |i_1_reg_136              |  11|   0|   11|          0|
+    |i_fu_38                  |  11|   0|   11|          0|
+    +-------------------------+----+----+-----+-----------+
+    |Total                    |  25|   0|   25|          0|
+    +-------------------------+----+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++-------------------------+-----+-----+------------+------------------------------------------------+--------------+
+|        RTL Ports        | Dir | Bits|  Protocol  |                  Source Object                 |    C Type    |
++-------------------------+-----+-----+------------+------------------------------------------------+--------------+
+|ap_clk                   |   in|    1|  ap_ctrl_hs|  gather_node_neighbors_Pipeline_VITIS_LOOP_21_1|  return value|
+|ap_rst                   |   in|    1|  ap_ctrl_hs|  gather_node_neighbors_Pipeline_VITIS_LOOP_21_1|  return value|
+|ap_start                 |   in|    1|  ap_ctrl_hs|  gather_node_neighbors_Pipeline_VITIS_LOOP_21_1|  return value|
+|ap_done                  |  out|    1|  ap_ctrl_hs|  gather_node_neighbors_Pipeline_VITIS_LOOP_21_1|  return value|
+|ap_idle                  |  out|    1|  ap_ctrl_hs|  gather_node_neighbors_Pipeline_VITIS_LOOP_21_1|  return value|
+|ap_ready                 |  out|    1|  ap_ctrl_hs|  gather_node_neighbors_Pipeline_VITIS_LOOP_21_1|  return value|
+|node_in_degree           |   in|   32|     ap_none|                                  node_in_degree|        scalar|
+|trunc_ln                 |   in|   10|     ap_none|                                        trunc_ln|        scalar|
+|neighbor_table_address0  |  out|   10|   ap_memory|                                  neighbor_table|         array|
+|neighbor_table_ce0       |  out|    1|   ap_memory|                                  neighbor_table|         array|
+|neighbor_table_q0        |   in|   32|   ap_memory|                                  neighbor_table|         array|
+|node_neighbors_address0  |  out|   11|   ap_memory|                                  node_neighbors|         array|
+|node_neighbors_ce0       |  out|    1|   ap_memory|                                  node_neighbors|         array|
+|node_neighbors_we0       |  out|    1|   ap_memory|                                  node_neighbors|         array|
+|node_neighbors_d0        |  out|   32|   ap_memory|                                  node_neighbors|         array|
++-------------------------+-----+-----+------------+------------------------------------------------+--------------+
+

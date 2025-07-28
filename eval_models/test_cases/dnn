@@ -1,0 +1,105 @@
+#include <ap_fixed.h>
+#include <math.h>
+
+const int C_IN = 32, H_IN = 28, W_IN = 56;
+const int C_OUT = 32, H_OUT = 30, W_OUT = 58;
+const int UFCIN1 = 1; // Unrolling factor for input channels
+const int UFCOU4 = 4; // Unrolling factor for output channels
+
+typedef ap_fixed<16, 5> data_t;
+typedef ap_fixed<16, 5> weight_t;
+typedef ap_fixed<16, 5> bias_t;
+typedef ap_fixed<16, 5> batch_norm_t;
+
+data_t tanh_approx(data_t x) {
+    data_t abs_x = x < 0 ? -x : x;
+    data_t exp_val = 1.0f + 2.0f * exp(-2.0f * abs_x);
+    data_t tanh_val = 2.0f / exp_val - 1.0f;
+    return x < 0 ? -tanh_val : tanh_val;
+}
+
+void top(
+    data_t DRAM_image_input[C_IN][H_IN][W_IN],
+    weight_t DRAM_conv_weight[C_OUT][C_IN],
+    bias_t DRAM_conv_bias[C_OUT],
+    batch_norm_t DRAM_batch_norm_weights[4][C_OUT],
+    data_t DRAM_image_output[C_OUT][H_OUT][W_OUT]
+) {
+#pragma HLS INTERFACE m_axi port=DRAM_image_input offset=slave bundle=gmem
+#pragma HLS INTERFACE m_axi port=DRAM_conv_weight offset=slave bundle=gmem
+#pragma HLS INTERFACE m_axi port=DRAM_conv_bias offset=slave bundle=gmem
+#pragma HLS INTERFACE m_axi port=DRAM_batch_norm_weights offset=slave bundle=gmem
+#pragma HLS INTERFACE m_axi port=DRAM_image_output offset=slave bundle=gmem
+#pragma HLS INTERFACE s_axilite port=return bundle=control
+
+    data_t image_buffer[H_IN+2][W_IN+2]; // Buffer with padding
+#pragma HLS ARRAY_PARTITION variable=image_buffer cyclic factor=UFCIN1 dim=2
+
+    data_t sum_buffer[C_OUT];
+#pragma HLS ARRAY_PARTITION variable=sum_buffer cyclic factor=UFCOU4
+
+    for (int co = 0; co < C_OUT; co += UFCOU4) {
+#pragma HLS UNROLL factor=UFCOU4
+
+        batch_norm_t gamma[UFCOU4];
+        batch_norm_t beta[UFCOU4];
+        batch_norm_t mean[UFCOU4];
+        batch_norm_t var[UFCOU4];
+
+        for (int u = 0; u < UFCOU4; ++u) {
+            gamma[u] = DRAM_batch_norm_weights[0][co + u];
+            beta[u] = DRAM_batch_norm_weights[1][co + u];
+            mean[u] = DRAM_batch_norm_weights[2][co + u];
+            var[u] = DRAM_batch_norm_weights[3][co + u];
+        }
+
+        for (int ci = 0; ci < C_IN; ci += UFCIN1) {
+#pragma HLS UNROLL factor=UFCIN1
+
+            // Load input data into buffer with padding
+            for (int h = 0; h < H_IN; h++) {
+                for (int w = 0; w < W_IN; w++) {
+                    image_buffer[h+1][w+1] = DRAM_image_input[ci][h][w];
+                }
+            }
+            for (int h = 0; h < H_IN + 2; h++) {
+                image_buffer[h][0] = 0;
+                image_buffer[h][W_IN + 1] = 0;
+            }
+            for (int w = 0; w < W_IN + 2; w++) {
+                image_buffer[0][w] = 0;
+                image_buffer[H_IN + 1][w] = 0;
+            }
+
+            // Perform convolution
+            for (int h = 0; h < H_OUT; h++) {
+                for (int w = 0; w < W_OUT; w++) {
+                    int inp_h = h - 1;
+                    int inp_w = w - 1;
+
+                    for (int u = 0; u < UFCOU4; ++u) {
+                        if (ci == 0) {
+                            sum_buffer[co + u] = DRAM_conv_bias[co + u];
+                        }
+
+                        data_t val = image_buffer[inp_h + 1][inp_w + 1];
+                        weight_t weight = DRAM_conv_weight[co + u][ci];
+                        sum_buffer[co + u] += val * weight;
+                    }
+                }
+            }
+        }
+
+        // Batch normalization and Tanh activation
+        for (int h = 0; h < H_OUT; h++) {
+            for (int w = 0; w < W_OUT; w++) {
+                for (int u = 0; u < UFCOU4; ++u) {
+                    data_t sum = sum_buffer[co + u];
+                    data_t eps = 1e-5f;
+                    data_t norm = (sum - mean[u]) / sqrtf(var[u] + eps) * gamma[u] + beta[u];
+                    DRAM_image_output[co + u][h][w] = tanh_approx(norm);
+                }
+            }
+        }
+    }
+}

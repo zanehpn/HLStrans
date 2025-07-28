@@ -1,0 +1,170 @@
+
+
+================================================================
+== Vitis HLS Report for 'compute_neighbor_tables_Pipeline_VITIS_LOOP_31_2'
+================================================================
+* Date:           Mon Jul 28 11:58:37 2025
+
+* Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+* Project:        compute_neighbor_tables
+* Solution:       solution1 (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu55c-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  5.00 ns|  3.499 ns|     1.35 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+-----------+----------+-----+-----+---------+
+    |  Latency (cycles) |  Latency (absolute)  |  Interval | Pipeline|
+    |   min   |   max   |    min    |    max   | min | max |   Type  |
+    +---------+---------+-----------+----------+-----+-----+---------+
+    |        4|      503|  20.000 ns|  2.515 us|    4|  503|       no|
+    +---------+---------+-----------+----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +-------------------+---------+---------+----------+-----------+-----------+---------+----------+
+        |                   |  Latency (cycles) | Iteration|  Initiation Interval  |   Trip  |          |
+        |     Loop Name     |   min   |   max   |  Latency |  achieved |   target  |  Count  | Pipelined|
+        +-------------------+---------+---------+----------+-----------+-----------+---------+----------+
+        |- VITIS_LOOP_31_2  |        2|      501|         3|          1|          1|  1 ~ 500|       yes|
+        +-------------------+---------+---------+----------+-----------+-----------+---------+----------+
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++---------------------+---------+------+---------+---------+-----+
+|         Name        | BRAM_18K|  DSP |    FF   |   LUT   | URAM|
++---------------------+---------+------+---------+---------+-----+
+|DSP                  |        -|     -|        -|        -|    -|
+|Expression           |        -|     -|        0|      171|    -|
+|FIFO                 |        -|     -|        -|        -|    -|
+|Instance             |        -|     -|        -|        -|    -|
+|Memory               |        -|     -|        -|        -|    -|
+|Multiplexer          |        -|     -|        -|       54|    -|
+|Register             |        -|     -|      150|        -|    -|
++---------------------+---------+------+---------+---------+-----+
+|Total                |        0|     0|      150|      225|    0|
++---------------------+---------+------+---------+---------+-----+
+|Available SLR        |     1344|  3008|   869120|   434560|  320|
++---------------------+---------+------+---------+---------+-----+
+|Utilization SLR (%)  |        0|     0|       ~0|       ~0|    0|
++---------------------+---------+------+---------+---------+-----+
+|Available            |     4032|  9024|  2607360|  1303680|  960|
++---------------------+---------+------+---------+---------+-----+
+|Utilization (%)      |        0|     0|       ~0|       ~0|    0|
++---------------------+---------+------+---------+---------+-----+
+
++ Detail: 
+    * Instance: 
+    N/A
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +---------------------+----------+----+---+----+------------+------------+
+    |    Variable Name    | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +---------------------+----------+----+---+----+------------+------------+
+    |add_ln31_fu_164_p2   |         +|   0|  0|  38|          31|           1|
+    |add_ln38_fu_232_p2   |         +|   0|  0|  39|          32|           1|
+    |addr_cmp_fu_206_p2   |      icmp|   0|  0|  29|          64|          64|
+    |icmp_ln31_fu_158_p2  |      icmp|   0|  0|  20|          32|          32|
+    |or_ln34_fu_178_p2    |        or|   0|  0|  11|          11|           1|
+    |offset_fu_220_p3     |    select|   0|  0|  32|           1|          32|
+    |ap_enable_pp0        |       xor|   0|  0|   2|           1|           2|
+    +---------------------+----------+----+---+----+------------+------------+
+    |Total                |          |   0|  0| 171|         172|         133|
+    +---------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +-------------------------+----+-----------+-----+-----------+
+    |           Name          | LUT| Input Size| Bits| Total Bits|
+    +-------------------------+----+-----------+-----+-----------+
+    |ap_done_int              |   9|          2|    1|          2|
+    |ap_enable_reg_pp0_iter1  |   9|          2|    1|          2|
+    |ap_sig_allocacmp_i_1     |   9|          2|   31|         62|
+    |i_fu_66                  |   9|          2|   31|         62|
+    |reuse_addr_reg_fu_58     |   9|          2|   64|        128|
+    |reuse_reg_fu_62          |   9|          2|   32|         64|
+    +-------------------------+----+-----------+-----+-----------+
+    |Total                    |  54|         12|  160|        320|
+    +-------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +-------------------------------------------+----+----+-----+-----------+
+    |                    Name                   | FF | LUT| Bits| Const Bits|
+    +-------------------------------------------+----+----+-----+-----------+
+    |addr_cmp_reg_290                           |   1|   0|    1|          0|
+    |ap_CS_fsm                                  |   1|   0|    1|          0|
+    |ap_done_reg                                |   1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter1                    |   1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter2                    |   1|   0|    1|          0|
+    |ap_loop_exit_ready_pp0_iter1_reg           |   1|   0|    1|          0|
+    |i_fu_66                                    |  31|   0|   31|          0|
+    |neightbor_table_offsets_temp_addr_reg_284  |   7|   0|    7|          0|
+    |reuse_addr_reg_fu_58                       |  64|   0|   64|          0|
+    |reuse_reg_fu_62                            |  32|   0|   32|          0|
+    |tmp_1_reg_269                              |  10|   0|   11|          1|
+    +-------------------------------------------+----+----+-----+-----------+
+    |Total                                      | 150|   0|  151|          1|
+    +-------------------------------------------+----+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++---------------------------------------+-----+-----+------------+--------------------------------------------------+--------------+
+|               RTL Ports               | Dir | Bits|  Protocol  |                   Source Object                  |    C Type    |
++---------------------------------------+-----+-----+------------+--------------------------------------------------+--------------+
+|ap_clk                                 |   in|    1|  ap_ctrl_hs|  compute_neighbor_tables_Pipeline_VITIS_LOOP_31_2|  return value|
+|ap_rst                                 |   in|    1|  ap_ctrl_hs|  compute_neighbor_tables_Pipeline_VITIS_LOOP_31_2|  return value|
+|ap_start                               |   in|    1|  ap_ctrl_hs|  compute_neighbor_tables_Pipeline_VITIS_LOOP_31_2|  return value|
+|ap_done                                |  out|    1|  ap_ctrl_hs|  compute_neighbor_tables_Pipeline_VITIS_LOOP_31_2|  return value|
+|ap_idle                                |  out|    1|  ap_ctrl_hs|  compute_neighbor_tables_Pipeline_VITIS_LOOP_31_2|  return value|
+|ap_ready                               |  out|    1|  ap_ctrl_hs|  compute_neighbor_tables_Pipeline_VITIS_LOOP_31_2|  return value|
+|num_edges                              |   in|   32|     ap_none|                                         num_edges|        scalar|
+|edge_list_address0                     |  out|   11|   ap_memory|                                         edge_list|         array|
+|edge_list_ce0                          |  out|    1|   ap_memory|                                         edge_list|         array|
+|edge_list_q0                           |   in|   32|   ap_memory|                                         edge_list|         array|
+|edge_list_address1                     |  out|   11|   ap_memory|                                         edge_list|         array|
+|edge_list_ce1                          |  out|    1|   ap_memory|                                         edge_list|         array|
+|edge_list_q1                           |   in|   32|   ap_memory|                                         edge_list|         array|
+|neightbor_table_offsets_temp_address0  |  out|    7|   ap_memory|                      neightbor_table_offsets_temp|         array|
+|neightbor_table_offsets_temp_ce0       |  out|    1|   ap_memory|                      neightbor_table_offsets_temp|         array|
+|neightbor_table_offsets_temp_q0        |   in|   32|   ap_memory|                      neightbor_table_offsets_temp|         array|
+|neightbor_table_offsets_temp_address1  |  out|    7|   ap_memory|                      neightbor_table_offsets_temp|         array|
+|neightbor_table_offsets_temp_ce1       |  out|    1|   ap_memory|                      neightbor_table_offsets_temp|         array|
+|neightbor_table_offsets_temp_we1       |  out|    1|   ap_memory|                      neightbor_table_offsets_temp|         array|
+|neightbor_table_offsets_temp_d1        |  out|   32|   ap_memory|                      neightbor_table_offsets_temp|         array|
+|neighbor_table_address0                |  out|   10|   ap_memory|                                    neighbor_table|         array|
+|neighbor_table_ce0                     |  out|    1|   ap_memory|                                    neighbor_table|         array|
+|neighbor_table_we0                     |  out|    1|   ap_memory|                                    neighbor_table|         array|
+|neighbor_table_d0                      |  out|   32|   ap_memory|                                    neighbor_table|         array|
++---------------------------------------+-----+-----+------------+--------------------------------------------------+--------------+
+

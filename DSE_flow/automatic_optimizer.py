@@ -26,10 +26,6 @@ from modules.hlsDirectiveOptimizationProblem import HLSDirectiveOptimizationProb
 import subprocess
 
 def clean_genetic_dse():
-    """
-    在单次 Bash 调用中启用 extglob 与 dotglob，然后执行删除命令，
-    最后恢复默认设置。
-    """
     bash_script = "\n".join([
         "shopt -s extglob dotglob",
         "rm -rf GENETIC_DSE_*/!(solution1)",
@@ -39,15 +35,14 @@ def clean_genetic_dse():
         "shopt -u extglob dotglob"
     ])
 
-    # 调用 bash，-O extglob/-O dotglob 在启动时即启用对应 shopt 选项
     try:
         subprocess.run(
             ["bash", "-O", "extglob", "-O", "dotglob", "-c", bash_script],
             check=True
         )
-        print("清理完成！")
+        print("Cleaned up old DSE directories successfully.")
     except subprocess.CalledProcessError as e:
-        print(f"命令执行失败，退出码：{e.returncode}")
+        print(f"Command execution failed with exit code: {e.returncode}")
 
 
 

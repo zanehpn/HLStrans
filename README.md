@@ -1,25 +1,85 @@
-# HLStrans
-The dataset is [HLStrans](https://huggingface.co/datasets/qingyun777yes/HLStrans)
+# HILSmith
 
-## Eval
-The script is in eval_models
+HILSmith, a first Dataset for LLM-Driven C-to-HLS Hardware Code Synthesis for [HLStrans](https://huggingface.co/datasets/qingyun777yes/HLStrans). The dataset generation pipeline is below:
 
-## Dataset_Agumentation
-The Dataset_Agumentation is in dataset_Agu
+![](./data/datagen.png)
+
+
+## Prerequisites
+
+This project was tested on Xilinx Alveo U55C and Vitis HLS 2022.1 suite. The tools are needed: 
+
+* Vitis HLS tool chain
+
+The following python libraries are required: 
+   ```shell
+   pip install -r requirements.txt
+   ```
+
+set your LLM API in lib_functions/lib_functions/llm_api.py
 
 ## Program Source
-The program source is in program_source
+
+The dataset’s real‑world program sources are organized under the program_source directory, drawing from benchmarks like Polybench and MachSuite—as well as other GitHub projects. Polybench and MachSuite provide representative kernels, while the Unsupported_C folder contains C codes that failed synthesis alongside their human‑revised HLS counterparts. Each subfolder follows a consistent structure:
+
+* Original C source
+* Human‑optimized HLS code
+* Corresponding testbench
+* HLS synthesis script
+
+This layout ensures that for every benchmark or project, you have both the unmodified and hand‑tuned HLS implementations, along with the support files needed for validation and synthesis.
+
+## Dataset_Agumentation
+The Dataset_Augmentation pipeline proceeds in two stages. First, it applies an MCTS‑driven transformation flow to convert original C/C++ sources into synthesizable HLS implementations, yielding a diverse set of optimized HLS variants. Next, it fine‑tunes pragma parameters using a genetic‑algorithm‑based Design Space Exploration (DSE), further improving performance and resource efficiency. 
+
+1. MCTS exploration flow: In this phase, we leverage Monte Carlo Tree Search to navigate the vast, combinatorial space of code transformations with exceptional efficiency. Our system integrates a curated knowledge base of domain‑specific optimizations—enabling context‑aware, compiler‑informed decisions that significantly enhance an LLM’s native reasoning capabilities. Moreover, whenever synthesis errors arise, we consult a specialized bug‑repair table to automatically diagnose and correct them, ensuring a smooth and reliable transformation pipeline. 
+
+   ```shell
+   cd lib_functions
+   pip install -e .
+   cd ../MCTS_flow
+   python3 exploration/mcts_exlore.py
+   ```
+2. Design Space Exploration (DSE) flow: mainly forcus on directive configurations using **Genetic Algorithms**, specifically the **NSGA-II** algorithm. It enables fine-grained exploration and tuning of hardware performance vs. resource usage for HLS designs targeting **Xilinx/AMD FPGAs** via the **Vitis HLS** toolchain. 
+
+* **Supported Directives**:
+
+  * `Loop Pipeline`
+  * `Loop Unroll`
+  * `Array Partition`
+
+* **Multi-objective optimization** across:
+
+  * Design Latency (msec)
+  * BRAM%, DSP%, LUT%, and FF% Utilization
+
+It is based on the following tools. 
+[HLSAnalysisTools](https://github.com/aferikoglou/HLSAnalysisTools)
+[GenHLSOptimizer](https://github.com/aferikoglou/GenHLSOptimizer)
+
+How to use the DSE flow, the detailed informations is in DSE_flow/README
+
+## Eval LLM
+The script in eval_models adopt zero-shot, chain-of-thought, and retrieval-based prompt to evaluate the ability of LLM for HLS codes. The default model is Qwen2.5-Coder-32B-Instruct. 
+   ```shell
+   cd lib_functions
+   pip install -e .
+   cd eval_models/
+   python3 test_model_best1.py
+   python3 model_results_eval.py
+   ```
 
 ## Training
 
-```bash
+After downloading the HLStrans dataset, place it under the data/ directory, then launch the preprocessing script:
+
+```shell
+python3 data/remove_testcase_from_dataset.py
 # 3b
-llamafactory-cli train examples/c2hls_3b.yaml
+llamafactory-cli train model_sft/c2hls_3b.yaml
 # 7b
-llamafactory-cli train examples/c2hls_7b.yaml
+llamafactory-cli train model_sft/c2hls_7b.yaml
 ```
-
-
 
 ## Acknowledgements
 - [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory) 🔗

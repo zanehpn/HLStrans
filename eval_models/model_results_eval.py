@@ -1,34 +1,117 @@
 import os
 import re
 
-import math
-import random
 import subprocess
-import requests
-import glob
 from typing import List, Iterable
 from typing import Dict, List
 import shutil
 from typing import List, Tuple, Union
-from lib_function import * 
+from lib_functions.lib_function import * 
 import json
 
 function_error_count = 0
 
-def test(top_function, test_path):
+def parse_compiler_errors(stderr_output):
+    import subprocess
+    import re     
+    issues = []
+    # Match GCC errors and linker issues (e.g., multiple definition)
+    pattern = re.compile(
+        r"(?P<file>.*?):(?P<line>\d+):(?P<column>\d+)?:(?:\s+)?(?P<type>error|warning):\s+(?P<message>.+)"
+        r"|(?P<ld_message>multiple definition of `.+?');\s+(?P<ld_file>.+):(?P<ld_location>.+)"
+    )
+
+    for match in pattern.finditer(stderr_output):
+        if match.group("type") == "error":
+            issues.append({
+                "type": "error",
+                "file": match.group("file"),
+                "line": int(match.group("line")),
+                "column": int(match.group("column")) if match.group("column") else None,
+                "message": match.group("message").strip(),
+            })
+        elif match.group("ld_message"):
+            issues.append({
+                "type": "linker_error",
+                "message": match.group("ld_message").strip(),
+                "file": match.group("ld_file").strip(),
+                "location": match.group("ld_location").strip(),
+            })
+    return issues
+
+def execute_test(output_path):
+    import subprocess
+    import re     
+    print("Executing the program...")
+    try:
+        result = subprocess.run(
+            ["./result"],
+            capture_output=True,
+            text=True,
+            timeout=60,
+            cwd=output_path
+        )
+        print(result)
+        pattern = re.compile(r"\b(pass|passed|success)\b", re.IGNORECASE)
+        if result.returncode == 0 and pattern.search(result.stdout):
+            print("function is right")
+            return None
+        else:
+            print("Program execution failed or did not pass.")
+            print("Output:", result.stdout)
+            print("Error:", result.stderr)
+            return "function is not right, please make sure the function is right"
+    except Exception as e:
+        print(f"An error occurred during execution: {e}")
+        return [{"type": "exception", "message": str(e)}]
+
+def compile_and_test(top_function, output_path, test_path):
+    import subprocess
+    import re    
+    print("Compiling the code...")
+    try:
+        command = ["make", f"SRC={top_function}_fast.cpp"]
+        result = subprocess.run(
+            command,
+            capture_output=True,
+            text=True,
+            timeout=60,
+            cwd=test_path
+        )
+        issues = parse_compiler_errors(result.stderr)
+        if not issues and "multiple definition" not in result.stderr:
+            print("compile pass")
+            return execute_test(output_path)
+        else:
+            print("Compilation completed with issues:")
+            issues = parse_compiler_errors(result.stderr)
+            print(issues)
+            for issue in issues:
+                if issue["type"] == "error":
+                    print(f"Error at {issue['file']}:{issue['line']}:{issue.get('column', '')}: {issue['message']}")
+                elif issue["type"] == "linker_error":
+                    print(f"Linker Error: {issue['message']} in {issue['file']} at {issue['location']}")
+            return issues
+    except Exception as e:
+        print(f"An error occurred during compilation: {e}")
+        return [{"type": "exception", "message": str(e)}]
+
+def test(top_function, input_path):
     global global_list
     accel = 1
     function_pass = False
     syn_pass = False
     resource = [0,0,0,0]
-    # true_path = f"/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/{top_function}/{top_function}_slow.cpp"
     # if os.path.exists(true_path):
     #     global_list = grasp_latency(true_path)
     # Generate the TCL script
-    command = ["cp","-r", f"{test_path}/{top_function}/{top_function}_fast.cpp", f"/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/{top_function}"]
+    here = os.path.dirname(__file__)                
+    test_path = os.path.join(here, "test_cases")
+
+    command = ["cp","-r", f"{input_path}/{top_function}/{top_function}_fast.cpp", f"{test_path}/{top_function}"]
     subprocess.run(command)
     tcl_template = f"""open_project {top_function}
-add_files /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/{top_function}/{top_function}_fast.cpp
+add_files {test_path}/{top_function}/{top_function}_fast.cpp
 set_top {top_function}
 open_solution solution1
 create_clock -period 5 -name default
@@ -37,7 +120,7 @@ csynth_design
 exit
 """
 
-    output_file = f"/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/{top_function}/run_hls.tcl"
+    output_file = f"{test_path}/{top_function}/run_hls.tcl"
     
     # Save the script to a file
     with open(output_file, "w") as file:
@@ -50,12 +133,12 @@ exit
 
 
     # Repair syn error
-    output_path = f"/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/{top_function}/"
-    function_errors = compile_and_check(top_function,output_path)
+    output_path = f"{test_path}/{top_function}/"
+    function_errors = compile_and_test(top_function, output_path, output_path)
     if not function_errors:
         try:
             with open(log_file, "w") as log:
-                subprocess.run(command, stdout=log, stderr=log, timeout=900, cwd=f"/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/{top_function}")  # 900秒 = 15分钟
+                subprocess.run(command, stdout=log, stderr=log, timeout=900, cwd=f"{test_path}/{top_function}")  # 900秒 = 15分钟
             print(f"Vitis HLS run completed. Logs are saved to {log_file}")
             error_pattern = re.compile(r"ERROR: .*")
             with open(log_file, "r") as log:
@@ -72,8 +155,8 @@ exit
     if not errors:
         # Parse the log file to know performance
         syn_pass = True
-        previous_log = f"/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/{top_function}/csynth.rpt"
-        curr_log = f"/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/{top_function}/{top_function}/solution1/syn/report/csynth.rpt"
+        previous_log = f"{here}/{top_function}/csynth.rpt"
+        curr_log = f"{test_path}/{top_function}/{top_function}/solution1/syn/report/csynth.rpt"
 
         if os.path.exists(previous_log) and os.path.exists(curr_log):
             result_previous = parse_hls_report_with_checks(previous_log)
@@ -173,6 +256,8 @@ def test_all(test_path):
     return output
 
 if __name__ == "__main__":
-    TEST_PATH = "/home/zqy/LLM4CHIP/dataset/generate_pre3B_cot_best1"
+    here = os.path.dirname(__file__)                # folder where test_model_best1.py lives
+    here = os.path.join(here, "generate_32B_best1")
+    TEST_PATH = here
     test_all(TEST_PATH)    
 

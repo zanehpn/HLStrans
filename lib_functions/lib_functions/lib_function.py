@@ -81,7 +81,6 @@ def extract_cpp_code_block(text):
         code_dict[filename] = code_content
     return code_dict
 
-
 def copy_directory(src_dir: str, dest_parent: str, copy_file: str):
 
     base_name = os.path.basename(os.path.normpath(src_dir))
@@ -104,6 +103,36 @@ def copy_directory(src_dir: str, dest_parent: str, copy_file: str):
         print(f"Also copy file {copy_file} into {target_dir}")
     else:
         print(f"Warning: {copy_file} is not a valid file, skip copying.")
+
+
+# def copy_directory(src_dir: str, dest_parent: str, copy_file0: str, copy_file1: str):
+
+#     base_name = os.path.basename(os.path.normpath(src_dir))
+#     target_dir = os.path.join(dest_parent, base_name)
+    
+#     if os.path.exists(target_dir):
+#         counter = 1
+#         new_target_dir = os.path.join(dest_parent, f"{base_name}_{counter}")
+#         while os.path.exists(new_target_dir):
+#             counter += 1
+#             new_target_dir = os.path.join(dest_parent, f"{base_name}_{counter}")
+#         target_dir = new_target_dir
+#         print(f"Use new folder: {target_dir}")
+    
+#     shutil.copytree(src_dir, target_dir)
+#     print(f"copy {src_dir} into {target_dir}")
+
+#     if os.path.isfile(copy_file0):
+#         shutil.copy(copy_file0, target_dir)
+#         print(f"Also copy file {copy_file0} into {target_dir}")
+#     else:
+#         print(f"Warning: {copy_file0} is not a valid file, skip copying.")
+
+#     if os.path.isfile(copy_file1):
+#         shutil.copy(copy_file1, target_dir)
+#         print(f"Also copy file {copy_file1} into {target_dir}")
+#     else:
+#         print(f"Warning: {copy_file1} is not a valid file, skip copying.")
 
 def find_non_one_final_ii(log_path):
     with open(log_path, 'r') as file:
@@ -150,7 +179,7 @@ def execute_program(output_path):
     print("Executing the program...")
     try:
         result = subprocess.run(
-            [output_path],
+            output_path,
             capture_output=True,
             text=True,
             timeout=60
@@ -173,17 +202,21 @@ def compile_and_check(source_file0, source_file1, source_file2, output_path):
     import re    
     print("Compiling the code...")
     try:
-        comond = ["g++", "-I", "/tools/Xilinx/new/Vitis_HLS/2022.2/include", source_file0, source_file1, source_file2, "-o", output_path,"-fsanitize=address"]
-        print(comond)
+        command = ["g++", "-I", "/tools/Xilinx/new/Vitis_HLS/2022.2/include", source_file0, source_file1, source_file2, "-o", "a.out", "-fsanitize=address"]
+        print(command)
         result = subprocess.run(
-            ["g++", "-I", "/tools/Xilinx/new/Vitis_HLS/2022.2/include", source_file0, source_file1, source_file2, "-o", output_path,"-fsanitize=address"],
+            command,
             capture_output=True,
             text=True,
-            timeout=60
+            timeout=60,
+            cwd=output_path
+
         )
+        print(result.stderr)
         issues = parse_gcc_errors(result.stderr)
         if not issues and "multiple definition" not in result.stderr:
             print("compile pass")
+            output_path = os.path.join(output_path, "a.out")
             return execute_program(output_path)
         else:
             print("Compilation completed with issues:")
@@ -343,10 +376,30 @@ def list_fast_cpp(folder: str, xxx: str):
 
     return files
 
-# if __name__ == "__main__":
-#     base_folder = "gemm/true"  
-#     latencies = grasp_latency(base_folder)
+# top_function = "adi"
+# current_dir = os.path.dirname(os.path.abspath(__file__))
+# output_path = os.path.abspath(
+#     os.path.join(current_dir, "..", "..","generate", top_function)
+# )
 
-# if __name__ == "__main__":
-#     top_function = "aes_table"
-#     compile_and_check_machsuite(top_function)
+# header_file_generate = os.path.abspath(
+#     os.path.join(output_path, f"{top_function}.h")
+# )
+# cpp_file = os.path.abspath(
+#     os.path.join(output_path, f"{top_function}.cpp")
+# )
+# tb_file = os.path.abspath(
+#     os.path.join(output_path, f"{top_function}_tb.cpp")
+# )
+# function_errors = compile_and_check(
+#     header_file_generate, 
+#     cpp_file, 
+#     tb_file, 
+#     output_path
+# )
+# function_errors = compile_and_check(
+#     header_file_generate, 
+#     cpp_file, 
+#     tb_file, 
+#     output_path
+# )

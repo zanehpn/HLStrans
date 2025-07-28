@@ -1,0 +1,195 @@
+
+****** Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2022.2.2 (64-bit)
+  **** SW Build 3779808 on Feb 17 2023
+  **** IP Build 3783773 on Tue Feb 21 23:41:56 MST 2023
+    ** Copyright 1986-2023 Xilinx, Inc. All Rights Reserved.
+
+source /tools/Xilinx/new/Vitis_HLS/2022.2/scripts/vitis_hls/hls.tcl -notrace
+INFO: [HLS 200-10] Running '/tools/Xilinx/new/Vitis_HLS/2022.2/bin/unwrapped/lnx64.o/vitis_hls'
+INFO: [HLS 200-10] For user 'zqy' on host 'hacc-gpu3' (Linux_x86_64 version 5.15.0-92-generic) on Mon May 12 02:33:35 UTC 2025
+INFO: [HLS 200-10] On os Ubuntu 20.04.6 LTS
+INFO: [HLS 200-10] In directory '/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter'
+Sourcing Tcl script '/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/run_hls.tcl'
+INFO: [HLS 200-1510] Running: open_project spam_filter 
+INFO: [HLS 200-10] Creating and opening project '/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter'.
+INFO: [HLS 200-1510] Running: add_files /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp 
+INFO: [HLS 200-10] Adding design file '/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp' to the project
+INFO: [HLS 200-1510] Running: set_top spam_filter 
+INFO: [HLS 200-1510] Running: open_solution solution1 
+INFO: [HLS 200-10] Creating and opening solution '/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter/solution1'.
+INFO: [HLS 200-1505] Using default flow_target 'vivado'
+Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=200-1505.html
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vivado' configuration: config_interface -m_axi_latency=0
+INFO: [HLS 200-1510] Running: create_clock -period 5 -name default 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 5ns.
+INFO: [HLS 200-1510] Running: set_part xcu55c-fsvh2892-2L-e 
+INFO: [HLS 200-1611] Setting target device to 'xcu55c-fsvh2892-2L-e'
+INFO: [HLS 200-1510] Running: csynth_design 
+Running Dispatch Server on port: 35819
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0.01 seconds. Elapsed time: 10.07 seconds; current allocated memory: 1.196 GB.
+INFO: [HLS 200-10] Analyzing design file '/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 0.21 seconds. CPU system time: 0.62 seconds. Elapsed time: 0.88 seconds; current allocated memory: 1.198 GB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-178] Inlining function 'popcount(unsigned long long)' into 'update_knn(unsigned long long const*, unsigned long long const*, int*, int*, int)' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp:28:0)
+INFO: [HLS 214-178] Inlining function 'update_knn(unsigned long long const*, unsigned long long const*, int*, int*, int)' into 'spam_filter(unsigned long long const*, unsigned long long const*, unsigned char*)' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp:83:0)
+INFO: [HLS 214-178] Inlining function 'knn_vote(int*)' into 'spam_filter(unsigned long long const*, unsigned long long const*, unsigned char*)' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp:83:0)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 2.13 seconds. CPU system time: 0.69 seconds. Elapsed time: 2.91 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.02 seconds; current allocated memory: 1.200 GB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 1.200 GB.
+INFO: [XFORM 203-510] Pipelining loop 'TRAINING_LOOP' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp:95) in function 'spam_filter' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'Loop-2.3' in function 'spam_filter' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_65_1' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp:65) in function 'spam_filter' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_68_2' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp:61) in function 'spam_filter' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'SET_KNN_SET' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp:89) in function 'spam_filter' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'TRAINING_LOOP' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp:95) in function 'spam_filter' for pipelining.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_31_1' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp:29) in function 'spam_filter' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'UPDATE_MIN_DIST' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp:37) in function 'spam_filter' completely with a factor of 3.
+INFO: [XFORM 203-102] Automatically partitioning small array 'dists' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp:84) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'labels' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp:85) completely based on array size.
+INFO: [XFORM 203-101] Partitioning array 'dists' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp:84) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'labels' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp:85) in dimension 1 completely.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp:95:29) to (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp:95:20) in function 'spam_filter'... converting 10 basic blocks.
+INFO: [XFORM 203-11] Balancing expressions in function 'spam_filter' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp:18:20)...15 expression(s) balanced.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.06 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.09 seconds; current allocated memory: 1.222 GB.
+WARNING: [HLS 200-960] Cannot flatten loop 'TEST_LOOP' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp:87:23) in function 'spam_filter' more than one sub loop.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=200-960.html
+INFO: [HLS 200-472] Inferring partial write operation for 'votes' 
+INFO: [HLS 200-472] Inferring partial write operation for 'votes' (/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp:66:21)
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.15 seconds. CPU system time: 0.03 seconds. Elapsed time: 0.18 seconds; current allocated memory: 1.272 GB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'spam_filter' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'spam_filter_Pipeline_SET_KNN_SET' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'SET_KNN_SET'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 1, loop 'SET_KNN_SET'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.04 seconds. CPU system time: 0.07 seconds. Elapsed time: 0.12 seconds; current allocated memory: 1.272 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.02 seconds; current allocated memory: 1.273 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'spam_filter_Pipeline_TRAINING_LOOP' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'TRAINING_LOOP'.
+WARNING: [HLS 200-885] The II Violation in module 'spam_filter_Pipeline_TRAINING_LOOP' (loop 'TRAINING_LOOP'): Unable to schedule 'load' operation ('training_set_load_1', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases/spam_filter/spam_filter_fast.cpp:33) on array 'training_set' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'training_set'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 2, Depth = 7, loop 'TRAINING_LOOP'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.25 seconds. CPU system time: 0 seconds. Elapsed time: 0.27 seconds; current allocated memory: 1.279 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.24 seconds. CPU system time: 0 seconds. Elapsed time: 0.25 seconds; current allocated memory: 1.279 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'spam_filter_Pipeline_3' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 1, loop 'Loop 1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.32 seconds. CPU system time: 0 seconds. Elapsed time: 0.34 seconds; current allocated memory: 1.279 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.02 seconds; current allocated memory: 1.279 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'spam_filter_Pipeline_VITIS_LOOP_65_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_65_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 3, loop 'VITIS_LOOP_65_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.03 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.04 seconds; current allocated memory: 1.279 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.02 seconds. CPU system time: 0 seconds. Elapsed time: 0.03 seconds; current allocated memory: 1.279 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'spam_filter_Pipeline_VITIS_LOOP_68_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_68_2'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 2, loop 'VITIS_LOOP_68_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.04 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.05 seconds; current allocated memory: 1.279 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.02 seconds. CPU system time: 0 seconds. Elapsed time: 0.02 seconds; current allocated memory: 1.279 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'spam_filter' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.06 seconds. CPU system time: 0 seconds. Elapsed time: 0.08 seconds; current allocated memory: 1.279 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.15 seconds. CPU system time: 0 seconds. Elapsed time: 0.15 seconds; current allocated memory: 1.279 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'spam_filter_Pipeline_SET_KNN_SET' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'spam_filter_Pipeline_SET_KNN_SET'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.27 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.29 seconds; current allocated memory: 1.279 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'spam_filter_Pipeline_TRAINING_LOOP' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'spam_filter_Pipeline_TRAINING_LOOP' pipeline 'TRAINING_LOOP' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Finished creating RTL model for 'spam_filter_Pipeline_TRAINING_LOOP'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.16 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.18 seconds; current allocated memory: 1.290 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'spam_filter_Pipeline_3' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'spam_filter_Pipeline_3'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.79 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.84 seconds; current allocated memory: 1.302 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'spam_filter_Pipeline_VITIS_LOOP_65_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'spam_filter_Pipeline_VITIS_LOOP_65_1' pipeline 'VITIS_LOOP_65_1' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'mux_32_32_1_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'spam_filter_Pipeline_VITIS_LOOP_65_1'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.03 seconds. CPU system time: 0 seconds. Elapsed time: 0.04 seconds; current allocated memory: 1.302 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'spam_filter_Pipeline_VITIS_LOOP_68_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'spam_filter_Pipeline_VITIS_LOOP_68_2' pipeline 'VITIS_LOOP_68_2' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Finished creating RTL model for 'spam_filter_Pipeline_VITIS_LOOP_68_2'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.06 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.08 seconds; current allocated memory: 1.302 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'spam_filter' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-500] Setting interface mode on port 'spam_filter/training_set' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'spam_filter/test_set' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'spam_filter/results' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'spam_filter' to 'ap_ctrl_hs'.
+INFO: [RTGEN 206-100] Finished creating RTL model for 'spam_filter'.
+INFO: [RTMG 210-278] Implementing memory 'spam_filter_votes_RAM_AUTO_1R1W' using auto RAMs.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.05 seconds. CPU system time: 0 seconds. Elapsed time: 0.08 seconds; current allocated memory: 1.302 GB.
+INFO: [HLS 200-111] Finished Generating all RTL models: CPU user time: 0.65 seconds. CPU system time: 0.03 seconds. Elapsed time: 0.74 seconds; current allocated memory: 1.306 GB.
+INFO: [HLS 200-111] Finished Updating report files: CPU user time: 0.24 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.27 seconds; current allocated memory: 1.309 GB.
+INFO: [VHDL 208-304] Generating VHDL RTL for spam_filter.
+INFO: [VLOG 209-307] Generating Verilog RTL for spam_filter.
+INFO: [HLS 200-790] **** Loop Constraint Status: All loop constraints were NOT satisfied.
+INFO: [HLS 200-789] **** Estimated Fmax: 282.01 MHz
+INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 6.05 seconds. CPU system time: 1.54 seconds. Elapsed time: 8.09 seconds; current allocated memory: 115.379 MB.
+INFO: [HLS 200-112] Total CPU user time: 8.31 seconds. Total CPU system time: 2.14 seconds. Total elapsed time: 20.93 seconds; peak allocated memory: 1.309 GB.
+INFO: [Common 17-206] Exiting vitis_hls at Mon May 12 02:33:55 2025...

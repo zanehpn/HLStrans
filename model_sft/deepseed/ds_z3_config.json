@@ -1,0 +1,46 @@
+{
+  "train_batch_size": 16,
+  "train_micro_batch_size_per_gpu": 2,
+  "gradient_accumulation_steps": 2,
+
+  "steps_per_print": 50,
+  "gradient_clipping": 1.0,
+  "wall_clock_breakdown": false,
+
+  "zero_optimization": {
+    "stage": 3,
+
+    // overlap communication with computation
+    "overlap_comm": true,
+
+    // scatter/reduce settings
+    "reduce_scatter": true,
+    "reduce_bucket_size": 500000000,
+    "allgather_partition": true,
+    "allgather_bucket_size": 500000000,
+
+    // keep gradients contiguous
+    "contiguous_gradients": true,
+
+    // offload optimizer states to CPU
+    "offload_optimizer": {
+      "device": "cpu",
+      "pin_memory": true
+    },
+
+    // offload parameters to CPU
+    "offload_param": {
+      "device": "cpu",
+      "pin_memory": true
+    }
+  },
+
+  // Use mixed precision (fp16). Switch to "bf16": { "enabled": true } if desired.
+  "fp16": {
+    "enabled": true,
+    "loss_scale": 0,
+    "initial_scale_power": 16,
+    "hysteresis": 2,
+    "min_loss_scale": 1
+  }
+}

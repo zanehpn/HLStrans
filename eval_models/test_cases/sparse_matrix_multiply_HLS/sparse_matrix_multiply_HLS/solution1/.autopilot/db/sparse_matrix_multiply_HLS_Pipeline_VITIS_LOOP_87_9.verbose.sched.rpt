@@ -1,0 +1,346 @@
+
+
+================================================================
+== Vitis HLS Report for 'sparse_matrix_multiply_HLS_Pipeline_VITIS_LOOP_87_9'
+================================================================
+* Date:           Mon May 12 21:48:14 2025
+
+* Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+* Project:        sparse_matrix_multiply_HLS
+* Solution:       solution1 (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu55c-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  5.00 ns|  2.681 ns|     1.35 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+-----------+----------+-----+------+---------+
+    |  Latency (cycles) |  Latency (absolute)  |  Interval  | Pipeline|
+    |   min   |   max   |    min    |    max   | min |  max |   Type  |
+    +---------+---------+-----------+----------+-----+------+---------+
+    |        7|     1027|  35.000 ns|  5.135 us|    7|  1027|       no|
+    +---------+---------+-----------+----------+-----+------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +-------------------+---------+---------+----------+-----------+-----------+---------+----------+
+        |                   |  Latency (cycles) | Iteration|  Initiation Interval  |   Trip  |          |
+        |     Loop Name     |   min   |   max   |  Latency |  achieved |   target  |  Count  | Pipelined|
+        +-------------------+---------+---------+----------+-----------+-----------+---------+----------+
+        |- VITIS_LOOP_87_9  |        5|     1025|         6|          4|          1|  1 ~ 256|       yes|
+        +-------------------+---------+---------+----------+-----------+-----------+---------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 2
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
++ Individual pipeline summary: 
+  * Pipeline-0: initiation interval (II) = 4, depth = 7
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 7
+* Pipeline : 1
+  Pipeline-0 : II = 4, D = 7, States = { 1 2 3 4 5 6 7 }
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 3 
+3 --> 4 
+4 --> 5 
+5 --> 6 
+6 --> 7 
+7 --> 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 0.38>
+ST_1 : Operation 9 [1/1] (0.00ns)   --->   "%b = alloca i32 1"   --->   Operation 9 'alloca' 'b' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 10 [1/1] (0.00ns)   --->   "%zext_ln837_1_read = read i9 @_ssdm_op_Read.ap_auto.i9, i9 %zext_ln837_1"   --->   Operation 10 'read' 'zext_ln837_1_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 11 [1/1] (0.00ns)   --->   "%r_V_read = read i16 @_ssdm_op_Read.ap_auto.i16, i16 %r_V"   --->   Operation 11 'read' 'r_V_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 12 [1/1] (0.00ns)   --->   "%sext_ln87_1_read = read i32 @_ssdm_op_Read.ap_auto.i32, i32 %sext_ln87_1"   --->   Operation 12 'read' 'sext_ln87_1_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 13 [1/1] (0.00ns)   --->   "%sext_ln87_read = read i32 @_ssdm_op_Read.ap_auto.i32, i32 %sext_ln87"   --->   Operation 13 'read' 'sext_ln87_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 14 [1/1] (0.00ns)   --->   "%r_V_cast = sext i16 %r_V_read"   --->   Operation 14 'sext' 'r_V_cast' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 15 [1/1] (0.00ns)   --->   "%sext_ln87_1_cast = sext i32 %sext_ln87_1_read"   --->   Operation 15 'sext' 'sext_ln87_1_cast' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 16 [1/1] (0.00ns)   --->   "%sext_ln87_cast = sext i32 %sext_ln87_read"   --->   Operation 16 'sext' 'sext_ln87_cast' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 17 [1/1] (0.38ns)   --->   "%store_ln0 = store i64 %sext_ln87_cast, i64 %b"   --->   Operation 17 'store' 'store_ln0' <Predicate = true> <Delay = 0.38>
+ST_1 : Operation 18 [1/1] (0.00ns)   --->   "%br_ln0 = br void %for.body115"   --->   Operation 18 'br' 'br_ln0' <Predicate = true> <Delay = 0.00>
+
+State 2 <SV = 1> <Delay = 1.19>
+ST_2 : Operation 19 [1/1] (0.00ns)   --->   "%b_1 = load i64 %b" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 19 'load' 'b_1' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 20 [1/1] (1.06ns)   --->   "%icmp_ln87 = icmp_slt  i64 %b_1, i64 %sext_ln87_1_cast" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:87]   --->   Operation 20 'icmp' 'icmp_ln87' <Predicate = true> <Delay = 1.06> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 1.06> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 21 [1/1] (0.00ns)   --->   "%br_ln87 = br i1 %icmp_ln87, void %for.inc128.loopexit.exitStub, void %for.body115.split" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:87]   --->   Operation 21 'br' 'br_ln87' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 22 [1/1] (0.00ns)   --->   "%trunc_ln87 = trunc i64 %b_1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:87]   --->   Operation 22 'trunc' 'trunc_ln87' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 23 [1/1] (0.00ns)   --->   "%lshr_ln3 = partselect i8 @_ssdm_op_PartSelect.i8.i64.i32.i32, i64 %b_1, i32 4, i32 11" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 23 'partselect' 'lshr_ln3' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 24 [1/1] (0.00ns)   --->   "%zext_ln90 = zext i8 %lshr_ln3" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 24 'zext' 'zext_ln90' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 25 [1/1] (0.00ns)   --->   "%local_values_B_V_addr = getelementptr i16 %local_values_B_V, i64 0, i64 %zext_ln90" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 25 'getelementptr' 'local_values_B_V_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 26 [1/1] (0.00ns)   --->   "%local_values_B_V_1_addr = getelementptr i16 %local_values_B_V_1, i64 0, i64 %zext_ln90" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 26 'getelementptr' 'local_values_B_V_1_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 27 [1/1] (0.00ns)   --->   "%local_values_B_V_2_addr = getelementptr i16 %local_values_B_V_2, i64 0, i64 %zext_ln90" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 27 'getelementptr' 'local_values_B_V_2_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 28 [1/1] (0.00ns)   --->   "%local_values_B_V_3_addr = getelementptr i16 %local_values_B_V_3, i64 0, i64 %zext_ln90" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 28 'getelementptr' 'local_values_B_V_3_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 29 [1/1] (0.00ns)   --->   "%local_values_B_V_4_addr = getelementptr i16 %local_values_B_V_4, i64 0, i64 %zext_ln90" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 29 'getelementptr' 'local_values_B_V_4_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 30 [1/1] (0.00ns)   --->   "%local_values_B_V_5_addr = getelementptr i16 %local_values_B_V_5, i64 0, i64 %zext_ln90" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 30 'getelementptr' 'local_values_B_V_5_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 31 [1/1] (0.00ns)   --->   "%local_values_B_V_6_addr = getelementptr i16 %local_values_B_V_6, i64 0, i64 %zext_ln90" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 31 'getelementptr' 'local_values_B_V_6_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 32 [1/1] (0.00ns)   --->   "%local_values_B_V_7_addr = getelementptr i16 %local_values_B_V_7, i64 0, i64 %zext_ln90" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 32 'getelementptr' 'local_values_B_V_7_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 33 [1/1] (0.00ns)   --->   "%local_values_B_V_8_addr = getelementptr i16 %local_values_B_V_8, i64 0, i64 %zext_ln90" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 33 'getelementptr' 'local_values_B_V_8_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 34 [1/1] (0.00ns)   --->   "%local_values_B_V_9_addr = getelementptr i16 %local_values_B_V_9, i64 0, i64 %zext_ln90" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 34 'getelementptr' 'local_values_B_V_9_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 35 [1/1] (0.00ns)   --->   "%local_values_B_V_10_addr = getelementptr i16 %local_values_B_V_10, i64 0, i64 %zext_ln90" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 35 'getelementptr' 'local_values_B_V_10_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 36 [1/1] (0.00ns)   --->   "%local_values_B_V_11_addr = getelementptr i16 %local_values_B_V_11, i64 0, i64 %zext_ln90" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 36 'getelementptr' 'local_values_B_V_11_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 37 [1/1] (0.00ns)   --->   "%local_values_B_V_12_addr = getelementptr i16 %local_values_B_V_12, i64 0, i64 %zext_ln90" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 37 'getelementptr' 'local_values_B_V_12_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 38 [1/1] (0.00ns)   --->   "%local_values_B_V_13_addr = getelementptr i16 %local_values_B_V_13, i64 0, i64 %zext_ln90" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 38 'getelementptr' 'local_values_B_V_13_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 39 [1/1] (0.00ns)   --->   "%local_values_B_V_14_addr = getelementptr i16 %local_values_B_V_14, i64 0, i64 %zext_ln90" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 39 'getelementptr' 'local_values_B_V_14_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 40 [1/1] (0.00ns)   --->   "%local_values_B_V_15_addr = getelementptr i16 %local_values_B_V_15, i64 0, i64 %zext_ln90" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 40 'getelementptr' 'local_values_B_V_15_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 41 [2/2] (1.17ns)   --->   "%local_values_B_V_load = load i8 %local_values_B_V_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 41 'load' 'local_values_B_V_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_2 : Operation 42 [2/2] (1.17ns)   --->   "%local_values_B_V_1_load = load i8 %local_values_B_V_1_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 42 'load' 'local_values_B_V_1_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_2 : Operation 43 [2/2] (1.17ns)   --->   "%local_values_B_V_2_load = load i8 %local_values_B_V_2_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 43 'load' 'local_values_B_V_2_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_2 : Operation 44 [2/2] (1.17ns)   --->   "%local_values_B_V_3_load = load i8 %local_values_B_V_3_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 44 'load' 'local_values_B_V_3_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_2 : Operation 45 [2/2] (1.17ns)   --->   "%local_values_B_V_4_load = load i8 %local_values_B_V_4_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 45 'load' 'local_values_B_V_4_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_2 : Operation 46 [2/2] (1.17ns)   --->   "%local_values_B_V_5_load = load i8 %local_values_B_V_5_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 46 'load' 'local_values_B_V_5_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_2 : Operation 47 [2/2] (1.17ns)   --->   "%local_values_B_V_6_load = load i8 %local_values_B_V_6_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 47 'load' 'local_values_B_V_6_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_2 : Operation 48 [2/2] (1.17ns)   --->   "%local_values_B_V_7_load = load i8 %local_values_B_V_7_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 48 'load' 'local_values_B_V_7_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_2 : Operation 49 [2/2] (1.17ns)   --->   "%local_values_B_V_8_load = load i8 %local_values_B_V_8_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 49 'load' 'local_values_B_V_8_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_2 : Operation 50 [2/2] (1.17ns)   --->   "%local_values_B_V_9_load = load i8 %local_values_B_V_9_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 50 'load' 'local_values_B_V_9_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_2 : Operation 51 [2/2] (1.17ns)   --->   "%local_values_B_V_10_load = load i8 %local_values_B_V_10_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 51 'load' 'local_values_B_V_10_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_2 : Operation 52 [2/2] (1.17ns)   --->   "%local_values_B_V_11_load = load i8 %local_values_B_V_11_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 52 'load' 'local_values_B_V_11_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_2 : Operation 53 [2/2] (1.17ns)   --->   "%local_values_B_V_12_load = load i8 %local_values_B_V_12_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 53 'load' 'local_values_B_V_12_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_2 : Operation 54 [2/2] (1.17ns)   --->   "%local_values_B_V_13_load = load i8 %local_values_B_V_13_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 54 'load' 'local_values_B_V_13_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_2 : Operation 55 [2/2] (1.17ns)   --->   "%local_values_B_V_14_load = load i8 %local_values_B_V_14_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 55 'load' 'local_values_B_V_14_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_2 : Operation 56 [2/2] (1.17ns)   --->   "%local_values_B_V_15_load = load i8 %local_values_B_V_15_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 56 'load' 'local_values_B_V_15_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_2 : Operation 57 [1/1] (0.00ns)   --->   "%zext_ln91 = zext i9 %trunc_ln87" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 57 'zext' 'zext_ln91' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 58 [1/1] (0.00ns)   --->   "%local_row_indices_B_addr = getelementptr i32 %local_row_indices_B, i64 0, i64 %zext_ln91" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 58 'getelementptr' 'local_row_indices_B_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 59 [1/1] (0.00ns)   --->   "%local_row_indices_B_1_addr = getelementptr i32 %local_row_indices_B_1, i64 0, i64 %zext_ln91" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 59 'getelementptr' 'local_row_indices_B_1_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 60 [1/1] (0.00ns)   --->   "%local_row_indices_B_2_addr = getelementptr i32 %local_row_indices_B_2, i64 0, i64 %zext_ln91" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 60 'getelementptr' 'local_row_indices_B_2_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 61 [1/1] (0.00ns)   --->   "%local_row_indices_B_3_addr = getelementptr i32 %local_row_indices_B_3, i64 0, i64 %zext_ln91" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 61 'getelementptr' 'local_row_indices_B_3_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 62 [1/1] (0.00ns)   --->   "%local_row_indices_B_4_addr = getelementptr i32 %local_row_indices_B_4, i64 0, i64 %zext_ln91" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 62 'getelementptr' 'local_row_indices_B_4_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 63 [1/1] (0.00ns)   --->   "%local_row_indices_B_5_addr = getelementptr i32 %local_row_indices_B_5, i64 0, i64 %zext_ln91" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 63 'getelementptr' 'local_row_indices_B_5_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 64 [1/1] (0.00ns)   --->   "%local_row_indices_B_6_addr = getelementptr i32 %local_row_indices_B_6, i64 0, i64 %zext_ln91" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 64 'getelementptr' 'local_row_indices_B_6_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 65 [1/1] (0.00ns)   --->   "%local_row_indices_B_7_addr = getelementptr i32 %local_row_indices_B_7, i64 0, i64 %zext_ln91" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 65 'getelementptr' 'local_row_indices_B_7_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_2 : Operation 66 [2/2] (1.19ns)   --->   "%local_row_indices_B_load = load i9 %local_row_indices_B_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 66 'load' 'local_row_indices_B_load' <Predicate = (icmp_ln87)> <Delay = 1.19> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.19> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 512> <RAM>
+ST_2 : Operation 67 [2/2] (1.19ns)   --->   "%local_row_indices_B_1_load = load i9 %local_row_indices_B_1_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 67 'load' 'local_row_indices_B_1_load' <Predicate = (icmp_ln87)> <Delay = 1.19> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.19> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 512> <RAM>
+ST_2 : Operation 68 [2/2] (1.19ns)   --->   "%local_row_indices_B_2_load = load i9 %local_row_indices_B_2_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 68 'load' 'local_row_indices_B_2_load' <Predicate = (icmp_ln87)> <Delay = 1.19> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.19> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 512> <RAM>
+ST_2 : Operation 69 [2/2] (1.19ns)   --->   "%local_row_indices_B_3_load = load i9 %local_row_indices_B_3_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 69 'load' 'local_row_indices_B_3_load' <Predicate = (icmp_ln87)> <Delay = 1.19> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.19> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 512> <RAM>
+ST_2 : Operation 70 [2/2] (1.19ns)   --->   "%local_row_indices_B_4_load = load i9 %local_row_indices_B_4_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 70 'load' 'local_row_indices_B_4_load' <Predicate = (icmp_ln87)> <Delay = 1.19> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.19> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 512> <RAM>
+ST_2 : Operation 71 [2/2] (1.19ns)   --->   "%local_row_indices_B_5_load = load i9 %local_row_indices_B_5_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 71 'load' 'local_row_indices_B_5_load' <Predicate = (icmp_ln87)> <Delay = 1.19> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.19> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 512> <RAM>
+ST_2 : Operation 72 [2/2] (1.19ns)   --->   "%local_row_indices_B_6_load = load i9 %local_row_indices_B_6_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 72 'load' 'local_row_indices_B_6_load' <Predicate = (icmp_ln87)> <Delay = 1.19> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.19> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 512> <RAM>
+ST_2 : Operation 73 [2/2] (1.19ns)   --->   "%local_row_indices_B_7_load = load i9 %local_row_indices_B_7_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 73 'load' 'local_row_indices_B_7_load' <Predicate = (icmp_ln87)> <Delay = 1.19> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.19> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 512> <RAM>
+
+State 3 <SV = 2> <Delay = 2.66>
+ST_3 : Operation 74 [1/1] (0.00ns)   --->   "%trunc_ln90 = trunc i64 %b_1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 74 'trunc' 'trunc_ln90' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_3 : Operation 75 [1/2] (1.17ns)   --->   "%local_values_B_V_load = load i8 %local_values_B_V_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 75 'load' 'local_values_B_V_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_3 : Operation 76 [1/2] (1.17ns)   --->   "%local_values_B_V_1_load = load i8 %local_values_B_V_1_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 76 'load' 'local_values_B_V_1_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_3 : Operation 77 [1/2] (1.17ns)   --->   "%local_values_B_V_2_load = load i8 %local_values_B_V_2_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 77 'load' 'local_values_B_V_2_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_3 : Operation 78 [1/2] (1.17ns)   --->   "%local_values_B_V_3_load = load i8 %local_values_B_V_3_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 78 'load' 'local_values_B_V_3_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_3 : Operation 79 [1/2] (1.17ns)   --->   "%local_values_B_V_4_load = load i8 %local_values_B_V_4_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 79 'load' 'local_values_B_V_4_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_3 : Operation 80 [1/2] (1.17ns)   --->   "%local_values_B_V_5_load = load i8 %local_values_B_V_5_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 80 'load' 'local_values_B_V_5_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_3 : Operation 81 [1/2] (1.17ns)   --->   "%local_values_B_V_6_load = load i8 %local_values_B_V_6_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 81 'load' 'local_values_B_V_6_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_3 : Operation 82 [1/2] (1.17ns)   --->   "%local_values_B_V_7_load = load i8 %local_values_B_V_7_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 82 'load' 'local_values_B_V_7_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_3 : Operation 83 [1/2] (1.17ns)   --->   "%local_values_B_V_8_load = load i8 %local_values_B_V_8_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 83 'load' 'local_values_B_V_8_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_3 : Operation 84 [1/2] (1.17ns)   --->   "%local_values_B_V_9_load = load i8 %local_values_B_V_9_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 84 'load' 'local_values_B_V_9_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_3 : Operation 85 [1/2] (1.17ns)   --->   "%local_values_B_V_10_load = load i8 %local_values_B_V_10_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 85 'load' 'local_values_B_V_10_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_3 : Operation 86 [1/2] (1.17ns)   --->   "%local_values_B_V_11_load = load i8 %local_values_B_V_11_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 86 'load' 'local_values_B_V_11_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_3 : Operation 87 [1/2] (1.17ns)   --->   "%local_values_B_V_12_load = load i8 %local_values_B_V_12_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 87 'load' 'local_values_B_V_12_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_3 : Operation 88 [1/2] (1.17ns)   --->   "%local_values_B_V_13_load = load i8 %local_values_B_V_13_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 88 'load' 'local_values_B_V_13_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_3 : Operation 89 [1/2] (1.17ns)   --->   "%local_values_B_V_14_load = load i8 %local_values_B_V_14_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 89 'load' 'local_values_B_V_14_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_3 : Operation 90 [1/2] (1.17ns)   --->   "%local_values_B_V_15_load = load i8 %local_values_B_V_15_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 90 'load' 'local_values_B_V_15_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 256> <RAM>
+ST_3 : Operation 91 [1/1] (0.49ns)   --->   "%b_val_V = mux i16 @_ssdm_op_Mux.ap_auto.16i16.i4, i16 %local_values_B_V_load, i16 %local_values_B_V_1_load, i16 %local_values_B_V_2_load, i16 %local_values_B_V_3_load, i16 %local_values_B_V_4_load, i16 %local_values_B_V_5_load, i16 %local_values_B_V_6_load, i16 %local_values_B_V_7_load, i16 %local_values_B_V_8_load, i16 %local_values_B_V_9_load, i16 %local_values_B_V_10_load, i16 %local_values_B_V_11_load, i16 %local_values_B_V_12_load, i16 %local_values_B_V_13_load, i16 %local_values_B_V_14_load, i16 %local_values_B_V_15_load, i4 %trunc_ln90" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90]   --->   Operation 91 'mux' 'b_val_V' <Predicate = (icmp_ln87)> <Delay = 0.49> <CoreInst = "Multiplexer">   --->   Core 76 'Multiplexer' <Latency = 0> <II = 1> <Delay = 0.49> <FuncUnit> <Opcode : 'mux'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 92 [1/1] (0.00ns)   --->   "%trunc_ln = partselect i3 @_ssdm_op_PartSelect.i3.i64.i32.i32, i64 %b_1, i32 9, i32 11" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 92 'partselect' 'trunc_ln' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_3 : Operation 93 [1/2] (1.19ns)   --->   "%local_row_indices_B_load = load i9 %local_row_indices_B_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 93 'load' 'local_row_indices_B_load' <Predicate = (icmp_ln87)> <Delay = 1.19> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.19> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 512> <RAM>
+ST_3 : Operation 94 [1/2] (1.19ns)   --->   "%local_row_indices_B_1_load = load i9 %local_row_indices_B_1_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 94 'load' 'local_row_indices_B_1_load' <Predicate = (icmp_ln87)> <Delay = 1.19> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.19> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 512> <RAM>
+ST_3 : Operation 95 [1/2] (1.19ns)   --->   "%local_row_indices_B_2_load = load i9 %local_row_indices_B_2_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 95 'load' 'local_row_indices_B_2_load' <Predicate = (icmp_ln87)> <Delay = 1.19> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.19> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 512> <RAM>
+ST_3 : Operation 96 [1/2] (1.19ns)   --->   "%local_row_indices_B_3_load = load i9 %local_row_indices_B_3_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 96 'load' 'local_row_indices_B_3_load' <Predicate = (icmp_ln87)> <Delay = 1.19> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.19> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 512> <RAM>
+ST_3 : Operation 97 [1/2] (1.19ns)   --->   "%local_row_indices_B_4_load = load i9 %local_row_indices_B_4_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 97 'load' 'local_row_indices_B_4_load' <Predicate = (icmp_ln87)> <Delay = 1.19> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.19> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 512> <RAM>
+ST_3 : Operation 98 [1/2] (1.19ns)   --->   "%local_row_indices_B_5_load = load i9 %local_row_indices_B_5_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 98 'load' 'local_row_indices_B_5_load' <Predicate = (icmp_ln87)> <Delay = 1.19> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.19> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 512> <RAM>
+ST_3 : Operation 99 [1/2] (1.19ns)   --->   "%local_row_indices_B_6_load = load i9 %local_row_indices_B_6_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 99 'load' 'local_row_indices_B_6_load' <Predicate = (icmp_ln87)> <Delay = 1.19> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.19> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 512> <RAM>
+ST_3 : Operation 100 [1/2] (1.19ns)   --->   "%local_row_indices_B_7_load = load i9 %local_row_indices_B_7_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 100 'load' 'local_row_indices_B_7_load' <Predicate = (icmp_ln87)> <Delay = 1.19> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.19> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 512> <RAM>
+ST_3 : Operation 101 [1/1] (0.58ns)   --->   "%row = mux i32 @_ssdm_op_Mux.ap_auto.8i32.i3, i32 %local_row_indices_B_load, i32 %local_row_indices_B_1_load, i32 %local_row_indices_B_2_load, i32 %local_row_indices_B_3_load, i32 %local_row_indices_B_4_load, i32 %local_row_indices_B_5_load, i32 %local_row_indices_B_6_load, i32 %local_row_indices_B_7_load, i3 %trunc_ln" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91]   --->   Operation 101 'mux' 'row' <Predicate = (icmp_ln87)> <Delay = 0.58> <CoreInst = "Multiplexer">   --->   Core 76 'Multiplexer' <Latency = 0> <II = 1> <Delay = 0.58> <FuncUnit> <Opcode : 'mux'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 102 [1/1] (0.00ns)   --->   "%sext_ln1273 = sext i16 %b_val_V"   --->   Operation 102 'sext' 'sext_ln1273' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_3 : Operation 103 [3/3] (0.99ns) (grouped into DSP with root node ret_V)   --->   "%r_V_2 = mul i32 %sext_ln1273, i32 %r_V_cast"   --->   Operation 103 'mul' 'r_V_2' <Predicate = (icmp_ln87)> <Delay = 0.99> <CoreInst = "DSP48">   --->   Core 127 'DSP48' <Latency = 3> <II = 1> <Delay = 0.53> <IPBlock> <Opcode : 'mul' 'add' 'sub' 'select'> <InPorts = 0> <OutPorts = 1> <Sync> <CReg>
+ST_3 : Operation 104 [1/1] (0.00ns)   --->   "%lshr_ln4 = partselect i9 @_ssdm_op_PartSelect.i9.i32.i32.i32, i32 %row, i32 3, i32 11"   --->   Operation 104 'partselect' 'lshr_ln4' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_3 : Operation 105 [1/1] (0.71ns)   --->   "%add_ln837 = add i9 %zext_ln837_1_read, i9 %lshr_ln4"   --->   Operation 105 'add' 'add_ln837' <Predicate = (icmp_ln87)> <Delay = 0.71> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.71> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 106 [1/1] (0.00ns)   --->   "%trunc_ln837 = trunc i32 %row"   --->   Operation 106 'trunc' 'trunc_ln837' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_3 : Operation 183 [1/1] (0.00ns)   --->   "%ret_ln0 = ret"   --->   Operation 183 'ret' 'ret_ln0' <Predicate = (!icmp_ln87)> <Delay = 0.00>
+
+State 4 <SV = 3> <Delay = 1.17>
+ST_4 : Operation 107 [2/3] (0.99ns) (grouped into DSP with root node ret_V)   --->   "%r_V_2 = mul i32 %sext_ln1273, i32 %r_V_cast"   --->   Operation 107 'mul' 'r_V_2' <Predicate = (icmp_ln87)> <Delay = 0.99> <CoreInst = "DSP48">   --->   Core 127 'DSP48' <Latency = 3> <II = 1> <Delay = 0.53> <IPBlock> <Opcode : 'mul' 'add' 'sub' 'select'> <InPorts = 0> <OutPorts = 1> <Sync> <CReg>
+ST_4 : Operation 108 [1/1] (0.00ns)   --->   "%zext_ln837 = zext i9 %add_ln837"   --->   Operation 108 'zext' 'zext_ln837' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_4 : Operation 109 [1/1] (0.00ns)   --->   "%accum_V_addr = getelementptr i16 %accum_V, i64 0, i64 %zext_ln837"   --->   Operation 109 'getelementptr' 'accum_V_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_4 : Operation 110 [1/1] (0.00ns)   --->   "%accum_V_1_addr = getelementptr i16 %accum_V_1, i64 0, i64 %zext_ln837"   --->   Operation 110 'getelementptr' 'accum_V_1_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_4 : Operation 111 [1/1] (0.00ns)   --->   "%accum_V_2_addr = getelementptr i16 %accum_V_2, i64 0, i64 %zext_ln837"   --->   Operation 111 'getelementptr' 'accum_V_2_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_4 : Operation 112 [1/1] (0.00ns)   --->   "%accum_V_3_addr = getelementptr i16 %accum_V_3, i64 0, i64 %zext_ln837"   --->   Operation 112 'getelementptr' 'accum_V_3_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_4 : Operation 113 [1/1] (0.00ns)   --->   "%accum_V_4_addr = getelementptr i16 %accum_V_4, i64 0, i64 %zext_ln837"   --->   Operation 113 'getelementptr' 'accum_V_4_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_4 : Operation 114 [1/1] (0.00ns)   --->   "%accum_V_5_addr = getelementptr i16 %accum_V_5, i64 0, i64 %zext_ln837"   --->   Operation 114 'getelementptr' 'accum_V_5_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_4 : Operation 115 [1/1] (0.00ns)   --->   "%accum_V_6_addr = getelementptr i16 %accum_V_6, i64 0, i64 %zext_ln837"   --->   Operation 115 'getelementptr' 'accum_V_6_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_4 : Operation 116 [1/1] (0.00ns)   --->   "%accum_V_7_addr = getelementptr i16 %accum_V_7, i64 0, i64 %zext_ln837"   --->   Operation 116 'getelementptr' 'accum_V_7_addr' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_4 : Operation 117 [2/2] (1.17ns)   --->   "%accum_V_load = load i9 %accum_V_addr"   --->   Operation 117 'load' 'accum_V_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_4 : Operation 118 [2/2] (1.17ns)   --->   "%accum_V_1_load = load i9 %accum_V_1_addr"   --->   Operation 118 'load' 'accum_V_1_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_4 : Operation 119 [2/2] (1.17ns)   --->   "%accum_V_2_load = load i9 %accum_V_2_addr"   --->   Operation 119 'load' 'accum_V_2_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_4 : Operation 120 [2/2] (1.17ns)   --->   "%accum_V_3_load = load i9 %accum_V_3_addr"   --->   Operation 120 'load' 'accum_V_3_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_4 : Operation 121 [2/2] (1.17ns)   --->   "%accum_V_4_load = load i9 %accum_V_4_addr"   --->   Operation 121 'load' 'accum_V_4_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_4 : Operation 122 [2/2] (1.17ns)   --->   "%accum_V_5_load = load i9 %accum_V_5_addr"   --->   Operation 122 'load' 'accum_V_5_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_4 : Operation 123 [2/2] (1.17ns)   --->   "%accum_V_6_load = load i9 %accum_V_6_addr"   --->   Operation 123 'load' 'accum_V_6_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_4 : Operation 124 [2/2] (1.17ns)   --->   "%accum_V_7_load = load i9 %accum_V_7_addr"   --->   Operation 124 'load' 'accum_V_7_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_4 : Operation 125 [1/1] (0.00ns)   --->   "%br_ln818 = br void %V42.i.i24.i.i25.exit"   --->   Operation 125 'br' 'br_ln818' <Predicate = (icmp_ln87 & trunc_ln837 == 6)> <Delay = 0.00>
+ST_4 : Operation 126 [1/1] (0.00ns)   --->   "%br_ln818 = br void %V42.i.i24.i.i25.exit"   --->   Operation 126 'br' 'br_ln818' <Predicate = (icmp_ln87 & trunc_ln837 == 5)> <Delay = 0.00>
+ST_4 : Operation 127 [1/1] (0.00ns)   --->   "%br_ln818 = br void %V42.i.i24.i.i25.exit"   --->   Operation 127 'br' 'br_ln818' <Predicate = (icmp_ln87 & trunc_ln837 == 4)> <Delay = 0.00>
+ST_4 : Operation 128 [1/1] (0.00ns)   --->   "%br_ln818 = br void %V42.i.i24.i.i25.exit"   --->   Operation 128 'br' 'br_ln818' <Predicate = (icmp_ln87 & trunc_ln837 == 3)> <Delay = 0.00>
+ST_4 : Operation 129 [1/1] (0.00ns)   --->   "%br_ln818 = br void %V42.i.i24.i.i25.exit"   --->   Operation 129 'br' 'br_ln818' <Predicate = (icmp_ln87 & trunc_ln837 == 2)> <Delay = 0.00>
+ST_4 : Operation 130 [1/1] (0.00ns)   --->   "%br_ln818 = br void %V42.i.i24.i.i25.exit"   --->   Operation 130 'br' 'br_ln818' <Predicate = (icmp_ln87 & trunc_ln837 == 1)> <Delay = 0.00>
+ST_4 : Operation 131 [1/1] (0.00ns)   --->   "%br_ln818 = br void %V42.i.i24.i.i25.exit"   --->   Operation 131 'br' 'br_ln818' <Predicate = (icmp_ln87 & trunc_ln837 == 0)> <Delay = 0.00>
+ST_4 : Operation 132 [1/1] (0.00ns)   --->   "%br_ln818 = br void %V42.i.i24.i.i25.exit"   --->   Operation 132 'br' 'br_ln818' <Predicate = (icmp_ln87 & trunc_ln837 == 7)> <Delay = 0.00>
+
+State 5 <SV = 4> <Delay = 2.40>
+ST_5 : Operation 133 [1/3] (0.00ns) (grouped into DSP with root node ret_V)   --->   "%r_V_2 = mul i32 %sext_ln1273, i32 %r_V_cast"   --->   Operation 133 'mul' 'r_V_2' <Predicate = (icmp_ln87)> <Delay = 0.00> <CoreInst = "DSP48">   --->   Core 127 'DSP48' <Latency = 3> <II = 1> <Delay = 0.53> <IPBlock> <Opcode : 'mul' 'add' 'sub' 'select'> <InPorts = 0> <OutPorts = 1> <Sync> <CReg>
+ST_5 : Operation 134 [1/2] (1.17ns)   --->   "%accum_V_load = load i9 %accum_V_addr"   --->   Operation 134 'load' 'accum_V_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_5 : Operation 135 [1/2] (1.17ns)   --->   "%accum_V_1_load = load i9 %accum_V_1_addr"   --->   Operation 135 'load' 'accum_V_1_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_5 : Operation 136 [1/2] (1.17ns)   --->   "%accum_V_2_load = load i9 %accum_V_2_addr"   --->   Operation 136 'load' 'accum_V_2_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_5 : Operation 137 [1/2] (1.17ns)   --->   "%accum_V_3_load = load i9 %accum_V_3_addr"   --->   Operation 137 'load' 'accum_V_3_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_5 : Operation 138 [1/2] (1.17ns)   --->   "%accum_V_4_load = load i9 %accum_V_4_addr"   --->   Operation 138 'load' 'accum_V_4_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_5 : Operation 139 [1/2] (1.17ns)   --->   "%accum_V_5_load = load i9 %accum_V_5_addr"   --->   Operation 139 'load' 'accum_V_5_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_5 : Operation 140 [1/2] (1.17ns)   --->   "%accum_V_6_load = load i9 %accum_V_6_addr"   --->   Operation 140 'load' 'accum_V_6_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_5 : Operation 141 [1/2] (1.17ns)   --->   "%accum_V_7_load = load i9 %accum_V_7_addr"   --->   Operation 141 'load' 'accum_V_7_load' <Predicate = (icmp_ln87)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_5 : Operation 142 [1/1] (0.58ns)   --->   "%lhs = mux i16 @_ssdm_op_Mux.ap_auto.8i16.i3, i16 %accum_V_load, i16 %accum_V_1_load, i16 %accum_V_2_load, i16 %accum_V_3_load, i16 %accum_V_4_load, i16 %accum_V_5_load, i16 %accum_V_6_load, i16 %accum_V_7_load, i3 %trunc_ln837"   --->   Operation 142 'mux' 'lhs' <Predicate = (icmp_ln87)> <Delay = 0.58> <CoreInst = "Multiplexer">   --->   Core 76 'Multiplexer' <Latency = 0> <II = 1> <Delay = 0.58> <FuncUnit> <Opcode : 'mux'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 143 [1/1] (0.00ns)   --->   "%lhs_1 = bitconcatenate i27 @_ssdm_op_BitConcatenate.i27.i16.i11, i16 %lhs, i11 0"   --->   Operation 143 'bitconcatenate' 'lhs_1' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_5 : Operation 144 [1/1] (0.00ns)   --->   "%sext_ln1347 = sext i27 %lhs_1"   --->   Operation 144 'sext' 'sext_ln1347' <Predicate = (icmp_ln87)> <Delay = 0.00>
+ST_5 : Operation 145 [2/2] (0.64ns) (root node of the DSP)   --->   "%ret_V = add i32 %sext_ln1347, i32 %r_V_2"   --->   Operation 145 'add' 'ret_V' <Predicate = (icmp_ln87)> <Delay = 0.64> <CoreInst = "DSP48">   --->   Core 127 'DSP48' <Latency = 3> <II = 1> <Delay = 0.53> <IPBlock> <Opcode : 'mul' 'add' 'sub' 'select'> <InPorts = 0> <OutPorts = 1> <Sync> <CReg>
+ST_5 : Operation 146 [1/1] (1.14ns)   --->   "%add_ln87 = add i64 %b_1, i64 1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:87]   --->   Operation 146 'add' 'add_ln87' <Predicate = (icmp_ln87)> <Delay = 1.14> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 1.14> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 147 [1/1] (0.38ns)   --->   "%store_ln87 = store i64 %add_ln87, i64 %b" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:87]   --->   Operation 147 'store' 'store_ln87' <Predicate = (icmp_ln87)> <Delay = 0.38>
+ST_5 : Operation 148 [1/1] (0.00ns)   --->   "%br_ln87 = br void %for.body115" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:87]   --->   Operation 148 'br' 'br_ln87' <Predicate = (icmp_ln87)> <Delay = 0.00>
+
+State 6 <SV = 5> <Delay = 2.68>
+ST_6 : Operation 149 [1/1] (0.00ns)   --->   "%specpipeline_ln88 = specpipeline void @_ssdm_op_SpecPipeline, i32 4294967295, i32 0, i32 0, i32 0, void @empty_0" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:88]   --->   Operation 149 'specpipeline' 'specpipeline_ln88' <Predicate = true> <Delay = 0.00>
+ST_6 : Operation 150 [1/1] (0.00ns)   --->   "%speclooptripcount_ln89 = speclooptripcount void @_ssdm_op_SpecLoopTripCount, i64 1, i64 256, i64 128" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:89]   --->   Operation 150 'speclooptripcount' 'speclooptripcount_ln89' <Predicate = true> <Delay = 0.00>
+ST_6 : Operation 151 [1/1] (0.00ns)   --->   "%specloopname_ln87 = specloopname void @_ssdm_op_SpecLoopName, void @empty_3" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:87]   --->   Operation 151 'specloopname' 'specloopname_ln87' <Predicate = true> <Delay = 0.00>
+ST_6 : Operation 152 [1/2] (0.64ns) (root node of the DSP)   --->   "%ret_V = add i32 %sext_ln1347, i32 %r_V_2"   --->   Operation 152 'add' 'ret_V' <Predicate = true> <Delay = 0.64> <CoreInst = "DSP48">   --->   Core 127 'DSP48' <Latency = 3> <II = 1> <Delay = 0.53> <IPBlock> <Opcode : 'mul' 'add' 'sub' 'select'> <InPorts = 0> <OutPorts = 1> <Sync> <CReg>
+ST_6 : Operation 153 [1/1] (0.85ns)   --->   "%icmp_ln1420 = icmp_eq  i32 %ret_V, i32 0"   --->   Operation 153 'icmp' 'icmp_ln1420' <Predicate = true> <Delay = 0.85> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.85> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_6 : Operation 154 [1/1] (0.00ns)   --->   "%br_ln808 = br i1 %icmp_ln1420, void %if.end.i.i, void %if.then.i.i"   --->   Operation 154 'br' 'br_ln808' <Predicate = true> <Delay = 0.00>
+ST_6 : Operation 155 [1/1] (0.34ns)   --->   "%switch_ln808 = switch i3 %trunc_ln837, void %V42.i.i24.i.i25.case.7352, i3 0, void %V42.i.i24.i.i25.case.0345, i3 1, void %V42.i.i24.i.i25.case.1346, i3 2, void %V42.i.i24.i.i25.case.2347, i3 3, void %V42.i.i24.i.i25.case.3348, i3 4, void %V42.i.i24.i.i25.case.4349, i3 5, void %V42.i.i24.i.i25.case.5350, i3 6, void %V42.i.i24.i.i25.case.6351"   --->   Operation 155 'switch' 'switch_ln808' <Predicate = (icmp_ln1420)> <Delay = 0.34>
+ST_6 : Operation 156 [1/1] (1.17ns)   --->   "%store_ln808 = store i16 0, i9 %accum_V_6_addr"   --->   Operation 156 'store' 'store_ln808' <Predicate = (icmp_ln1420 & trunc_ln837 == 6)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_6 : Operation 157 [1/1] (0.00ns)   --->   "%br_ln808 = br void %V42.i.i24.i.i25.exit344"   --->   Operation 157 'br' 'br_ln808' <Predicate = (icmp_ln1420 & trunc_ln837 == 6)> <Delay = 0.00>
+ST_6 : Operation 158 [1/1] (1.17ns)   --->   "%store_ln808 = store i16 0, i9 %accum_V_5_addr"   --->   Operation 158 'store' 'store_ln808' <Predicate = (icmp_ln1420 & trunc_ln837 == 5)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_6 : Operation 159 [1/1] (0.00ns)   --->   "%br_ln808 = br void %V42.i.i24.i.i25.exit344"   --->   Operation 159 'br' 'br_ln808' <Predicate = (icmp_ln1420 & trunc_ln837 == 5)> <Delay = 0.00>
+ST_6 : Operation 160 [1/1] (1.17ns)   --->   "%store_ln808 = store i16 0, i9 %accum_V_4_addr"   --->   Operation 160 'store' 'store_ln808' <Predicate = (icmp_ln1420 & trunc_ln837 == 4)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_6 : Operation 161 [1/1] (0.00ns)   --->   "%br_ln808 = br void %V42.i.i24.i.i25.exit344"   --->   Operation 161 'br' 'br_ln808' <Predicate = (icmp_ln1420 & trunc_ln837 == 4)> <Delay = 0.00>
+ST_6 : Operation 162 [1/1] (1.17ns)   --->   "%store_ln808 = store i16 0, i9 %accum_V_3_addr"   --->   Operation 162 'store' 'store_ln808' <Predicate = (icmp_ln1420 & trunc_ln837 == 3)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_6 : Operation 163 [1/1] (0.00ns)   --->   "%br_ln808 = br void %V42.i.i24.i.i25.exit344"   --->   Operation 163 'br' 'br_ln808' <Predicate = (icmp_ln1420 & trunc_ln837 == 3)> <Delay = 0.00>
+ST_6 : Operation 164 [1/1] (1.17ns)   --->   "%store_ln808 = store i16 0, i9 %accum_V_2_addr"   --->   Operation 164 'store' 'store_ln808' <Predicate = (icmp_ln1420 & trunc_ln837 == 2)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_6 : Operation 165 [1/1] (0.00ns)   --->   "%br_ln808 = br void %V42.i.i24.i.i25.exit344"   --->   Operation 165 'br' 'br_ln808' <Predicate = (icmp_ln1420 & trunc_ln837 == 2)> <Delay = 0.00>
+ST_6 : Operation 166 [1/1] (1.17ns)   --->   "%store_ln808 = store i16 0, i9 %accum_V_1_addr"   --->   Operation 166 'store' 'store_ln808' <Predicate = (icmp_ln1420 & trunc_ln837 == 1)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_6 : Operation 167 [1/1] (0.00ns)   --->   "%br_ln808 = br void %V42.i.i24.i.i25.exit344"   --->   Operation 167 'br' 'br_ln808' <Predicate = (icmp_ln1420 & trunc_ln837 == 1)> <Delay = 0.00>
+ST_6 : Operation 168 [1/1] (1.17ns)   --->   "%store_ln808 = store i16 0, i9 %accum_V_addr"   --->   Operation 168 'store' 'store_ln808' <Predicate = (icmp_ln1420 & trunc_ln837 == 0)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_6 : Operation 169 [1/1] (0.00ns)   --->   "%br_ln808 = br void %V42.i.i24.i.i25.exit344"   --->   Operation 169 'br' 'br_ln808' <Predicate = (icmp_ln1420 & trunc_ln837 == 0)> <Delay = 0.00>
+ST_6 : Operation 170 [1/1] (1.17ns)   --->   "%store_ln808 = store i16 0, i9 %accum_V_7_addr"   --->   Operation 170 'store' 'store_ln808' <Predicate = (icmp_ln1420 & trunc_ln837 == 7)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_6 : Operation 171 [1/1] (0.00ns)   --->   "%br_ln808 = br void %V42.i.i24.i.i25.exit344"   --->   Operation 171 'br' 'br_ln808' <Predicate = (icmp_ln1420 & trunc_ln837 == 7)> <Delay = 0.00>
+ST_6 : Operation 172 [1/1] (0.00ns)   --->   "%trunc_ln1 = partselect i16 @_ssdm_op_PartSelect.i16.i32.i32.i32, i32 %ret_V, i32 11, i32 26"   --->   Operation 172 'partselect' 'trunc_ln1' <Predicate = true> <Delay = 0.00>
+ST_6 : Operation 173 [1/1] (0.34ns)   --->   "%switch_ln818 = switch i3 %trunc_ln837, void %V42.i.i24.i.i25.case.7, i3 0, void %V42.i.i24.i.i25.case.0, i3 1, void %V42.i.i24.i.i25.case.1, i3 2, void %V42.i.i24.i.i25.case.2, i3 3, void %V42.i.i24.i.i25.case.3, i3 4, void %V42.i.i24.i.i25.case.4, i3 5, void %V42.i.i24.i.i25.case.5, i3 6, void %V42.i.i24.i.i25.case.6"   --->   Operation 173 'switch' 'switch_ln818' <Predicate = true> <Delay = 0.34>
+
+State 7 <SV = 6> <Delay = 1.17>
+ST_7 : Operation 174 [1/1] (0.00ns)   --->   "%br_ln808 = br void %if.end.i.i"   --->   Operation 174 'br' 'br_ln808' <Predicate = (icmp_ln1420)> <Delay = 0.00>
+ST_7 : Operation 175 [1/1] (1.17ns)   --->   "%store_ln818 = store i16 %trunc_ln1, i9 %accum_V_6_addr"   --->   Operation 175 'store' 'store_ln818' <Predicate = (trunc_ln837 == 6)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_7 : Operation 176 [1/1] (1.17ns)   --->   "%store_ln818 = store i16 %trunc_ln1, i9 %accum_V_5_addr"   --->   Operation 176 'store' 'store_ln818' <Predicate = (trunc_ln837 == 5)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_7 : Operation 177 [1/1] (1.17ns)   --->   "%store_ln818 = store i16 %trunc_ln1, i9 %accum_V_4_addr"   --->   Operation 177 'store' 'store_ln818' <Predicate = (trunc_ln837 == 4)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_7 : Operation 178 [1/1] (1.17ns)   --->   "%store_ln818 = store i16 %trunc_ln1, i9 %accum_V_3_addr"   --->   Operation 178 'store' 'store_ln818' <Predicate = (trunc_ln837 == 3)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_7 : Operation 179 [1/1] (1.17ns)   --->   "%store_ln818 = store i16 %trunc_ln1, i9 %accum_V_2_addr"   --->   Operation 179 'store' 'store_ln818' <Predicate = (trunc_ln837 == 2)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_7 : Operation 180 [1/1] (1.17ns)   --->   "%store_ln818 = store i16 %trunc_ln1, i9 %accum_V_1_addr"   --->   Operation 180 'store' 'store_ln818' <Predicate = (trunc_ln837 == 1)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_7 : Operation 181 [1/1] (1.17ns)   --->   "%store_ln818 = store i16 %trunc_ln1, i9 %accum_V_addr"   --->   Operation 181 'store' 'store_ln818' <Predicate = (trunc_ln837 == 0)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+ST_7 : Operation 182 [1/1] (1.17ns)   --->   "%store_ln818 = store i16 %trunc_ln1, i9 %accum_V_7_addr"   --->   Operation 182 'store' 'store_ln818' <Predicate = (trunc_ln837 == 7)> <Delay = 1.17> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.17> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 512> <RAM>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 5ns, clock uncertainty: 1.35ns.
+
+ <State 1>: 0.387ns
+The critical path consists of the following:
+	'alloca' operation ('b') [37]  (0 ns)
+	'store' operation ('store_ln0') of variable 'sext_ln87_cast' on local variable 'b' [45]  (0.387 ns)
+
+ <State 2>: 1.2ns
+The critical path consists of the following:
+	'load' operation ('b', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90) on local variable 'b' [48]  (0 ns)
+	'getelementptr' operation ('local_row_indices_B_addr', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91) [93]  (0 ns)
+	'load' operation ('local_row_indices_B_load', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:91) on array 'local_row_indices_B' [102]  (1.2 ns)
+
+ <State 3>: 2.67ns
+The critical path consists of the following:
+	'load' operation ('local_values_B_V_load', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90) on array 'local_values_B_V' [75]  (1.18 ns)
+	'mux' operation ('b_val.V', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:90) [91]  (0.493 ns)
+	'mul' operation of DSP[136] ('r.V') [112]  (0.996 ns)
+
+ <State 4>: 1.18ns
+The critical path consists of the following:
+	'getelementptr' operation ('accum_V_addr') [116]  (0 ns)
+	'load' operation ('accum_V_load') on array 'accum_V' [125]  (1.18 ns)
+
+ <State 5>: 2.41ns
+The critical path consists of the following:
+	'load' operation ('accum_V_load') on array 'accum_V' [125]  (1.18 ns)
+	'mux' operation ('lhs') [133]  (0.584 ns)
+	'add' operation of DSP[136] ('ret.V') [136]  (0.645 ns)
+
+ <State 6>: 2.68ns
+The critical path consists of the following:
+	'add' operation of DSP[136] ('ret.V') [136]  (0.645 ns)
+	'icmp' operation ('icmp_ln1420') [137]  (0.859 ns)
+	blocking operation 1.18 ns on control path)
+
+ <State 7>: 1.18ns
+The critical path consists of the following:
+	'store' operation ('store_ln818') of variable 'trunc_ln1' on array 'accum_V_6' [171]  (1.18 ns)
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+	State 4
+	State 5
+	State 6
+	State 7
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

@@ -76,10 +76,16 @@ def parse_code_blocks(text: str) -> Dict[str, str]:
 
     return code_blocks
 
-def deepseek_R1_old(prompt: str) -> str:
-
-    client = DeepseekR1Client(api_key="IM9GM9IVjPU4OeBFzoaVY6SlaVarR1h7")
-    
+def deepseek_R1_mcts(prompt: str) -> str:
+    """
+    Use the Deepseek-R1 API to generate code based on the prompt.
+    Only returns the generated code, filtering out any chain-of-thought.
+    Replace 'your_api_key_here' with your actual API key.
+    """
+    client = OpenAI(
+        api_key = "sk-mYDMUkBi0LXmnCqjxF81CARnouWkHzFv3tNDFZaEjVigjQrZ",
+        base_url = "https://api.chatfire.cn/v1",
+    )
     try:
         full_prompt = f"""Request: {prompt}, Must Only return the code use the format. \n
         Example response format:
@@ -90,21 +96,25 @@ def deepseek_R1_old(prompt: str) -> str:
         // implementation content here
         ```
         """
-        completions = client.chat_with_gpt(full_prompt, n=1)
-        response_text = completions[0] if completions else ""
-        print(response_text)
-        code_blocks = parse_code_blocks(response_text)        
-        code_blocks["tokens_used"] = client.total_tokens_used
-        
-        return code_blocks
-
-    except Exception as e:
-        error_response = {
-            "header": "",
-            "cpp": "",
-            "error": f"API Error: {str(e)}",
-            "tokens_used": client.total_tokens_used
-        }
+        completions = client.chat.completions.create(
+            model = "deepseek-r1",  # your model endpoint ID
+            messages = [
+                {"role": "system", "content": "You are a FPGA engineer."},
+                {"role": "user", "content": f"{full_prompt}"},
+        ],
+        )
+        #print("completions: ", completions)
+        if completions:
+            # Assume the generated code is enclosed in triple backticks.
+            response_text = completions.choices[0].message.content
+            code_blocks = parse_code_blocks(response_text)
+            #print("code_blocks: ", code_blocks)
+            return code_blocks 
+    except Exception as e: 
+        error_response = { "header": "", 
+                          "cpp": "", 
+                          "error": f"API Error: {str(e)}"}
+                          #"tokens_used": client.total_tokens_used } 
         return error_response
 
 def deepseek_R1(prompt: str) -> str:
@@ -144,6 +154,7 @@ def deepseek_R1(prompt: str) -> str:
                           "error": f"API Error: {str(e)}"}
                           #"tokens_used": client.total_tokens_used } 
         return error_response
+
 
 def gpt(prompt: str) -> str:
     """

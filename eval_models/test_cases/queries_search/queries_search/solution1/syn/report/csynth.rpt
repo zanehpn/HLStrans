@@ -1,0 +1,172 @@
+
+
+================================================================
+== Synthesis Summary Report of 'queries_search'
+================================================================
++ General Information: 
+    * Date:           Thu May 15 15:48:10 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        queries_search
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +------------------------------------------------------------+------+------+---------+-----------+----------+---------+---------+----------+------+---------+------------+------------+-----+
+    |                           Modules                          | Issue|      | Latency |  Latency  | Iteration|         |   Trip  |          |      |         |            |            |     |
+    |                           & Loops                          | Type | Slack| (cycles)|    (ns)   |  Latency | Interval|  Count  | Pipelined| BRAM |   DSP   |     FF     |     LUT    | URAM|
+    +------------------------------------------------------------+------+------+---------+-----------+----------+---------+---------+----------+------+---------+------------+------------+-----+
+    |+ queries_search                                            |     -|  0.00|  9000023|  4.500e+07|         -|  9000024|        -|        no|     -|  9 (~0%)|  3317 (~0%)|  4591 (~0%)|    -|
+    | + queries_search_Pipeline_VITIS_LOOP_29_1_VITIS_LOOP_33_2  |     -|  0.00|  9000015|  4.500e+07|         -|  9000015|        -|        no|     -|  9 (~0%)|   583 (~0%)|   640 (~0%)|    -|
+    |  o VITIS_LOOP_29_1_VITIS_LOOP_33_2                         |    II|  3.65|  9000013|  4.500e+07|        15|        3|  3000000|       yes|     -|        -|           -|           -|    -|
+    +------------------------------------------------------------+------+------+---------+-----------+----------+---------+---------+----------+------+---------+------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* M_AXI
++-------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| Interface   | Data Width | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   |
+|             | (SW->HW)   |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |
++-------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| m_axi_gmem0 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem1 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem2 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
++-------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+
+* S_AXILITE Interfaces
++---------------+------------+---------------+--------+----------+
+| Interface     | Data Width | Address Width | Offset | Register |
++---------------+------------+---------------+--------+----------+
+| s_axi_control | 32         | 6             | 16     | 0        |
++---------------+------------+---------------+--------+----------+
+
+* S_AXILITE Registers
++---------------+-----------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+| Interface     | Register  | Offset | Width | Access | Description                      | Bit Fields                                                           |
++---------------+-----------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+| s_axi_control | CTRL      | 0x00   | 32    | RW     | Control signals                  | 0=AP_START 1=AP_DONE 2=AP_IDLE 3=AP_READY 7=AUTO_RESTART 9=INTERRUPT |
+| s_axi_control | GIER      | 0x04   | 32    | RW     | Global Interrupt Enable Register | 0=Enable                                                             |
+| s_axi_control | IP_IER    | 0x08   | 32    | RW     | IP Interrupt Enable Register     | 0=CHAN0_INT_EN 1=CHAN1_INT_EN                                        |
+| s_axi_control | IP_ISR    | 0x0c   | 32    | RW     | IP Interrupt Status Register     | 0=CHAN0_INT_ST 1=CHAN1_INT_ST                                        |
+| s_axi_control | targets_1 | 0x10   | 32    | W      | Data signal of targets           |                                                                      |
+| s_axi_control | targets_2 | 0x14   | 32    | W      | Data signal of targets           |                                                                      |
+| s_axi_control | queries_1 | 0x1c   | 32    | W      | Data signal of queries           |                                                                      |
+| s_axi_control | queries_2 | 0x20   | 32    | W      | Data signal of queries           |                                                                      |
+| s_axi_control | indices_1 | 0x28   | 32    | W      | Data signal of indices           |                                                                      |
+| s_axi_control | indices_2 | 0x2c   | 32    | W      | Data signal of indices           |                                                                      |
++---------------+-----------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------+
+| Interface | Type       | Ports     |
++-----------+------------+-----------+
+| ap_clk    | clock      | ap_clk    |
+| ap_rst_n  | reset      | ap_rst_n  |
+| interrupt | interrupt  | interrupt |
+| ap_ctrl   | ap_ctrl_hs |           |
++-----------+------------+-----------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+---------------------------------------+
+| Argument | Direction | Datatype                              |
++----------+-----------+---------------------------------------+
+| targets  | in        | ap_fixed<32, 16, AP_TRN, AP_WRAP, 0>* |
+| queries  | in        | ap_fixed<32, 16, AP_TRN, AP_WRAP, 0>* |
+| indices  | out       | unsigned int*                         |
++----------+-----------+---------------------------------------+
+
+* SW-to-HW Mapping
++----------+---------------+-----------+----------+-------------------------------------+
+| Argument | HW Interface  | HW Type   | HW Usage | HW Info                             |
++----------+---------------+-----------+----------+-------------------------------------+
+| targets  | m_axi_gmem0   | interface |          |                                     |
+| targets  | s_axi_control | register  | offset   | name=targets_1 offset=0x10 range=32 |
+| targets  | s_axi_control | register  | offset   | name=targets_2 offset=0x14 range=32 |
+| queries  | m_axi_gmem1   | interface |          |                                     |
+| queries  | s_axi_control | register  | offset   | name=queries_1 offset=0x1c range=32 |
+| queries  | s_axi_control | register  | offset   | name=queries_2 offset=0x20 range=32 |
+| indices  | m_axi_gmem2   | interface |          |                                     |
+| indices  | s_axi_control | register  | offset   | name=indices_1 offset=0x28 range=32 |
+| indices  | s_axi_control | register  | offset   | name=indices_2 offset=0x2c range=32 |
++----------+---------------+-----------+----------+-------------------------------------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+* Inferred Burst Summary
++--------------+-----------------+-----------+--------+-------+------------------------------------------------------------------------------------------------------+
+| HW Interface | Loop            | Direction | Length | Width | Location                                                                                             |
++--------------+-----------------+-----------+--------+-------+------------------------------------------------------------------------------------------------------+
+| m_axi_gmem2  | VITIS_LOOP_29_1 | write     | 1000   | 32    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:29:19 |
+| m_axi_gmem0  | VITIS_LOOP_13_1 | read      | 3      | 32    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:13:22 |
+| m_axi_gmem1  | VITIS_LOOP_13_1 | read      | 3      | 32    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:13:22 |
++--------------+-----------------+-----------+--------+-------+------------------------------------------------------------------------------------------------------+
+
+* Inferred Bursts and Widening Missed
++--------------+----------+-----------------+-------------------------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------------------------------------+
+| HW Interface | Variable | Loop            | Problem                                                                                               | Resolution | Location                                                                                             |
++--------------+----------+-----------------+-------------------------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------------------------------------+
+| m_axi_gmem0  | targets  | VITIS_LOOP_33_2 | Could not analyze pattern                                                                             | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:33:26 |
+| m_axi_gmem1  | queries  | VITIS_LOOP_33_2 | Could not analyze pattern                                                                             | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:33:26 |
+| m_axi_gmem2  | indices  | VITIS_LOOP_29_1 | Could not widen since type i32 size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:29:19 |
+| m_axi_gmem0  | targets  | VITIS_LOOP_13_1 | Could not widen since type i32 size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:13:22 |
+| m_axi_gmem1  | queries  | VITIS_LOOP_13_1 | Could not widen since type i32 size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:13:22 |
++--------------+----------+-----------------+-------------------------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------------------------------------+
+
+    * Resolution URL: www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=XXX-YYY.html (replace XXX-YYY with column value)
+
+================================================================
+== Bind Op Report
+================================================================
++------------------------------------------------------------+-----+--------+--------------+-----+--------+---------+
+| Name                                                       | DSP | Pragma | Variable     | Op  | Impl   | Latency |
++------------------------------------------------------------+-----+--------+--------------+-----+--------+---------+
+| + queries_search                                           | 9   |        |              |     |        |         |
+|  + queries_search_Pipeline_VITIS_LOOP_29_1_VITIS_LOOP_33_2 | 9   |        |              |     |        |         |
+|    add_ln29_fu_214_p2                                      | -   |        | add_ln29     | add | fabric | 0       |
+|    grp_fu_156_p2                                           | -   |        | sub_ln813    | sub | fabric | 0       |
+|    mul_32s_32s_48_1_1_U1                                   | 3   |        | mul_ln1273   | mul | auto   | 0       |
+|    grp_fu_156_p2                                           | -   |        | sub_ln813_1  | sub | fabric | 0       |
+|    mul_32s_32s_48_1_1_U2                                   | 3   |        | mul_ln1273_1 | mul | auto   | 0       |
+|    add_ln1347_fu_311_p2                                    | -   |        | add_ln1347   | add | fabric | 0       |
+|    grp_fu_156_p2                                           | -   |        | sub_ln813_2  | sub | fabric | 0       |
+|    mul_32s_32s_48_1_1_U3                                   | 3   |        | mul_ln1273_2 | mul | auto   | 0       |
+|    add_ln1347_1_fu_334_p2                                  | -   |        | add_ln1347_1 | add | fabric | 0       |
+|    t_1_fu_371_p2                                           | -   |        | t_1          | add | fabric | 0       |
++------------------------------------------------------------+-----+--------+--------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
+  No bind storage info in design
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++-----------+----------------------------------------------+-------------------------------------------------------+
+| Type      | Options                                      | Location                                              |
++-----------+----------------------------------------------+-------------------------------------------------------+
+| interface | m_axi port=targets offset=slave bundle=gmem0 | queries_search_fast.cpp:21 in queries_search, targets |
+| interface | m_axi port=queries offset=slave bundle=gmem1 | queries_search_fast.cpp:22 in queries_search, queries |
+| interface | m_axi port=indices offset=slave bundle=gmem2 | queries_search_fast.cpp:23 in queries_search, indices |
+| interface | s_axilite port=targets bundle=control        | queries_search_fast.cpp:24 in queries_search, targets |
+| interface | s_axilite port=queries bundle=control        | queries_search_fast.cpp:25 in queries_search, queries |
+| interface | s_axilite port=indices bundle=control        | queries_search_fast.cpp:26 in queries_search, indices |
+| interface | s_axilite port=return bundle=control         | queries_search_fast.cpp:27 in queries_search, return  |
++-----------+----------------------------------------------+-------------------------------------------------------+
+
+

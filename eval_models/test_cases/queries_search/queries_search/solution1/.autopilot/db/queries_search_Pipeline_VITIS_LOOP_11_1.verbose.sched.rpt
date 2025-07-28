@@ -1,0 +1,181 @@
+
+
+================================================================
+== Vitis HLS Report for 'queries_search_Pipeline_VITIS_LOOP_11_1'
+================================================================
+* Date:           Mon May 12 15:49:19 2025
+
+* Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+* Project:        queries_search
+* Solution:       solution1 (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu55c-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  5.00 ns|  3.363 ns|     1.35 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+-----------+-----------+-----+-----+---------+
+    |  Latency (cycles) |   Latency (absolute)  |  Interval | Pipeline|
+    |   min   |   max   |    min    |    max    | min | max |   Type  |
+    +---------+---------+-----------+-----------+-----+-----+---------+
+    |       14|       14|  70.000 ns|  70.000 ns|   14|   14|       no|
+    +---------+---------+-----------+-----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |                   |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |     Loop Name     |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- VITIS_LOOP_11_1  |       12|       12|         5|          4|          1|     3|       yes|
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 2
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
++ Individual pipeline summary: 
+  * Pipeline-0: initiation interval (II) = 4, depth = 6
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 6
+* Pipeline : 1
+  Pipeline-0 : II = 4, D = 6, States = { 1 2 3 4 5 6 }
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 3 
+3 --> 4 
+4 --> 5 
+5 --> 6 
+6 --> 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 0.38>
+ST_1 : Operation 8 [1/1] (0.00ns)   --->   "%dist = alloca i32 1"   --->   Operation 8 'alloca' 'dist' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 9 [1/1] (0.00ns)   --->   "%i = alloca i32 1"   --->   Operation 9 'alloca' 'i' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 10 [1/1] (0.00ns)   --->   "%mul_i_read = read i32 @_ssdm_op_Read.ap_auto.float, i32 %mul_i"   --->   Operation 10 'read' 'mul_i_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 11 [1/1] (0.38ns)   --->   "%store_ln0 = store i2 0, i2 %i"   --->   Operation 11 'store' 'store_ln0' <Predicate = true> <Delay = 0.38>
+ST_1 : Operation 12 [1/1] (0.38ns)   --->   "%store_ln0 = store i32 0, i32 %dist"   --->   Operation 12 'store' 'store_ln0' <Predicate = true> <Delay = 0.38>
+ST_1 : Operation 13 [1/1] (0.00ns)   --->   "%br_ln0 = br void %for.inc.i"   --->   Operation 13 'br' 'br_ln0' <Predicate = true> <Delay = 0.00>
+
+State 2 <SV = 1> <Delay = 2.97>
+ST_2 : Operation 14 [1/1] (0.00ns)   --->   "%i_1 = load i2 %i" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:11]   --->   Operation 14 'load' 'i_1' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 15 [1/1] (0.00ns)   --->   "%specpipeline_ln0 = specpipeline void @_ssdm_op_SpecPipeline, i32 4294967295, i32 0, i32 1, i32 0, void @p_str"   --->   Operation 15 'specpipeline' 'specpipeline_ln0' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 16 [1/1] (0.34ns)   --->   "%icmp_ln11 = icmp_eq  i2 %i_1, i2 3" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:11]   --->   Operation 16 'icmp' 'icmp_ln11' <Predicate = true> <Delay = 0.34> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 17 [1/1] (0.00ns)   --->   "%empty = speclooptripcount i32 @_ssdm_op_SpecLoopTripCount, i64 3, i64 3, i64 3"   --->   Operation 17 'speclooptripcount' 'empty' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 18 [1/1] (0.43ns)   --->   "%add_ln11 = add i2 %i_1, i2 1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:11]   --->   Operation 18 'add' 'add_ln11' <Predicate = true> <Delay = 0.43> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.43> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 19 [1/1] (0.00ns)   --->   "%br_ln11 = br i1 %icmp_ln11, void %for.inc.i.split, void %VITIS_LOOP_27_2.preheader.exitStub" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:11]   --->   Operation 19 'br' 'br_ln11' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 20 [1/1] (0.00ns)   --->   "%dist_load = load i32 %dist" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:13]   --->   Operation 20 'load' 'dist_load' <Predicate = (!icmp_ln11)> <Delay = 0.00>
+ST_2 : Operation 21 [5/5] (2.97ns)   --->   "%dist_1 = fadd i32 %dist_load, i32 %mul_i_read" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:13]   --->   Operation 21 'fadd' 'dist_1' <Predicate = (!icmp_ln11)> <Delay = 2.97> <CoreInst = "FAddSub_fulldsp">   --->   Core 18 'FAddSub_fulldsp' <Latency = 4> <II = 1> <Delay = 2.97> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 22 [1/1] (0.38ns)   --->   "%store_ln11 = store i2 %add_ln11, i2 %i" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:11]   --->   Operation 22 'store' 'store_ln11' <Predicate = (!icmp_ln11)> <Delay = 0.38>
+ST_2 : Operation 30 [1/1] (0.00ns)   --->   "%dist_load_1 = load i32 %dist"   --->   Operation 30 'load' 'dist_load_1' <Predicate = (icmp_ln11)> <Delay = 0.00>
+ST_2 : Operation 31 [1/1] (0.00ns)   --->   "%write_ln0 = write void @_ssdm_op_Write.ap_auto.floatP0A, i32 %dist_out, i32 %dist_load_1"   --->   Operation 31 'write' 'write_ln0' <Predicate = (icmp_ln11)> <Delay = 0.00>
+ST_2 : Operation 32 [1/1] (0.00ns)   --->   "%ret_ln0 = ret"   --->   Operation 32 'ret' 'ret_ln0' <Predicate = (icmp_ln11)> <Delay = 0.00>
+
+State 3 <SV = 2> <Delay = 2.97>
+ST_3 : Operation 23 [4/5] (2.97ns)   --->   "%dist_1 = fadd i32 %dist_load, i32 %mul_i_read" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:13]   --->   Operation 23 'fadd' 'dist_1' <Predicate = (!icmp_ln11)> <Delay = 2.97> <CoreInst = "FAddSub_fulldsp">   --->   Core 18 'FAddSub_fulldsp' <Latency = 4> <II = 1> <Delay = 2.97> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 4 <SV = 3> <Delay = 2.97>
+ST_4 : Operation 24 [3/5] (2.97ns)   --->   "%dist_1 = fadd i32 %dist_load, i32 %mul_i_read" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:13]   --->   Operation 24 'fadd' 'dist_1' <Predicate = (!icmp_ln11)> <Delay = 2.97> <CoreInst = "FAddSub_fulldsp">   --->   Core 18 'FAddSub_fulldsp' <Latency = 4> <II = 1> <Delay = 2.97> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 5 <SV = 4> <Delay = 2.97>
+ST_5 : Operation 25 [2/5] (2.97ns)   --->   "%dist_1 = fadd i32 %dist_load, i32 %mul_i_read" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:13]   --->   Operation 25 'fadd' 'dist_1' <Predicate = (!icmp_ln11)> <Delay = 2.97> <CoreInst = "FAddSub_fulldsp">   --->   Core 18 'FAddSub_fulldsp' <Latency = 4> <II = 1> <Delay = 2.97> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 6 <SV = 5> <Delay = 3.36>
+ST_6 : Operation 26 [1/1] (0.00ns)   --->   "%specloopname_ln10 = specloopname void @_ssdm_op_SpecLoopName, void @empty_5" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:10]   --->   Operation 26 'specloopname' 'specloopname_ln10' <Predicate = true> <Delay = 0.00>
+ST_6 : Operation 27 [1/5] (2.97ns)   --->   "%dist_1 = fadd i32 %dist_load, i32 %mul_i_read" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:13]   --->   Operation 27 'fadd' 'dist_1' <Predicate = true> <Delay = 2.97> <CoreInst = "FAddSub_fulldsp">   --->   Core 18 'FAddSub_fulldsp' <Latency = 4> <II = 1> <Delay = 2.97> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+ST_6 : Operation 28 [1/1] (0.38ns)   --->   "%store_ln11 = store i32 %dist_1, i32 %dist" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:11]   --->   Operation 28 'store' 'store_ln11' <Predicate = true> <Delay = 0.38>
+ST_6 : Operation 29 [1/1] (0.00ns)   --->   "%br_ln11 = br void %for.inc.i" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:11]   --->   Operation 29 'br' 'br_ln11' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 5ns, clock uncertainty: 1.35ns.
+
+ <State 1>: 0.387ns
+The critical path consists of the following:
+	'alloca' operation ('i') [4]  (0 ns)
+	'store' operation ('store_ln0') of constant 0 on local variable 'i' [6]  (0.387 ns)
+
+ <State 2>: 2.98ns
+The critical path consists of the following:
+	'load' operation ('dist_load', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:13) on local variable 'dist' [17]  (0 ns)
+	'fadd' operation ('dist', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:13) [19]  (2.98 ns)
+
+ <State 3>: 2.98ns
+The critical path consists of the following:
+	'fadd' operation ('dist', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:13) [19]  (2.98 ns)
+
+ <State 4>: 2.98ns
+The critical path consists of the following:
+	'fadd' operation ('dist', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:13) [19]  (2.98 ns)
+
+ <State 5>: 2.98ns
+The critical path consists of the following:
+	'fadd' operation ('dist', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:13) [19]  (2.98 ns)
+
+ <State 6>: 3.36ns
+The critical path consists of the following:
+	'fadd' operation ('dist', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:13) [19]  (2.98 ns)
+	'store' operation ('store_ln11', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:11) of variable 'dist', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/queries_search/queries_search_fast.cpp:13 on local variable 'dist' [21]  (0.387 ns)
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+	State 4
+	State 5
+	State 6
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

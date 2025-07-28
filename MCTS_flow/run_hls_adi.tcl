@@ -1,5 +1,5 @@
 open_project adi
-add_files ../generate/adi/adi.cpp
+add_files adi.cpp
 set_top adi
 open_solution solution1
 create_clock -period 5 -name default

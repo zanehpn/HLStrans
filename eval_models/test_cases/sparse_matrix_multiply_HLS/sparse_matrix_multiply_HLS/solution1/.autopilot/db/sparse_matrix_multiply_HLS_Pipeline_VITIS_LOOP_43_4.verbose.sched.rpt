@@ -1,0 +1,154 @@
+
+
+================================================================
+== Vitis HLS Report for 'sparse_matrix_multiply_HLS_Pipeline_VITIS_LOOP_43_4'
+================================================================
+* Date:           Thu May 15 15:31:29 2025
+
+* Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+* Project:        sparse_matrix_multiply_HLS
+* Solution:       solution1 (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu55c-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  5.00 ns|  2.875 ns|     1.35 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+-----------+----------+-----+-----+---------+
+    |  Latency (cycles) |  Latency (absolute)  |  Interval | Pipeline|
+    |   min   |   max   |    min    |    max   | min | max |   Type  |
+    +---------+---------+-----------+----------+-----+-----+---------+
+    |        3|      258|  15.000 ns|  1.290 us|    3|  258|       no|
+    +---------+---------+-----------+----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +-------------------+---------+---------+----------+-----------+-----------+---------+----------+
+        |                   |  Latency (cycles) | Iteration|  Initiation Interval  |   Trip  |          |
+        |     Loop Name     |   min   |   max   |  Latency |  achieved |   target  |  Count  | Pipelined|
+        +-------------------+---------+---------+----------+-----------+-----------+---------+----------+
+        |- VITIS_LOOP_43_4  |        1|      256|         2|          1|          1|  1 ~ 256|       yes|
+        +-------------------+---------+---------+----------+-----------+-----------+---------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 2
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
++ Individual pipeline summary: 
+  * Pipeline-0: initiation interval (II) = 1, depth = 2
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 2
+* Pipeline : 1
+  Pipeline-0 : II = 1, D = 2, States = { 1 2 }
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 1.64>
+ST_1 : Operation 5 [1/1] (0.00ns)   --->   "%i = alloca i32 1"   --->   Operation 5 'alloca' 'i' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 6 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i32 %row_indices_B, void @empty_9, i32 0, i32 0, void @empty, i32 4294967295, i32 0, void @empty, void @empty, void @empty, i32 0, i32 0, i32 0, i32 0, void @empty, void @empty, i32 4294967295, i32 0"   --->   Operation 6 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 7 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i16 %values_B, void @empty_9, i32 0, i32 0, void @empty, i32 4294967295, i32 0, void @empty, void @empty, void @empty, i32 0, i32 0, i32 0, i32 0, void @empty, void @empty, i32 4294967295, i32 0"   --->   Operation 7 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 8 [1/1] (0.00ns)   --->   "%nnzB_read = read i32 @_ssdm_op_Read.ap_auto.i32, i32 %nnzB"   --->   Operation 8 'read' 'nnzB_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 9 [1/1] (0.38ns)   --->   "%store_ln0 = store i13 0, i13 %i"   --->   Operation 9 'store' 'store_ln0' <Predicate = true> <Delay = 0.38>
+ST_1 : Operation 10 [1/1] (0.00ns)   --->   "%br_ln0 = br void %for.inc68"   --->   Operation 10 'br' 'br_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 11 [1/1] (0.00ns)   --->   "%i_1 = load i13 %i" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:43]   --->   Operation 11 'load' 'i_1' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 12 [1/1] (0.00ns)   --->   "%i_3_cast = zext i13 %i_1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:43]   --->   Operation 12 'zext' 'i_3_cast' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 13 [1/1] (0.00ns)   --->   "%specpipeline_ln0 = specpipeline void @_ssdm_op_SpecPipeline, i32 4294967295, i32 0, i32 1, i32 0, void @p_str"   --->   Operation 13 'specpipeline' 'specpipeline_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 14 [1/1] (0.85ns)   --->   "%icmp_ln43 = icmp_slt  i32 %i_3_cast, i32 %nnzB_read" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:43]   --->   Operation 14 'icmp' 'icmp_ln43' <Predicate = true> <Delay = 0.85> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.85> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 15 [1/1] (0.75ns)   --->   "%add_ln43 = add i13 %i_1, i13 1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:43]   --->   Operation 15 'add' 'add_ln43' <Predicate = true> <Delay = 0.75> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.75> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 16 [1/1] (0.00ns)   --->   "%br_ln43 = br i1 %icmp_ln43, void %for.body79.preheader.exitStub, void %for.inc68.split" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:43]   --->   Operation 16 'br' 'br_ln43' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 17 [1/1] (0.00ns)   --->   "%i_3_cast2 = zext i13 %i_1" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:43]   --->   Operation 17 'zext' 'i_3_cast2' <Predicate = (icmp_ln43)> <Delay = 0.00>
+ST_1 : Operation 18 [1/1] (0.00ns)   --->   "%values_B_addr = getelementptr i16 %values_B, i64 0, i64 %i_3_cast2" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:45]   --->   Operation 18 'getelementptr' 'values_B_addr' <Predicate = (icmp_ln43)> <Delay = 0.00>
+ST_1 : Operation 19 [2/2] (1.23ns)   --->   "%values_B_load = load i12 %values_B_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:45]   --->   Operation 19 'load' 'values_B_load' <Predicate = (icmp_ln43)> <Delay = 1.23> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.23> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 4096> <RAM>
+ST_1 : Operation 20 [1/1] (0.00ns)   --->   "%row_indices_B_addr = getelementptr i32 %row_indices_B, i64 0, i64 %i_3_cast2" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:46]   --->   Operation 20 'getelementptr' 'row_indices_B_addr' <Predicate = (icmp_ln43)> <Delay = 0.00>
+ST_1 : Operation 21 [2/2] (1.64ns)   --->   "%row_indices_B_load = load i12 %row_indices_B_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:46]   --->   Operation 21 'load' 'row_indices_B_load' <Predicate = (icmp_ln43)> <Delay = 1.64> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.64> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4096> <RAM>
+ST_1 : Operation 22 [1/1] (0.38ns)   --->   "%store_ln43 = store i13 %add_ln43, i13 %i" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:43]   --->   Operation 22 'store' 'store_ln43' <Predicate = (icmp_ln43)> <Delay = 0.38>
+ST_1 : Operation 33 [1/1] (0.00ns)   --->   "%ret_ln0 = ret"   --->   Operation 33 'ret' 'ret_ln0' <Predicate = (!icmp_ln43)> <Delay = 0.00>
+
+State 2 <SV = 1> <Delay = 2.87>
+ST_2 : Operation 23 [1/1] (0.00ns)   --->   "%speclooptripcount_ln44 = speclooptripcount void @_ssdm_op_SpecLoopTripCount, i64 1, i64 256, i64 128" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:44]   --->   Operation 23 'speclooptripcount' 'speclooptripcount_ln44' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 24 [1/1] (0.00ns)   --->   "%specloopname_ln43 = specloopname void @_ssdm_op_SpecLoopName, void @empty_5" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:43]   --->   Operation 24 'specloopname' 'specloopname_ln43' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 25 [1/1] (0.00ns)   --->   "%local_values_B_V_addr = getelementptr i16 %local_values_B_V, i64 0, i64 %i_3_cast2" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:45]   --->   Operation 25 'getelementptr' 'local_values_B_V_addr' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 26 [1/2] (1.23ns)   --->   "%values_B_load = load i12 %values_B_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:45]   --->   Operation 26 'load' 'values_B_load' <Predicate = true> <Delay = 1.23> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.23> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 4096> <RAM>
+ST_2 : Operation 27 [1/1] (1.23ns)   --->   "%store_ln45 = store i16 %values_B_load, i12 %local_values_B_V_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:45]   --->   Operation 27 'store' 'store_ln45' <Predicate = true> <Delay = 1.23> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.23> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 16> <Depth = 4096> <RAM>
+ST_2 : Operation 28 [1/2] (1.64ns)   --->   "%row_indices_B_load = load i12 %row_indices_B_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:46]   --->   Operation 28 'load' 'row_indices_B_load' <Predicate = true> <Delay = 1.64> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.64> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 4096> <RAM>
+ST_2 : Operation 29 [1/1] (0.00ns)   --->   "%trunc_ln46 = trunc i32 %row_indices_B_load" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:46]   --->   Operation 29 'trunc' 'trunc_ln46' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 30 [1/1] (0.00ns)   --->   "%local_row_indices_B_addr = getelementptr i12 %local_row_indices_B, i64 0, i64 %i_3_cast2" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:46]   --->   Operation 30 'getelementptr' 'local_row_indices_B_addr' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 31 [1/1] (1.23ns)   --->   "%store_ln46 = store i12 %trunc_ln46, i12 %local_row_indices_B_addr" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:46]   --->   Operation 31 'store' 'store_ln46' <Predicate = true> <Delay = 1.23> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.23> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 12> <Depth = 4096> <RAM>
+ST_2 : Operation 32 [1/1] (0.00ns)   --->   "%br_ln43 = br void %for.inc68" [/home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:43]   --->   Operation 32 'br' 'br_ln43' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 5ns, clock uncertainty: 1.35ns.
+
+ <State 1>: 1.65ns
+The critical path consists of the following:
+	'alloca' operation ('i') [6]  (0 ns)
+	'load' operation ('i', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:43) on local variable 'i' [13]  (0 ns)
+	'getelementptr' operation ('row_indices_B_addr', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:46) [27]  (0 ns)
+	'load' operation ('row_indices_B_load', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:46) on array 'row_indices_B' [28]  (1.65 ns)
+
+ <State 2>: 2.88ns
+The critical path consists of the following:
+	'load' operation ('row_indices_B_load', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:46) on array 'row_indices_B' [28]  (1.65 ns)
+	'store' operation ('store_ln46', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:46) of variable 'trunc_ln46', /home/zqy/LLM4CHIP/dataset/pair_slow_fast/test_cases_3B/sparse_matrix_multiply_HLS/sparse_matrix_multiply_HLS_fast.cpp:46 on array 'local_row_indices_B' [31]  (1.23 ns)
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

@@ -49,7 +49,6 @@ void bfs(int **adj, int *deg, int N, int src) {
     while (q->front != NULL) {
         int u = dequeue(q);
         printf("%d ", u);
-        // 遍历邻接表
         for (int i = 0; i < deg[u]; i++) {
             int v = adj[u][i];
             if (!visited[v]) {

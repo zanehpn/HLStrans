@@ -132,7 +132,7 @@ def load_prompt_data(path):
 
 if __name__ == "__main__":
     here = os.path.dirname(__file__)                # folder where test_model_best1.py lives
-    file_path = os.path.join(here, "prompt_data.json")
+    file_path = os.path.join(here, "test.json")
 
     # Load all prompt records
     data_list = load_prompt_data(file_path)
