@@ -1,0 +1,50 @@
+[
+  {
+    "input": "Please generate the Xilinx FPGA HLS code according to the following description:\n```cpp\n#include <iomanip>\n#include <iostream>\n#include <vector>\n#include \"hls_stream.h\"\nusing namespace std;\n\ntypedef int DTYPE;\nconst int SIZE = 32;\nconst int BLOCK_SIZE = 16;\n\ntypedef struct {\n    DTYPE a[BLOCK_SIZE];\n} blockvec;\n\ntypedef struct {\n    DTYPE out[BLOCK_SIZE][BLOCK_SIZE];\n} blockmat;\n\nvoid block_mm(hls::stream<blockvec> &Arows, hls::stream<blockvec> &Bcols,\n        blockmat &ABpartial, int it) {\n  int counter = it % (SIZE/BLOCK_SIZE);\n  static DTYPE A[BLOCK_SIZE][SIZE];\n  if(counter == 0){ \n    loadA: for(int i = 0; i < SIZE; i++) {\n      blockvec tempA = Arows.read();\n      for(int j = 0; j < BLOCK_SIZE; j++) {\n        A[j][i] = tempA.a[j];\n      }\n    }\n  }\n  DTYPE AB[BLOCK_SIZE][BLOCK_SIZE] = { 0 };\n  partialsum: for(int k=0; k < SIZE; k++) {\n    blockvec tempB = Bcols.read();\n    for(int i = 0; i < BLOCK_SIZE; i++) {\n      for(int j = 0; j < BLOCK_SIZE; j++) {\n        AB[i][j] += A[i][k] * tempB.a[j];\n      }\n    }\n  }\n  writeoutput: for(int i = 0; i < BLOCK_SIZE; i++) {\n    for(int j = 0; j < BLOCK_SIZE; j++) {\n      ABpartial.out[i][j] = AB[i][j];\n    }\n  }\n}\n```\n\n// This function accelerates block matrix multiplication on FPGA through A-block caching and streaming column inputs for B, reducing external memory access via hardware-oriented data reuse. The design pipelines computation across tiles and optimizes BRAM utilization through parametric blocking for systolic execution.\n"
+  },
+  {
+    "input": "Please generate the Xilinx FPGA HLS code according to the following description:\nThe optimized HLS code efficiently computes transformer attention scores on FPGA hardware by batching operations, using cyclic array partitioning, and aggressively unrolling loops to maximize parallelism. Key optimizations include explicit burst transfers between memory hierarchies, resource-efficient approximation of exponential functions, and parallelization of matrix multiplication and normalization operations through pragma directives.\n"
+  },
+  {
+    "input": "Please generate the Xilinx FPGA HLS code according to the following description:\nThis FPGA-optimized code computes Euclidean distances between a query point and a large search space using tile-based double buffering for overlapped I/O and computation. Key optimizations include 512-bit memory accesses for efficient data movement, loop unrolling for parallel feature processing, and ping-pong buffering to hide memory latency while processing distance calculations.\n"
+  },
+  {
+    "input": "Please generate the Xilinx FPGA HLS code according to the following description:\n// This function computes sine and cosine values for a given fixed-point angle using the CORDIC algorithm, optimized for Xilinx FPGAs through full loop unrolling and ROM-based phase storage. The implementation achieves maximum throughput via pipeline initiation interval (II=1) directives and employs resource-sharing pragmas to minimize hardware utilization while maintaining arithmetic precision.\n"
+  },
+  {
+    "input": "Please generate the Xilinx FPGA HLS code according to the following description:\nThis optimized FPGA function implements Sobel edge detection using a sliding window approach with two line buffers and hardware-specific pragma directives for efficient block RAM partitioning. It handles image padding by setting border pixels to zero and computes gradient magnitudes by summing absolute horizontal/vertical derivatives before applying configurable thresholding to generate binary edge pixels.\n"
+  },
+  {
+    "input": "Please generate the Xilinx FPGA HLS code according to the following description:\nThis optimized Xilinx HLS FPGA code implements a parallelized Kalman filter that processes multiple independent data batches simultaneously using high-throughput memory interfaces. Key optimizations include wide 256-bit data transfers to minimize memory accesses, complete array partitioning for parallel state variable updates across 64 batches, and pipelined loops with unrolling to maximize hardware utilization and throughput for fixed-point arithmetic operations.\n"
+  },
+  {
+    "input": "Please generate the Xilinx FPGA HLS code according to the following description:\nThis optimized Xilinx HLS code implements a lattice filter structure using fixed-point arithmetic for FPGA acceleration, processing 64 input samples through 32 filter stages. Key hardware optimizations include complete array partitioning of coefficients/state variables, loop pipelining with initiation interval=1 for the main processing loop, and partial loop unrolling (factor=4) to increase parallel operations while reducing resource utilization.\n"
+  },
+  {
+    "input": "Please generate the Xilinx FPGA HLS code according to the following description:\nThis optimized FPGA code employs tiled max-pooling to efficiently process input data by dividing computations into manageable blocks using on-chip buffers. The approach minimizes global memory accesses through localized data processing and leverages fixed kernel parameters for hardware-friendly loop unrolling.\n"
+  },
+  {
+    "input": "Please generate the Xilinx FPGA HLS code according to the following description:\n// This optimized code implements a parallel merge sort algorithm for FPGAs using HLS pragmas, where the multi-stage design leverages dataflow parallelism and pipelined merging with doubled sub-array widths at each stage. Key optimizations include complete array partitioning for parallel memory access, loop unrolling across merge stages, and II=1 pipelining in the merge kernel to minimize latency and maximize hardware throughput.\n"
+  },
+  {
+    "input": "Please generate the Xilinx FPGA HLS code according to the following description:\nThe optimized Xilinx HLS code implements a parallelized two-stage audio processing pipeline for FPGA that applies configurable effects (gain, thresholding, or clipping) to a stream of audio samples. Key optimizations include the DATAFLOW pragma enabling concurrent stage execution, PIPELINE pragmas achieving single-sample-per-cycle throughput per stage, and stream-based data transfer minimizing latency.\n"
+  },
+  {
+    "input": "Please generate the Xilinx FPGA HLS code according to the following description:\nThe provided Xilinx HLS code implements a nearest-neighbor search between 1000 query points and 3000 target points in 3D space, using Euclidean distance on FPGA hardware. Key optimizations include fixed-point arithmetic for efficient computation, block-level parallelism with configurable compute units, and hardware-aware HLS pragmas for pipelining, resource allocation, and memory partitioning to maximize throughput and minimize latency.\n\n```cpp\n#include <ap_int.h>\n#include <float.h>\n#include <math.h>\n#include <stdio.h>\n\n#define TARGETS 3000\n#define QUERIES 1000\n#define DIMS 3\n\n#ifndef COMPUTE_TARGETS\n#define COMPUTE_TARGETS (16)\n#endif\n\n#ifndef COMPUTE_QUERIES\n#define COMPUTE_QUERIES (16)\n#endif\n\n#define QUERY_BLOCKS ((QUERIES - 1) / COMPUTE_QUERIES + 1)\n#define TARGET_BLOCKS ((TARGETS - 1) / COMPUTE_TARGETS + 1)\n\ntypedef ap_ufixed<38, 20> diff_t;\n\nvoid queries_search(float *targets, float *queries, unsigned int *indices);\n```\n"
+  },
+  {
+    "input": "Please generate the Xilinx FPGA HLS code according to the following description:\nThis optimized Xilinx HLS FPGA code implements Dijkstra's shortest path algorithm using CSR graph format, featuring critical hardware-oriented optimizations including complete array partitioning, loop pipelining, and dataflow pragmas to maximize parallelism. The design minimizes memory bottlenecks and computational latency through parallel distance comparisons, burst neighbor updates, and controlled resource utilization via loop tripcount directives.\n"
+  },
+  {
+    "input": "Please generate the Xilinx FPGA HLS code according to the following description:\nThis code implements an FPGA-optimized k-Nearest Neighbors digit classifier using parallel computation and hardware-efficient operations. Key optimizations include processing 40 training instances per clock cycle through loop unrolling, pipelining critical operations with II=1 latency, and using bitwise population counting for efficient Hamming distance calculation between digit representations.\n"
+  },
+  {
+    "input": "Please generate the Xilinx FPGA HLS code according to the following description:\n\n"
+  },
+  {
+    "input": "Please generate the Xilinx FPGA HLS code according to the following description:\n// This code implements a hardware-optimized SVM classifier using an RBF kernel, calculating kernel similarities between test vectors and support vectors for classification decisions.\n// FPGA optimizations include fixed-point arithmetic, array partitioning, loop unrolling, pipelining, and HLS math functions to maximize parallelism and resource efficiency.\n"
+  },
+  {
+    "input": "Please generate the Xilinx FPGA HLS code according to the following description:\nThe optimized FPGA implementation computes the shortest Hamiltonian cycle by evaluating all possible city permutations in parallel using duplicated distance matrices. It employs factorial-based permutation indexing and unrolls the main loop by a factor of four to maximize pipeline throughput while minimizing memory access bottlenecks.\n"
+  }
+]

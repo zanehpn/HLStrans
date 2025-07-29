@@ -83,7 +83,7 @@ def deepseek_R1_mcts(prompt: str) -> str:
     Replace 'your_api_key_here' with your actual API key.
     """
     client = OpenAI(
-        api_key = "",
+        api_key = "sk-mYDMUkBi0LXmnCqjxF81CARnouWkHzFv3tNDFZaEjVigjQrZ",
         base_url = "https://api.chatfire.cn/v1",
     )
     try:
@@ -229,6 +229,40 @@ def Qwen32B(prompt: str) -> str:
     except Exception as e: 
         error_response = { "header": "", 
                           "cpp": "", 
+                          "error": f"API Error: {str(e)}"}
+                          #"tokens_used": client.total_tokens_used } 
+        return error_response
+
+def deepseek_R1_describe(prompt: str) -> str:
+    """
+    Use the Deepseek-R1 API to generate code based on the prompt.
+    Only returns the generated code, filtering out any chain-of-thought.
+    Replace 'your_api_key_here' with your actual API key.
+    """
+    client = OpenAI(
+        api_key = "sk-mYDMUkBi0LXmnCqjxF81CARnouWkHzFv3tNDFZaEjVigjQrZ",
+        base_url = "https://api.chatfire.cn/v1",
+    )
+    try:
+        full_prompt = f"""Request: {prompt} Must Only return the code use the format. \n
+        Example response format:
+        #Final answer\n
+        // description content here
+        """
+        completions = client.chat.completions.create(
+            model = "deepseek-r1-0528",  # your model endpoint ID
+            messages = [
+                {"role": "system", "content": " write a accurate but short description."},
+                {"role": "user", "content": f"{full_prompt}"},
+        ],
+        )
+        #print("completions: ", completions)
+        if completions:
+            # Assume the generated code is enclosed in triple backticks.
+            response_text = completions.choices[0].message.content
+            return response_text
+    except Exception as e: 
+        error_response = { 
                           "error": f"API Error: {str(e)}"}
                           #"tokens_used": client.total_tokens_used } 
         return error_response

@@ -42,23 +42,59 @@ The Dataset_Augmentation pipeline proceeds in two stages. First, it applies an M
    ```
 2. Design Space Exploration (DSE) flow: mainly forcus on directive configurations using **Genetic Algorithms**, specifically the **NSGA-II** algorithm. It enables fine-grained exploration and tuning of hardware performance vs. resource usage for HLS designs targeting **Xilinx/AMD FPGAs** via the **Vitis HLS** toolchain. 
 
-* **Supported Directives**:
+   * **Supported Directives**:
+   * Loop Directives
+      * pipeline
+      * unroll
+      * loop_flatten
 
-  * `Loop Pipeline`
-  * `Loop Unroll`
-  * `Array Partition`
+   * Array Directives
+      * array_partition
+         * Modes: complete, block, cyclic
+         * Parameters: variable, factor, dim
+      * array_reshape
+         * Modes: complete, block, cyclic
+         * Parameters: variable, factor, dim
+      * bind_storage
+         * Parameters: variable, type (e.g., RAM_1P, RAM_2P, ROM_1P, ROM_2P), impl (e.g., bram, uram, lutram)
 
-* **Multi-objective optimization** across:
+   * **Example: How to run DSE**:
+   Here is an example, which shows how you run DSE for the given codes. 
+      ```shell
+      cd DSE_flow/vitis-convolution
+      ../exec.sh run vitis-convolution .cpp
+      ```
+   After you finished the first step MCTS_flow, you get the optimized new codes:app.cpp. You can explore it with the DSE flow , follow these steps:
 
-  * Design Latency (msec)
-  * BRAM%, DSP%, LUT%, and FF% Utilization
+   (1). Create the dataset directory
+      ```bash
+      mkdir -p DSE_flow/dataset/app
+      ```
+   (2). Generate kernel information
+   Run the [HLSAnalysisTools](https://github.com/aferikoglou/HLSAnalysisTools) on your `app.cpp` to produce `kernel_info.txt`.
+   (3). Populate the dataset folder
+      ```bash
+      cp app.cpp kernel_info.txt DSE_flow/dataset/app/
+      ```
+   (4). Create the output directory
+      ```bash
+      mkdir -p DSE_flow/app
+      ```
+   (5). Run the design-space exploration
+   Follow the existing examples in the `DSE_flow` repository, replacing the dataset path with your new `app` folder:
+      ```bash
+      ../exec.sh run app .cpp
+      ```
+   * **Multi-objective optimization** across:
 
-It is based on the following tools. 
-* [HLSAnalysisTools](https://github.com/aferikoglou/HLSAnalysisTools)
-* [GenHLSOptimizer](https://github.com/aferikoglou/GenHLSOptimizer)
+   * Design Latency (msec)
+   * BRAM%, DSP%, LUT%, and FF% Utilization
 
-How to use the DSE flow, the detailed informations is in DSE_flow/README
-
+3. run the following codes to get the codes which has better performance with less resource than berfore.  
+      ```bash
+      python3 mv.py
+      python3 collect_data.py
+      ```
 ## Eval LLM
 The script in eval_models adopt zero-shot, chain-of-thought, and retrieval-based prompt to evaluate the ability of LLM for HLS codes. The default model is Qwen2.5-Coder-32B-Instruct. 
    ```shell

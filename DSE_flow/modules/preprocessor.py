@@ -85,33 +85,59 @@ class Preprocessor():
             elif action_point_type == "array":
                 array_name = parts[2]
 
+                # You can add bind_storage configurations
+                bind_configs = [
+                    ("ram_2p", "bram"),
+                    ("ram_1p", "uram"),
+                    ("rom_1p", "lutram"),
+                ]
+
                 #############################
                 # Generate array directives #
                 #############################
 
-                for i in range(3, parts_len, 2):
-                    array_dim = parts[i]
-                    size = int(parts[i + 1])
+                for j in range(3, parts_len, 2):
+                    for bs_type, bs_impl in bind_configs:
+                        array_dim = parts[j]
+                        size      = int(parts[j + 1])
 
-                    if size < 128: # 1024
-                        directive = "#pragma HLS array_partition variable=" + array_name + " complete dim=" + array_dim
-                        output.insert(cnt, directive)
-                        cnt += 1
+                        # Collect directives into a single block string
+                        # 1) small-array full-directives
+                        if size < 128:
+                            directives = [
+                                f"#pragma HLS array_partition variable={array_name} complete dim={array_dim}",
+                                f"#pragma HLS array_reshape   variable={array_name} complete dim={array_dim}"
+                            ]
+                        
+                            directives.append(
+                                f"#pragma HLS bind_storage    variable={array_name} type={bs_type} impl={bs_impl}"
+                            )
 
-                    for t in ['block', 'cyclic']:
-                        max_factor = 0
-                        if size > 128: # 1024
-                            max_factor = 128 # 1024
-                        else:
-                            max_factor = size / 2 if (size % 2 == 0) else (size / 2) - 1
+                            block = "\n".join(directives) + "\n"
+                            output.insert(i + 1, block)
+                            i += 1  # skip over inserted block
 
-                        factor = 2
-                        while (factor <= max_factor):
-                            directive = "#pragma HLS array_partition variable=" + array_name + " " + t + " factor=" + str(factor) + " dim=" + array_dim
-                            output.insert(cnt, directive)
-                            cnt += 1
+                        # 2) block/cyclic factors
+                        for t in ['block', 'cyclic']:
+                            max_factor = 128 if size > 128 else (
+                                size // 2 if size % 2 == 0 else (size // 2) - 1
+                            )
+                            factor = 2
+                            while factor <= max_factor:
+                                directives = [
+                                    f"#pragma HLS array_partition variable={array_name} {t} factor={factor} dim={array_dim}",
+                                    f"#pragma HLS array_reshape   variable={array_name} {t} factor={factor} dim={array_dim}"
+                                ]
+                                directives.append(
+                                    f"#pragma HLS bind_storage    variable={array_name} type={bs_type} impl={bs_impl}"
+                                )
 
-                            factor *= 2
+                                block = "\n".join(directives) + "\n"
+                                output.insert(i + 1, block)
+                                i += 1  # skip over inserted block
+
+                                factor *= 2
+
 
             self.directives.insert(action_point_cnt, output)
             action_point_cnt += 1

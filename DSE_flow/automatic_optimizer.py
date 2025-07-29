@@ -65,7 +65,7 @@ parser.add_argument('--GENERATIONS', type=int, default=24, help='The number of G
 parser.add_argument('--OPERATOR_CONFIG_PATH', type=str, default="../operator_config/config_01.json", help='The path to the JSON file that contains the genetic algorithm operator configuration.')
 parser.add_argument('--THREADS', type=int, default=20, help='The number of used threads.')
 parser.add_argument('--TIMEOUT', type=int, default=1200, help='Vitis HLS timeout in seconds.')
-parser.add_argument('--DEVICE_ID', type=str, default="xczu7ev-ffvc1156-2-e", help='The target FPGA device id. (default: MPSoC ZCU104)')
+parser.add_argument('--DEVICE_ID', type=str, default="xcu55c-fsvh2892-2L-e", help='The target FPGA device id. (default: MPSoC ZCU104)')
 parser.add_argument('--CLK_PERIOD', type=str, default="5", help='The target FPGA clock period. (default: 3.33)')
 parser.add_argument('--GET_PO_KERNELS', type=str2bool, default=False, help='Defines whether the optimizer produces the Pareto optimal kernel source codes.')
 
