@@ -114,7 +114,7 @@ The script in eval_models adopt zero-shot, chain-of-thought, and retrieval-based
 
 ## Training
 
-After downloading the HLStrans dataset, place it under the data/ directory, then launch the preprocessing script:
+After downloading the HLStrans dataset, place it under the data/ directory, then launch the preprocessing script. First, the removal script remove_testcase_from_dataset will strip out test cases. Next, fine‑tune your LLM on the cleaned dataset. If you’d like to evaluate on different data, simply pick one of the programs in program_source/ at random and use that as your test set.
 
 ```shell
 python3 data/remove_testcase_from_dataset.py
