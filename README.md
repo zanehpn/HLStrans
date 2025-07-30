@@ -4,7 +4,14 @@ HLStrans, a first Dataset for LLM-Driven C-to-HLS Hardware Code Synthesis for [H
 
 ![](./data/datagen.png)
 
+In this project, the directory structure is organized as follows:
 
+   * DSE_flow and MCTS_flow: Dataset augmentation workflows
+   * eval_models: Model evaluation scripts and utilities
+   * lib_functions: Core library functions and helpers
+   * model_sft: Model fine‑tuning and training pipelines
+   * demo_case: Example cases demonstrating data augmentation
+   * program_source: Source data and scripts used to build our datasets
 ## Prerequisites
 
 This project was tested on Xilinx Alveo U55C and Vitis HLS 2022.1 suite. The tools are needed: 
