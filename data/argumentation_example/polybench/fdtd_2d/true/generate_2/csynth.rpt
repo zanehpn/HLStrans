@@ -1,0 +1,950 @@
+
+
+================================================================
+== Synthesis Summary Report of 'fdtd_2d'
+================================================================
++ General Information: 
+    * Date:           Wed May  7 11:25:38 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        fdtd_2d
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +--------------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----------+-------------+------------+-----+
+    |                         Modules                        | Issue|      | Latency |  Latency  | Iteration|         | Trip |          |      |          |             |            |     |
+    |                         & Loops                        | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined| BRAM |    DSP   |      FF     |     LUT    | URAM|
+    +--------------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----------+-------------+------------+-----+
+    |+ fdtd_2d                                               |     -|  0.00|   218721|  1.094e+06|         -|   218722|     -|        no|     -|  87 (~0%)|   79681 (3%)|  79557 (6%)|    -|
+    | o VITIS_LOOP_21_1                                      |     -|  3.65|   218720|  1.094e+06|      5468|        -|    40|        no|     -|         -|            -|           -|    -|
+    |  + fdtd_2d_Pipeline_VITIS_LOOP_25_2                    |     -|  0.00|        7|     35.000|         -|        7|     -|        no|     -|         -|      6 (~0%)|   204 (~0%)|    -|
+    |   o VITIS_LOOP_25_2                                    |     -|  3.65|        5|     25.000|         2|        1|     5|       yes|     -|         -|            -|           -|    -|
+    |  + fdtd_2d_Pipeline_VITIS_LOOP_47_7_VITIS_LOOP_48_8    |     -|  0.00|      932|  4.660e+03|         -|      932|     -|        no|     -|         -|  10216 (~0%)|  6282 (~0%)|    -|
+    |   o VITIS_LOOP_47_7_VITIS_LOOP_48_8                    |    II|  3.65|      930|  4.650e+03|        34|        3|   300|       yes|     -|         -|            -|           -|    -|
+    |  + fdtd_2d_Pipeline_VITIS_LOOP_59_10_VITIS_LOOP_60_11  |     -|  0.00|     1560|  7.800e+03|         -|     1560|     -|        no|     -|   6 (~0%)|  19611 (~0%)|  13490 (1%)|    -|
+    |   o VITIS_LOOP_59_10_VITIS_LOOP_60_11                  |    II|  3.65|     1558|  7.790e+03|        89|        5|   295|       yes|     -|         -|            -|           -|    -|
+    |  o VITIS_LOOP_35_4                                     |     -|  3.65|     2950|  1.475e+04|        50|        -|    59|        no|     -|         -|            -|           -|    -|
+    |   + fdtd_2d_Pipeline_VITIS_LOOP_36_5                   |     -|  0.00|       48|    240.000|         -|       48|     -|        no|     -|         -|  12964 (~0%)|  7129 (~0%)|    -|
+    |    o VITIS_LOOP_36_5                                   |    II|  3.65|       46|    230.000|        35|        3|     5|       yes|     -|         -|            -|           -|    -|
+    +--------------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----------+-------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* M_AXI
++---------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| Interface     | Data Width | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   |
+|               | (SW->HW)   |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |
++---------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| m_axi_gmem    | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_0  | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_1  | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_10 | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_11 | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_12 | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_13 | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_14 | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_15 | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_2  | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_3  | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_4  | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_5  | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_6  | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_7  | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_8  | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_9  | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
++---------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+
+* S_AXILITE Interfaces
++---------------+------------+---------------+--------+----------+
+| Interface     | Data Width | Address Width | Offset | Register |
++---------------+------------+---------------+--------+----------+
+| s_axi_control | 32         | 10            | 16     | 0        |
++---------------+------------+---------------+--------+----------+
+
+* S_AXILITE Registers
++---------------+------------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+| Interface     | Register   | Offset | Width | Access | Description                      | Bit Fields                                                           |
++---------------+------------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+| s_axi_control | CTRL       | 0x00   | 32    | RW     | Control signals                  | 0=AP_START 1=AP_DONE 2=AP_IDLE 3=AP_READY 7=AUTO_RESTART 9=INTERRUPT |
+| s_axi_control | GIER       | 0x04   | 32    | RW     | Global Interrupt Enable Register | 0=Enable                                                             |
+| s_axi_control | IP_IER     | 0x08   | 32    | RW     | IP Interrupt Enable Register     | 0=CHAN0_INT_EN 1=CHAN1_INT_EN                                        |
+| s_axi_control | IP_ISR     | 0x0c   | 32    | RW     | IP Interrupt Status Register     | 0=CHAN0_INT_ST 1=CHAN1_INT_ST                                        |
+| s_axi_control | tmax       | 0x10   | 32    | W      | Data signal of tmax              |                                                                      |
+| s_axi_control | nx         | 0x18   | 32    | W      | Data signal of nx                |                                                                      |
+| s_axi_control | ny         | 0x20   | 32    | W      | Data signal of ny                |                                                                      |
+| s_axi_control | ex_0_1     | 0x28   | 32    | W      | Data signal of ex_0              |                                                                      |
+| s_axi_control | ex_0_2     | 0x2c   | 32    | W      | Data signal of ex_0              |                                                                      |
+| s_axi_control | ex_1_1     | 0x34   | 32    | W      | Data signal of ex_1              |                                                                      |
+| s_axi_control | ex_1_2     | 0x38   | 32    | W      | Data signal of ex_1              |                                                                      |
+| s_axi_control | ex_2_1     | 0x40   | 32    | W      | Data signal of ex_2              |                                                                      |
+| s_axi_control | ex_2_2     | 0x44   | 32    | W      | Data signal of ex_2              |                                                                      |
+| s_axi_control | ex_3_1     | 0x4c   | 32    | W      | Data signal of ex_3              |                                                                      |
+| s_axi_control | ex_3_2     | 0x50   | 32    | W      | Data signal of ex_3              |                                                                      |
+| s_axi_control | ex_4_1     | 0x58   | 32    | W      | Data signal of ex_4              |                                                                      |
+| s_axi_control | ex_4_2     | 0x5c   | 32    | W      | Data signal of ex_4              |                                                                      |
+| s_axi_control | ex_5_1     | 0x64   | 32    | W      | Data signal of ex_5              |                                                                      |
+| s_axi_control | ex_5_2     | 0x68   | 32    | W      | Data signal of ex_5              |                                                                      |
+| s_axi_control | ex_6_1     | 0x70   | 32    | W      | Data signal of ex_6              |                                                                      |
+| s_axi_control | ex_6_2     | 0x74   | 32    | W      | Data signal of ex_6              |                                                                      |
+| s_axi_control | ex_7_1     | 0x7c   | 32    | W      | Data signal of ex_7              |                                                                      |
+| s_axi_control | ex_7_2     | 0x80   | 32    | W      | Data signal of ex_7              |                                                                      |
+| s_axi_control | ex_8_1     | 0x88   | 32    | W      | Data signal of ex_8              |                                                                      |
+| s_axi_control | ex_8_2     | 0x8c   | 32    | W      | Data signal of ex_8              |                                                                      |
+| s_axi_control | ex_9_1     | 0x94   | 32    | W      | Data signal of ex_9              |                                                                      |
+| s_axi_control | ex_9_2     | 0x98   | 32    | W      | Data signal of ex_9              |                                                                      |
+| s_axi_control | ex_10_1    | 0xa0   | 32    | W      | Data signal of ex_10             |                                                                      |
+| s_axi_control | ex_10_2    | 0xa4   | 32    | W      | Data signal of ex_10             |                                                                      |
+| s_axi_control | ex_11_1    | 0xac   | 32    | W      | Data signal of ex_11             |                                                                      |
+| s_axi_control | ex_11_2    | 0xb0   | 32    | W      | Data signal of ex_11             |                                                                      |
+| s_axi_control | ex_12_1    | 0xb8   | 32    | W      | Data signal of ex_12             |                                                                      |
+| s_axi_control | ex_12_2    | 0xbc   | 32    | W      | Data signal of ex_12             |                                                                      |
+| s_axi_control | ex_13_1    | 0xc4   | 32    | W      | Data signal of ex_13             |                                                                      |
+| s_axi_control | ex_13_2    | 0xc8   | 32    | W      | Data signal of ex_13             |                                                                      |
+| s_axi_control | ex_14_1    | 0xd0   | 32    | W      | Data signal of ex_14             |                                                                      |
+| s_axi_control | ex_14_2    | 0xd4   | 32    | W      | Data signal of ex_14             |                                                                      |
+| s_axi_control | ex_15_1    | 0xdc   | 32    | W      | Data signal of ex_15             |                                                                      |
+| s_axi_control | ex_15_2    | 0xe0   | 32    | W      | Data signal of ex_15             |                                                                      |
+| s_axi_control | ey_0_1     | 0xe8   | 32    | W      | Data signal of ey_0              |                                                                      |
+| s_axi_control | ey_0_2     | 0xec   | 32    | W      | Data signal of ey_0              |                                                                      |
+| s_axi_control | ey_1_1     | 0xf4   | 32    | W      | Data signal of ey_1              |                                                                      |
+| s_axi_control | ey_1_2     | 0xf8   | 32    | W      | Data signal of ey_1              |                                                                      |
+| s_axi_control | ey_2_1     | 0x100  | 32    | W      | Data signal of ey_2              |                                                                      |
+| s_axi_control | ey_2_2     | 0x104  | 32    | W      | Data signal of ey_2              |                                                                      |
+| s_axi_control | ey_3_1     | 0x10c  | 32    | W      | Data signal of ey_3              |                                                                      |
+| s_axi_control | ey_3_2     | 0x110  | 32    | W      | Data signal of ey_3              |                                                                      |
+| s_axi_control | ey_4_1     | 0x118  | 32    | W      | Data signal of ey_4              |                                                                      |
+| s_axi_control | ey_4_2     | 0x11c  | 32    | W      | Data signal of ey_4              |                                                                      |
+| s_axi_control | ey_5_1     | 0x124  | 32    | W      | Data signal of ey_5              |                                                                      |
+| s_axi_control | ey_5_2     | 0x128  | 32    | W      | Data signal of ey_5              |                                                                      |
+| s_axi_control | ey_6_1     | 0x130  | 32    | W      | Data signal of ey_6              |                                                                      |
+| s_axi_control | ey_6_2     | 0x134  | 32    | W      | Data signal of ey_6              |                                                                      |
+| s_axi_control | ey_7_1     | 0x13c  | 32    | W      | Data signal of ey_7              |                                                                      |
+| s_axi_control | ey_7_2     | 0x140  | 32    | W      | Data signal of ey_7              |                                                                      |
+| s_axi_control | ey_8_1     | 0x148  | 32    | W      | Data signal of ey_8              |                                                                      |
+| s_axi_control | ey_8_2     | 0x14c  | 32    | W      | Data signal of ey_8              |                                                                      |
+| s_axi_control | ey_9_1     | 0x154  | 32    | W      | Data signal of ey_9              |                                                                      |
+| s_axi_control | ey_9_2     | 0x158  | 32    | W      | Data signal of ey_9              |                                                                      |
+| s_axi_control | ey_10_1    | 0x160  | 32    | W      | Data signal of ey_10             |                                                                      |
+| s_axi_control | ey_10_2    | 0x164  | 32    | W      | Data signal of ey_10             |                                                                      |
+| s_axi_control | ey_11_1    | 0x16c  | 32    | W      | Data signal of ey_11             |                                                                      |
+| s_axi_control | ey_11_2    | 0x170  | 32    | W      | Data signal of ey_11             |                                                                      |
+| s_axi_control | ey_12_1    | 0x178  | 32    | W      | Data signal of ey_12             |                                                                      |
+| s_axi_control | ey_12_2    | 0x17c  | 32    | W      | Data signal of ey_12             |                                                                      |
+| s_axi_control | ey_13_1    | 0x184  | 32    | W      | Data signal of ey_13             |                                                                      |
+| s_axi_control | ey_13_2    | 0x188  | 32    | W      | Data signal of ey_13             |                                                                      |
+| s_axi_control | ey_14_1    | 0x190  | 32    | W      | Data signal of ey_14             |                                                                      |
+| s_axi_control | ey_14_2    | 0x194  | 32    | W      | Data signal of ey_14             |                                                                      |
+| s_axi_control | ey_15_1    | 0x19c  | 32    | W      | Data signal of ey_15             |                                                                      |
+| s_axi_control | ey_15_2    | 0x1a0  | 32    | W      | Data signal of ey_15             |                                                                      |
+| s_axi_control | hz_0_1     | 0x1a8  | 32    | W      | Data signal of hz_0              |                                                                      |
+| s_axi_control | hz_0_2     | 0x1ac  | 32    | W      | Data signal of hz_0              |                                                                      |
+| s_axi_control | hz_1_1     | 0x1b4  | 32    | W      | Data signal of hz_1              |                                                                      |
+| s_axi_control | hz_1_2     | 0x1b8  | 32    | W      | Data signal of hz_1              |                                                                      |
+| s_axi_control | hz_2_1     | 0x1c0  | 32    | W      | Data signal of hz_2              |                                                                      |
+| s_axi_control | hz_2_2     | 0x1c4  | 32    | W      | Data signal of hz_2              |                                                                      |
+| s_axi_control | hz_3_1     | 0x1cc  | 32    | W      | Data signal of hz_3              |                                                                      |
+| s_axi_control | hz_3_2     | 0x1d0  | 32    | W      | Data signal of hz_3              |                                                                      |
+| s_axi_control | hz_4_1     | 0x1d8  | 32    | W      | Data signal of hz_4              |                                                                      |
+| s_axi_control | hz_4_2     | 0x1dc  | 32    | W      | Data signal of hz_4              |                                                                      |
+| s_axi_control | hz_5_1     | 0x1e4  | 32    | W      | Data signal of hz_5              |                                                                      |
+| s_axi_control | hz_5_2     | 0x1e8  | 32    | W      | Data signal of hz_5              |                                                                      |
+| s_axi_control | hz_6_1     | 0x1f0  | 32    | W      | Data signal of hz_6              |                                                                      |
+| s_axi_control | hz_6_2     | 0x1f4  | 32    | W      | Data signal of hz_6              |                                                                      |
+| s_axi_control | hz_7_1     | 0x1fc  | 32    | W      | Data signal of hz_7              |                                                                      |
+| s_axi_control | hz_7_2     | 0x200  | 32    | W      | Data signal of hz_7              |                                                                      |
+| s_axi_control | hz_8_1     | 0x208  | 32    | W      | Data signal of hz_8              |                                                                      |
+| s_axi_control | hz_8_2     | 0x20c  | 32    | W      | Data signal of hz_8              |                                                                      |
+| s_axi_control | hz_9_1     | 0x214  | 32    | W      | Data signal of hz_9              |                                                                      |
+| s_axi_control | hz_9_2     | 0x218  | 32    | W      | Data signal of hz_9              |                                                                      |
+| s_axi_control | hz_10_1    | 0x220  | 32    | W      | Data signal of hz_10             |                                                                      |
+| s_axi_control | hz_10_2    | 0x224  | 32    | W      | Data signal of hz_10             |                                                                      |
+| s_axi_control | hz_11_1    | 0x22c  | 32    | W      | Data signal of hz_11             |                                                                      |
+| s_axi_control | hz_11_2    | 0x230  | 32    | W      | Data signal of hz_11             |                                                                      |
+| s_axi_control | hz_12_1    | 0x238  | 32    | W      | Data signal of hz_12             |                                                                      |
+| s_axi_control | hz_12_2    | 0x23c  | 32    | W      | Data signal of hz_12             |                                                                      |
+| s_axi_control | hz_13_1    | 0x244  | 32    | W      | Data signal of hz_13             |                                                                      |
+| s_axi_control | hz_13_2    | 0x248  | 32    | W      | Data signal of hz_13             |                                                                      |
+| s_axi_control | hz_14_1    | 0x250  | 32    | W      | Data signal of hz_14             |                                                                      |
+| s_axi_control | hz_14_2    | 0x254  | 32    | W      | Data signal of hz_14             |                                                                      |
+| s_axi_control | hz_15_1    | 0x25c  | 32    | W      | Data signal of hz_15             |                                                                      |
+| s_axi_control | hz_15_2    | 0x260  | 32    | W      | Data signal of hz_15             |                                                                      |
+| s_axi_control | p_fict_s_1 | 0x268  | 32    | W      | Data signal of p_fict_s          |                                                                      |
+| s_axi_control | p_fict_s_2 | 0x26c  | 32    | W      | Data signal of p_fict_s          |                                                                      |
++---------------+------------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------+
+| Interface | Type       | Ports     |
++-----------+------------+-----------+
+| ap_clk    | clock      | ap_clk    |
+| ap_rst_n  | reset      | ap_rst_n  |
+| interrupt | interrupt  | interrupt |
+| ap_ctrl   | ap_ctrl_hs |           |
++-----------+------------+-----------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| tmax     | in        | int      |
+| nx       | in        | int      |
+| ny       | in        | int      |
+| ex       | inout     | double*  |
+| ey       | inout     | double*  |
+| hz       | inout     | double*  |
+| _fict_   | in        | double*  |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+---------------+-----------+----------+--------------------------------+
+| Argument | HW Interface  | HW Type   | HW Usage | HW Info                        |
++----------+---------------+-----------+----------+--------------------------------+
+| tmax     | s_axi_control | register  |          | name=tmax offset=0x10 range=32 |
+| nx       | s_axi_control | register  |          | name=nx offset=0x18 range=32   |
+| ny       | s_axi_control | register  |          | name=ny offset=0x20 range=32   |
+| ex       | m_axi_gmem_0  | interface |          |                                |
+| ex       | s_axi_control | interface | offset   |                                |
+| ex       | m_axi_gmem_1  | interface |          |                                |
+| ex       | s_axi_control | interface | offset   |                                |
+| ex       | m_axi_gmem_2  | interface |          |                                |
+| ex       | s_axi_control | interface | offset   |                                |
+| ex       | m_axi_gmem_3  | interface |          |                                |
+| ex       | s_axi_control | interface | offset   |                                |
+| ex       | m_axi_gmem_4  | interface |          |                                |
+| ex       | s_axi_control | interface | offset   |                                |
+| ex       | m_axi_gmem_5  | interface |          |                                |
+| ex       | s_axi_control | interface | offset   |                                |
+| ex       | m_axi_gmem_6  | interface |          |                                |
+| ex       | s_axi_control | interface | offset   |                                |
+| ex       | m_axi_gmem_7  | interface |          |                                |
+| ex       | s_axi_control | interface | offset   |                                |
+| ex       | m_axi_gmem_8  | interface |          |                                |
+| ex       | s_axi_control | interface | offset   |                                |
+| ex       | m_axi_gmem_9  | interface |          |                                |
+| ex       | s_axi_control | interface | offset   |                                |
+| ex       | m_axi_gmem_10 | interface |          |                                |
+| ex       | s_axi_control | interface | offset   |                                |
+| ex       | m_axi_gmem_11 | interface |          |                                |
+| ex       | s_axi_control | interface | offset   |                                |
+| ex       | m_axi_gmem_12 | interface |          |                                |
+| ex       | s_axi_control | interface | offset   |                                |
+| ex       | m_axi_gmem_13 | interface |          |                                |
+| ex       | s_axi_control | interface | offset   |                                |
+| ex       | m_axi_gmem_14 | interface |          |                                |
+| ex       | s_axi_control | interface | offset   |                                |
+| ex       | m_axi_gmem_15 | interface |          |                                |
+| ex       | s_axi_control | interface | offset   |                                |
+| ey       | m_axi_gmem_0  | interface |          |                                |
+| ey       | s_axi_control | interface | offset   |                                |
+| ey       | m_axi_gmem_1  | interface |          |                                |
+| ey       | s_axi_control | interface | offset   |                                |
+| ey       | m_axi_gmem_2  | interface |          |                                |
+| ey       | s_axi_control | interface | offset   |                                |
+| ey       | m_axi_gmem_3  | interface |          |                                |
+| ey       | s_axi_control | interface | offset   |                                |
+| ey       | m_axi_gmem_4  | interface |          |                                |
+| ey       | s_axi_control | interface | offset   |                                |
+| ey       | m_axi_gmem_5  | interface |          |                                |
+| ey       | s_axi_control | interface | offset   |                                |
+| ey       | m_axi_gmem_6  | interface |          |                                |
+| ey       | s_axi_control | interface | offset   |                                |
+| ey       | m_axi_gmem_7  | interface |          |                                |
+| ey       | s_axi_control | interface | offset   |                                |
+| ey       | m_axi_gmem_8  | interface |          |                                |
+| ey       | s_axi_control | interface | offset   |                                |
+| ey       | m_axi_gmem_9  | interface |          |                                |
+| ey       | s_axi_control | interface | offset   |                                |
+| ey       | m_axi_gmem_10 | interface |          |                                |
+| ey       | s_axi_control | interface | offset   |                                |
+| ey       | m_axi_gmem_11 | interface |          |                                |
+| ey       | s_axi_control | interface | offset   |                                |
+| ey       | m_axi_gmem_12 | interface |          |                                |
+| ey       | s_axi_control | interface | offset   |                                |
+| ey       | m_axi_gmem_13 | interface |          |                                |
+| ey       | s_axi_control | interface | offset   |                                |
+| ey       | m_axi_gmem_14 | interface |          |                                |
+| ey       | s_axi_control | interface | offset   |                                |
+| ey       | m_axi_gmem_15 | interface |          |                                |
+| ey       | s_axi_control | interface | offset   |                                |
+| hz       | m_axi_gmem_0  | interface |          |                                |
+| hz       | s_axi_control | interface | offset   |                                |
+| hz       | m_axi_gmem_1  | interface |          |                                |
+| hz       | s_axi_control | interface | offset   |                                |
+| hz       | m_axi_gmem_2  | interface |          |                                |
+| hz       | s_axi_control | interface | offset   |                                |
+| hz       | m_axi_gmem_3  | interface |          |                                |
+| hz       | s_axi_control | interface | offset   |                                |
+| hz       | m_axi_gmem_4  | interface |          |                                |
+| hz       | s_axi_control | interface | offset   |                                |
+| hz       | m_axi_gmem_5  | interface |          |                                |
+| hz       | s_axi_control | interface | offset   |                                |
+| hz       | m_axi_gmem_6  | interface |          |                                |
+| hz       | s_axi_control | interface | offset   |                                |
+| hz       | m_axi_gmem_7  | interface |          |                                |
+| hz       | s_axi_control | interface | offset   |                                |
+| hz       | m_axi_gmem_8  | interface |          |                                |
+| hz       | s_axi_control | interface | offset   |                                |
+| hz       | m_axi_gmem_9  | interface |          |                                |
+| hz       | s_axi_control | interface | offset   |                                |
+| hz       | m_axi_gmem_10 | interface |          |                                |
+| hz       | s_axi_control | interface | offset   |                                |
+| hz       | m_axi_gmem_11 | interface |          |                                |
+| hz       | s_axi_control | interface | offset   |                                |
+| hz       | m_axi_gmem_12 | interface |          |                                |
+| hz       | s_axi_control | interface | offset   |                                |
+| hz       | m_axi_gmem_13 | interface |          |                                |
+| hz       | s_axi_control | interface | offset   |                                |
+| hz       | m_axi_gmem_14 | interface |          |                                |
+| hz       | s_axi_control | interface | offset   |                                |
+| hz       | m_axi_gmem_15 | interface |          |                                |
+| hz       | s_axi_control | interface | offset   |                                |
+| _fict_   | m_axi_gmem    | interface |          |                                |
+| _fict_   | s_axi_control | interface | offset   |                                |
++----------+---------------+-----------+----------+--------------------------------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+* Inferred Burst Summary
++---------------+-----------------+-----------+--------+-------+------------------------------------------------------------------------------------------+
+| HW Interface  | Loop            | Direction | Length | Width | Location                                                                                 |
++---------------+-----------------+-----------+--------+-------+------------------------------------------------------------------------------------------+
+| m_axi_gmem_0  | VITIS_LOOP_25_2 | write     | 5      | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_1  | VITIS_LOOP_25_2 | write     | 5      | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_2  | VITIS_LOOP_25_2 | write     | 5      | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_3  | VITIS_LOOP_25_2 | write     | 5      | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_4  | VITIS_LOOP_25_2 | write     | 5      | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_5  | VITIS_LOOP_25_2 | write     | 5      | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_6  | VITIS_LOOP_25_2 | write     | 5      | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_7  | VITIS_LOOP_25_2 | write     | 5      | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_8  | VITIS_LOOP_25_2 | write     | 5      | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_9  | VITIS_LOOP_25_2 | write     | 5      | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_10 | VITIS_LOOP_25_2 | write     | 5      | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_11 | VITIS_LOOP_25_2 | write     | 5      | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_12 | VITIS_LOOP_25_2 | write     | 5      | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_13 | VITIS_LOOP_25_2 | write     | 5      | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_14 | VITIS_LOOP_25_2 | write     | 5      | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_15 | VITIS_LOOP_25_2 | write     | 5      | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
++---------------+-----------------+-----------+--------+-------+------------------------------------------------------------------------------------------+
+
+* Inferred Bursts and Widening Missed
++---------------+----------+------------------+----------------------------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------------------------+
+| HW Interface  | Variable | Loop             | Problem                                                                                                  | Resolution | Location                                                                                 |
++---------------+----------+------------------+----------------------------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------------------------+
+| m_axi_gmem    | _fict_   | VITIS_LOOP_25_2  | Stride is incompatible                                                                                   | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_0  | ey_0     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_1  | ey_1     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_2  | ey_2     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_3  | ey_3     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_4  | ey_4     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_5  | ey_5     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_6  | ey_6     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_7  | ey_7     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_8  | ey_8     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_9  | ey_9     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_10 | ey_10    |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_11 | ey_11    |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_12 | ey_12    |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_13 | ey_13    |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_14 | ey_14    |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_15 | ey_15    |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_0  | ey_0     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_1  | ey_1     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_2  | ey_2     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_3  | ey_3     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_4  | ey_4     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_5  | ey_5     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_6  | ey_6     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_7  | ey_7     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_8  | ey_8     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_9  | ey_9     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_10 | ey_10    |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_11 | ey_11    |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_12 | ey_12    |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_13 | ey_13    |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_14 | ey_14    |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_15 | ey_15    |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:41:32 |
+| m_axi_gmem_15 | hz_15    | VITIS_LOOP_48_8  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:48:24 |
+| m_axi_gmem_15 | hz_15    |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:52 |
+| m_axi_gmem_0  | ex_0     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_1  | ex_1     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_2  | ex_2     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_3  | ex_3     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_4  | ex_4     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_5  | ex_5     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_6  | ex_6     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_7  | ex_7     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_8  | ex_8     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_9  | ex_9     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_10 | ex_10    |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_11 | ex_11    |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_12 | ex_12    |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_13 | ex_13    |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_14 | ex_14    |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_15 | ex_15    |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_0  | ex_0     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_1  | ex_1     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_2  | ex_2     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_3  | ex_3     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_4  | ex_4     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_5  | ex_5     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_6  | ex_6     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_7  | ex_7     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_8  | ex_8     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_9  | ex_9     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_10 | ex_10    |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_11 | ex_11    |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_12 | ex_12    |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_13 | ex_13    |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_14 | ex_14    |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_15 | ex_15    |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:53:42 |
+| m_axi_gmem_0  | ex_0     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:55 |
+| m_axi_gmem_0  | ex_0     | VITIS_LOOP_60_11 | Access load is in the conditional branch                                                                 | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_0  | hz_0     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_1  | hz_1     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_2  | hz_2     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_3  | hz_3     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_4  | hz_4     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_5  | hz_5     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_6  | hz_6     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_7  | hz_7     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_8  | hz_8     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_9  | hz_9     |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_10 | hz_10    |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_11 | hz_11    |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_12 | hz_12    |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_13 | hz_13    |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_14 | hz_14    |                  | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_15 | ey_15    | VITIS_LOOP_60_11 | Access load is in the conditional branch                                                                 | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_15 | ey_15    | VITIS_LOOP_60_11 | Access load is in the conditional branch                                                                 | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_15 | hz_15    | VITIS_LOOP_60_11 | Access load is in the conditional branch                                                                 | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_0  | hz_0     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_1  | hz_1     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_2  | hz_2     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_3  | hz_3     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_4  | hz_4     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_5  | hz_5     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_6  | hz_6     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_7  | hz_7     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_8  | hz_8     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_9  | hz_9     |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_10 | hz_10    |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_11 | hz_11    |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_12 | hz_12    |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_13 | hz_13    |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_14 | hz_14    |                  | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:65:32 |
+| m_axi_gmem_15 | hz_15    | VITIS_LOOP_60_11 | Access store is in the conditional branch                                                                | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_0  | hz_0     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_1  | hz_1     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_2  | hz_2     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_3  | hz_3     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_4  | hz_4     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_5  | hz_5     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_6  | hz_6     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_7  | hz_7     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_8  | hz_8     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_9  | hz_9     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_10 | hz_10    | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_11 | hz_11    | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_12 | hz_12    | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_13 | hz_13    | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_14 | hz_14    | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_1  | ex_1     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_2  | ex_2     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_3  | ex_3     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_4  | ex_4     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_5  | ex_5     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_6  | ex_6     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_7  | ex_7     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_8  | ex_8     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_9  | ex_9     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_10 | ex_10    | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_11 | ex_11    | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_12 | ex_12    | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_13 | ex_13    | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_14 | ex_14    | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_15 | ex_15    | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_0  | ey_0     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_1  | ey_1     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_2  | ey_2     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_3  | ey_3     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_4  | ey_4     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_5  | ey_5     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_6  | ey_6     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_7  | ey_7     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_8  | ey_8     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_9  | ey_9     | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_10 | ey_10    | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_11 | ey_11    | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_12 | ey_12    | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_13 | ey_13    | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_14 | ey_14    | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_15 | ey_15    | VITIS_LOOP_21_1  | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:21:19 |
+| m_axi_gmem_1  | ex_1     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_0  | ey_0     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_0  | ey_0     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_2  | ex_2     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_1  | ey_1     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_1  | ey_1     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_3  | ex_3     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_2  | ey_2     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_2  | ey_2     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_4  | ex_4     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_3  | ey_3     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_3  | ey_3     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_5  | ex_5     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_4  | ey_4     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_4  | ey_4     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_6  | ex_6     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_5  | ey_5     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_5  | ey_5     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_7  | ex_7     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_6  | ey_6     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_6  | ey_6     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_8  | ex_8     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_7  | ey_7     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_7  | ey_7     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_9  | ex_9     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_8  | ey_8     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_8  | ey_8     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_10 | ex_10    | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_9  | ey_9     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_9  | ey_9     | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_11 | ex_11    | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_10 | ey_10    | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_10 | ey_10    | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_12 | ex_12    | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_11 | ey_11    | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_11 | ey_11    | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_13 | ex_13    | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_12 | ey_12    | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_12 | ey_12    | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_14 | ex_14    | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_13 | ey_13    | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_13 | ey_13    | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_15 | ex_15    | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_14 | ey_14    | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_14 | ey_14    | VITIS_LOOP_60_11 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_1  | hz_1     | VITIS_LOOP_48_8  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:48:24 |
+| m_axi_gmem_2  | hz_2     | VITIS_LOOP_48_8  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:48:24 |
+| m_axi_gmem_3  | hz_3     | VITIS_LOOP_48_8  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:48:24 |
+| m_axi_gmem_4  | hz_4     | VITIS_LOOP_48_8  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:48:24 |
+| m_axi_gmem_5  | hz_5     | VITIS_LOOP_48_8  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:48:24 |
+| m_axi_gmem_6  | hz_6     | VITIS_LOOP_48_8  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:48:24 |
+| m_axi_gmem_7  | hz_7     | VITIS_LOOP_48_8  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:48:24 |
+| m_axi_gmem_8  | hz_8     | VITIS_LOOP_48_8  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:48:24 |
+| m_axi_gmem_9  | hz_9     | VITIS_LOOP_48_8  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:48:24 |
+| m_axi_gmem_10 | hz_10    | VITIS_LOOP_48_8  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:48:24 |
+| m_axi_gmem_11 | hz_11    | VITIS_LOOP_48_8  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:48:24 |
+| m_axi_gmem_12 | hz_12    | VITIS_LOOP_48_8  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:48:24 |
+| m_axi_gmem_13 | hz_13    | VITIS_LOOP_48_8  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:48:24 |
+| m_axi_gmem_14 | hz_14    | VITIS_LOOP_48_8  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:48:24 |
+| m_axi_gmem_0  | hz_0     | VITIS_LOOP_48_8  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:48:24 |
+| m_axi_gmem_0  | hz_0     | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_0  | hz_0     | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_1  | hz_1     | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_1  | hz_1     | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_2  | hz_2     | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_2  | hz_2     | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_3  | hz_3     | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_3  | hz_3     | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_4  | hz_4     | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_4  | hz_4     | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_5  | hz_5     | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_5  | hz_5     | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_6  | hz_6     | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_6  | hz_6     | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_7  | hz_7     | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_7  | hz_7     | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_8  | hz_8     | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_8  | hz_8     | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_9  | hz_9     | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_9  | hz_9     | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_10 | hz_10    | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_10 | hz_10    | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_11 | hz_11    | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_11 | hz_11    | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_12 | hz_12    | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_12 | hz_12    | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_13 | hz_13    | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_13 | hz_13    | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_14 | hz_14    | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_14 | hz_14    | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_15 | hz_15    | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_15 | hz_15    | VITIS_LOOP_36_5  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_0  | ey_0     | VITIS_LOOP_25_2  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_1  | ey_1     | VITIS_LOOP_25_2  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_2  | ey_2     | VITIS_LOOP_25_2  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_3  | ey_3     | VITIS_LOOP_25_2  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_4  | ey_4     | VITIS_LOOP_25_2  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_5  | ey_5     | VITIS_LOOP_25_2  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_6  | ey_6     | VITIS_LOOP_25_2  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_7  | ey_7     | VITIS_LOOP_25_2  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_8  | ey_8     | VITIS_LOOP_25_2  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_9  | ey_9     | VITIS_LOOP_25_2  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_10 | ey_10    | VITIS_LOOP_25_2  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_11 | ey_11    | VITIS_LOOP_25_2  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_12 | ey_12    | VITIS_LOOP_25_2  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_13 | ey_13    | VITIS_LOOP_25_2  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_14 | ey_14    | VITIS_LOOP_25_2  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_15 | ey_15    | VITIS_LOOP_25_2  | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:25:19 |
+| m_axi_gmem_0  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_0  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_1  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_1  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_2  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_2  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_3  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_3  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_4  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_4  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_5  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_5  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_6  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_6  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_7  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_7  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_8  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_8  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_9  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_9  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_10 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_10 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_11 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_11 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_12 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_12 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_13 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_13 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_14 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_14 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_15 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_15 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:36:24 |
+| m_axi_gmem_0  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:47:22 |
+| m_axi_gmem_1  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:47:22 |
+| m_axi_gmem_2  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:47:22 |
+| m_axi_gmem_3  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:47:22 |
+| m_axi_gmem_4  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:47:22 |
+| m_axi_gmem_5  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:47:22 |
+| m_axi_gmem_6  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:47:22 |
+| m_axi_gmem_7  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:47:22 |
+| m_axi_gmem_8  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:47:22 |
+| m_axi_gmem_9  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:47:22 |
+| m_axi_gmem_10 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:47:22 |
+| m_axi_gmem_11 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:47:22 |
+| m_axi_gmem_12 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:47:22 |
+| m_axi_gmem_13 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:47:22 |
+| m_axi_gmem_14 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:47:22 |
+| m_axi_gmem_1  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:59:23 |
+| m_axi_gmem_2  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:59:23 |
+| m_axi_gmem_3  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:59:23 |
+| m_axi_gmem_4  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:59:23 |
+| m_axi_gmem_5  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:59:23 |
+| m_axi_gmem_6  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:59:23 |
+| m_axi_gmem_7  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:59:23 |
+| m_axi_gmem_8  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:59:23 |
+| m_axi_gmem_9  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:59:23 |
+| m_axi_gmem_10 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:59:23 |
+| m_axi_gmem_11 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:59:23 |
+| m_axi_gmem_12 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:59:23 |
+| m_axi_gmem_13 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:59:23 |
+| m_axi_gmem_14 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:59:23 |
+| m_axi_gmem_15 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:59:23 |
+| m_axi_gmem_0  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_0  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_1  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_1  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_2  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_2  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_3  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_3  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_4  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_4  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_5  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_5  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_6  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_6  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_7  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_7  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_8  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_8  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_9  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_9  |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_10 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_10 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_11 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_11 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_12 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_12 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_13 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_13 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_14 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
+| m_axi_gmem_14 |          |                  | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/fdtd_2d/generate/fdtd_2d.cpp:60:25 |
++---------------+----------+------------------+----------------------------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------------------------+
+
+    * Resolution URL: www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=XXX-YYY.html (replace XXX-YYY with column value)
+
+================================================================
+== Bind Op Report
+================================================================
++-------------------------------------------------------+-----+--------+-------------+------+---------+---------+
+| Name                                                  | DSP | Pragma | Variable    | Op   | Impl    | Latency |
++-------------------------------------------------------+-----+--------+-------------+------+---------+---------+
+| + fdtd_2d                                             | 87  |        |             |      |         |         |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U312             | -   |        | add_ln21    | add  | fabric  | 0       |
+|   dsub_64ns_64ns_64_5_full_dsp_1_U320                 | -   |        | empty       | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U319             | -   |        | add_ln35_33 | add  | fabric  | 0       |
+|   add_ln35_34_fu_1892_p2                              | -   |        | add_ln35_34 | add  | fabric  | 0       |
+|   add_ln35_fu_1902_p2                                 | -   |        | add_ln35    | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U318             | -   |        | add_ln35_35 | add  | fabric  | 0       |
+|   add_ln35_1_fu_1942_p2                               | -   |        | add_ln35_1  | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U314             | -   |        | add_ln35_2  | add  | fabric  | 0       |
+|   add_ln35_3_fu_1952_p2                               | -   |        | add_ln35_3  | add  | fabric  | 0       |
+|   add_ln35_4_fu_1957_p2                               | -   |        | add_ln35_4  | add  | fabric  | 0       |
+|   add_ln35_5_fu_1962_p2                               | -   |        | add_ln35_5  | add  | fabric  | 0       |
+|   add_ln35_6_fu_1967_p2                               | -   |        | add_ln35_6  | add  | fabric  | 0       |
+|   add_ln35_7_fu_1972_p2                               | -   |        | add_ln35_7  | add  | fabric  | 0       |
+|   add_ln35_8_fu_1977_p2                               | -   |        | add_ln35_8  | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U318             | -   |        | add_ln35_9  | add  | fabric  | 0       |
+|   dmul_64ns_64ns_64_5_max_dsp_1_U322                  | -   |        | add_ln35_10 | add  | fabric  | 0       |
+|   add_ln35_11_fu_1992_p2                              | -   |        | add_ln35_11 | add  | fabric  | 0       |
+|   add_ln35_12_fu_1997_p2                              | -   |        | add_ln35_12 | add  | fabric  | 0       |
+|   add_ln35_13_fu_2002_p2                              | -   |        | add_ln35_13 | add  | fabric  | 0       |
+|   add_ln35_14_fu_2007_p2                              | -   |        | add_ln35_14 | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U317             | -   |        | add_ln35_15 | add  | fabric  | 0       |
+|   dmul_64ns_64ns_64_5_max_dsp_1_U322                  | -   |        | add_ln35_16 | add  | fabric  | 0       |
+|   add_ln35_17_fu_2022_p2                              | -   |        | add_ln35_17 | add  | fabric  | 0       |
+|   add_ln35_18_fu_2027_p2                              | -   |        | add_ln35_18 | add  | fabric  | 0       |
+|   dsub_64ns_64ns_64_5_full_dsp_1_U320                 | -   |        | add_ln35_19 | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U319             | -   |        | add_ln35_20 | add  | fabric  | 0       |
+|   dmul_64ns_64ns_64_5_max_dsp_1_U324                  | -   |        | add_ln35_21 | add  | fabric  | 0       |
+|   add_ln35_22_fu_2047_p2                              | -   |        | add_ln35_22 | add  | fabric  | 0       |
+|   add_ln35_23_fu_2052_p2                              | -   |        | add_ln35_23 | add  | fabric  | 0       |
+|   add_ln35_24_fu_2057_p2                              | -   |        | add_ln35_24 | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U311             | -   |        | add_ln35_25 | add  | fabric  | 0       |
+|   add_ln35_26_fu_2067_p2                              | -   |        | add_ln35_26 | add  | fabric  | 0       |
+|   add_ln35_27_fu_2072_p2                              | -   |        | add_ln35_27 | add  | fabric  | 0       |
+|   add_ln35_28_fu_2077_p2                              | -   |        | add_ln35_28 | add  | fabric  | 0       |
+|   add_ln35_29_fu_2082_p2                              | -   |        | add_ln35_29 | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U314             | -   |        | add_ln35_30 | add  | fabric  | 0       |
+|   add_ln35_31_fu_2092_p2                              | -   |        | add_ln35_31 | add  | fabric  | 0       |
+|   add_ln35_32_fu_2449_p2                              | -   |        | add_ln35_32 | add  | fabric  | 0       |
+|  + fdtd_2d_Pipeline_VITIS_LOOP_25_2                   | 0   |        |             |      |         |         |
+|    add_ln25_fu_548_p2                                 | -   |        | add_ln25    | add  | fabric  | 0       |
+|  + fdtd_2d_Pipeline_VITIS_LOOP_36_5                   | 0   |        |             |      |         |         |
+|    add_ln36_1_fu_1641_p2                              | -   |        | add_ln36_1  | add  | fabric  | 0       |
+|    add_ln41_fu_1651_p2                                | -   |        | add_ln41    | add  | fabric  | 0       |
+|    add_ln41_1_fu_1762_p2                              | -   |        | add_ln41_1  | add  | fabric  | 0       |
+|    add_ln41_4_fu_1657_p2                              | -   |        | add_ln41_4  | add  | fabric  | 0       |
+|    add_ln41_5_fu_1776_p2                              | -   |        | add_ln41_5  | add  | fabric  | 0       |
+|    add_ln41_8_fu_1663_p2                              | -   |        | add_ln41_8  | add  | fabric  | 0       |
+|    add_ln41_9_fu_1790_p2                              | -   |        | add_ln41_9  | add  | fabric  | 0       |
+|    add_ln41_12_fu_1669_p2                             | -   |        | add_ln41_12 | add  | fabric  | 0       |
+|    add_ln41_13_fu_1804_p2                             | -   |        | add_ln41_13 | add  | fabric  | 0       |
+|    add_ln41_16_fu_1675_p2                             | -   |        | add_ln41_16 | add  | fabric  | 0       |
+|    add_ln41_17_fu_1818_p2                             | -   |        | add_ln41_17 | add  | fabric  | 0       |
+|    add_ln41_20_fu_1681_p2                             | -   |        | add_ln41_20 | add  | fabric  | 0       |
+|    add_ln41_21_fu_1832_p2                             | -   |        | add_ln41_21 | add  | fabric  | 0       |
+|    add_ln41_24_fu_1687_p2                             | -   |        | add_ln41_24 | add  | fabric  | 0       |
+|    add_ln41_25_fu_1846_p2                             | -   |        | add_ln41_25 | add  | fabric  | 0       |
+|    add_ln41_28_fu_1693_p2                             | -   |        | add_ln41_28 | add  | fabric  | 0       |
+|    add_ln41_29_fu_1860_p2                             | -   |        | add_ln41_29 | add  | fabric  | 0       |
+|    add_ln41_32_fu_1699_p2                             | -   |        | add_ln41_32 | add  | fabric  | 0       |
+|    add_ln41_33_fu_1874_p2                             | -   |        | add_ln41_33 | add  | fabric  | 0       |
+|    add_ln41_36_fu_1705_p2                             | -   |        | add_ln41_36 | add  | fabric  | 0       |
+|    add_ln41_37_fu_1888_p2                             | -   |        | add_ln41_37 | add  | fabric  | 0       |
+|    add_ln41_40_fu_1711_p2                             | -   |        | add_ln41_40 | add  | fabric  | 0       |
+|    add_ln41_41_fu_1902_p2                             | -   |        | add_ln41_41 | add  | fabric  | 0       |
+|    add_ln41_44_fu_1717_p2                             | -   |        | add_ln41_44 | add  | fabric  | 0       |
+|    add_ln41_45_fu_1916_p2                             | -   |        | add_ln41_45 | add  | fabric  | 0       |
+|    add_ln41_48_fu_1723_p2                             | -   |        | add_ln41_48 | add  | fabric  | 0       |
+|    add_ln41_49_fu_1930_p2                             | -   |        | add_ln41_49 | add  | fabric  | 0       |
+|    add_ln41_52_fu_1729_p2                             | -   |        | add_ln41_52 | add  | fabric  | 0       |
+|    add_ln41_53_fu_1944_p2                             | -   |        | add_ln41_53 | add  | fabric  | 0       |
+|    add_ln41_56_fu_1735_p2                             | -   |        | add_ln41_56 | add  | fabric  | 0       |
+|    add_ln41_57_fu_1958_p2                             | -   |        | add_ln41_57 | add  | fabric  | 0       |
+|    add_ln41_60_fu_1741_p2                             | -   |        | add_ln41_60 | add  | fabric  | 0       |
+|    add_ln41_61_fu_1972_p2                             | -   |        | add_ln41_61 | add  | fabric  | 0       |
+|    add_ln36_fu_2473_p2                                | -   |        | add_ln36    | add  | fabric  | 0       |
+|  + fdtd_2d_Pipeline_VITIS_LOOP_47_7_VITIS_LOOP_48_8   | 0   |        |             |      |         |         |
+|    add_ln47_fu_1305_p2                                | -   |        | add_ln47    | add  | fabric  | 0       |
+|    add_ln47_1_fu_1331_p2                              | -   |        | add_ln47_1  | add  | fabric  | 0       |
+|    add_ln53_4_fu_1528_p2                              | -   |        | add_ln53_4  | add  | fabric  | 0       |
+|    add_ln53_fu_1538_p2                                | -   |        | add_ln53    | add  | fabric  | 0       |
+|    add_ln48_3_fu_1361_p2                              | -   |        | add_ln48_3  | add  | fabric  | 0       |
+|    add_ln48_fu_1371_p2                                | -   |        | add_ln48    | add  | fabric  | 0       |
+|    add_ln53_1_fu_1381_p2                              | -   |        | add_ln53_1  | add  | fabric  | 0       |
+|    add_ln53_2_fu_1573_p2                              | -   |        | add_ln53_2  | add  | fabric  | 0       |
+|    add_ln53_3_fu_1601_p2                              | -   |        | add_ln53_3  | add  | fabric  | 0       |
+|    add_ln53_6_fu_1387_p2                              | -   |        | add_ln53_6  | add  | fabric  | 0       |
+|    add_ln53_9_fu_1393_p2                              | -   |        | add_ln53_9  | add  | fabric  | 0       |
+|    add_ln53_12_fu_1399_p2                             | -   |        | add_ln53_12 | add  | fabric  | 0       |
+|    add_ln53_15_fu_1405_p2                             | -   |        | add_ln53_15 | add  | fabric  | 0       |
+|    add_ln53_18_fu_1411_p2                             | -   |        | add_ln53_18 | add  | fabric  | 0       |
+|    add_ln53_21_fu_1417_p2                             | -   |        | add_ln53_21 | add  | fabric  | 0       |
+|    add_ln53_24_fu_1423_p2                             | -   |        | add_ln53_24 | add  | fabric  | 0       |
+|    add_ln53_27_fu_1429_p2                             | -   |        | add_ln53_27 | add  | fabric  | 0       |
+|    add_ln53_30_fu_1435_p2                             | -   |        | add_ln53_30 | add  | fabric  | 0       |
+|    add_ln53_33_fu_1441_p2                             | -   |        | add_ln53_33 | add  | fabric  | 0       |
+|    add_ln53_36_fu_1447_p2                             | -   |        | add_ln53_36 | add  | fabric  | 0       |
+|    add_ln53_39_fu_1453_p2                             | -   |        | add_ln53_39 | add  | fabric  | 0       |
+|    add_ln53_42_fu_1459_p2                             | -   |        | add_ln53_42 | add  | fabric  | 0       |
+|    add_ln53_45_fu_1465_p2                             | -   |        | add_ln53_45 | add  | fabric  | 0       |
+|    add_ln53_48_fu_2072_p2                             | -   |        | add_ln53_48 | add  | fabric  | 0       |
+|    add_ln48_1_fu_2109_p2                              | -   |        | add_ln48_1  | add  | fabric  | 0       |
+|    add_ln48_2_fu_1471_p2                              | -   |        | add_ln48_2  | add  | fabric  | 0       |
+|  + fdtd_2d_Pipeline_VITIS_LOOP_59_10_VITIS_LOOP_60_11 | 6   |        |             |      |         |         |
+|    add_ln59_1_fu_1801_p2                              | -   |        | add_ln59_1  | add  | fabric  | 0       |
+|    add_ln59_33_fu_1827_p2                             | -   |        | add_ln59_33 | add  | fabric  | 0       |
+|    add_ln59_32_fu_1869_p2                             | -   |        | add_ln59_32 | add  | fabric  | 0       |
+|    add_ln59_fu_2679_p2                                | -   |        | add_ln59    | add  | fabric  | 0       |
+|    add_ln59_2_fu_2034_p2                              | -   |        | add_ln59_2  | add  | fabric  | 0       |
+|    add_ln59_3_fu_2043_p2                              | -   |        | add_ln59_3  | add  | fabric  | 0       |
+|    add_ln59_4_fu_2683_p2                              | -   |        | add_ln59_4  | add  | fabric  | 0       |
+|    add_ln59_5_fu_2048_p2                              | -   |        | add_ln59_5  | add  | fabric  | 0       |
+|    add_ln59_6_fu_2687_p2                              | -   |        | add_ln59_6  | add  | fabric  | 0       |
+|    add_ln59_7_fu_2053_p2                              | -   |        | add_ln59_7  | add  | fabric  | 0       |
+|    add_ln59_8_fu_2691_p2                              | -   |        | add_ln59_8  | add  | fabric  | 0       |
+|    add_ln59_9_fu_2058_p2                              | -   |        | add_ln59_9  | add  | fabric  | 0       |
+|    add_ln59_10_fu_2695_p2                             | -   |        | add_ln59_10 | add  | fabric  | 0       |
+|    add_ln59_11_fu_2063_p2                             | -   |        | add_ln59_11 | add  | fabric  | 0       |
+|    add_ln59_12_fu_2699_p2                             | -   |        | add_ln59_12 | add  | fabric  | 0       |
+|    add_ln59_13_fu_2068_p2                             | -   |        | add_ln59_13 | add  | fabric  | 0       |
+|    add_ln59_14_fu_2703_p2                             | -   |        | add_ln59_14 | add  | fabric  | 0       |
+|    add_ln59_15_fu_2073_p2                             | -   |        | add_ln59_15 | add  | fabric  | 0       |
+|    add_ln59_16_fu_2707_p2                             | -   |        | add_ln59_16 | add  | fabric  | 0       |
+|    add_ln59_17_fu_2078_p2                             | -   |        | add_ln59_17 | add  | fabric  | 0       |
+|    add_ln59_18_fu_2711_p2                             | -   |        | add_ln59_18 | add  | fabric  | 0       |
+|    add_ln59_19_fu_2083_p2                             | -   |        | add_ln59_19 | add  | fabric  | 0       |
+|    add_ln59_20_fu_2715_p2                             | -   |        | add_ln59_20 | add  | fabric  | 0       |
+|    add_ln59_21_fu_2088_p2                             | -   |        | add_ln59_21 | add  | fabric  | 0       |
+|    add_ln59_22_fu_2719_p2                             | -   |        | add_ln59_22 | add  | fabric  | 0       |
+|    add_ln59_23_fu_2093_p2                             | -   |        | add_ln59_23 | add  | fabric  | 0       |
+|    add_ln59_24_fu_2723_p2                             | -   |        | add_ln59_24 | add  | fabric  | 0       |
+|    add_ln59_25_fu_2098_p2                             | -   |        | add_ln59_25 | add  | fabric  | 0       |
+|    add_ln59_26_fu_2727_p2                             | -   |        | add_ln59_26 | add  | fabric  | 0       |
+|    add_ln59_27_fu_2103_p2                             | -   |        | add_ln59_27 | add  | fabric  | 0       |
+|    add_ln59_28_fu_2731_p2                             | -   |        | add_ln59_28 | add  | fabric  | 0       |
+|    add_ln59_29_fu_2108_p2                             | -   |        | add_ln59_29 | add  | fabric  | 0       |
+|    add_ln59_30_fu_2735_p2                             | -   |        | add_ln59_30 | add  | fabric  | 0       |
+|    add_ln59_31_fu_2113_p2                             | -   |        | add_ln59_31 | add  | fabric  | 0       |
+|    add_ln65_fu_2324_p2                                | -   |        | add_ln65    | add  | fabric  | 0       |
+|    add_ln60_3_fu_1887_p2                              | -   |        | add_ln60_3  | add  | fabric  | 0       |
+|    add_ln60_fu_1897_p2                                | -   |        | add_ln60    | add  | fabric  | 0       |
+|    add_ln65_1_fu_1907_p2                              | -   |        | add_ln65_1  | add  | fabric  | 0       |
+|    add_ln65_2_fu_2353_p2                              | -   |        | add_ln65_2  | add  | fabric  | 0       |
+|    add_ln65_3_fu_2962_p2                              | -   |        | add_ln65_3  | add  | fabric  | 0       |
+|    add_ln65_4_fu_2967_p2                              | -   |        | add_ln65_4  | add  | fabric  | 0       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U224                | 3   |        | sub6        | dsub | fulldsp | 4       |
+|    add_ln65_7_fu_1913_p2                              | -   |        | add_ln65_7  | add  | fabric  | 0       |
+|    add_ln65_8_fu_2379_p2                              | -   |        | add_ln65_8  | add  | fabric  | 0       |
+|    add_ln65_9_fu_2982_p2                              | -   |        | add_ln65_9  | add  | fabric  | 0       |
+|    add_ln65_12_fu_1919_p2                             | -   |        | add_ln65_12 | add  | fabric  | 0       |
+|    add_ln65_13_fu_2395_p2                             | -   |        | add_ln65_13 | add  | fabric  | 0       |
+|    add_ln65_14_fu_2997_p2                             | -   |        | add_ln65_14 | add  | fabric  | 0       |
+|    add_ln65_17_fu_1925_p2                             | -   |        | add_ln65_17 | add  | fabric  | 0       |
+|    add_ln65_18_fu_2411_p2                             | -   |        | add_ln65_18 | add  | fabric  | 0       |
+|    add_ln65_19_fu_3012_p2                             | -   |        | add_ln65_19 | add  | fabric  | 0       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U224                | 3   |        | sub149_3    | dsub | fulldsp | 4       |
+|    add_ln65_22_fu_1931_p2                             | -   |        | add_ln65_22 | add  | fabric  | 0       |
+|    add_ln65_23_fu_2427_p2                             | -   |        | add_ln65_23 | add  | fabric  | 0       |
+|    add_ln65_24_fu_3027_p2                             | -   |        | add_ln65_24 | add  | fabric  | 0       |
+|    add_ln65_27_fu_1937_p2                             | -   |        | add_ln65_27 | add  | fabric  | 0       |
+|    add_ln65_28_fu_2443_p2                             | -   |        | add_ln65_28 | add  | fabric  | 0       |
+|    add_ln65_29_fu_3042_p2                             | -   |        | add_ln65_29 | add  | fabric  | 0       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U224                | 3   |        | sub143_5    | dsub | fulldsp | 4       |
+|    add_ln65_32_fu_1943_p2                             | -   |        | add_ln65_32 | add  | fabric  | 0       |
+|    add_ln65_33_fu_2459_p2                             | -   |        | add_ln65_33 | add  | fabric  | 0       |
+|    add_ln65_34_fu_3057_p2                             | -   |        | add_ln65_34 | add  | fabric  | 0       |
+|    add_ln65_37_fu_1949_p2                             | -   |        | add_ln65_37 | add  | fabric  | 0       |
+|    add_ln65_38_fu_2475_p2                             | -   |        | add_ln65_38 | add  | fabric  | 0       |
+|    add_ln65_39_fu_3072_p2                             | -   |        | add_ln65_39 | add  | fabric  | 0       |
+|    add_ln65_42_fu_1955_p2                             | -   |        | add_ln65_42 | add  | fabric  | 0       |
+|    add_ln65_43_fu_2491_p2                             | -   |        | add_ln65_43 | add  | fabric  | 0       |
+|    add_ln65_44_fu_3087_p2                             | -   |        | add_ln65_44 | add  | fabric  | 0       |
+|    add_ln65_47_fu_1961_p2                             | -   |        | add_ln65_47 | add  | fabric  | 0       |
+|    add_ln65_48_fu_2507_p2                             | -   |        | add_ln65_48 | add  | fabric  | 0       |
+|    add_ln65_49_fu_3102_p2                             | -   |        | add_ln65_49 | add  | fabric  | 0       |
+|    add_ln65_52_fu_1967_p2                             | -   |        | add_ln65_52 | add  | fabric  | 0       |
+|    add_ln65_53_fu_2523_p2                             | -   |        | add_ln65_53 | add  | fabric  | 0       |
+|    add_ln65_54_fu_3117_p2                             | -   |        | add_ln65_54 | add  | fabric  | 0       |
+|    add_ln65_57_fu_1973_p2                             | -   |        | add_ln65_57 | add  | fabric  | 0       |
+|    add_ln65_58_fu_2539_p2                             | -   |        | add_ln65_58 | add  | fabric  | 0       |
+|    add_ln65_59_fu_3132_p2                             | -   |        | add_ln65_59 | add  | fabric  | 0       |
+|    add_ln65_62_fu_1979_p2                             | -   |        | add_ln65_62 | add  | fabric  | 0       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U224                | 3   |        | sub132_11   | dsub | fulldsp | 4       |
+|    add_ln65_63_fu_2555_p2                             | -   |        | add_ln65_63 | add  | fabric  | 0       |
+|    add_ln65_64_fu_3147_p2                             | -   |        | add_ln65_64 | add  | fabric  | 0       |
+|    add_ln65_67_fu_1985_p2                             | -   |        | add_ln65_67 | add  | fabric  | 0       |
+|    dadddsub_64ns_64ns_64_5_full_dsp_1_U225            | 3   |        | sub132_12   | dsub | fulldsp | 4       |
+|    add_ln65_68_fu_2571_p2                             | -   |        | add_ln65_68 | add  | fabric  | 0       |
+|    add_ln65_69_fu_3162_p2                             | -   |        | add_ln65_69 | add  | fabric  | 0       |
+|    add_ln65_72_fu_1991_p2                             | -   |        | add_ln65_72 | add  | fabric  | 0       |
+|    add_ln65_73_fu_2587_p2                             | -   |        | add_ln65_73 | add  | fabric  | 0       |
+|    add_ln65_74_fu_3177_p2                             | -   |        | add_ln65_74 | add  | fabric  | 0       |
+|    add_ln60_1_fu_2605_p2                              | -   |        | add_ln60_1  | add  | fabric  | 0       |
+|    add_ln65_77_fu_2611_p2                             | -   |        | add_ln65_77 | add  | fabric  | 0       |
+|    add_ln65_78_fu_2621_p2                             | -   |        | add_ln65_78 | add  | fabric  | 0       |
+|    dadddsub_64ns_64ns_64_5_full_dsp_1_U225            | 3   |        | sub132_14   | dsub | fulldsp | 4       |
+|    add_ln65_79_fu_2637_p2                             | -   |        | add_ln65_79 | add  | fabric  | 0       |
+|    add_ln65_80_fu_2642_p2                             | -   |        | add_ln65_80 | add  | fabric  | 0       |
+|    dadddsub_64ns_64ns_64_5_full_dsp_1_U225            | 3   |        | add138_14   | dsub | fulldsp | 4       |
+|    add_ln65_81_fu_2658_p2                             | -   |        | add_ln65_81 | add  | fabric  | 0       |
+|    dadddsub_64ns_64ns_64_5_full_dsp_1_U225            | 3   |        | sub143_14   | dsub | fulldsp | 4       |
+|    dsub_64ns_64ns_64_5_full_dsp_1_U224                | 3   |        | sub149_14   | dsub | fulldsp | 4       |
+|    add_ln60_2_fu_1997_p2                              | -   |        | add_ln60_2  | add  | fabric  | 0       |
++-------------------------------------------------------+-----+--------+-------------+------+---------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
+  No bind storage info in design
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++-----------------+--------------------------------------------+-------------------------------------------------------+
+| Type            | Options                                    | Location                                              |
++-----------------+--------------------------------------------+-------------------------------------------------------+
+| interface       | m_axi port=ex offset=slave bundle=gmem     | ../fdtd_2d/generate/fdtd_2d.cpp:4 in fdtd_2d, ex      |
+| interface       | m_axi port=ey offset=slave bundle=gmem     | ../fdtd_2d/generate/fdtd_2d.cpp:5 in fdtd_2d, ey      |
+| interface       | m_axi port=hz offset=slave bundle=gmem     | ../fdtd_2d/generate/fdtd_2d.cpp:6 in fdtd_2d, hz      |
+| interface       | m_axi port=_fict_ offset=slave bundle=gmem | ../fdtd_2d/generate/fdtd_2d.cpp:7 in fdtd_2d, _fict_  |
+| interface       | s_axilite port=tmax                        | ../fdtd_2d/generate/fdtd_2d.cpp:8 in fdtd_2d, tmax    |
+| interface       | s_axilite port=nx                          | ../fdtd_2d/generate/fdtd_2d.cpp:9 in fdtd_2d, nx      |
+| interface       | s_axilite port=ny                          | ../fdtd_2d/generate/fdtd_2d.cpp:10 in fdtd_2d, ny     |
+| interface       | s_axilite port=ex                          | ../fdtd_2d/generate/fdtd_2d.cpp:11 in fdtd_2d, ex     |
+| interface       | s_axilite port=ey                          | ../fdtd_2d/generate/fdtd_2d.cpp:12 in fdtd_2d, ey     |
+| interface       | s_axilite port=hz                          | ../fdtd_2d/generate/fdtd_2d.cpp:13 in fdtd_2d, hz     |
+| interface       | s_axilite port=_fict_                      | ../fdtd_2d/generate/fdtd_2d.cpp:14 in fdtd_2d, _fict_ |
+| interface       | s_axilite port=return                      | ../fdtd_2d/generate/fdtd_2d.cpp:15 in fdtd_2d, return |
+| array_partition | variable=ex cyclic factor=16 dim=2         | ../fdtd_2d/generate/fdtd_2d.cpp:17 in fdtd_2d, ex     |
+| array_partition | variable=ey cyclic factor=16 dim=2         | ../fdtd_2d/generate/fdtd_2d.cpp:18 in fdtd_2d, ey     |
+| array_partition | variable=hz cyclic factor=16 dim=2         | ../fdtd_2d/generate/fdtd_2d.cpp:19 in fdtd_2d, hz     |
+| loop_tripcount  | min=40 max=40                              | ../fdtd_2d/generate/fdtd_2d.cpp:22 in fdtd_2d         |
+| loop_flatten    |                                            | ../fdtd_2d/generate/fdtd_2d.cpp:26 in fdtd_2d         |
+| pipeline        | II=1                                       | ../fdtd_2d/generate/fdtd_2d.cpp:27 in fdtd_2d         |
+| loop_flatten    |                                            | ../fdtd_2d/generate/fdtd_2d.cpp:37 in fdtd_2d         |
+| pipeline        | II=1                                       | ../fdtd_2d/generate/fdtd_2d.cpp:38 in fdtd_2d         |
+| loop_flatten    |                                            | ../fdtd_2d/generate/fdtd_2d.cpp:49 in fdtd_2d         |
+| pipeline        | II=1                                       | ../fdtd_2d/generate/fdtd_2d.cpp:50 in fdtd_2d         |
+| loop_flatten    |                                            | ../fdtd_2d/generate/fdtd_2d.cpp:61 in fdtd_2d         |
+| pipeline        | II=1                                       | ../fdtd_2d/generate/fdtd_2d.cpp:62 in fdtd_2d         |
++-----------------+--------------------------------------------+-------------------------------------------------------+
+
+

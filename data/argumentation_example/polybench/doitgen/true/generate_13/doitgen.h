@@ -1,0 +1,1 @@
+void doitgen(int nr, int nq, int np, double A[][20][30], double C4[][30], double sum[]);

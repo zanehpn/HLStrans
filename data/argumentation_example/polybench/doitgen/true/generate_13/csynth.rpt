@@ -1,0 +1,274 @@
+
+
+================================================================
+== Synthesis Summary Report of 'doitgen'
+================================================================
++ General Information: 
+    * Date:           Mon May  5 08:49:54 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        doitgen
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +--------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+------+----------+------------+------------+-----+
+    |                Modules               |  Issue |       | Latency |  Latency  | Iteration|         | Trip |          |      |          |            |            |     |
+    |                & Loops               |  Type  | Slack | (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined| BRAM |    DSP   |     FF     |     LUT    | URAM|
+    +--------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+------+----------+------------+------------+-----+
+    |+ doitgen                             |  Timing|  -0.01|   285501|  1.428e+06|         -|   285502|     -|        no|     -|  45 (~0%)|  43255 (1%)|  27094 (2%)|    -|
+    | o VITIS_LOOP_4_1_VITIS_LOOP_5_2      |       -|   3.65|   285500|  1.428e+06|       571|        -|   500|        no|     -|         -|           -|           -|    -|
+    |  + doitgen_Pipeline_VITIS_LOOP_6_3   |  Timing|  -0.01|      390|  1.950e+03|         -|      390|     -|        no|     -|  44 (~0%)|  8963 (~0%)|  5462 (~0%)|    -|
+    |   o VITIS_LOOP_6_3                   |      II|   3.65|      388|  1.940e+03|       157|        8|    30|       yes|     -|         -|           -|           -|    -|
+    |  + doitgen_Pipeline_VITIS_LOOP_12_5  |       -|   0.39|       95|    475.000|         -|       95|     -|        no|     -|         -|  8145 (~0%)|  6244 (~0%)|    -|
+    |   o VITIS_LOOP_12_5                  |       -|   3.65|       93|    465.000|        65|        1|    30|       yes|     -|         -|           -|           -|    -|
+    +--------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+------+----------+------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_MEMORY
++-------------+----------+
+| Interface   | Bitwidth |
++-------------+----------+
+| A_address0  | 10       |
+| A_address1  | 10       |
+| A_d0        | 64       |
+| A_q0        | 64       |
+| A_q1        | 64       |
+| C4_address0 | 5        |
+| C4_address1 | 5        |
+| C4_q0       | 64       |
+| C4_q1       | 64       |
++-------------+----------+
+
+* Other Ports
++-----------+---------+----------+
+| Interface | Mode    | Bitwidth |
++-----------+---------+----------+
+| np        | ap_none | 32       |
+| nq        | ap_none | 32       |
+| nr        | ap_none | 32       |
+| sum       | ap_vld  | 64       |
++-----------+---------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| nr       | in        | int      |
+| nq       | in        | int      |
+| np       | in        | int      |
+| A        | inout     | double*  |
+| C4       | in        | double*  |
+| sum      | inout     | double*  |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+--------------+---------+----------+
+| Argument | HW Interface | HW Type | HW Usage |
++----------+--------------+---------+----------+
+| nr       | nr           | port    |          |
+| nq       | nq           | port    |          |
+| np       | np           | port    |          |
+| A        | A_address0   | port    | offset   |
+| A        | A_ce0        | port    |          |
+| A        | A_we0        | port    |          |
+| A        | A_d0         | port    |          |
+| A        | A_q0         | port    |          |
+| A        | A_address1   | port    | offset   |
+| A        | A_ce1        | port    |          |
+| A        | A_q1         | port    |          |
+| C4       | C4_address0  | port    | offset   |
+| C4       | C4_ce0       | port    |          |
+| C4       | C4_q0        | port    |          |
+| C4       | C4_address1  | port    | offset   |
+| C4       | C4_ce1       | port    |          |
+| C4       | C4_q1        | port    |          |
+| sum      | sum          | port    |          |
+| sum      | sum_ap_vld   | port    |          |
++----------+--------------+---------+----------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++--------------------------------------+-----+--------+------------+------+---------+---------+
+| Name                                 | DSP | Pragma | Variable   | Op   | Impl    | Latency |
++--------------------------------------+-----+--------+------------+------+---------+---------+
+| + doitgen                            | 45  |        |            |      |         |         |
+|   add_ln4_1_fu_485_p2                | -   |        | add_ln4_1  | add  | fabric  | 0       |
+|   add_ln4_fu_497_p2                  | -   |        | add_ln4    | add  | fabric  | 0       |
+|   mac_muladd_5ns_13ns_14s_18_4_1_U80 | 1   |        | mul_ln4    | mul  | dsp48   | 3       |
+|   sub_ln9_fu_596_p2                  | -   |        | sub_ln9    | sub  | fabric  | 0       |
+|   mac_muladd_5ns_13ns_14s_18_4_1_U80 | 1   |        | add_ln9    | add  | dsp48   | 3       |
+|   sub_ln9_1_fu_1359_p2               | -   |        | sub_ln9_1  | sub  | fabric  | 0       |
+|   add_ln9_15_fu_1373_p2              | -   |        | add_ln9_15 | add  | fabric  | 0       |
+|   add_ln9_19_fu_1392_p2              | -   |        | add_ln9_19 | add  | fabric  | 0       |
+|   add_ln9_4_fu_641_p2                | -   |        | add_ln9_4  | add  | fabric  | 0       |
+|   add_ln9_21_fu_1411_p2              | -   |        | add_ln9_21 | add  | fabric  | 0       |
+|   add_ln9_6_fu_666_p2                | -   |        | add_ln9_6  | add  | fabric  | 0       |
+|   add_ln9_23_fu_1429_p2              | -   |        | add_ln9_23 | add  | fabric  | 0       |
+|   add_ln9_8_fu_691_p2                | -   |        | add_ln9_8  | add  | fabric  | 0       |
+|   add_ln9_25_fu_1447_p2              | -   |        | add_ln9_25 | add  | fabric  | 0       |
+|   add_ln9_10_fu_716_p2               | -   |        | add_ln9_10 | add  | fabric  | 0       |
+|   add_ln9_27_fu_1465_p2              | -   |        | add_ln9_27 | add  | fabric  | 0       |
+|   add_ln9_12_fu_741_p2               | -   |        | add_ln9_12 | add  | fabric  | 0       |
+|   add_ln9_29_fu_1483_p2              | -   |        | add_ln9_29 | add  | fabric  | 0       |
+|   add_ln9_14_fu_766_p2               | -   |        | add_ln9_14 | add  | fabric  | 0       |
+|   add_ln9_31_fu_1501_p2              | -   |        | add_ln9_31 | add  | fabric  | 0       |
+|   add_ln9_16_fu_791_p2               | -   |        | add_ln9_16 | add  | fabric  | 0       |
+|   add_ln9_35_fu_1519_p2              | -   |        | add_ln9_35 | add  | fabric  | 0       |
+|   add_ln9_17_fu_816_p2               | -   |        | add_ln9_17 | add  | fabric  | 0       |
+|   add_ln9_37_fu_1537_p2              | -   |        | add_ln9_37 | add  | fabric  | 0       |
+|   add_ln9_18_fu_841_p2               | -   |        | add_ln9_18 | add  | fabric  | 0       |
+|   add_ln9_39_fu_1555_p2              | -   |        | add_ln9_39 | add  | fabric  | 0       |
+|   add_ln9_20_fu_866_p2               | -   |        | add_ln9_20 | add  | fabric  | 0       |
+|   add_ln9_41_fu_1573_p2              | -   |        | add_ln9_41 | add  | fabric  | 0       |
+|   add_ln9_22_fu_891_p2               | -   |        | add_ln9_22 | add  | fabric  | 0       |
+|   add_ln9_43_fu_1591_p2              | -   |        | add_ln9_43 | add  | fabric  | 0       |
+|   add_ln9_24_fu_916_p2               | -   |        | add_ln9_24 | add  | fabric  | 0       |
+|   add_ln9_45_fu_1609_p2              | -   |        | add_ln9_45 | add  | fabric  | 0       |
+|   add_ln9_26_fu_941_p2               | -   |        | add_ln9_26 | add  | fabric  | 0       |
+|   add_ln9_47_fu_1627_p2              | -   |        | add_ln9_47 | add  | fabric  | 0       |
+|   add_ln9_28_fu_966_p2               | -   |        | add_ln9_28 | add  | fabric  | 0       |
+|   add_ln9_51_fu_1645_p2              | -   |        | add_ln9_51 | add  | fabric  | 0       |
+|   add_ln9_30_fu_991_p2               | -   |        | add_ln9_30 | add  | fabric  | 0       |
+|   add_ln9_53_fu_1663_p2              | -   |        | add_ln9_53 | add  | fabric  | 0       |
+|   add_ln9_32_fu_1016_p2              | -   |        | add_ln9_32 | add  | fabric  | 0       |
+|   add_ln9_54_fu_1681_p2              | -   |        | add_ln9_54 | add  | fabric  | 0       |
+|   add_ln9_33_fu_1041_p2              | -   |        | add_ln9_33 | add  | fabric  | 0       |
+|   add_ln9_55_fu_1699_p2              | -   |        | add_ln9_55 | add  | fabric  | 0       |
+|   add_ln9_34_fu_1066_p2              | -   |        | add_ln9_34 | add  | fabric  | 0       |
+|   add_ln9_56_fu_1717_p2              | -   |        | add_ln9_56 | add  | fabric  | 0       |
+|   add_ln9_36_fu_1091_p2              | -   |        | add_ln9_36 | add  | fabric  | 0       |
+|   add_ln9_57_fu_1735_p2              | -   |        | add_ln9_57 | add  | fabric  | 0       |
+|   add_ln9_38_fu_1116_p2              | -   |        | add_ln9_38 | add  | fabric  | 0       |
+|   add_ln9_58_fu_1753_p2              | -   |        | add_ln9_58 | add  | fabric  | 0       |
+|   add_ln9_40_fu_1141_p2              | -   |        | add_ln9_40 | add  | fabric  | 0       |
+|   add_ln9_59_fu_1771_p2              | -   |        | add_ln9_59 | add  | fabric  | 0       |
+|   add_ln9_42_fu_1166_p2              | -   |        | add_ln9_42 | add  | fabric  | 0       |
+|   add_ln9_60_fu_1789_p2              | -   |        | add_ln9_60 | add  | fabric  | 0       |
+|   add_ln9_44_fu_1191_p2              | -   |        | add_ln9_44 | add  | fabric  | 0       |
+|   add_ln9_61_fu_1807_p2              | -   |        | add_ln9_61 | add  | fabric  | 0       |
+|   add_ln9_46_fu_1216_p2              | -   |        | add_ln9_46 | add  | fabric  | 0       |
+|   add_ln9_62_fu_1825_p2              | -   |        | add_ln9_62 | add  | fabric  | 0       |
+|   add_ln9_48_fu_1241_p2              | -   |        | add_ln9_48 | add  | fabric  | 0       |
+|   add_ln9_63_fu_1843_p2              | -   |        | add_ln9_63 | add  | fabric  | 0       |
+|   add_ln9_49_fu_1266_p2              | -   |        | add_ln9_49 | add  | fabric  | 0       |
+|   add_ln9_64_fu_1861_p2              | -   |        | add_ln9_64 | add  | fabric  | 0       |
+|   add_ln9_50_fu_1291_p2              | -   |        | add_ln9_50 | add  | fabric  | 0       |
+|   add_ln9_65_fu_1879_p2              | -   |        | add_ln9_65 | add  | fabric  | 0       |
+|   add_ln9_52_fu_1316_p2              | -   |        | add_ln9_52 | add  | fabric  | 0       |
+|   add_ln9_66_fu_1897_p2              | -   |        | add_ln9_66 | add  | fabric  | 0       |
+|   add_ln5_fu_553_p2                  | -   |        | add_ln5    | add  | fabric  | 0       |
+|  + doitgen_Pipeline_VITIS_LOOP_6_3   | 44  |        |            |      |         |         |
+|    add_ln6_fu_538_p2                 | -   |        | add_ln6    | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U5  | 8   |        | mul        | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add        | dadd | fulldsp | 4       |
+|    add_ln9_fu_557_p2                 | -   |        | add_ln9    | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U6  | 8   |        | mul_1      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_1      | dadd | fulldsp | 4       |
+|    add_ln9_1_fu_583_p2               | -   |        | add_ln9_1  | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U5  | 8   |        | mul_2      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_2      | dadd | fulldsp | 4       |
+|    add_ln9_2_fu_603_p2               | -   |        | add_ln9_2  | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U6  | 8   |        | mul_3      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_3      | dadd | fulldsp | 4       |
+|    add_ln9_3_fu_635_p2               | -   |        | add_ln9_3  | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U5  | 8   |        | mul_4      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_4      | dadd | fulldsp | 4       |
+|    add_ln9_4_fu_655_p2               | -   |        | add_ln9_4  | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U6  | 8   |        | mul_5      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_5      | dadd | fulldsp | 4       |
+|    add_ln9_5_fu_687_p2               | -   |        | add_ln9_5  | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U5  | 8   |        | mul_6      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_6      | dadd | fulldsp | 4       |
+|    add_ln9_6_fu_707_p2               | -   |        | add_ln9_6  | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U6  | 8   |        | mul_7      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U1 | 3   |        | add_7      | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U5  | 8   |        | mul_8      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_8      | dadd | fulldsp | 4       |
+|    add_ln9_7_fu_749_p2               | -   |        | add_ln9_7  | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U6  | 8   |        | mul_9      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_9      | dadd | fulldsp | 4       |
+|    add_ln9_8_fu_781_p2               | -   |        | add_ln9_8  | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U5  | 8   |        | mul_s      | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_s      | dadd | fulldsp | 4       |
+|    add_ln9_9_fu_801_p2               | -   |        | add_ln9_9  | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U6  | 8   |        | mul_10     | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_10     | dadd | fulldsp | 4       |
+|    add_ln9_10_fu_833_p2              | -   |        | add_ln9_10 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U5  | 8   |        | mul_11     | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_11     | dadd | fulldsp | 4       |
+|    add_ln9_11_fu_853_p2              | -   |        | add_ln9_11 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U6  | 8   |        | mul_12     | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_12     | dadd | fulldsp | 4       |
+|    add_ln9_12_fu_885_p2              | -   |        | add_ln9_12 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U5  | 8   |        | mul_13     | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_13     | dadd | fulldsp | 4       |
+|    add_ln9_13_fu_905_p2              | -   |        | add_ln9_13 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U6  | 8   |        | mul_14     | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U2 | 3   |        | add_14     | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U7  | 8   |        | mul_15     | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U3 | 3   |        | add_15     | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U8  | 8   |        | mul_16     | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U3 | 3   |        | add_16     | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U7  | 8   |        | mul_17     | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U3 | 3   |        | add_17     | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U8  | 8   |        | mul_18     | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U3 | 3   |        | add_18     | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U7  | 8   |        | mul_19     | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U3 | 3   |        | add_19     | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U8  | 8   |        | mul_20     | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U3 | 3   |        | add_20     | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U7  | 8   |        | mul_21     | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U3 | 3   |        | add_21     | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U8  | 8   |        | mul_22     | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U3 | 3   |        | add_22     | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U7  | 8   |        | mul_23     | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U4 | 3   |        | add_23     | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U8  | 8   |        | mul_24     | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U4 | 3   |        | add_24     | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U7  | 8   |        | mul_25     | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U4 | 3   |        | add_25     | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U8  | 8   |        | mul_26     | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U4 | 3   |        | add_26     | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U7  | 8   |        | mul_27     | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U4 | 3   |        | add_27     | dadd | fulldsp | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U8  | 8   |        | mul_28     | dmul | maxdsp  | 4       |
+|    dadd_64ns_64ns_64_5_full_dsp_1_U4 | 3   |        | add_28     | dadd | fulldsp | 4       |
+|  + doitgen_Pipeline_VITIS_LOOP_12_5  | 0   |        |            |      |         |         |
+|    add_ln12_fu_115_p2                | -   |        | add_ln12   | add  | fabric  | 0       |
+|    add_ln13_fu_133_p2                | -   |        | add_ln13   | add  | fabric  | 0       |
+|    add_ln13_1_fu_173_p2              | -   |        | add_ln13_1 | add  | fabric  | 0       |
++--------------------------------------+-----+--------+------------+------+---------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
+  No bind storage info in design
+
+================================================================
+== Pragma Report
+================================================================
+  No pragmas found
+

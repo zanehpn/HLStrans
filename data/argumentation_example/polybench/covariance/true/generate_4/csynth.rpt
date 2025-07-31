@@ -1,0 +1,437 @@
+
+
+================================================================
+== Synthesis Summary Report of 'covariance'
+================================================================
++ General Information: 
+    * Date:           Mon May  5 06:41:59 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        covariance
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +--------------------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+------+----------+-------------+-------------+-----+
+    |                         Modules                        |  Issue |       | Latency |  Latency  | Iteration|         | Trip |          |      |          |             |             |     |
+    |                         & Loops                        |  Type  | Slack | (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined| BRAM |    DSP   |      FF     |     LUT     | URAM|
+    +--------------------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+------+----------+-------------+-------------+-----+
+    |+ covariance                                            |  Timing|  -0.22|   411241|  2.056e+06|         -|   411242|     -|        no|     -|  22 (~0%)|   30842 (1%)|  11819 (~0%)|    -|
+    | + covariance_Pipeline_VITIS_LOOP_6_1_VITIS_LOOP_8_2    |       -|   0.33|    40027|  2.001e+05|         -|    40027|     -|        no|     -|         -|    523 (~0%)|    464 (~0%)|    -|
+    |  o VITIS_LOOP_6_1_VITIS_LOOP_8_2                       |      II|   3.65|    40025|  2.001e+05|        31|        5|  8000|       yes|     -|         -|            -|            -|    -|
+    | + covariance_Pipeline_VITIS_LOOP_14_3_VITIS_LOOP_15_4  |       -|   0.67|     8009|  4.004e+04|         -|     8009|     -|        no|     -|         -|    333 (~0%)|    224 (~0%)|    -|
+    |  o VITIS_LOOP_14_3_VITIS_LOOP_15_4                     |       -|   3.65|     8007|  4.004e+04|         9|        1|  8000|       yes|     -|         -|            -|            -|    -|
+    | o VITIS_LOOP_20_5                                      |       -|   3.65|   363200|  1.816e+06|      4540|        -|    80|        no|     -|         -|            -|            -|    -|
+    |  + covariance_Pipeline_VITIS_LOOP_21_6                 |  Timing|  -0.22|     4486|  2.243e+04|         -|     4486|     -|        no|     -|  16 (~0%)|  15098 (~0%)|   7122 (~0%)|    -|
+    |   o VITIS_LOOP_21_6                                    |      II|   3.65|     4484|  2.242e+04|       535|       50|    80|       yes|     -|         -|            -|            -|    -|
+    +--------------------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+------+----------+-------------+-------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_MEMORY
++---------------+----------+
+| Interface     | Bitwidth |
++---------------+----------+
+| cov_address0  | 13       |
+| cov_d0        | 64       |
+| data_address0 | 13       |
+| data_address1 | 13       |
+| data_d0       | 64       |
+| data_q0       | 64       |
+| data_q1       | 64       |
+| mean_address0 | 7        |
+| mean_d0       | 64       |
+| mean_q0       | 64       |
++---------------+----------+
+
+* Other Ports
++-----------+---------+----------+
+| Interface | Mode    | Bitwidth |
++-----------+---------+----------+
+| float_n   | ap_none | 64       |
+| m         | ap_none | 32       |
+| n         | ap_none | 32       |
++-----------+---------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| m        | in        | int      |
+| n        | in        | int      |
+| float_n  | in        | double   |
+| data     | inout     | double*  |
+| cov      | out       | double*  |
+| mean     | inout     | double*  |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+---------------+---------+----------+
+| Argument | HW Interface  | HW Type | HW Usage |
++----------+---------------+---------+----------+
+| m        | m             | port    |          |
+| n        | n             | port    |          |
+| float_n  | float_n       | port    |          |
+| data     | data_address0 | port    | offset   |
+| data     | data_ce0      | port    |          |
+| data     | data_we0      | port    |          |
+| data     | data_d0       | port    |          |
+| data     | data_q0       | port    |          |
+| data     | data_address1 | port    | offset   |
+| data     | data_ce1      | port    |          |
+| data     | data_q1       | port    |          |
+| cov      | cov_address0  | port    | offset   |
+| cov      | cov_ce0       | port    |          |
+| cov      | cov_we0       | port    |          |
+| cov      | cov_d0        | port    |          |
+| mean     | mean_address0 | port    | offset   |
+| mean     | mean_ce0      | port    |          |
+| mean     | mean_we0      | port    |          |
+| mean     | mean_d0       | port    |          |
+| mean     | mean_q0       | port    |          |
++----------+---------------+---------+----------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++--------------------------------------------------------+-----+--------+-------------+------+---------+---------+
+| Name                                                   | DSP | Pragma | Variable    | Op   | Impl    | Latency |
++--------------------------------------------------------+-----+--------+-------------+------+---------+---------+
+| + covariance                                           | 22  |        |             |      |         |         |
+|   dadd_64ns_64ns_64_5_full_dsp_1_U121                  | 3   |        | sub1        | dadd | fulldsp | 4       |
+|   add_ln20_fu_1243_p2                                  | -   |        | add_ln20    | add  | fabric  | 0       |
+|   empty_110_fu_1253_p2                                 | -   |        | empty_110   | add  | fabric  | 0       |
+|   empty_111_fu_1275_p2                                 | -   |        | empty_111   | add  | fabric  | 0       |
+|   empty_112_fu_1280_p2                                 | -   |        | empty_112   | add  | fabric  | 0       |
+|   ddiv_64ns_64ns_64_22_no_dsp_1_U123                   | -   |        | empty_113   | add  | fabric  | 0       |
+|   empty_114_fu_1299_p2                                 | -   |        | empty_114   | add  | fabric  | 0       |
+|   empty_115_fu_1319_p2                                 | -   |        | empty_115   | add  | fabric  | 0       |
+|   empty_116_fu_1325_p2                                 | -   |        | empty_116   | add  | fabric  | 0       |
+|   empty_117_fu_1339_p2                                 | -   |        | empty_117   | add  | fabric  | 0       |
+|   empty_118_fu_1360_p2                                 | -   |        | empty_118   | add  | fabric  | 0       |
+|   empty_119_fu_1365_p2                                 | -   |        | empty_119   | add  | fabric  | 0       |
+|   empty_120_fu_1389_p2                                 | -   |        | empty_120   | add  | fabric  | 0       |
+|   empty_121_fu_1395_p2                                 | -   |        | empty_121   | add  | fabric  | 0       |
+|   empty_122_fu_1409_p2                                 | -   |        | empty_122   | add  | fabric  | 0       |
+|   empty_123_fu_1414_p2                                 | -   |        | empty_123   | add  | fabric  | 0       |
+|   empty_124_fu_1427_p2                                 | -   |        | empty_124   | add  | fabric  | 0       |
+|   empty_125_fu_1448_p2                                 | -   |        | empty_125   | add  | fabric  | 0       |
+|   empty_126_fu_1453_p2                                 | -   |        | empty_126   | add  | fabric  | 0       |
+|   empty_127_fu_1466_p2                                 | -   |        | empty_127   | add  | fabric  | 0       |
+|   empty_128_fu_1471_p2                                 | -   |        | empty_128   | add  | fabric  | 0       |
+|   empty_129_fu_1492_p2                                 | -   |        | empty_129   | add  | fabric  | 0       |
+|   empty_130_fu_1497_p2                                 | -   |        | empty_130   | add  | fabric  | 0       |
+|   empty_131_fu_1521_p2                                 | -   |        | empty_131   | add  | fabric  | 0       |
+|   empty_132_fu_1547_p2                                 | -   |        | empty_132   | add  | fabric  | 0       |
+|   empty_133_fu_1552_p2                                 | -   |        | empty_133   | add  | fabric  | 0       |
+|   empty_134_fu_1565_p2                                 | -   |        | empty_134   | add  | fabric  | 0       |
+|   empty_135_fu_1570_p2                                 | -   |        | empty_135   | add  | fabric  | 0       |
+|   empty_136_fu_1583_p2                                 | -   |        | empty_136   | add  | fabric  | 0       |
+|   empty_137_fu_1588_p2                                 | -   |        | empty_137   | add  | fabric  | 0       |
+|   empty_138_fu_1601_p2                                 | -   |        | empty_138   | add  | fabric  | 0       |
+|   empty_139_fu_1622_p2                                 | -   |        | empty_139   | add  | fabric  | 0       |
+|   empty_140_fu_1627_p2                                 | -   |        | empty_140   | add  | fabric  | 0       |
+|   empty_141_fu_1640_p2                                 | -   |        | empty_141   | add  | fabric  | 0       |
+|   empty_142_fu_1645_p2                                 | -   |        | empty_142   | add  | fabric  | 0       |
+|   empty_143_fu_1658_p2                                 | -   |        | empty_143   | add  | fabric  | 0       |
+|   empty_144_fu_1663_p2                                 | -   |        | empty_144   | add  | fabric  | 0       |
+|   empty_145_fu_1680_p2                                 | -   |        | empty_145   | add  | fabric  | 0       |
+|   empty_146_fu_1709_p2                                 | -   |        | empty_146   | add  | fabric  | 0       |
+|   empty_147_fu_1714_p2                                 | -   |        | empty_147   | add  | fabric  | 0       |
+|   empty_148_fu_1735_p2                                 | -   |        | empty_148   | add  | fabric  | 0       |
+|   empty_149_fu_1740_p2                                 | -   |        | empty_149   | add  | fabric  | 0       |
+|   empty_150_fu_1761_p2                                 | -   |        | empty_150   | add  | fabric  | 0       |
+|   empty_151_fu_1766_p2                                 | -   |        | empty_151   | add  | fabric  | 0       |
+|   empty_152_fu_1787_p2                                 | -   |        | empty_152   | add  | fabric  | 0       |
+|   empty_153_fu_1819_p2                                 | -   |        | empty_153   | add  | fabric  | 0       |
+|   empty_154_fu_1837_p2                                 | -   |        | empty_154   | add  | fabric  | 0       |
+|   empty_155_fu_1842_p2                                 | -   |        | empty_155   | add  | fabric  | 0       |
+|   empty_156_fu_1855_p2                                 | -   |        | empty_156   | add  | fabric  | 0       |
+|   empty_157_fu_1860_p2                                 | -   |        | empty_157   | add  | fabric  | 0       |
+|   empty_158_fu_1873_p2                                 | -   |        | empty_158   | add  | fabric  | 0       |
+|   empty_159_fu_1894_p2                                 | -   |        | empty_159   | add  | fabric  | 0       |
+|   empty_160_fu_1899_p2                                 | -   |        | empty_160   | add  | fabric  | 0       |
+|   empty_161_fu_1912_p2                                 | -   |        | empty_161   | add  | fabric  | 0       |
+|   empty_162_fu_1917_p2                                 | -   |        | empty_162   | add  | fabric  | 0       |
+|   empty_163_fu_1930_p2                                 | -   |        | empty_163   | add  | fabric  | 0       |
+|   empty_164_fu_1935_p2                                 | -   |        | empty_164   | add  | fabric  | 0       |
+|   empty_165_fu_1948_p2                                 | -   |        | empty_165   | add  | fabric  | 0       |
+|   empty_166_fu_1969_p2                                 | -   |        | empty_166   | add  | fabric  | 0       |
+|   empty_167_fu_1974_p2                                 | -   |        | empty_167   | add  | fabric  | 0       |
+|   empty_168_fu_1987_p2                                 | -   |        | empty_168   | add  | fabric  | 0       |
+|   empty_169_fu_1992_p2                                 | -   |        | empty_169   | add  | fabric  | 0       |
+|   empty_170_fu_2005_p2                                 | -   |        | empty_170   | add  | fabric  | 0       |
+|   empty_171_fu_2010_p2                                 | -   |        | empty_171   | add  | fabric  | 0       |
+|   empty_172_fu_2023_p2                                 | -   |        | empty_172   | add  | fabric  | 0       |
+|   empty_173_fu_2044_p2                                 | -   |        | empty_173   | add  | fabric  | 0       |
+|   empty_174_fu_2049_p2                                 | -   |        | empty_174   | add  | fabric  | 0       |
+|   empty_175_fu_2062_p2                                 | -   |        | empty_175   | add  | fabric  | 0       |
+|   empty_176_fu_2067_p2                                 | -   |        | empty_176   | add  | fabric  | 0       |
+|   empty_177_fu_2084_p2                                 | -   |        | empty_177   | add  | fabric  | 0       |
+|   empty_178_fu_2089_p2                                 | -   |        | empty_178   | add  | fabric  | 0       |
+|   empty_179_fu_2110_p2                                 | -   |        | empty_179   | add  | fabric  | 0       |
+|   empty_180_fu_2139_p2                                 | -   |        | empty_180   | add  | fabric  | 0       |
+|   empty_181_fu_2144_p2                                 | -   |        | empty_181   | add  | fabric  | 0       |
+|   empty_182_fu_2165_p2                                 | -   |        | empty_182   | add  | fabric  | 0       |
+|   empty_183_fu_2170_p2                                 | -   |        | empty_183   | add  | fabric  | 0       |
+|   empty_184_fu_2191_p2                                 | -   |        | empty_184   | add  | fabric  | 0       |
+|   empty_185_fu_2196_p2                                 | -   |        | empty_185   | add  | fabric  | 0       |
+|   empty_186_fu_2217_p2                                 | -   |        | empty_186   | add  | fabric  | 0       |
+|   empty_187_fu_2246_p2                                 | -   |        | empty_187   | add  | fabric  | 0       |
+|   empty_188_fu_2251_p2                                 | -   |        | empty_188   | add  | fabric  | 0       |
+|   empty_189_fu_2272_p2                                 | -   |        | empty_189   | add  | fabric  | 0       |
+|   empty_190_fu_2277_p2                                 | -   |        | empty_190   | add  | fabric  | 0       |
+|   empty_191_fu_2298_p2                                 | -   |        | empty_191   | add  | fabric  | 0       |
+|   empty_192_fu_2303_p2                                 | -   |        | empty_192   | add  | fabric  | 0       |
+|   empty_193_fu_2324_p2                                 | -   |        | empty_193   | add  | fabric  | 0       |
+|   empty_194_fu_2353_p2                                 | -   |        | empty_194   | add  | fabric  | 0       |
+|   empty_195_fu_2358_p2                                 | -   |        | empty_195   | add  | fabric  | 0       |
+|   add_ln27_fu_2397_p2                                  | -   |        | add_ln27    | add  | fabric  | 0       |
+|  + covariance_Pipeline_VITIS_LOOP_6_1_VITIS_LOOP_8_2   | 0   |        |             |      |         |         |
+|    add_ln6_1_fu_143_p2                                 | -   |        | add_ln6_1   | add  | fabric  | 0       |
+|    add_ln6_fu_155_p2                                   | -   |        | add_ln6     | add  | fabric  | 0       |
+|    add_ln8_fu_248_p2                                   | -   |        | add_ln8     | add  | fabric  | 0       |
+|  + covariance_Pipeline_VITIS_LOOP_14_3_VITIS_LOOP_15_4 | 0   |        |             |      |         |         |
+|    add_ln14_1_fu_122_p2                                | -   |        | add_ln14_1  | add  | fabric  | 0       |
+|    add_ln14_fu_134_p2                                  | -   |        | add_ln14    | add  | fabric  | 0       |
+|    add_ln15_fu_198_p2                                  | -   |        | add_ln15    | add  | fabric  | 0       |
+|  + covariance_Pipeline_VITIS_LOOP_21_6                 | 16  |        |             |      |         |         |
+|    add_ln25_fu_2035_p2                                 | -   |        | add_ln25    | add  | fabric  | 0       |
+|    add_ln25_1_fu_2041_p2                               | -   |        | add_ln25_1  | add  | fabric  | 0       |
+|    add_ln25_2_fu_2066_p2                               | -   |        | add_ln25_2  | add  | fabric  | 0       |
+|    add_ln25_3_fu_2071_p2                               | -   |        | add_ln25_3  | add  | fabric  | 0       |
+|    add_ln25_4_fu_2084_p2                               | -   |        | add_ln25_4  | add  | fabric  | 0       |
+|    add_ln25_5_fu_2089_p2                               | -   |        | add_ln25_5  | add  | fabric  | 0       |
+|    add_ln25_6_fu_2107_p2                               | -   |        | add_ln25_6  | add  | fabric  | 0       |
+|    add_ln25_7_fu_2112_p2                               | -   |        | add_ln25_7  | add  | fabric  | 0       |
+|    add_ln25_8_fu_2135_p2                               | -   |        | add_ln25_8  | add  | fabric  | 0       |
+|    add_ln25_9_fu_2140_p2                               | -   |        | add_ln25_9  | add  | fabric  | 0       |
+|    add_ln25_10_fu_2163_p2                              | -   |        | add_ln25_10 | add  | fabric  | 0       |
+|    add_ln25_11_fu_2168_p2                              | -   |        | add_ln25_11 | add  | fabric  | 0       |
+|    add_ln25_12_fu_2191_p2                              | -   |        | add_ln25_12 | add  | fabric  | 0       |
+|    add_ln25_13_fu_2196_p2                              | -   |        | add_ln25_13 | add  | fabric  | 0       |
+|    add_ln25_14_fu_2219_p2                              | -   |        | add_ln25_14 | add  | fabric  | 0       |
+|    add_ln25_15_fu_2224_p2                              | -   |        | add_ln25_15 | add  | fabric  | 0       |
+|    add_ln25_16_fu_2247_p2                              | -   |        | add_ln25_16 | add  | fabric  | 0       |
+|    add_ln25_17_fu_2252_p2                              | -   |        | add_ln25_17 | add  | fabric  | 0       |
+|    add_ln25_18_fu_2275_p2                              | -   |        | add_ln25_18 | add  | fabric  | 0       |
+|    add_ln25_19_fu_2280_p2                              | -   |        | add_ln25_19 | add  | fabric  | 0       |
+|    add_ln25_20_fu_2303_p2                              | -   |        | add_ln25_20 | add  | fabric  | 0       |
+|    add_ln25_21_fu_2308_p2                              | -   |        | add_ln25_21 | add  | fabric  | 0       |
+|    add_ln25_22_fu_2331_p2                              | -   |        | add_ln25_22 | add  | fabric  | 0       |
+|    add_ln25_23_fu_2336_p2                              | -   |        | add_ln25_23 | add  | fabric  | 0       |
+|    add_ln25_24_fu_2359_p2                              | -   |        | add_ln25_24 | add  | fabric  | 0       |
+|    add_ln25_25_fu_2364_p2                              | -   |        | add_ln25_25 | add  | fabric  | 0       |
+|    add_ln25_26_fu_2387_p2                              | -   |        | add_ln25_26 | add  | fabric  | 0       |
+|    add_ln25_27_fu_2392_p2                              | -   |        | add_ln25_27 | add  | fabric  | 0       |
+|    add_ln25_28_fu_2415_p2                              | -   |        | add_ln25_28 | add  | fabric  | 0       |
+|    add_ln25_29_fu_2420_p2                              | -   |        | add_ln25_29 | add  | fabric  | 0       |
+|    add_ln25_30_fu_2443_p2                              | -   |        | add_ln25_30 | add  | fabric  | 0       |
+|    add_ln25_31_fu_2448_p2                              | -   |        | add_ln25_31 | add  | fabric  | 0       |
+|    add_ln25_32_fu_2471_p2                              | -   |        | add_ln25_32 | add  | fabric  | 0       |
+|    add_ln25_33_fu_2476_p2                              | -   |        | add_ln25_33 | add  | fabric  | 0       |
+|    add_ln25_34_fu_2499_p2                              | -   |        | add_ln25_34 | add  | fabric  | 0       |
+|    add_ln25_35_fu_2504_p2                              | -   |        | add_ln25_35 | add  | fabric  | 0       |
+|    add_ln25_36_fu_2527_p2                              | -   |        | add_ln25_36 | add  | fabric  | 0       |
+|    add_ln25_37_fu_2532_p2                              | -   |        | add_ln25_37 | add  | fabric  | 0       |
+|    add_ln25_38_fu_2555_p2                              | -   |        | add_ln25_38 | add  | fabric  | 0       |
+|    add_ln25_39_fu_2560_p2                              | -   |        | add_ln25_39 | add  | fabric  | 0       |
+|    add_ln25_40_fu_2583_p2                              | -   |        | add_ln25_40 | add  | fabric  | 0       |
+|    add_ln25_41_fu_2588_p2                              | -   |        | add_ln25_41 | add  | fabric  | 0       |
+|    add_ln25_42_fu_2611_p2                              | -   |        | add_ln25_42 | add  | fabric  | 0       |
+|    add_ln25_43_fu_2616_p2                              | -   |        | add_ln25_43 | add  | fabric  | 0       |
+|    add_ln25_44_fu_2639_p2                              | -   |        | add_ln25_44 | add  | fabric  | 0       |
+|    add_ln25_45_fu_2644_p2                              | -   |        | add_ln25_45 | add  | fabric  | 0       |
+|    add_ln25_46_fu_2667_p2                              | -   |        | add_ln25_46 | add  | fabric  | 0       |
+|    add_ln25_47_fu_2672_p2                              | -   |        | add_ln25_47 | add  | fabric  | 0       |
+|    add_ln25_48_fu_2695_p2                              | -   |        | add_ln25_48 | add  | fabric  | 0       |
+|    add_ln25_49_fu_2700_p2                              | -   |        | add_ln25_49 | add  | fabric  | 0       |
+|    add_ln25_50_fu_2723_p2                              | -   |        | add_ln25_50 | add  | fabric  | 0       |
+|    add_ln25_51_fu_2728_p2                              | -   |        | add_ln25_51 | add  | fabric  | 0       |
+|    add_ln25_52_fu_2751_p2                              | -   |        | add_ln25_52 | add  | fabric  | 0       |
+|    add_ln25_53_fu_2756_p2                              | -   |        | add_ln25_53 | add  | fabric  | 0       |
+|    add_ln25_54_fu_2779_p2                              | -   |        | add_ln25_54 | add  | fabric  | 0       |
+|    add_ln25_55_fu_2784_p2                              | -   |        | add_ln25_55 | add  | fabric  | 0       |
+|    add_ln25_56_fu_2807_p2                              | -   |        | add_ln25_56 | add  | fabric  | 0       |
+|    add_ln25_57_fu_2812_p2                              | -   |        | add_ln25_57 | add  | fabric  | 0       |
+|    add_ln25_58_fu_2835_p2                              | -   |        | add_ln25_58 | add  | fabric  | 0       |
+|    add_ln25_59_fu_2840_p2                              | -   |        | add_ln25_59 | add  | fabric  | 0       |
+|    add_ln25_60_fu_2863_p2                              | -   |        | add_ln25_60 | add  | fabric  | 0       |
+|    add_ln25_61_fu_2868_p2                              | -   |        | add_ln25_61 | add  | fabric  | 0       |
+|    add_ln25_62_fu_2891_p2                              | -   |        | add_ln25_62 | add  | fabric  | 0       |
+|    add_ln25_63_fu_2896_p2                              | -   |        | add_ln25_63 | add  | fabric  | 0       |
+|    add_ln25_64_fu_2919_p2                              | -   |        | add_ln25_64 | add  | fabric  | 0       |
+|    add_ln25_65_fu_2924_p2                              | -   |        | add_ln25_65 | add  | fabric  | 0       |
+|    add_ln25_66_fu_2947_p2                              | -   |        | add_ln25_66 | add  | fabric  | 0       |
+|    add_ln25_67_fu_2952_p2                              | -   |        | add_ln25_67 | add  | fabric  | 0       |
+|    add_ln25_68_fu_2975_p2                              | -   |        | add_ln25_68 | add  | fabric  | 0       |
+|    add_ln25_69_fu_2980_p2                              | -   |        | add_ln25_69 | add  | fabric  | 0       |
+|    add_ln25_70_fu_3003_p2                              | -   |        | add_ln25_70 | add  | fabric  | 0       |
+|    add_ln25_71_fu_3008_p2                              | -   |        | add_ln25_71 | add  | fabric  | 0       |
+|    add_ln25_72_fu_3031_p2                              | -   |        | add_ln25_72 | add  | fabric  | 0       |
+|    add_ln25_73_fu_3036_p2                              | -   |        | add_ln25_73 | add  | fabric  | 0       |
+|    add_ln25_74_fu_3059_p2                              | -   |        | add_ln25_74 | add  | fabric  | 0       |
+|    add_ln25_75_fu_3064_p2                              | -   |        | add_ln25_75 | add  | fabric  | 0       |
+|    add_ln25_76_fu_3087_p2                              | -   |        | add_ln25_76 | add  | fabric  | 0       |
+|    add_ln25_77_fu_3092_p2                              | -   |        | add_ln25_77 | add  | fabric  | 0       |
+|    add_ln25_78_fu_3115_p2                              | -   |        | add_ln25_78 | add  | fabric  | 0       |
+|    add_ln25_79_fu_3120_p2                              | -   |        | add_ln25_79 | add  | fabric  | 0       |
+|    add_ln25_80_fu_3143_p2                              | -   |        | add_ln25_80 | add  | fabric  | 0       |
+|    add_ln25_81_fu_3148_p2                              | -   |        | add_ln25_81 | add  | fabric  | 0       |
+|    add_ln25_82_fu_3171_p2                              | -   |        | add_ln25_82 | add  | fabric  | 0       |
+|    add_ln25_83_fu_3176_p2                              | -   |        | add_ln25_83 | add  | fabric  | 0       |
+|    add_ln25_84_fu_3199_p2                              | -   |        | add_ln25_84 | add  | fabric  | 0       |
+|    add_ln25_85_fu_3204_p2                              | -   |        | add_ln25_85 | add  | fabric  | 0       |
+|    add_ln25_86_fu_3227_p2                              | -   |        | add_ln25_86 | add  | fabric  | 0       |
+|    add_ln25_87_fu_3232_p2                              | -   |        | add_ln25_87 | add  | fabric  | 0       |
+|    add_ln25_88_fu_3255_p2                              | -   |        | add_ln25_88 | add  | fabric  | 0       |
+|    add_ln25_89_fu_3260_p2                              | -   |        | add_ln25_89 | add  | fabric  | 0       |
+|    add_ln25_90_fu_3283_p2                              | -   |        | add_ln25_90 | add  | fabric  | 0       |
+|    add_ln25_91_fu_3288_p2                              | -   |        | add_ln25_91 | add  | fabric  | 0       |
+|    add_ln25_92_fu_3311_p2                              | -   |        | add_ln25_92 | add  | fabric  | 0       |
+|    add_ln25_93_fu_3316_p2                              | -   |        | add_ln25_93 | add  | fabric  | 0       |
+|    add_ln25_94_fu_3339_p2                              | -   |        | add_ln25_94 | add  | fabric  | 0       |
+|    add_ln25_95_fu_3344_p2                              | -   |        | add_ln25_95 | add  | fabric  | 0       |
+|    add_ln25_96_fu_3367_p2                              | -   |        | add_ln25_96 | add  | fabric  | 0       |
+|    add_ln25_97_fu_3372_p2                              | -   |        | add_ln25_97 | add  | fabric  | 0       |
+|    add_ln25_98_fu_3395_p2                              | -   |        | add_ln25_98 | add  | fabric  | 0       |
+|    add_ln27_1_fu_3439_p2                               | -   |        | add_ln27_1  | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul         | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_1       | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_2       | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_3       | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_4       | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_5       | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_6       | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_7       | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_8       | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_9       | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_s       | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_10      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_11      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_12      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_13      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_14      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_15      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_16      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_17      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_18      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_19      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_20      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_21      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_22      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_23      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_24      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_25      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_26      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_27      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_28      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_29      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_30      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_31      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_32      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_33      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_34      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_35      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_36      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_37      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_38      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_39      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_40      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_41      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_42      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_43      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_44      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_45      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_46      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_47      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_48      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_49      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_50      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_51      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_52      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_53      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_54      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_55      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_56      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_57      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_58      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_59      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_60      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_61      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_62      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_63      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_64      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_65      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_66      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_67      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_68      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_69      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_70      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_71      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_72      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_73      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_74      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_75      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_76      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_77      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_78      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_79      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_80      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_81      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_82      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_83      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_84      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_85      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_86      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_87      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_88      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_89      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_90      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_91      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_92      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_93      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_94      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_95      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U11                   | 8   |        | mul_96      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_97      | dmul | maxdsp  | 4       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U12                   | 8   |        | mul_98      | dmul | maxdsp  | 4       |
+|    add_ln21_fu_2047_p2                                 | -   |        | add_ln21    | add  | fabric  | 0       |
++--------------------------------------------------------+-----+--------+-------------+------+---------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
+  No bind storage info in design
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++----------+---------+--------------------------------------------------------+
+| Type     | Options | Location                                               |
++----------+---------+--------------------------------------------------------+
+| pipeline | II=1    | ../covariance/generate/covariance.cpp:23 in covariance |
++----------+---------+--------------------------------------------------------+
+
+

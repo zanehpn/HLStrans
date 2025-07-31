@@ -1,0 +1,536 @@
+
+
+================================================================
+== Synthesis Summary Report of 'atax'
+================================================================
++ General Information: 
+    * Date:           Sun Mar 16 14:42:38 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        atax
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +--------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----------+-------------+-------------+-----+
+    |                   Modules                  | Issue|      | Latency |  Latency  | Iteration|         | Trip |          |      |          |             |             |     |
+    |                   & Loops                  | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined| BRAM |    DSP   |      FF     |     LUT     | URAM|
+    +--------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----------+-------------+-------------+-----+
+    |+ atax                                      |     -|  0.00|     1613|  8.065e+03|         -|     1614|     -|        no|     -|  20 (~0%)|   29451 (1%)|   23663 (1%)|    -|
+    | + compute_tmp                              |     -|  0.00|      432|  2.160e+03|         -|      432|     -|        no|     -|  15 (~0%)|   7643 (~0%)|   3821 (~0%)|    -|
+    |  + compute_tmp_Pipeline_VITIS_LOOP_5_1     |     -|  0.00|      416|  2.080e+03|         -|      416|     -|        no|     -|  15 (~0%)|   5329 (~0%)|   3045 (~0%)|    -|
+    |   o VITIS_LOOP_5_1                         |    II|  3.65|      414|  2.070e+03|       167|        8|    32|       yes|     -|         -|            -|            -|    -|
+    | + compute_y_out                            |     -|  0.00|     1177|  5.885e+03|         -|     1177|     -|        no|     -|         -|  16625 (~0%)|  12733 (~0%)|    -|
+    |  + compute_y_out_Pipeline_VITIS_LOOP_17_1  |     -|  0.00|     1172|  5.860e+03|         -|     1172|     -|        no|     -|         -|  15346 (~0%)|  12290 (~0%)|    -|
+    |   o VITIS_LOOP_17_1                        |    II|  3.65|     1170|  5.850e+03|       179|       32|    32|       yes|     -|         -|            -|            -|    -|
+    +--------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----------+-------------+-------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* M_AXI
++--------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| Interface    | Data Width | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   |
+|              | (SW->HW)   |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |
++--------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| m_axi_gmem_0 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_1 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_2 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_3 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
++--------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+
+* S_AXILITE Interfaces
++---------------+------------+---------------+--------+----------+
+| Interface     | Data Width | Address Width | Offset | Register |
++---------------+------------+---------------+--------+----------+
+| s_axi_control | 32         | 8             | 16     | 0        |
++---------------+------------+---------------+--------+----------+
+
+* S_AXILITE Registers
++---------------+-----------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+| Interface     | Register  | Offset | Width | Access | Description                      | Bit Fields                                                           |
++---------------+-----------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+| s_axi_control | CTRL      | 0x00   | 32    | RW     | Control signals                  | 0=AP_START 1=AP_DONE 2=AP_IDLE 3=AP_READY 7=AUTO_RESTART 9=INTERRUPT |
+| s_axi_control | GIER      | 0x04   | 32    | RW     | Global Interrupt Enable Register | 0=Enable                                                             |
+| s_axi_control | IP_IER    | 0x08   | 32    | RW     | IP Interrupt Enable Register     | 0=CHAN0_INT_EN 1=CHAN1_INT_EN                                        |
+| s_axi_control | IP_ISR    | 0x0c   | 32    | RW     | IP Interrupt Status Register     | 0=CHAN0_INT_ST 1=CHAN1_INT_ST                                        |
+| s_axi_control | A_0_1     | 0x10   | 32    | W      | Data signal of A_0               |                                                                      |
+| s_axi_control | A_0_2     | 0x14   | 32    | W      | Data signal of A_0               |                                                                      |
+| s_axi_control | A_1_1     | 0x1c   | 32    | W      | Data signal of A_1               |                                                                      |
+| s_axi_control | A_1_2     | 0x20   | 32    | W      | Data signal of A_1               |                                                                      |
+| s_axi_control | A_2_1     | 0x28   | 32    | W      | Data signal of A_2               |                                                                      |
+| s_axi_control | A_2_2     | 0x2c   | 32    | W      | Data signal of A_2               |                                                                      |
+| s_axi_control | A_3_1     | 0x34   | 32    | W      | Data signal of A_3               |                                                                      |
+| s_axi_control | A_3_2     | 0x38   | 32    | W      | Data signal of A_3               |                                                                      |
+| s_axi_control | x_0_1     | 0x40   | 32    | W      | Data signal of x_0               |                                                                      |
+| s_axi_control | x_0_2     | 0x44   | 32    | W      | Data signal of x_0               |                                                                      |
+| s_axi_control | x_1_1     | 0x4c   | 32    | W      | Data signal of x_1               |                                                                      |
+| s_axi_control | x_1_2     | 0x50   | 32    | W      | Data signal of x_1               |                                                                      |
+| s_axi_control | x_2_1     | 0x58   | 32    | W      | Data signal of x_2               |                                                                      |
+| s_axi_control | x_2_2     | 0x5c   | 32    | W      | Data signal of x_2               |                                                                      |
+| s_axi_control | x_3_1     | 0x64   | 32    | W      | Data signal of x_3               |                                                                      |
+| s_axi_control | x_3_2     | 0x68   | 32    | W      | Data signal of x_3               |                                                                      |
+| s_axi_control | y_out_0_1 | 0x70   | 32    | W      | Data signal of y_out_0           |                                                                      |
+| s_axi_control | y_out_0_2 | 0x74   | 32    | W      | Data signal of y_out_0           |                                                                      |
+| s_axi_control | y_out_1_1 | 0x7c   | 32    | W      | Data signal of y_out_1           |                                                                      |
+| s_axi_control | y_out_1_2 | 0x80   | 32    | W      | Data signal of y_out_1           |                                                                      |
+| s_axi_control | y_out_2_1 | 0x88   | 32    | W      | Data signal of y_out_2           |                                                                      |
+| s_axi_control | y_out_2_2 | 0x8c   | 32    | W      | Data signal of y_out_2           |                                                                      |
+| s_axi_control | y_out_3_1 | 0x94   | 32    | W      | Data signal of y_out_3           |                                                                      |
+| s_axi_control | y_out_3_2 | 0x98   | 32    | W      | Data signal of y_out_3           |                                                                      |
++---------------+-----------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------+
+| Interface | Type       | Ports     |
++-----------+------------+-----------+
+| ap_clk    | clock      | ap_clk    |
+| ap_rst_n  | reset      | ap_rst_n  |
+| interrupt | interrupt  | interrupt |
+| ap_ctrl   | ap_ctrl_hs |           |
++-----------+------------+-----------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| A        | inout     | float*   |
+| x        | inout     | float*   |
+| y_out    | inout     | float*   |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+---------------+-----------+----------+
+| Argument | HW Interface  | HW Type   | HW Usage |
++----------+---------------+-----------+----------+
+| A        | m_axi_gmem_0  | interface |          |
+| A        | s_axi_control | interface | offset   |
+| A        | m_axi_gmem_1  | interface |          |
+| A        | s_axi_control | interface | offset   |
+| A        | m_axi_gmem_2  | interface |          |
+| A        | s_axi_control | interface | offset   |
+| A        | m_axi_gmem_3  | interface |          |
+| A        | s_axi_control | interface | offset   |
+| x        | m_axi_gmem_0  | interface |          |
+| x        | s_axi_control | interface | offset   |
+| x        | m_axi_gmem_1  | interface |          |
+| x        | s_axi_control | interface | offset   |
+| x        | m_axi_gmem_2  | interface |          |
+| x        | s_axi_control | interface | offset   |
+| x        | m_axi_gmem_3  | interface |          |
+| x        | s_axi_control | interface | offset   |
+| y_out    | m_axi_gmem_0  | interface |          |
+| y_out    | s_axi_control | interface | offset   |
+| y_out    | m_axi_gmem_1  | interface |          |
+| y_out    | s_axi_control | interface | offset   |
+| y_out    | m_axi_gmem_2  | interface |          |
+| y_out    | s_axi_control | interface | offset   |
+| y_out    | m_axi_gmem_3  | interface |          |
+| y_out    | s_axi_control | interface | offset   |
++----------+---------------+-----------+----------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+* Inferred Burst Summary
++--------------+----------------+-----------+--------+-------+-----------------------------------------------------------------------------------+
+| HW Interface | Loop           | Direction | Length | Width | Location                                                                          |
++--------------+----------------+-----------+--------+-------+-----------------------------------------------------------------------------------+
+| m_axi_gmem_0 | VITIS_LOOP_5_1 | read      | 256    | 32    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:5:18 |
+| m_axi_gmem_1 | VITIS_LOOP_5_1 | read      | 256    | 32    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:5:18 |
+| m_axi_gmem_2 | VITIS_LOOP_5_1 | read      | 256    | 32    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:5:18 |
+| m_axi_gmem_3 | VITIS_LOOP_5_1 | read      | 256    | 32    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:5:18 |
++--------------+----------------+-----------+--------+-------+-----------------------------------------------------------------------------------+
+
+* Inferred Bursts and Widening Missed
++--------------+----------+-----------------+---------------------------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------------------+
+| HW Interface | Variable | Loop            | Problem                                                                                                 | Resolution | Location                                                                           |
++--------------+----------+-----------------+---------------------------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------------------+
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_1      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_2      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_3      | VITIS_LOOP_17_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | y_out_2  | VITIS_LOOP_17_1 | Access store is in the conditional branch                                                               | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | y_out_1  | VITIS_LOOP_17_1 | Access store is in the conditional branch                                                               | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | y_out_0  | VITIS_LOOP_17_1 | Access store is in the conditional branch                                                               | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | y_out_3  | VITIS_LOOP_17_1 | Access store is in the conditional branch                                                               | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:19 |
+| m_axi_gmem   | A_0      | VITIS_LOOP_5_1  | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:5:18  |
+| m_axi_gmem   | A_1      | VITIS_LOOP_5_1  | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:5:18  |
+| m_axi_gmem   | A_2      | VITIS_LOOP_5_1  | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:5:18  |
+| m_axi_gmem   | A_3      | VITIS_LOOP_5_1  | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:5:18  |
++--------------+----------+-----------------+---------------------------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------------------+
+
+    * Resolution URL: www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=XXX-YYY.html (replace XXX-YYY with column value)
+
+================================================================
+== Bind Op Report
+================================================================
++--------------------------------------------+-----+--------+--------------+------+---------+---------+
+| Name                                       | DSP | Pragma | Variable     | Op   | Impl    | Latency |
++--------------------------------------------+-----+--------+--------------+------+---------+---------+
+| + atax                                     | 20  |        |              |      |         |         |
+|  + compute_tmp                             | 15  |        |              |      |         |         |
+|   + compute_tmp_Pipeline_VITIS_LOOP_5_1    | 15  |        |              |      |         |         |
+|     add_ln5_fu_530_p2                      | -   |        | add_ln5      | add  | fabric  | 0       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U6       | 3   |        | mul_1        | fmul | maxdsp  | 3       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U7       | 3   |        | mul_2        | fmul | maxdsp  | 3       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U8       | 3   |        | mul_3        | fmul | maxdsp  | 3       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U6       | 3   |        | mul_5        | fmul | maxdsp  | 3       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U7       | 3   |        | mul_6        | fmul | maxdsp  | 3       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U8       | 3   |        | mul_7        | fmul | maxdsp  | 3       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U2      | 2   |        | add_8        | fadd | fulldsp | 4       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U6       | 3   |        | mul_9        | fmul | maxdsp  | 3       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U2      | 2   |        | add_9        | fadd | fulldsp | 4       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U7       | 3   |        | mul_10       | fmul | maxdsp  | 3       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U2      | 2   |        | add_10       | fadd | fulldsp | 4       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U8       | 3   |        | mul_11       | fmul | maxdsp  | 3       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U2      | 2   |        | add_11       | fadd | fulldsp | 4       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U2      | 2   |        | add_12       | fadd | fulldsp | 4       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U6       | 3   |        | mul_13       | fmul | maxdsp  | 3       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U2      | 2   |        | add_13       | fadd | fulldsp | 4       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U7       | 3   |        | mul_14       | fmul | maxdsp  | 3       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U2      | 2   |        | add_14       | fadd | fulldsp | 4       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U8       | 3   |        | mul_15       | fmul | maxdsp  | 3       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U2      | 2   |        | add_15       | fadd | fulldsp | 4       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U3      | 2   |        | add_16       | fadd | fulldsp | 4       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U6       | 3   |        | mul_17       | fmul | maxdsp  | 3       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U3      | 2   |        | add_17       | fadd | fulldsp | 4       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U7       | 3   |        | mul_18       | fmul | maxdsp  | 3       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U3      | 2   |        | add_18       | fadd | fulldsp | 4       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U8       | 3   |        | mul_19       | fmul | maxdsp  | 3       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U3      | 2   |        | add_19       | fadd | fulldsp | 4       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U3      | 2   |        | add_20       | fadd | fulldsp | 4       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U6       | 3   |        | mul_21       | fmul | maxdsp  | 3       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U3      | 2   |        | add_21       | fadd | fulldsp | 4       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U7       | 3   |        | mul_22       | fmul | maxdsp  | 3       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U3      | 2   |        | add_22       | fadd | fulldsp | 4       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U8       | 3   |        | mul_23       | fmul | maxdsp  | 3       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U3      | 2   |        | add_23       | fadd | fulldsp | 4       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U4      | 2   |        | add_24       | fadd | fulldsp | 4       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U6       | 3   |        | mul_25       | fmul | maxdsp  | 3       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U4      | 2   |        | add_25       | fadd | fulldsp | 4       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U7       | 3   |        | mul_26       | fmul | maxdsp  | 3       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U4      | 2   |        | add_26       | fadd | fulldsp | 4       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U8       | 3   |        | mul_27       | fmul | maxdsp  | 3       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U4      | 2   |        | add_27       | fadd | fulldsp | 4       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U4      | 2   |        | add_28       | fadd | fulldsp | 4       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U6       | 3   |        | mul_29       | fmul | maxdsp  | 3       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U4      | 2   |        | add_29       | fadd | fulldsp | 4       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U7       | 3   |        | mul_30       | fmul | maxdsp  | 3       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U4      | 2   |        | add_30       | fadd | fulldsp | 4       |
+|     fmul_32ns_32ns_32_4_max_dsp_1_U8       | 3   |        | mul_s        | fmul | maxdsp  | 3       |
+|     fadd_32ns_32ns_32_5_full_dsp_1_U4      | 2   |        | add_s        | fadd | fulldsp | 4       |
+|  + compute_y_out                           | 0   |        |              |      |         |         |
+|   + compute_y_out_Pipeline_VITIS_LOOP_17_1 | 0   |        |              |      |         |         |
+|     add_ln17_fu_2138_p2                    | -   |        | add_ln17     | add  | fabric  | 0       |
+|     add_ln19_fu_6524_p2                    | -   |        | add_ln19     | add  | fabric  | 0       |
+|     add_ln19_1_fu_6528_p2                  | -   |        | add_ln19_1   | add  | fabric  | 0       |
+|     add_ln19_2_fu_6532_p2                  | -   |        | add_ln19_2   | add  | fabric  | 0       |
+|     add_ln19_3_fu_6536_p2                  | -   |        | add_ln19_3   | add  | fabric  | 0       |
+|     add_ln22_fu_2166_p2                    | -   |        | add_ln22     | add  | fabric  | 0       |
+|     add_ln22_1_fu_2172_p2                  | -   |        | add_ln22_1   | add  | fabric  | 0       |
+|     add_ln22_2_fu_2178_p2                  | -   |        | add_ln22_2   | add  | fabric  | 0       |
+|     add_ln22_3_fu_2184_p2                  | -   |        | add_ln22_3   | add  | fabric  | 0       |
+|     add_ln22_4_fu_2292_p2                  | -   |        | add_ln22_4   | add  | fabric  | 0       |
+|     add_ln22_5_fu_2297_p2                  | -   |        | add_ln22_5   | add  | fabric  | 0       |
+|     add_ln22_6_fu_2302_p2                  | -   |        | add_ln22_6   | add  | fabric  | 0       |
+|     add_ln22_7_fu_2307_p2                  | -   |        | add_ln22_7   | add  | fabric  | 0       |
+|     add_ln22_8_fu_2405_p2                  | -   |        | add_ln22_8   | add  | fabric  | 0       |
+|     add_ln22_9_fu_2410_p2                  | -   |        | add_ln22_9   | add  | fabric  | 0       |
+|     add_ln22_10_fu_2415_p2                 | -   |        | add_ln22_10  | add  | fabric  | 0       |
+|     add_ln22_11_fu_2420_p2                 | -   |        | add_ln22_11  | add  | fabric  | 0       |
+|     add_ln22_12_fu_2512_p2                 | -   |        | add_ln22_12  | add  | fabric  | 0       |
+|     add_ln22_13_fu_2517_p2                 | -   |        | add_ln22_13  | add  | fabric  | 0       |
+|     add_ln22_14_fu_2522_p2                 | -   |        | add_ln22_14  | add  | fabric  | 0       |
+|     add_ln22_15_fu_2527_p2                 | -   |        | add_ln22_15  | add  | fabric  | 0       |
+|     add_ln22_16_fu_2625_p2                 | -   |        | add_ln22_16  | add  | fabric  | 0       |
+|     add_ln22_17_fu_2630_p2                 | -   |        | add_ln22_17  | add  | fabric  | 0       |
+|     add_ln22_18_fu_2635_p2                 | -   |        | add_ln22_18  | add  | fabric  | 0       |
+|     add_ln22_19_fu_2640_p2                 | -   |        | add_ln22_19  | add  | fabric  | 0       |
+|     add_ln22_20_fu_2738_p2                 | -   |        | add_ln22_20  | add  | fabric  | 0       |
+|     add_ln22_21_fu_2743_p2                 | -   |        | add_ln22_21  | add  | fabric  | 0       |
+|     add_ln22_22_fu_2748_p2                 | -   |        | add_ln22_22  | add  | fabric  | 0       |
+|     add_ln22_23_fu_2753_p2                 | -   |        | add_ln22_23  | add  | fabric  | 0       |
+|     add_ln22_24_fu_2845_p2                 | -   |        | add_ln22_24  | add  | fabric  | 0       |
+|     add_ln22_25_fu_2850_p2                 | -   |        | add_ln22_25  | add  | fabric  | 0       |
+|     add_ln22_26_fu_2855_p2                 | -   |        | add_ln22_26  | add  | fabric  | 0       |
+|     add_ln22_27_fu_2860_p2                 | -   |        | add_ln22_27  | add  | fabric  | 0       |
+|     add_ln22_28_fu_2952_p2                 | -   |        | add_ln22_28  | add  | fabric  | 0       |
+|     add_ln22_29_fu_2957_p2                 | -   |        | add_ln22_29  | add  | fabric  | 0       |
+|     add_ln22_30_fu_2962_p2                 | -   |        | add_ln22_30  | add  | fabric  | 0       |
+|     add_ln22_31_fu_2967_p2                 | -   |        | add_ln22_31  | add  | fabric  | 0       |
+|     add_ln22_32_fu_3065_p2                 | -   |        | add_ln22_32  | add  | fabric  | 0       |
+|     add_ln22_33_fu_3070_p2                 | -   |        | add_ln22_33  | add  | fabric  | 0       |
+|     add_ln22_34_fu_3075_p2                 | -   |        | add_ln22_34  | add  | fabric  | 0       |
+|     add_ln22_35_fu_3080_p2                 | -   |        | add_ln22_35  | add  | fabric  | 0       |
+|     add_ln22_36_fu_3204_p2                 | -   |        | add_ln22_36  | add  | fabric  | 0       |
+|     add_ln22_37_fu_3209_p2                 | -   |        | add_ln22_37  | add  | fabric  | 0       |
+|     add_ln22_38_fu_3214_p2                 | -   |        | add_ln22_38  | add  | fabric  | 0       |
+|     add_ln22_39_fu_3219_p2                 | -   |        | add_ln22_39  | add  | fabric  | 0       |
+|     add_ln22_40_fu_3343_p2                 | -   |        | add_ln22_40  | add  | fabric  | 0       |
+|     add_ln22_41_fu_3348_p2                 | -   |        | add_ln22_41  | add  | fabric  | 0       |
+|     add_ln22_42_fu_3353_p2                 | -   |        | add_ln22_42  | add  | fabric  | 0       |
+|     add_ln22_43_fu_3358_p2                 | -   |        | add_ln22_43  | add  | fabric  | 0       |
+|     add_ln22_44_fu_3482_p2                 | -   |        | add_ln22_44  | add  | fabric  | 0       |
+|     add_ln22_45_fu_3487_p2                 | -   |        | add_ln22_45  | add  | fabric  | 0       |
+|     add_ln22_46_fu_3492_p2                 | -   |        | add_ln22_46  | add  | fabric  | 0       |
+|     add_ln22_47_fu_3497_p2                 | -   |        | add_ln22_47  | add  | fabric  | 0       |
+|     add_ln22_48_fu_3615_p2                 | -   |        | add_ln22_48  | add  | fabric  | 0       |
+|     add_ln22_49_fu_3620_p2                 | -   |        | add_ln22_49  | add  | fabric  | 0       |
+|     add_ln22_50_fu_3625_p2                 | -   |        | add_ln22_50  | add  | fabric  | 0       |
+|     add_ln22_51_fu_3630_p2                 | -   |        | add_ln22_51  | add  | fabric  | 0       |
+|     add_ln22_52_fu_3748_p2                 | -   |        | add_ln22_52  | add  | fabric  | 0       |
+|     add_ln22_53_fu_3753_p2                 | -   |        | add_ln22_53  | add  | fabric  | 0       |
+|     add_ln22_54_fu_3758_p2                 | -   |        | add_ln22_54  | add  | fabric  | 0       |
+|     add_ln22_55_fu_3763_p2                 | -   |        | add_ln22_55  | add  | fabric  | 0       |
+|     add_ln22_56_fu_3881_p2                 | -   |        | add_ln22_56  | add  | fabric  | 0       |
+|     add_ln22_57_fu_3886_p2                 | -   |        | add_ln22_57  | add  | fabric  | 0       |
+|     add_ln22_58_fu_3891_p2                 | -   |        | add_ln22_58  | add  | fabric  | 0       |
+|     add_ln22_59_fu_3896_p2                 | -   |        | add_ln22_59  | add  | fabric  | 0       |
+|     add_ln22_60_fu_4014_p2                 | -   |        | add_ln22_60  | add  | fabric  | 0       |
+|     add_ln22_61_fu_4019_p2                 | -   |        | add_ln22_61  | add  | fabric  | 0       |
+|     add_ln22_62_fu_4024_p2                 | -   |        | add_ln22_62  | add  | fabric  | 0       |
+|     add_ln22_63_fu_4029_p2                 | -   |        | add_ln22_63  | add  | fabric  | 0       |
+|     add_ln22_64_fu_4153_p2                 | -   |        | add_ln22_64  | add  | fabric  | 0       |
+|     add_ln22_65_fu_4158_p2                 | -   |        | add_ln22_65  | add  | fabric  | 0       |
+|     add_ln22_66_fu_4163_p2                 | -   |        | add_ln22_66  | add  | fabric  | 0       |
+|     add_ln22_67_fu_4168_p2                 | -   |        | add_ln22_67  | add  | fabric  | 0       |
+|     add_ln22_68_fu_4292_p2                 | -   |        | add_ln22_68  | add  | fabric  | 0       |
+|     add_ln22_69_fu_4297_p2                 | -   |        | add_ln22_69  | add  | fabric  | 0       |
+|     add_ln22_70_fu_4302_p2                 | -   |        | add_ln22_70  | add  | fabric  | 0       |
+|     add_ln22_71_fu_4307_p2                 | -   |        | add_ln22_71  | add  | fabric  | 0       |
+|     add_ln22_72_fu_4431_p2                 | -   |        | add_ln22_72  | add  | fabric  | 0       |
+|     add_ln22_73_fu_4436_p2                 | -   |        | add_ln22_73  | add  | fabric  | 0       |
+|     add_ln22_74_fu_4441_p2                 | -   |        | add_ln22_74  | add  | fabric  | 0       |
+|     add_ln22_75_fu_4446_p2                 | -   |        | add_ln22_75  | add  | fabric  | 0       |
+|     add_ln22_76_fu_4570_p2                 | -   |        | add_ln22_76  | add  | fabric  | 0       |
+|     add_ln22_77_fu_4575_p2                 | -   |        | add_ln22_77  | add  | fabric  | 0       |
+|     add_ln22_78_fu_4580_p2                 | -   |        | add_ln22_78  | add  | fabric  | 0       |
+|     add_ln22_79_fu_4585_p2                 | -   |        | add_ln22_79  | add  | fabric  | 0       |
+|     add_ln22_80_fu_4709_p2                 | -   |        | add_ln22_80  | add  | fabric  | 0       |
+|     add_ln22_81_fu_4714_p2                 | -   |        | add_ln22_81  | add  | fabric  | 0       |
+|     add_ln22_82_fu_4719_p2                 | -   |        | add_ln22_82  | add  | fabric  | 0       |
+|     add_ln22_83_fu_4724_p2                 | -   |        | add_ln22_83  | add  | fabric  | 0       |
+|     add_ln22_84_fu_4848_p2                 | -   |        | add_ln22_84  | add  | fabric  | 0       |
+|     add_ln22_85_fu_4853_p2                 | -   |        | add_ln22_85  | add  | fabric  | 0       |
+|     add_ln22_86_fu_4858_p2                 | -   |        | add_ln22_86  | add  | fabric  | 0       |
+|     add_ln22_87_fu_4863_p2                 | -   |        | add_ln22_87  | add  | fabric  | 0       |
+|     add_ln22_88_fu_4987_p2                 | -   |        | add_ln22_88  | add  | fabric  | 0       |
+|     add_ln22_89_fu_4992_p2                 | -   |        | add_ln22_89  | add  | fabric  | 0       |
+|     add_ln22_90_fu_4997_p2                 | -   |        | add_ln22_90  | add  | fabric  | 0       |
+|     add_ln22_91_fu_5002_p2                 | -   |        | add_ln22_91  | add  | fabric  | 0       |
+|     add_ln22_92_fu_5126_p2                 | -   |        | add_ln22_92  | add  | fabric  | 0       |
+|     add_ln22_93_fu_5131_p2                 | -   |        | add_ln22_93  | add  | fabric  | 0       |
+|     add_ln22_94_fu_5136_p2                 | -   |        | add_ln22_94  | add  | fabric  | 0       |
+|     add_ln22_95_fu_5141_p2                 | -   |        | add_ln22_95  | add  | fabric  | 0       |
+|     add_ln22_96_fu_5259_p2                 | -   |        | add_ln22_96  | add  | fabric  | 0       |
+|     add_ln22_97_fu_5264_p2                 | -   |        | add_ln22_97  | add  | fabric  | 0       |
+|     add_ln22_98_fu_5269_p2                 | -   |        | add_ln22_98  | add  | fabric  | 0       |
+|     add_ln22_99_fu_5274_p2                 | -   |        | add_ln22_99  | add  | fabric  | 0       |
+|     add_ln22_100_fu_5392_p2                | -   |        | add_ln22_100 | add  | fabric  | 0       |
+|     add_ln22_101_fu_5397_p2                | -   |        | add_ln22_101 | add  | fabric  | 0       |
+|     add_ln22_102_fu_5402_p2                | -   |        | add_ln22_102 | add  | fabric  | 0       |
+|     add_ln22_103_fu_5407_p2                | -   |        | add_ln22_103 | add  | fabric  | 0       |
+|     add_ln22_104_fu_5525_p2                | -   |        | add_ln22_104 | add  | fabric  | 0       |
+|     add_ln22_105_fu_5530_p2                | -   |        | add_ln22_105 | add  | fabric  | 0       |
+|     add_ln22_106_fu_5535_p2                | -   |        | add_ln22_106 | add  | fabric  | 0       |
+|     add_ln22_107_fu_5540_p2                | -   |        | add_ln22_107 | add  | fabric  | 0       |
+|     add_ln22_108_fu_5658_p2                | -   |        | add_ln22_108 | add  | fabric  | 0       |
+|     add_ln22_109_fu_5663_p2                | -   |        | add_ln22_109 | add  | fabric  | 0       |
+|     add_ln22_110_fu_5668_p2                | -   |        | add_ln22_110 | add  | fabric  | 0       |
+|     add_ln22_111_fu_5673_p2                | -   |        | add_ln22_111 | add  | fabric  | 0       |
+|     add_ln22_112_fu_5791_p2                | -   |        | add_ln22_112 | add  | fabric  | 0       |
+|     add_ln22_113_fu_5796_p2                | -   |        | add_ln22_113 | add  | fabric  | 0       |
+|     add_ln22_114_fu_5801_p2                | -   |        | add_ln22_114 | add  | fabric  | 0       |
+|     add_ln22_115_fu_5806_p2                | -   |        | add_ln22_115 | add  | fabric  | 0       |
+|     add_ln22_116_fu_5924_p2                | -   |        | add_ln22_116 | add  | fabric  | 0       |
+|     add_ln22_117_fu_5929_p2                | -   |        | add_ln22_117 | add  | fabric  | 0       |
+|     add_ln22_118_fu_5934_p2                | -   |        | add_ln22_118 | add  | fabric  | 0       |
+|     add_ln22_119_fu_5939_p2                | -   |        | add_ln22_119 | add  | fabric  | 0       |
+|     add_ln22_120_fu_6057_p2                | -   |        | add_ln22_120 | add  | fabric  | 0       |
+|     add_ln22_121_fu_6062_p2                | -   |        | add_ln22_121 | add  | fabric  | 0       |
+|     add_ln22_122_fu_6067_p2                | -   |        | add_ln22_122 | add  | fabric  | 0       |
+|     add_ln22_123_fu_6072_p2                | -   |        | add_ln22_123 | add  | fabric  | 0       |
+|     add_ln22_124_fu_6190_p2                | -   |        | add_ln22_124 | add  | fabric  | 0       |
+|     add_ln22_125_fu_6195_p2                | -   |        | add_ln22_125 | add  | fabric  | 0       |
+|     add_ln22_126_fu_6200_p2                | -   |        | add_ln22_126 | add  | fabric  | 0       |
+|     add_ln22_127_fu_6205_p2                | -   |        | add_ln22_127 | add  | fabric  | 0       |
++--------------------------------------------+-----+--------+--------------+------+---------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++-----------+------+------+--------+----------+---------+------+---------+
+| Name      | BRAM | URAM | Pragma | Variable | Storage | Impl | Latency |
++-----------+------+------+--------+----------+---------+------+---------+
+| + atax    | 0    | 0    |        |          |         |      |         |
+|   tmp_U   | -    | -    |        | tmp      | ram_s2p | auto | 1       |
+|   tmp_1_U | -    | -    |        | tmp_1    | ram_s2p | auto | 1       |
+|   tmp_2_U | -    | -    |        | tmp_2    | ram_s2p | auto | 1       |
+|   tmp_3_U | -    | -    |        | tmp_3    | ram_s2p | auto | 1       |
++-----------+------+------+--------+----------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++-----------------+-------------------------------------------+-----------------------------------------------+
+| Type            | Options                                   | Location                                      |
++-----------------+-------------------------------------------+-----------------------------------------------+
+| inline          | off                                       | ../atax/generate/atax.cpp:4 in compute_tmp    |
+| pipeline        | II=1                                      | ../atax/generate/atax.cpp:6 in compute_tmp    |
+| unroll          | factor=4                                  | ../atax/generate/atax.cpp:9 in compute_tmp    |
+| inline          | off                                       | ../atax/generate/atax.cpp:16 in compute_y_out |
+| pipeline        | II=1                                      | ../atax/generate/atax.cpp:18 in compute_y_out |
+| unroll          | factor=4                                  | ../atax/generate/atax.cpp:21 in compute_y_out |
+| interface       | m_axi port=A offset=slave bundle=gmem     | ../atax/generate/atax.cpp:28 in atax, A       |
+| interface       | m_axi port=x offset=slave bundle=gmem     | ../atax/generate/atax.cpp:29 in atax, x       |
+| interface       | m_axi port=y_out offset=slave bundle=gmem | ../atax/generate/atax.cpp:30 in atax, y_out   |
+| interface       | s_axilite port=A bundle=control           | ../atax/generate/atax.cpp:31 in atax, A       |
+| interface       | s_axilite port=x bundle=control           | ../atax/generate/atax.cpp:32 in atax, x       |
+| interface       | s_axilite port=y_out bundle=control       | ../atax/generate/atax.cpp:33 in atax, y_out   |
+| interface       | s_axilite port=return bundle=control      | ../atax/generate/atax.cpp:34 in atax, return  |
+| array_partition | variable=A cyclic factor=4 dim=2          | ../atax/generate/atax.cpp:38 in atax, A       |
+| array_partition | variable=x cyclic factor=4                | ../atax/generate/atax.cpp:39 in atax, x       |
+| array_partition | variable=tmp cyclic factor=4              | ../atax/generate/atax.cpp:40 in atax, tmp     |
+| array_partition | variable=y_out cyclic factor=4            | ../atax/generate/atax.cpp:41 in atax, y_out   |
++-----------------+-------------------------------------------+-----------------------------------------------+
+
+

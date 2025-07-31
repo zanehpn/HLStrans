@@ -1,0 +1,272 @@
+
+
+================================================================
+== Synthesis Summary Report of 'atax'
+================================================================
++ General Information: 
+    * Date:           Sun Mar 16 13:37:52 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        atax
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +------------------------------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+------+----------+------------+------------+-----+
+    |                              Modules                             |  Issue |       | Latency |  Latency  | Iteration|         | Trip |          |      |          |            |            |     |
+    |                              & Loops                             |  Type  | Slack | (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined| BRAM |    DSP   |     FF     |     LUT    | URAM|
+    +------------------------------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+------+----------+------------+------------+-----+
+    |+ atax                                                            |  Timing|  -9.01|     4843|  6.133e+04|         -|     4844|     -|        no|     -|  48 (~0%)|  4269 (~0%)|  8380 (~0%)|    -|
+    | + atax_Pipeline_VITIS_LOOP_58_1                                  |       -|   0.00|       34|    170.000|         -|       34|     -|        no|     -|         -|     9 (~0%)|    72 (~0%)|    -|
+    |  o VITIS_LOOP_58_1                                               |       -|   3.65|       32|    160.000|         2|        1|    32|       yes|     -|         -|           -|           -|    -|
+    | + atax_Pipeline_VITIS_LOOP_5_1                                   |       -|   2.33|       34|    170.000|         -|       34|     -|        no|     -|         -|     8 (~0%)|    50 (~0%)|    -|
+    |  o VITIS_LOOP_5_1                                                |       -|   3.65|       32|    160.000|         1|        1|    32|       yes|     -|         -|           -|           -|    -|
+    | + atax_Pipeline_VITIS_LOOP_28_1_VITIS_LOOP_29_2_VITIS_LOOP_30_3  |  Timing|  -9.01|     2691|  3.408e+04|         -|     2691|     -|        no|     -|  24 (~0%)|  1352 (~0%)|  4547 (~0%)|    -|
+    |  o VITIS_LOOP_28_1_VITIS_LOOP_29_2_VITIS_LOOP_30_3               |      II|   3.65|     2689|  3.405e+04|        22|       21|   128|       yes|     -|         -|           -|           -|    -|
+    | o VITIS_LOOP_9_2                                                 |       -|   3.65|     2108|  2.669e+04|       527|        -|     4|        no|     -|         -|           -|           -|    -|
+    |  + atax_Pipeline_VITIS_LOOP_10_3_VITIS_LOOP_11_4                 |       -|   0.00|      523|  2.615e+03|         -|      523|     -|        no|     -|  24 (~0%)|  1082 (~0%)|  1028 (~0%)|    -|
+    |   o VITIS_LOOP_10_3_VITIS_LOOP_11_4                              |      II|   3.65|      521|  2.605e+03|        26|       16|    32|       yes|     -|         -|           -|           -|    -|
+    +------------------------------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+------+----------+------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* M_AXI
++------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| Interface  | Data Width | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   |
+|            | (SW->HW)   |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |
++------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| m_axi_gmem | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
++------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+
+* S_AXILITE Interfaces
++---------------+------------+---------------+--------+----------+
+| Interface     | Data Width | Address Width | Offset | Register |
++---------------+------------+---------------+--------+----------+
+| s_axi_control | 32         | 6             | 16     | 0        |
++---------------+------------+---------------+--------+----------+
+
+* S_AXILITE Registers
++---------------+----------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+| Interface     | Register | Offset | Width | Access | Description                      | Bit Fields                                                           |
++---------------+----------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+| s_axi_control | CTRL     | 0x00   | 32    | RW     | Control signals                  | 0=AP_START 1=AP_DONE 2=AP_IDLE 3=AP_READY 7=AUTO_RESTART 9=INTERRUPT |
+| s_axi_control | GIER     | 0x04   | 32    | RW     | Global Interrupt Enable Register | 0=Enable                                                             |
+| s_axi_control | IP_IER   | 0x08   | 32    | RW     | IP Interrupt Enable Register     | 0=CHAN0_INT_EN 1=CHAN1_INT_EN                                        |
+| s_axi_control | IP_ISR   | 0x0c   | 32    | RW     | IP Interrupt Status Register     | 0=CHAN0_INT_ST 1=CHAN1_INT_ST                                        |
+| s_axi_control | A_1      | 0x10   | 32    | W      | Data signal of A                 |                                                                      |
+| s_axi_control | A_2      | 0x14   | 32    | W      | Data signal of A                 |                                                                      |
+| s_axi_control | x_1      | 0x1c   | 32    | W      | Data signal of x                 |                                                                      |
+| s_axi_control | x_2      | 0x20   | 32    | W      | Data signal of x                 |                                                                      |
+| s_axi_control | y_out_1  | 0x28   | 32    | W      | Data signal of y_out             |                                                                      |
+| s_axi_control | y_out_2  | 0x2c   | 32    | W      | Data signal of y_out             |                                                                      |
++---------------+----------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------+
+| Interface | Type       | Ports     |
++-----------+------------+-----------+
+| ap_clk    | clock      | ap_clk    |
+| ap_rst_n  | reset      | ap_rst_n  |
+| interrupt | interrupt  | interrupt |
+| ap_ctrl   | ap_ctrl_hs |           |
++-----------+------------+-----------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| A        | inout     | int*     |
+| x        | inout     | int*     |
+| y_out    | inout     | int*     |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+---------------+-----------+----------+-----------------------------------+
+| Argument | HW Interface  | HW Type   | HW Usage | HW Info                           |
++----------+---------------+-----------+----------+-----------------------------------+
+| A        | m_axi_gmem    | interface |          |                                   |
+| A        | s_axi_control | register  | offset   | name=A_1 offset=0x10 range=32     |
+| A        | s_axi_control | register  | offset   | name=A_2 offset=0x14 range=32     |
+| x        | m_axi_gmem    | interface |          |                                   |
+| x        | s_axi_control | register  | offset   | name=x_1 offset=0x1c range=32     |
+| x        | s_axi_control | register  | offset   | name=x_2 offset=0x20 range=32     |
+| y_out    | m_axi_gmem    | interface |          |                                   |
+| y_out    | s_axi_control | register  | offset   | name=y_out_1 offset=0x28 range=32 |
+| y_out    | s_axi_control | register  | offset   | name=y_out_2 offset=0x2c range=32 |
++----------+---------------+-----------+----------+-----------------------------------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+* Inferred Burst Summary
++--------------+-----------------+-----------+--------+-------+------------------------------------------------------------------------------------+
+| HW Interface | Loop            | Direction | Length | Width | Location                                                                           |
++--------------+-----------------+-----------+--------+-------+------------------------------------------------------------------------------------+
+| m_axi_gmem   | VITIS_LOOP_58_1 | write     | 32     | 32    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:58:19 |
+| m_axi_gmem   |                 | read      | 8      | 32    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:40 |
+| m_axi_gmem   |                 | read      | 8      | 32    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:60 |
++--------------+-----------------+-----------+--------+-------+------------------------------------------------------------------------------------+
+
+* Inferred Bursts and Widening Missed
++--------------+----------+-----------------+-------------------------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------------------+
+| HW Interface | Variable | Loop            | Problem                                                                                               | Resolution | Location                                                                           |
++--------------+----------+-----------------+-------------------------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------------------+
+| m_axi_gmem   | A        | VITIS_LOOP_11_4 | Stride is incompatible                                                                                | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:11:38 |
+| m_axi_gmem   | x        | VITIS_LOOP_11_4 | Stride is incompatible                                                                                | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:11:38 |
+| m_axi_gmem   | y_out    |                 | Access is clobbered by store                                                                          | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:32:35 |
+| m_axi_gmem   | y_out    |                 | Access is clobbered by sum                                                                            | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:39 |
+| m_axi_gmem   | A        | VITIS_LOOP_30_3 | Could not widen since type i32 size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:30:38 |
+| m_axi_gmem   | A        | VITIS_LOOP_30_3 | Could not widen since type i32 size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:30:38 |
+| m_axi_gmem   | A        | VITIS_LOOP_30_3 | Could not widen since type i32 size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:30:38 |
+| m_axi_gmem   | A        | VITIS_LOOP_30_3 | Could not widen since type i32 size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:30:38 |
+| m_axi_gmem   | A        | VITIS_LOOP_30_3 | Could not widen since type i32 size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:30:38 |
+| m_axi_gmem   | A        | VITIS_LOOP_30_3 | Could not widen since type i32 size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:30:38 |
+| m_axi_gmem   | A        | VITIS_LOOP_30_3 | Could not widen since type i32 size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:30:38 |
+| m_axi_gmem   | A        | VITIS_LOOP_30_3 | Could not widen since type i32 size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:30:38 |
+| m_axi_gmem   | A        |                 | Could not widen since type i32 size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:40 |
+| m_axi_gmem   | x        |                 | Could not widen since type i32 size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:17:60 |
+| m_axi_gmem   | y_out    | VITIS_LOOP_58_1 | Could not widen since type i32 size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:58:19 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:30:38 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:30:38 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:30:38 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:30:38 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:30:38 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:30:38 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:30:38 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:30:38 |
++--------------+----------+-----------------+-------------------------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------------------+
+
+    * Resolution URL: www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=XXX-YYY.html (replace XXX-YYY with column value)
+
+================================================================
+== Bind Op Report
+================================================================
++------------------------------------------------------------------+-----+--------+------------+-----+--------+---------+
+| Name                                                             | DSP | Pragma | Variable   | Op  | Impl   | Latency |
++------------------------------------------------------------------+-----+--------+------------+-----+--------+---------+
+| + atax                                                           | 48  |        |            |     |        |         |
+|   add_ln9_fu_410_p2                                              | -   |        | add_ln9    | add | fabric | 0       |
+|  + atax_Pipeline_VITIS_LOOP_58_1                                 | 0   |        |            |     |        |         |
+|    add_ln58_fu_91_p2                                             | -   |        | add_ln58   | add | fabric | 0       |
+|  + atax_Pipeline_VITIS_LOOP_5_1                                  | 0   |        |            |     |        |         |
+|    add_ln5_fu_192_p2                                             | -   |        | add_ln5    | add | fabric | 0       |
+|  + atax_Pipeline_VITIS_LOOP_28_1_VITIS_LOOP_29_2_VITIS_LOOP_30_3 | 24  |        |            |     |        |         |
+|    empty_23_fu_446_p2                                            | -   |        | empty_23   | add | fabric | 0       |
+|    empty_26_fu_742_p2                                            | -   |        | empty_26   | add | fabric | 0       |
+|    empty_28_fu_757_p2                                            | -   |        | empty_28   | add | fabric | 0       |
+|    empty_30_fu_772_p2                                            | -   |        | empty_30   | add | fabric | 0       |
+|    empty_32_fu_787_p2                                            | -   |        | empty_32   | add | fabric | 0       |
+|    empty_34_fu_802_p2                                            | -   |        | empty_34   | add | fabric | 0       |
+|    empty_36_fu_817_p2                                            | -   |        | empty_36   | add | fabric | 0       |
+|    empty_38_fu_832_p2                                            | -   |        | empty_38   | add | fabric | 0       |
+|    empty_39_fu_837_p2                                            | -   |        | empty_39   | add | fabric | 0       |
+|    add_ln28_fu_472_p2                                            | -   |        | add_ln28   | add | fabric | 0       |
+|    add_ln28_1_fu_498_p2                                          | -   |        | add_ln28_1 | add | fabric | 0       |
+|    p_mid1116_fu_520_p2                                           | -   |        | p_mid1116  | add | fabric | 0       |
+|    p_mid1130_fu_847_p2                                           | -   |        | p_mid1130  | add | fabric | 0       |
+|    p_mid1136_fu_852_p2                                           | -   |        | p_mid1136  | add | fabric | 0       |
+|    p_mid1142_fu_857_p2                                           | -   |        | p_mid1142  | add | fabric | 0       |
+|    p_mid1148_fu_862_p2                                           | -   |        | p_mid1148  | add | fabric | 0       |
+|    p_mid1154_fu_867_p2                                           | -   |        | p_mid1154  | add | fabric | 0       |
+|    p_mid1160_fu_872_p2                                           | -   |        | p_mid1160  | add | fabric | 0       |
+|    p_mid1166_fu_877_p2                                           | -   |        | p_mid1166  | add | fabric | 0       |
+|    add_ln29_fu_560_p2                                            | -   |        | add_ln29   | add | fabric | 0       |
+|    p_mid156_fu_903_p2                                            | -   |        | p_mid156   | add | fabric | 0       |
+|    p_mid160_fu_919_p2                                            | -   |        | p_mid160   | add | fabric | 0       |
+|    p_mid164_fu_935_p2                                            | -   |        | p_mid164   | add | fabric | 0       |
+|    p_mid168_fu_951_p2                                            | -   |        | p_mid168   | add | fabric | 0       |
+|    p_mid172_fu_967_p2                                            | -   |        | p_mid172   | add | fabric | 0       |
+|    p_mid176_fu_983_p2                                            | -   |        | p_mid176   | add | fabric | 0       |
+|    p_mid180_fu_999_p2                                            | -   |        | p_mid180   | add | fabric | 0       |
+|    p_mid182_fu_1005_p2                                           | -   |        | p_mid182   | add | fabric | 0       |
+|    add_ln32_fu_650_p2                                            | -   |        | add_ln32   | add | fabric | 0       |
+|    add_ln36_fu_1397_p2                                           | -   |        | add_ln36   | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U42                                        | 3   |        | mul_ln36   | mul | auto   | 0       |
+|    add_ln36_1_fu_1413_p2                                         | -   |        | add_ln36_1 | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U43                                        | 3   |        | mul_ln36_1 | mul | auto   | 0       |
+|    add_ln36_2_fu_1429_p2                                         | -   |        | add_ln36_2 | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U44                                        | 3   |        | mul_ln36_2 | mul | auto   | 0       |
+|    add_ln36_3_fu_1445_p2                                         | -   |        | add_ln36_3 | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U45                                        | 3   |        | mul_ln36_3 | mul | auto   | 0       |
+|    add_ln36_4_fu_1461_p2                                         | -   |        | add_ln36_4 | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U46                                        | 3   |        | mul_ln36_4 | mul | auto   | 0       |
+|    add_ln36_5_fu_1477_p2                                         | -   |        | add_ln36_5 | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U47                                        | 3   |        | mul_ln36_5 | mul | auto   | 0       |
+|    add_ln36_6_fu_1493_p2                                         | -   |        | add_ln36_6 | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U48                                        | 3   |        | mul_ln36_6 | mul | auto   | 0       |
+|    add_ln36_7_fu_1509_p2                                         | -   |        | add_ln36_7 | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U49                                        | 3   |        | mul_ln36_7 | mul | auto   | 0       |
+|    add_ln36_8_fu_1535_p2                                         | -   |        | add_ln36_8 | add | fabric | 0       |
+|    add_ln36_9_fu_1549_p2                                         | -   |        | add_ln36_9 | add | fabric | 0       |
+|    add_ln30_fu_676_p2                                            | -   |        | add_ln30   | add | fabric | 0       |
+|    add_ln29_1_fu_682_p2                                          | -   |        | add_ln29_1 | add | fabric | 0       |
+|  + atax_Pipeline_VITIS_LOOP_10_3_VITIS_LOOP_11_4                 | 24  |        |            |     |        |         |
+|    add_ln10_fu_388_p2                                            | -   |        | add_ln10   | add | fabric | 0       |
+|    add_ln10_2_fu_414_p2                                          | -   |        | add_ln10_2 | add | fabric | 0       |
+|    add_ln10_1_fu_444_p2                                          | -   |        | add_ln10_1 | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U11                                        | 3   |        | mul_ln17   | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U12                                        | 3   |        | mul_ln17_1 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U13                                        | 3   |        | mul_ln17_2 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U14                                        | 3   |        | mul_ln17_3 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U15                                        | 3   |        | mul_ln17_4 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U16                                        | 3   |        | mul_ln17_5 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U17                                        | 3   |        | mul_ln17_6 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U19                                        | 3   |        | mul_ln17_7 | mul | auto   | 0       |
+|    add_ln17_4_fu_558_p2                                          | -   |        | add_ln17_4 | add | fabric | 0       |
+|    add_ln17_1_fu_572_p2                                          | -   |        | add_ln17_1 | add | fabric | 0       |
+|    add_ln11_2_fu_520_p2                                          | -   |        | add_ln11_2 | add | fabric | 0       |
++------------------------------------------------------------------+-----+--------+------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++------------+------+------+--------+----------+---------+------+---------+
+| Name       | BRAM | URAM | Pragma | Variable | Storage | Impl | Latency |
++------------+------+------+--------+----------+---------+------+---------+
+| + atax     | 0    | 0    |        |          |         |      |         |
+|   temp_U   | -    | -    |        | temp     | ram_1p  | auto | 1       |
+|   temp_1_U | -    | -    |        | temp_1   | ram_1p  | auto | 1       |
+|   temp_2_U | -    | -    |        | temp_2   | ram_1p  | auto | 1       |
+|   temp_3_U | -    | -    |        | temp_3   | ram_1p  | auto | 1       |
+|   temp_4_U | -    | -    |        | temp_4   | ram_1p  | auto | 1       |
+|   temp_5_U | -    | -    |        | temp_5   | ram_1p  | auto | 1       |
+|   temp_6_U | -    | -    |        | temp_6   | ram_1p  | auto | 1       |
+|   temp_7_U | -    | -    |        | temp_7   | ram_1p  | auto | 1       |
++------------+------+------+--------+----------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++-----------------+-------------------------------------------+-------------------------------------------------------+
+| Type            | Options                                   | Location                                              |
++-----------------+-------------------------------------------+-------------------------------------------------------+
+| inline          |                                           | ../atax/generate/atax.cpp:4 in compute_ax_tiled       |
+| pipeline        | II=1                                      | ../atax/generate/atax.cpp:14 in compute_ax_tiled      |
+| inline          |                                           | ../atax/generate/atax.cpp:27 in compute_at_temp_tiled |
+| pipeline        | II=1                                      | ../atax/generate/atax.cpp:33 in compute_at_temp_tiled |
+| interface       | m_axi port=A offset=slave bundle=gmem     | ../atax/generate/atax.cpp:46 in atax, A               |
+| interface       | m_axi port=x offset=slave bundle=gmem     | ../atax/generate/atax.cpp:47 in atax, x               |
+| interface       | m_axi port=y_out offset=slave bundle=gmem | ../atax/generate/atax.cpp:48 in atax, y_out           |
+| interface       | s_axilite port=A bundle=control           | ../atax/generate/atax.cpp:49 in atax, A               |
+| interface       | s_axilite port=x bundle=control           | ../atax/generate/atax.cpp:50 in atax, x               |
+| interface       | s_axilite port=y_out bundle=control       | ../atax/generate/atax.cpp:51 in atax, y_out           |
+| interface       | s_axilite port=return bundle=control      | ../atax/generate/atax.cpp:52 in atax, return          |
+| array_partition | variable=temp cyclic factor=8 dim=1       | ../atax/generate/atax.cpp:55 in atax, temp            |
++-----------------+-------------------------------------------+-------------------------------------------------------+
+
+

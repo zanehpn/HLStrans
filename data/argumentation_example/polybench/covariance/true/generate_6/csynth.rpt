@@ -1,0 +1,1083 @@
+
+
+================================================================
+== Synthesis Summary Report of 'covariance'
+================================================================
++ General Information: 
+    * Date:           Mon May  5 08:57:24 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        covariance
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +-----------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+------+----------+-------------+-------------+-----+
+    |                 Modules                 |  Issue |       | Latency |  Latency  | Iteration|         | Trip |          |      |          |             |             |     |
+    |                 & Loops                 |  Type  | Slack | (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined| BRAM |    DSP   |      FF     |     LUT     | URAM|
+    +-----------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+------+----------+-------------+-------------+-----+
+    |+ covariance                             |  Timing|  -0.32|   710576|  3.553e+06|         -|   710577|     -|        no|     -|  14 (~0%)|  107462 (4%)|   48598 (3%)|    -|
+    | + covariance_Pipeline_MEAN              |       -|   0.00|     8536|  4.268e+04|         -|     8536|     -|        no|     -|         -|  24177 (~0%)|  10641 (~0%)|    -|
+    |  o MEAN                                 |      II|   3.65|     8534|  4.267e+04|       536|      100|    80|       yes|     -|         -|            -|            -|    -|
+    | + covariance_Pipeline_NORM              |       -|   0.00|    17302|  8.651e+04|         -|    17302|     -|        no|     -|         -|   5237 (~0%)|   2498 (~0%)|    -|
+    |  o NORM                                 |      II|   3.65|    17300|  8.650e+04|       174|      173|   100|       yes|     -|         -|            -|            -|    -|
+    | o COV                                   |       -|   3.65|   684640|  3.423e+06|      8558|        -|    80|        no|     -|         -|            -|            -|    -|
+    |  + covariance_Pipeline_VITIS_LOOP_26_3  |  Timing|  -0.32|     8448|  4.224e+04|         -|     8448|     -|        no|     -|   8 (~0%)|   31666 (1%)|  12260 (~0%)|    -|
+    |   o VITIS_LOOP_26_3                     |      II|   3.65|     8446|  4.223e+04|       547|      100|    80|       yes|     -|         -|            -|            -|    -|
+    +-----------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+------+----------+-------------+-------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* M_AXI
++-------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| Interface   | Data Width | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   |
+|             | (SW->HW)   |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |
++-------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| m_axi_gmem  | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem1 | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem2 | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
++-------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+
+* S_AXILITE Interfaces
++---------------+------------+---------------+--------+----------+
+| Interface     | Data Width | Address Width | Offset | Register |
++---------------+------------+---------------+--------+----------+
+| s_axi_control | 32         | 6             | 16     | 0        |
++---------------+------------+---------------+--------+----------+
+
+* S_AXILITE Registers
++---------------+----------+--------+-------+--------+---------------------+
+| Interface     | Register | Offset | Width | Access | Description         |
++---------------+----------+--------+-------+--------+---------------------+
+| s_axi_control | data_1   | 0x10   | 32    | W      | Data signal of data |
+| s_axi_control | data_2   | 0x14   | 32    | W      | Data signal of data |
+| s_axi_control | cov_1    | 0x1c   | 32    | W      | Data signal of cov  |
+| s_axi_control | cov_2    | 0x20   | 32    | W      | Data signal of cov  |
+| s_axi_control | mean_1   | 0x28   | 32    | W      | Data signal of mean |
+| s_axi_control | mean_2   | 0x2c   | 32    | W      | Data signal of mean |
++---------------+----------+--------+-------+--------+---------------------+
+
+* Other Ports
++-----------+---------+----------+
+| Interface | Mode    | Bitwidth |
++-----------+---------+----------+
+| float_n   | ap_none | 64       |
+| m         | ap_none | 32       |
+| n         | ap_none | 32       |
++-----------+---------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst_n  | reset      | ap_rst_n                          |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| m        | in        | int      |
+| n        | in        | int      |
+| float_n  | in        | double   |
+| data     | inout     | double*  |
+| cov      | out       | double*  |
+| mean     | inout     | double*  |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+---------------+-----------+----------+----------------------------------+
+| Argument | HW Interface  | HW Type   | HW Usage | HW Info                          |
++----------+---------------+-----------+----------+----------------------------------+
+| m        | m             | port      |          |                                  |
+| n        | n             | port      |          |                                  |
+| float_n  | float_n       | port      |          |                                  |
+| data     | m_axi_gmem    | interface |          |                                  |
+| data     | s_axi_control | register  | offset   | name=data_1 offset=0x10 range=32 |
+| data     | s_axi_control | register  | offset   | name=data_2 offset=0x14 range=32 |
+| cov      | m_axi_gmem2   | interface |          |                                  |
+| cov      | s_axi_control | register  | offset   | name=cov_1 offset=0x1c range=32  |
+| cov      | s_axi_control | register  | offset   | name=cov_2 offset=0x20 range=32  |
+| mean     | m_axi_gmem1   | interface |          |                                  |
+| mean     | s_axi_control | register  | offset   | name=mean_1 offset=0x28 range=32 |
+| mean     | s_axi_control | register  | offset   | name=mean_2 offset=0x2c range=32 |
++----------+---------------+-----------+----------+----------------------------------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+* Inferred Burst Summary
++--------------+------+-----------+--------+-------+------------------------------------------------------------------------------------------------+
+| HW Interface | Loop | Direction | Length | Width | Location                                                                                       |
++--------------+------+-----------+--------+-------+------------------------------------------------------------------------------------------------+
+| m_axi_gmem1  | MEAN | write     | 80     | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |      | read      | 80     | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:20:24 |
+| m_axi_gmem   |      | write     | 80     | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:19:28 |
++--------------+------+-----------+--------+-------+------------------------------------------------------------------------------------------------+
+
+* Inferred Bursts and Widening Missed
++--------------+----------+-----------------+----------------------------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------------------------------+
+| HW Interface | Variable | Loop            | Problem                                                                                                  | Resolution | Location                                                                                       |
++--------------+----------+-----------------+----------------------------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------------------------------+
+| m_axi_gmem2  | cov      |                 | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:32:23 |
+| m_axi_gmem2  | cov      | VITIS_LOOP_26_3 | Stride is incompatible                                                                                   | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_26_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   | data     |                 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:20:24 |
+| m_axi_gmem   | data     |                 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:19:28 |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   | data     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem1  | mean     | MEAN            | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:7:7   |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/covariance/generate/covariance.cpp:26:26 |
++--------------+----------+-----------------+----------------------------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------------------------------+
+
+    * Resolution URL: www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=XXX-YYY.html (replace XXX-YYY with column value)
+
+================================================================
+== Bind Op Report
+================================================================
++-------------------------------------------+-----+--------+-------------+------+---------+---------+
+| Name                                      | DSP | Pragma | Variable    | Op   | Impl    | Latency |
++-------------------------------------------+-----+--------+-------------+------+---------+---------+
+| + covariance                              | 14  |        |             |      |         |         |
+|   add_ln7_fu_2007_p2                      | -   |        | add_ln7     | add  | fabric  | 0       |
+|   add_ln7_1_fu_2023_p2                    | -   |        | add_ln7_1   | add  | fabric  | 0       |
+|   add_ln7_2_fu_2039_p2                    | -   |        | add_ln7_2   | add  | fabric  | 0       |
+|   add_ln7_3_fu_2055_p2                    | -   |        | add_ln7_3   | add  | fabric  | 0       |
+|   add_ln7_4_fu_2071_p2                    | -   |        | add_ln7_4   | add  | fabric  | 0       |
+|   add_ln7_5_fu_2087_p2                    | -   |        | add_ln7_5   | add  | fabric  | 0       |
+|   add_ln7_6_fu_2103_p2                    | -   |        | add_ln7_6   | add  | fabric  | 0       |
+|   add_ln7_7_fu_2119_p2                    | -   |        | add_ln7_7   | add  | fabric  | 0       |
+|   add_ln7_8_fu_2135_p2                    | -   |        | add_ln7_8   | add  | fabric  | 0       |
+|   add_ln7_9_fu_2151_p2                    | -   |        | add_ln7_9   | add  | fabric  | 0       |
+|   add_ln7_10_fu_2167_p2                   | -   |        | add_ln7_10  | add  | fabric  | 0       |
+|   add_ln7_11_fu_2183_p2                   | -   |        | add_ln7_11  | add  | fabric  | 0       |
+|   add_ln7_12_fu_2199_p2                   | -   |        | add_ln7_12  | add  | fabric  | 0       |
+|   add_ln7_13_fu_2215_p2                   | -   |        | add_ln7_13  | add  | fabric  | 0       |
+|   add_ln7_14_fu_2231_p2                   | -   |        | add_ln7_14  | add  | fabric  | 0       |
+|   add_ln7_15_fu_2247_p2                   | -   |        | add_ln7_15  | add  | fabric  | 0       |
+|   add_ln7_16_fu_2263_p2                   | -   |        | add_ln7_16  | add  | fabric  | 0       |
+|   add_ln7_17_fu_2279_p2                   | -   |        | add_ln7_17  | add  | fabric  | 0       |
+|   add_ln7_18_fu_2295_p2                   | -   |        | add_ln7_18  | add  | fabric  | 0       |
+|   add_ln7_19_fu_2311_p2                   | -   |        | add_ln7_19  | add  | fabric  | 0       |
+|   add_ln7_20_fu_2327_p2                   | -   |        | add_ln7_20  | add  | fabric  | 0       |
+|   add_ln7_21_fu_2343_p2                   | -   |        | add_ln7_21  | add  | fabric  | 0       |
+|   add_ln7_22_fu_2359_p2                   | -   |        | add_ln7_22  | add  | fabric  | 0       |
+|   add_ln7_23_fu_2375_p2                   | -   |        | add_ln7_23  | add  | fabric  | 0       |
+|   add_ln7_24_fu_2391_p2                   | -   |        | add_ln7_24  | add  | fabric  | 0       |
+|   add_ln7_25_fu_2407_p2                   | -   |        | add_ln7_25  | add  | fabric  | 0       |
+|   add_ln7_26_fu_2423_p2                   | -   |        | add_ln7_26  | add  | fabric  | 0       |
+|   add_ln7_27_fu_2439_p2                   | -   |        | add_ln7_27  | add  | fabric  | 0       |
+|   add_ln7_28_fu_2455_p2                   | -   |        | add_ln7_28  | add  | fabric  | 0       |
+|   add_ln7_29_fu_2471_p2                   | -   |        | add_ln7_29  | add  | fabric  | 0       |
+|   add_ln7_30_fu_2487_p2                   | -   |        | add_ln7_30  | add  | fabric  | 0       |
+|   add_ln7_31_fu_2503_p2                   | -   |        | add_ln7_31  | add  | fabric  | 0       |
+|   add_ln7_32_fu_2519_p2                   | -   |        | add_ln7_32  | add  | fabric  | 0       |
+|   add_ln7_33_fu_2535_p2                   | -   |        | add_ln7_33  | add  | fabric  | 0       |
+|   add_ln7_34_fu_2551_p2                   | -   |        | add_ln7_34  | add  | fabric  | 0       |
+|   add_ln7_35_fu_2567_p2                   | -   |        | add_ln7_35  | add  | fabric  | 0       |
+|   add_ln7_36_fu_2583_p2                   | -   |        | add_ln7_36  | add  | fabric  | 0       |
+|   add_ln7_37_fu_2599_p2                   | -   |        | add_ln7_37  | add  | fabric  | 0       |
+|   add_ln7_38_fu_2615_p2                   | -   |        | add_ln7_38  | add  | fabric  | 0       |
+|   add_ln7_39_fu_2631_p2                   | -   |        | add_ln7_39  | add  | fabric  | 0       |
+|   add_ln7_40_fu_2647_p2                   | -   |        | add_ln7_40  | add  | fabric  | 0       |
+|   add_ln7_41_fu_2663_p2                   | -   |        | add_ln7_41  | add  | fabric  | 0       |
+|   add_ln7_42_fu_2679_p2                   | -   |        | add_ln7_42  | add  | fabric  | 0       |
+|   add_ln7_43_fu_2695_p2                   | -   |        | add_ln7_43  | add  | fabric  | 0       |
+|   add_ln7_44_fu_2711_p2                   | -   |        | add_ln7_44  | add  | fabric  | 0       |
+|   add_ln7_45_fu_2727_p2                   | -   |        | add_ln7_45  | add  | fabric  | 0       |
+|   add_ln7_46_fu_2743_p2                   | -   |        | add_ln7_46  | add  | fabric  | 0       |
+|   add_ln7_47_fu_2759_p2                   | -   |        | add_ln7_47  | add  | fabric  | 0       |
+|   add_ln7_48_fu_2775_p2                   | -   |        | add_ln7_48  | add  | fabric  | 0       |
+|   add_ln7_49_fu_2791_p2                   | -   |        | add_ln7_49  | add  | fabric  | 0       |
+|   add_ln7_50_fu_2807_p2                   | -   |        | add_ln7_50  | add  | fabric  | 0       |
+|   add_ln7_51_fu_2823_p2                   | -   |        | add_ln7_51  | add  | fabric  | 0       |
+|   add_ln7_52_fu_2839_p2                   | -   |        | add_ln7_52  | add  | fabric  | 0       |
+|   add_ln7_53_fu_2855_p2                   | -   |        | add_ln7_53  | add  | fabric  | 0       |
+|   add_ln7_54_fu_2871_p2                   | -   |        | add_ln7_54  | add  | fabric  | 0       |
+|   add_ln7_55_fu_2887_p2                   | -   |        | add_ln7_55  | add  | fabric  | 0       |
+|   add_ln7_56_fu_2903_p2                   | -   |        | add_ln7_56  | add  | fabric  | 0       |
+|   add_ln7_57_fu_2919_p2                   | -   |        | add_ln7_57  | add  | fabric  | 0       |
+|   add_ln7_58_fu_2935_p2                   | -   |        | add_ln7_58  | add  | fabric  | 0       |
+|   add_ln7_59_fu_2951_p2                   | -   |        | add_ln7_59  | add  | fabric  | 0       |
+|   add_ln7_60_fu_2967_p2                   | -   |        | add_ln7_60  | add  | fabric  | 0       |
+|   add_ln7_61_fu_2983_p2                   | -   |        | add_ln7_61  | add  | fabric  | 0       |
+|   add_ln7_62_fu_2999_p2                   | -   |        | add_ln7_62  | add  | fabric  | 0       |
+|   add_ln7_63_fu_3015_p2                   | -   |        | add_ln7_63  | add  | fabric  | 0       |
+|   add_ln7_64_fu_3031_p2                   | -   |        | add_ln7_64  | add  | fabric  | 0       |
+|   add_ln7_65_fu_3047_p2                   | -   |        | add_ln7_65  | add  | fabric  | 0       |
+|   add_ln7_66_fu_3063_p2                   | -   |        | add_ln7_66  | add  | fabric  | 0       |
+|   add_ln7_67_fu_3079_p2                   | -   |        | add_ln7_67  | add  | fabric  | 0       |
+|   add_ln7_68_fu_3095_p2                   | -   |        | add_ln7_68  | add  | fabric  | 0       |
+|   add_ln7_69_fu_3111_p2                   | -   |        | add_ln7_69  | add  | fabric  | 0       |
+|   add_ln7_70_fu_3127_p2                   | -   |        | add_ln7_70  | add  | fabric  | 0       |
+|   add_ln7_71_fu_3143_p2                   | -   |        | add_ln7_71  | add  | fabric  | 0       |
+|   add_ln7_72_fu_3159_p2                   | -   |        | add_ln7_72  | add  | fabric  | 0       |
+|   add_ln7_73_fu_3175_p2                   | -   |        | add_ln7_73  | add  | fabric  | 0       |
+|   add_ln7_74_fu_3191_p2                   | -   |        | add_ln7_74  | add  | fabric  | 0       |
+|   add_ln7_75_fu_3207_p2                   | -   |        | add_ln7_75  | add  | fabric  | 0       |
+|   add_ln7_76_fu_3223_p2                   | -   |        | add_ln7_76  | add  | fabric  | 0       |
+|   add_ln7_77_fu_3239_p2                   | -   |        | add_ln7_77  | add  | fabric  | 0       |
+|   add_ln7_78_fu_3255_p2                   | -   |        | add_ln7_78  | add  | fabric  | 0       |
+|   add_ln7_79_fu_3271_p2                   | -   |        | add_ln7_79  | add  | fabric  | 0       |
+|   add_ln7_80_fu_3287_p2                   | -   |        | add_ln7_80  | add  | fabric  | 0       |
+|   add_ln7_81_fu_3303_p2                   | -   |        | add_ln7_81  | add  | fabric  | 0       |
+|   add_ln7_82_fu_3319_p2                   | -   |        | add_ln7_82  | add  | fabric  | 0       |
+|   add_ln7_83_fu_3335_p2                   | -   |        | add_ln7_83  | add  | fabric  | 0       |
+|   add_ln7_84_fu_3351_p2                   | -   |        | add_ln7_84  | add  | fabric  | 0       |
+|   add_ln7_85_fu_3367_p2                   | -   |        | add_ln7_85  | add  | fabric  | 0       |
+|   add_ln7_86_fu_3383_p2                   | -   |        | add_ln7_86  | add  | fabric  | 0       |
+|   add_ln7_87_fu_3399_p2                   | -   |        | add_ln7_87  | add  | fabric  | 0       |
+|   add_ln7_88_fu_3415_p2                   | -   |        | add_ln7_88  | add  | fabric  | 0       |
+|   add_ln7_89_fu_3431_p2                   | -   |        | add_ln7_89  | add  | fabric  | 0       |
+|   add_ln7_90_fu_3447_p2                   | -   |        | add_ln7_90  | add  | fabric  | 0       |
+|   add_ln7_91_fu_3463_p2                   | -   |        | add_ln7_91  | add  | fabric  | 0       |
+|   add_ln7_92_fu_3479_p2                   | -   |        | add_ln7_92  | add  | fabric  | 0       |
+|   add_ln7_93_fu_3495_p2                   | -   |        | add_ln7_93  | add  | fabric  | 0       |
+|   add_ln7_94_fu_3511_p2                   | -   |        | add_ln7_94  | add  | fabric  | 0       |
+|   add_ln7_95_fu_3527_p2                   | -   |        | add_ln7_95  | add  | fabric  | 0       |
+|   add_ln7_96_fu_3543_p2                   | -   |        | add_ln7_96  | add  | fabric  | 0       |
+|   add_ln7_97_fu_3559_p2                   | -   |        | add_ln7_97  | add  | fabric  | 0       |
+|   add_ln7_98_fu_3575_p2                   | -   |        | add_ln7_98  | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | 3   |        | sub1        | dadd | fulldsp | 4       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln25    | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30    | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_1  | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_2  | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_3  | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_4  | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_5  | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_6  | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_7  | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_8  | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_9  | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_10 | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_11 | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_12 | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_13 | add  | fabric  | 0       |
+|   add_ln30_14_fu_4008_p2                  | -   |        | add_ln30_14 | add  | fabric  | 0       |
+|   add_ln30_15_fu_4013_p2                  | -   |        | add_ln30_15 | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_16 | add  | fabric  | 0       |
+|   add_ln30_17_fu_4023_p2                  | -   |        | add_ln30_17 | add  | fabric  | 0       |
+|   add_ln30_18_fu_4028_p2                  | -   |        | add_ln30_18 | add  | fabric  | 0       |
+|   add_ln30_19_fu_4033_p2                  | -   |        | add_ln30_19 | add  | fabric  | 0       |
+|   add_ln30_20_fu_4038_p2                  | -   |        | add_ln30_20 | add  | fabric  | 0       |
+|   add_ln30_21_fu_4043_p2                  | -   |        | add_ln30_21 | add  | fabric  | 0       |
+|   add_ln30_22_fu_4048_p2                  | -   |        | add_ln30_22 | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_23 | add  | fabric  | 0       |
+|   add_ln30_24_fu_4058_p2                  | -   |        | add_ln30_24 | add  | fabric  | 0       |
+|   add_ln30_25_fu_4063_p2                  | -   |        | add_ln30_25 | add  | fabric  | 0       |
+|   add_ln30_26_fu_4068_p2                  | -   |        | add_ln30_26 | add  | fabric  | 0       |
+|   add_ln30_27_fu_4073_p2                  | -   |        | add_ln30_27 | add  | fabric  | 0       |
+|   add_ln30_28_fu_4078_p2                  | -   |        | add_ln30_28 | add  | fabric  | 0       |
+|   add_ln30_29_fu_4083_p2                  | -   |        | add_ln30_29 | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_30 | add  | fabric  | 0       |
+|   add_ln30_31_fu_4093_p2                  | -   |        | add_ln30_31 | add  | fabric  | 0       |
+|   add_ln30_32_fu_4098_p2                  | -   |        | add_ln30_32 | add  | fabric  | 0       |
+|   add_ln30_33_fu_4103_p2                  | -   |        | add_ln30_33 | add  | fabric  | 0       |
+|   add_ln30_34_fu_4108_p2                  | -   |        | add_ln30_34 | add  | fabric  | 0       |
+|   add_ln30_35_fu_4113_p2                  | -   |        | add_ln30_35 | add  | fabric  | 0       |
+|   add_ln30_36_fu_4118_p2                  | -   |        | add_ln30_36 | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_37 | add  | fabric  | 0       |
+|   add_ln30_38_fu_4128_p2                  | -   |        | add_ln30_38 | add  | fabric  | 0       |
+|   add_ln30_39_fu_4133_p2                  | -   |        | add_ln30_39 | add  | fabric  | 0       |
+|   add_ln30_40_fu_4138_p2                  | -   |        | add_ln30_40 | add  | fabric  | 0       |
+|   add_ln30_41_fu_4143_p2                  | -   |        | add_ln30_41 | add  | fabric  | 0       |
+|   add_ln30_42_fu_4148_p2                  | -   |        | add_ln30_42 | add  | fabric  | 0       |
+|   add_ln30_43_fu_4153_p2                  | -   |        | add_ln30_43 | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_44 | add  | fabric  | 0       |
+|   add_ln30_45_fu_4163_p2                  | -   |        | add_ln30_45 | add  | fabric  | 0       |
+|   add_ln30_46_fu_4168_p2                  | -   |        | add_ln30_46 | add  | fabric  | 0       |
+|   add_ln30_47_fu_4173_p2                  | -   |        | add_ln30_47 | add  | fabric  | 0       |
+|   add_ln30_48_fu_4178_p2                  | -   |        | add_ln30_48 | add  | fabric  | 0       |
+|   add_ln30_49_fu_4183_p2                  | -   |        | add_ln30_49 | add  | fabric  | 0       |
+|   add_ln30_50_fu_4188_p2                  | -   |        | add_ln30_50 | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_51 | add  | fabric  | 0       |
+|   add_ln30_52_fu_4198_p2                  | -   |        | add_ln30_52 | add  | fabric  | 0       |
+|   add_ln30_53_fu_4203_p2                  | -   |        | add_ln30_53 | add  | fabric  | 0       |
+|   add_ln30_54_fu_4208_p2                  | -   |        | add_ln30_54 | add  | fabric  | 0       |
+|   add_ln30_55_fu_4213_p2                  | -   |        | add_ln30_55 | add  | fabric  | 0       |
+|   add_ln30_56_fu_4218_p2                  | -   |        | add_ln30_56 | add  | fabric  | 0       |
+|   add_ln30_57_fu_4223_p2                  | -   |        | add_ln30_57 | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_58 | add  | fabric  | 0       |
+|   add_ln30_59_fu_4233_p2                  | -   |        | add_ln30_59 | add  | fabric  | 0       |
+|   add_ln30_60_fu_4238_p2                  | -   |        | add_ln30_60 | add  | fabric  | 0       |
+|   add_ln30_61_fu_4243_p2                  | -   |        | add_ln30_61 | add  | fabric  | 0       |
+|   add_ln30_62_fu_4248_p2                  | -   |        | add_ln30_62 | add  | fabric  | 0       |
+|   add_ln30_63_fu_4253_p2                  | -   |        | add_ln30_63 | add  | fabric  | 0       |
+|   add_ln30_64_fu_4258_p2                  | -   |        | add_ln30_64 | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_65 | add  | fabric  | 0       |
+|   add_ln30_66_fu_4268_p2                  | -   |        | add_ln30_66 | add  | fabric  | 0       |
+|   add_ln30_67_fu_4273_p2                  | -   |        | add_ln30_67 | add  | fabric  | 0       |
+|   add_ln30_68_fu_4278_p2                  | -   |        | add_ln30_68 | add  | fabric  | 0       |
+|   add_ln30_69_fu_4283_p2                  | -   |        | add_ln30_69 | add  | fabric  | 0       |
+|   add_ln30_70_fu_4288_p2                  | -   |        | add_ln30_70 | add  | fabric  | 0       |
+|   add_ln30_71_fu_4293_p2                  | -   |        | add_ln30_71 | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_72 | add  | fabric  | 0       |
+|   add_ln30_73_fu_4303_p2                  | -   |        | add_ln30_73 | add  | fabric  | 0       |
+|   add_ln30_74_fu_4308_p2                  | -   |        | add_ln30_74 | add  | fabric  | 0       |
+|   add_ln30_75_fu_4313_p2                  | -   |        | add_ln30_75 | add  | fabric  | 0       |
+|   add_ln30_76_fu_4318_p2                  | -   |        | add_ln30_76 | add  | fabric  | 0       |
+|   add_ln30_77_fu_4323_p2                  | -   |        | add_ln30_77 | add  | fabric  | 0       |
+|   add_ln30_78_fu_4328_p2                  | -   |        | add_ln30_78 | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_79 | add  | fabric  | 0       |
+|   add_ln30_80_fu_4338_p2                  | -   |        | add_ln30_80 | add  | fabric  | 0       |
+|   add_ln30_81_fu_4343_p2                  | -   |        | add_ln30_81 | add  | fabric  | 0       |
+|   add_ln30_82_fu_4348_p2                  | -   |        | add_ln30_82 | add  | fabric  | 0       |
+|   add_ln30_83_fu_4353_p2                  | -   |        | add_ln30_83 | add  | fabric  | 0       |
+|   add_ln30_84_fu_4358_p2                  | -   |        | add_ln30_84 | add  | fabric  | 0       |
+|   add_ln30_85_fu_4363_p2                  | -   |        | add_ln30_85 | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_86 | add  | fabric  | 0       |
+|   add_ln30_87_fu_4373_p2                  | -   |        | add_ln30_87 | add  | fabric  | 0       |
+|   add_ln30_88_fu_4378_p2                  | -   |        | add_ln30_88 | add  | fabric  | 0       |
+|   add_ln30_89_fu_4383_p2                  | -   |        | add_ln30_89 | add  | fabric  | 0       |
+|   add_ln30_90_fu_4388_p2                  | -   |        | add_ln30_90 | add  | fabric  | 0       |
+|   add_ln30_91_fu_4393_p2                  | -   |        | add_ln30_91 | add  | fabric  | 0       |
+|   add_ln30_92_fu_4398_p2                  | -   |        | add_ln30_92 | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln30_93 | add  | fabric  | 0       |
+|   add_ln30_94_fu_4408_p2                  | -   |        | add_ln30_94 | add  | fabric  | 0       |
+|   add_ln30_95_fu_4413_p2                  | -   |        | add_ln30_95 | add  | fabric  | 0       |
+|   add_ln30_96_fu_4418_p2                  | -   |        | add_ln30_96 | add  | fabric  | 0       |
+|   add_ln30_97_fu_4423_p2                  | -   |        | add_ln30_97 | add  | fabric  | 0       |
+|   add_ln30_98_fu_4428_p2                  | -   |        | add_ln30_98 | add  | fabric  | 0       |
+|   add_ln30_99_fu_4433_p2                  | -   |        | add_ln30_99 | add  | fabric  | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U402 | -   |        | add_ln28    | add  | fabric  | 0       |
+|   add_ln33_fu_6868_p2                     | -   |        | add_ln33    | add  | fabric  | 0       |
+|  + covariance_Pipeline_MEAN               | 0   |        |             |      |         |         |
+|    add_ln7_fu_2542_p2                     | -   |        | add_ln7     | add  | fabric  | 0       |
+|    add_ln11_fu_2552_p2                    | -   |        | add_ln11    | add  | fabric  | 0       |
+|    add_ln11_1_fu_2573_p2                  | -   |        | add_ln11_1  | add  | fabric  | 0       |
+|    add_ln11_2_fu_2587_p2                  | -   |        | add_ln11_2  | add  | fabric  | 0       |
+|    add_ln11_3_fu_2601_p2                  | -   |        | add_ln11_3  | add  | fabric  | 0       |
+|    add_ln11_4_fu_2615_p2                  | -   |        | add_ln11_4  | add  | fabric  | 0       |
+|    add_ln11_5_fu_2629_p2                  | -   |        | add_ln11_5  | add  | fabric  | 0       |
+|    add_ln11_6_fu_2643_p2                  | -   |        | add_ln11_6  | add  | fabric  | 0       |
+|    add_ln11_7_fu_2657_p2                  | -   |        | add_ln11_7  | add  | fabric  | 0       |
+|    add_ln11_8_fu_2671_p2                  | -   |        | add_ln11_8  | add  | fabric  | 0       |
+|    add_ln11_9_fu_2689_p2                  | -   |        | add_ln11_9  | add  | fabric  | 0       |
+|    add_ln11_10_fu_2703_p2                 | -   |        | add_ln11_10 | add  | fabric  | 0       |
+|    add_ln11_11_fu_2717_p2                 | -   |        | add_ln11_11 | add  | fabric  | 0       |
+|    add_ln11_12_fu_2731_p2                 | -   |        | add_ln11_12 | add  | fabric  | 0       |
+|    add_ln11_13_fu_2745_p2                 | -   |        | add_ln11_13 | add  | fabric  | 0       |
+|    add_ln11_14_fu_2763_p2                 | -   |        | add_ln11_14 | add  | fabric  | 0       |
+|    add_ln11_15_fu_2777_p2                 | -   |        | add_ln11_15 | add  | fabric  | 0       |
+|    add_ln11_16_fu_2791_p2                 | -   |        | add_ln11_16 | add  | fabric  | 0       |
+|    add_ln11_17_fu_2805_p2                 | -   |        | add_ln11_17 | add  | fabric  | 0       |
+|    add_ln11_18_fu_2819_p2                 | -   |        | add_ln11_18 | add  | fabric  | 0       |
+|    add_ln11_19_fu_2837_p2                 | -   |        | add_ln11_19 | add  | fabric  | 0       |
+|    add_ln11_20_fu_2851_p2                 | -   |        | add_ln11_20 | add  | fabric  | 0       |
+|    add_ln11_21_fu_2865_p2                 | -   |        | add_ln11_21 | add  | fabric  | 0       |
+|    add_ln11_22_fu_2879_p2                 | -   |        | add_ln11_22 | add  | fabric  | 0       |
+|    add_ln11_23_fu_2893_p2                 | -   |        | add_ln11_23 | add  | fabric  | 0       |
+|    add_ln11_24_fu_2911_p2                 | -   |        | add_ln11_24 | add  | fabric  | 0       |
+|    add_ln11_25_fu_2925_p2                 | -   |        | add_ln11_25 | add  | fabric  | 0       |
+|    add_ln11_26_fu_2939_p2                 | -   |        | add_ln11_26 | add  | fabric  | 0       |
+|    add_ln11_27_fu_2953_p2                 | -   |        | add_ln11_27 | add  | fabric  | 0       |
+|    add_ln11_28_fu_2967_p2                 | -   |        | add_ln11_28 | add  | fabric  | 0       |
+|    add_ln11_29_fu_2985_p2                 | -   |        | add_ln11_29 | add  | fabric  | 0       |
+|    add_ln11_30_fu_2999_p2                 | -   |        | add_ln11_30 | add  | fabric  | 0       |
+|    add_ln11_31_fu_3013_p2                 | -   |        | add_ln11_31 | add  | fabric  | 0       |
+|    add_ln11_32_fu_3027_p2                 | -   |        | add_ln11_32 | add  | fabric  | 0       |
+|    add_ln11_33_fu_3041_p2                 | -   |        | add_ln11_33 | add  | fabric  | 0       |
+|    add_ln11_34_fu_3059_p2                 | -   |        | add_ln11_34 | add  | fabric  | 0       |
+|    add_ln11_35_fu_3073_p2                 | -   |        | add_ln11_35 | add  | fabric  | 0       |
+|    add_ln11_36_fu_3087_p2                 | -   |        | add_ln11_36 | add  | fabric  | 0       |
+|    add_ln11_37_fu_3101_p2                 | -   |        | add_ln11_37 | add  | fabric  | 0       |
+|    add_ln11_38_fu_3115_p2                 | -   |        | add_ln11_38 | add  | fabric  | 0       |
+|    add_ln11_39_fu_3133_p2                 | -   |        | add_ln11_39 | add  | fabric  | 0       |
+|    add_ln11_40_fu_3147_p2                 | -   |        | add_ln11_40 | add  | fabric  | 0       |
+|    add_ln11_41_fu_3161_p2                 | -   |        | add_ln11_41 | add  | fabric  | 0       |
+|    add_ln11_42_fu_3175_p2                 | -   |        | add_ln11_42 | add  | fabric  | 0       |
+|    add_ln11_43_fu_3189_p2                 | -   |        | add_ln11_43 | add  | fabric  | 0       |
+|    add_ln11_44_fu_3207_p2                 | -   |        | add_ln11_44 | add  | fabric  | 0       |
+|    add_ln11_45_fu_3221_p2                 | -   |        | add_ln11_45 | add  | fabric  | 0       |
+|    add_ln11_46_fu_3235_p2                 | -   |        | add_ln11_46 | add  | fabric  | 0       |
+|    add_ln11_47_fu_3249_p2                 | -   |        | add_ln11_47 | add  | fabric  | 0       |
+|    add_ln11_48_fu_3263_p2                 | -   |        | add_ln11_48 | add  | fabric  | 0       |
+|    add_ln11_49_fu_3281_p2                 | -   |        | add_ln11_49 | add  | fabric  | 0       |
+|    add_ln11_50_fu_3295_p2                 | -   |        | add_ln11_50 | add  | fabric  | 0       |
+|    add_ln11_51_fu_3309_p2                 | -   |        | add_ln11_51 | add  | fabric  | 0       |
+|    add_ln11_52_fu_3323_p2                 | -   |        | add_ln11_52 | add  | fabric  | 0       |
+|    add_ln11_53_fu_3337_p2                 | -   |        | add_ln11_53 | add  | fabric  | 0       |
+|    add_ln11_54_fu_3355_p2                 | -   |        | add_ln11_54 | add  | fabric  | 0       |
+|    add_ln11_55_fu_3369_p2                 | -   |        | add_ln11_55 | add  | fabric  | 0       |
+|    add_ln11_56_fu_3383_p2                 | -   |        | add_ln11_56 | add  | fabric  | 0       |
+|    add_ln11_57_fu_3397_p2                 | -   |        | add_ln11_57 | add  | fabric  | 0       |
+|    add_ln11_58_fu_3411_p2                 | -   |        | add_ln11_58 | add  | fabric  | 0       |
+|    add_ln11_59_fu_3429_p2                 | -   |        | add_ln11_59 | add  | fabric  | 0       |
+|    add_ln11_60_fu_3443_p2                 | -   |        | add_ln11_60 | add  | fabric  | 0       |
+|    add_ln11_61_fu_3457_p2                 | -   |        | add_ln11_61 | add  | fabric  | 0       |
+|    add_ln11_62_fu_3471_p2                 | -   |        | add_ln11_62 | add  | fabric  | 0       |
+|    add_ln11_63_fu_3485_p2                 | -   |        | add_ln11_63 | add  | fabric  | 0       |
+|    add_ln11_64_fu_3503_p2                 | -   |        | add_ln11_64 | add  | fabric  | 0       |
+|    add_ln11_65_fu_3517_p2                 | -   |        | add_ln11_65 | add  | fabric  | 0       |
+|    add_ln11_66_fu_3531_p2                 | -   |        | add_ln11_66 | add  | fabric  | 0       |
+|    add_ln11_67_fu_3545_p2                 | -   |        | add_ln11_67 | add  | fabric  | 0       |
+|    add_ln11_68_fu_3559_p2                 | -   |        | add_ln11_68 | add  | fabric  | 0       |
+|    add_ln11_69_fu_3577_p2                 | -   |        | add_ln11_69 | add  | fabric  | 0       |
+|    add_ln11_70_fu_3591_p2                 | -   |        | add_ln11_70 | add  | fabric  | 0       |
+|    add_ln11_71_fu_3605_p2                 | -   |        | add_ln11_71 | add  | fabric  | 0       |
+|    add_ln11_72_fu_3619_p2                 | -   |        | add_ln11_72 | add  | fabric  | 0       |
+|    add_ln11_73_fu_3633_p2                 | -   |        | add_ln11_73 | add  | fabric  | 0       |
+|    add_ln11_74_fu_3651_p2                 | -   |        | add_ln11_74 | add  | fabric  | 0       |
+|    add_ln11_75_fu_3665_p2                 | -   |        | add_ln11_75 | add  | fabric  | 0       |
+|    add_ln11_76_fu_3679_p2                 | -   |        | add_ln11_76 | add  | fabric  | 0       |
+|    add_ln11_77_fu_3693_p2                 | -   |        | add_ln11_77 | add  | fabric  | 0       |
+|    add_ln11_78_fu_3707_p2                 | -   |        | add_ln11_78 | add  | fabric  | 0       |
+|    add_ln11_79_fu_3725_p2                 | -   |        | add_ln11_79 | add  | fabric  | 0       |
+|    add_ln11_80_fu_3739_p2                 | -   |        | add_ln11_80 | add  | fabric  | 0       |
+|    add_ln11_81_fu_3753_p2                 | -   |        | add_ln11_81 | add  | fabric  | 0       |
+|    add_ln11_82_fu_3767_p2                 | -   |        | add_ln11_82 | add  | fabric  | 0       |
+|    add_ln11_83_fu_3781_p2                 | -   |        | add_ln11_83 | add  | fabric  | 0       |
+|    add_ln11_84_fu_3799_p2                 | -   |        | add_ln11_84 | add  | fabric  | 0       |
+|    add_ln11_85_fu_3813_p2                 | -   |        | add_ln11_85 | add  | fabric  | 0       |
+|    add_ln11_86_fu_3827_p2                 | -   |        | add_ln11_86 | add  | fabric  | 0       |
+|    add_ln11_87_fu_3841_p2                 | -   |        | add_ln11_87 | add  | fabric  | 0       |
+|    add_ln11_88_fu_3855_p2                 | -   |        | add_ln11_88 | add  | fabric  | 0       |
+|    add_ln11_89_fu_3873_p2                 | -   |        | add_ln11_89 | add  | fabric  | 0       |
+|    add_ln11_90_fu_3887_p2                 | -   |        | add_ln11_90 | add  | fabric  | 0       |
+|    add_ln11_91_fu_3901_p2                 | -   |        | add_ln11_91 | add  | fabric  | 0       |
+|    add_ln11_92_fu_3915_p2                 | -   |        | add_ln11_92 | add  | fabric  | 0       |
+|    add_ln11_93_fu_3929_p2                 | -   |        | add_ln11_93 | add  | fabric  | 0       |
+|    add_ln11_94_fu_3947_p2                 | -   |        | add_ln11_94 | add  | fabric  | 0       |
+|    add_ln11_95_fu_3961_p2                 | -   |        | add_ln11_95 | add  | fabric  | 0       |
+|    add_ln11_96_fu_3975_p2                 | -   |        | add_ln11_96 | add  | fabric  | 0       |
+|    add_ln11_97_fu_3989_p2                 | -   |        | add_ln11_97 | add  | fabric  | 0       |
+|    add_ln11_98_fu_4003_p2                 | -   |        | add_ln11_98 | add  | fabric  | 0       |
+|    add_ln11_99_fu_4007_p2                 | -   |        | add_ln11_99 | add  | fabric  | 0       |
+|  + covariance_Pipeline_NORM               | 0   |        |             |      |         |         |
+|    add_ln17_fu_1412_p2                    | -   |        | add_ln17    | add  | fabric  | 0       |
+|  + covariance_Pipeline_VITIS_LOOP_26_3    | 8   |        |             |      |         |         |
+|    add_ln26_1_fu_3446_p2                  | -   |        | add_ln26_1  | add  | fabric  | 0       |
+|    add_ln30_fu_3452_p2                    | -   |        | add_ln30    | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul         | dmul | maxdsp  | 4       |
+|    add_ln30_1_fu_3479_p2                  | -   |        | add_ln30_1  | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_1       | dmul | maxdsp  | 4       |
+|    add_ln30_2_fu_3489_p2                  | -   |        | add_ln30_2  | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_2       | dmul | maxdsp  | 4       |
+|    add_ln30_3_fu_3499_p2                  | -   |        | add_ln30_3  | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_3       | dmul | maxdsp  | 4       |
+|    add_ln30_4_fu_3509_p2                  | -   |        | add_ln30_4  | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_4       | dmul | maxdsp  | 4       |
+|    add_ln30_5_fu_3519_p2                  | -   |        | add_ln30_5  | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_5       | dmul | maxdsp  | 4       |
+|    add_ln30_6_fu_3529_p2                  | -   |        | add_ln30_6  | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_6       | dmul | maxdsp  | 4       |
+|    add_ln30_7_fu_3539_p2                  | -   |        | add_ln30_7  | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_7       | dmul | maxdsp  | 4       |
+|    add_ln30_8_fu_3549_p2                  | -   |        | add_ln30_8  | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_8       | dmul | maxdsp  | 4       |
+|    add_ln30_9_fu_3563_p2                  | -   |        | add_ln30_9  | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_9       | dmul | maxdsp  | 4       |
+|    add_ln30_10_fu_3577_p2                 | -   |        | add_ln30_10 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_s       | dmul | maxdsp  | 4       |
+|    add_ln30_11_fu_3591_p2                 | -   |        | add_ln30_11 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_10      | dmul | maxdsp  | 4       |
+|    add_ln30_12_fu_3605_p2                 | -   |        | add_ln30_12 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_11      | dmul | maxdsp  | 4       |
+|    add_ln30_13_fu_3619_p2                 | -   |        | add_ln30_13 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_12      | dmul | maxdsp  | 4       |
+|    add_ln30_14_fu_3633_p2                 | -   |        | add_ln30_14 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_13      | dmul | maxdsp  | 4       |
+|    add_ln30_15_fu_3647_p2                 | -   |        | add_ln30_15 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_14      | dmul | maxdsp  | 4       |
+|    add_ln30_16_fu_3661_p2                 | -   |        | add_ln30_16 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_15      | dmul | maxdsp  | 4       |
+|    add_ln30_17_fu_3675_p2                 | -   |        | add_ln30_17 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_16      | dmul | maxdsp  | 4       |
+|    add_ln30_18_fu_3689_p2                 | -   |        | add_ln30_18 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_17      | dmul | maxdsp  | 4       |
+|    add_ln30_19_fu_3703_p2                 | -   |        | add_ln30_19 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_18      | dmul | maxdsp  | 4       |
+|    add_ln30_20_fu_3717_p2                 | -   |        | add_ln30_20 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_19      | dmul | maxdsp  | 4       |
+|    add_ln30_21_fu_3731_p2                 | -   |        | add_ln30_21 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_20      | dmul | maxdsp  | 4       |
+|    add_ln30_22_fu_3745_p2                 | -   |        | add_ln30_22 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_21      | dmul | maxdsp  | 4       |
+|    add_ln30_23_fu_3759_p2                 | -   |        | add_ln30_23 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_22      | dmul | maxdsp  | 4       |
+|    add_ln30_24_fu_3773_p2                 | -   |        | add_ln30_24 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_23      | dmul | maxdsp  | 4       |
+|    add_ln30_25_fu_3787_p2                 | -   |        | add_ln30_25 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_24      | dmul | maxdsp  | 4       |
+|    add_ln30_26_fu_3801_p2                 | -   |        | add_ln30_26 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_25      | dmul | maxdsp  | 4       |
+|    add_ln30_27_fu_3815_p2                 | -   |        | add_ln30_27 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_26      | dmul | maxdsp  | 4       |
+|    add_ln30_28_fu_3829_p2                 | -   |        | add_ln30_28 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_27      | dmul | maxdsp  | 4       |
+|    add_ln30_29_fu_3843_p2                 | -   |        | add_ln30_29 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_28      | dmul | maxdsp  | 4       |
+|    add_ln30_30_fu_3857_p2                 | -   |        | add_ln30_30 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_29      | dmul | maxdsp  | 4       |
+|    add_ln30_31_fu_3871_p2                 | -   |        | add_ln30_31 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_30      | dmul | maxdsp  | 4       |
+|    add_ln30_32_fu_3885_p2                 | -   |        | add_ln30_32 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_31      | dmul | maxdsp  | 4       |
+|    add_ln30_33_fu_3899_p2                 | -   |        | add_ln30_33 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_32      | dmul | maxdsp  | 4       |
+|    add_ln30_34_fu_3913_p2                 | -   |        | add_ln30_34 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_33      | dmul | maxdsp  | 4       |
+|    add_ln30_35_fu_3927_p2                 | -   |        | add_ln30_35 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_34      | dmul | maxdsp  | 4       |
+|    add_ln30_36_fu_3941_p2                 | -   |        | add_ln30_36 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_35      | dmul | maxdsp  | 4       |
+|    add_ln30_37_fu_3955_p2                 | -   |        | add_ln30_37 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_36      | dmul | maxdsp  | 4       |
+|    add_ln30_38_fu_3969_p2                 | -   |        | add_ln30_38 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_37      | dmul | maxdsp  | 4       |
+|    add_ln30_39_fu_3983_p2                 | -   |        | add_ln30_39 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_38      | dmul | maxdsp  | 4       |
+|    add_ln30_40_fu_3997_p2                 | -   |        | add_ln30_40 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_39      | dmul | maxdsp  | 4       |
+|    add_ln30_41_fu_4011_p2                 | -   |        | add_ln30_41 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_40      | dmul | maxdsp  | 4       |
+|    add_ln30_42_fu_4025_p2                 | -   |        | add_ln30_42 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_41      | dmul | maxdsp  | 4       |
+|    add_ln30_43_fu_4039_p2                 | -   |        | add_ln30_43 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_42      | dmul | maxdsp  | 4       |
+|    add_ln30_44_fu_4053_p2                 | -   |        | add_ln30_44 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_43      | dmul | maxdsp  | 4       |
+|    add_ln30_45_fu_4067_p2                 | -   |        | add_ln30_45 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_44      | dmul | maxdsp  | 4       |
+|    add_ln30_46_fu_4081_p2                 | -   |        | add_ln30_46 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_45      | dmul | maxdsp  | 4       |
+|    add_ln30_47_fu_4095_p2                 | -   |        | add_ln30_47 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_46      | dmul | maxdsp  | 4       |
+|    add_ln30_48_fu_4109_p2                 | -   |        | add_ln30_48 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_47      | dmul | maxdsp  | 4       |
+|    add_ln30_49_fu_4123_p2                 | -   |        | add_ln30_49 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_48      | dmul | maxdsp  | 4       |
+|    add_ln30_50_fu_4137_p2                 | -   |        | add_ln30_50 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_49      | dmul | maxdsp  | 4       |
+|    add_ln30_51_fu_4151_p2                 | -   |        | add_ln30_51 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_50      | dmul | maxdsp  | 4       |
+|    add_ln30_52_fu_4165_p2                 | -   |        | add_ln30_52 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_51      | dmul | maxdsp  | 4       |
+|    add_ln30_53_fu_4179_p2                 | -   |        | add_ln30_53 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_52      | dmul | maxdsp  | 4       |
+|    add_ln30_54_fu_4193_p2                 | -   |        | add_ln30_54 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_53      | dmul | maxdsp  | 4       |
+|    add_ln30_55_fu_4207_p2                 | -   |        | add_ln30_55 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_54      | dmul | maxdsp  | 4       |
+|    add_ln30_56_fu_4221_p2                 | -   |        | add_ln30_56 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_55      | dmul | maxdsp  | 4       |
+|    add_ln30_57_fu_4235_p2                 | -   |        | add_ln30_57 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_56      | dmul | maxdsp  | 4       |
+|    add_ln30_58_fu_4249_p2                 | -   |        | add_ln30_58 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_57      | dmul | maxdsp  | 4       |
+|    add_ln30_59_fu_4263_p2                 | -   |        | add_ln30_59 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_58      | dmul | maxdsp  | 4       |
+|    add_ln30_60_fu_4277_p2                 | -   |        | add_ln30_60 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_59      | dmul | maxdsp  | 4       |
+|    add_ln30_61_fu_4291_p2                 | -   |        | add_ln30_61 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_60      | dmul | maxdsp  | 4       |
+|    add_ln30_62_fu_4305_p2                 | -   |        | add_ln30_62 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_61      | dmul | maxdsp  | 4       |
+|    add_ln30_63_fu_4319_p2                 | -   |        | add_ln30_63 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_62      | dmul | maxdsp  | 4       |
+|    add_ln30_64_fu_4333_p2                 | -   |        | add_ln30_64 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_63      | dmul | maxdsp  | 4       |
+|    add_ln30_65_fu_4347_p2                 | -   |        | add_ln30_65 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_64      | dmul | maxdsp  | 4       |
+|    add_ln30_66_fu_4361_p2                 | -   |        | add_ln30_66 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_65      | dmul | maxdsp  | 4       |
+|    add_ln30_67_fu_4375_p2                 | -   |        | add_ln30_67 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_66      | dmul | maxdsp  | 4       |
+|    add_ln30_68_fu_4389_p2                 | -   |        | add_ln30_68 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_67      | dmul | maxdsp  | 4       |
+|    add_ln30_69_fu_4403_p2                 | -   |        | add_ln30_69 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_68      | dmul | maxdsp  | 4       |
+|    add_ln30_70_fu_4417_p2                 | -   |        | add_ln30_70 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_69      | dmul | maxdsp  | 4       |
+|    add_ln30_71_fu_4431_p2                 | -   |        | add_ln30_71 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_70      | dmul | maxdsp  | 4       |
+|    add_ln30_72_fu_4445_p2                 | -   |        | add_ln30_72 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_71      | dmul | maxdsp  | 4       |
+|    add_ln30_73_fu_4459_p2                 | -   |        | add_ln30_73 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_72      | dmul | maxdsp  | 4       |
+|    add_ln30_74_fu_4473_p2                 | -   |        | add_ln30_74 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_73      | dmul | maxdsp  | 4       |
+|    add_ln30_75_fu_4487_p2                 | -   |        | add_ln30_75 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_74      | dmul | maxdsp  | 4       |
+|    add_ln30_76_fu_4501_p2                 | -   |        | add_ln30_76 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_75      | dmul | maxdsp  | 4       |
+|    add_ln30_77_fu_4515_p2                 | -   |        | add_ln30_77 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_76      | dmul | maxdsp  | 4       |
+|    add_ln30_78_fu_4529_p2                 | -   |        | add_ln30_78 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_77      | dmul | maxdsp  | 4       |
+|    add_ln30_79_fu_4543_p2                 | -   |        | add_ln30_79 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_78      | dmul | maxdsp  | 4       |
+|    add_ln30_80_fu_4557_p2                 | -   |        | add_ln30_80 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_79      | dmul | maxdsp  | 4       |
+|    add_ln30_81_fu_4571_p2                 | -   |        | add_ln30_81 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_80      | dmul | maxdsp  | 4       |
+|    add_ln30_82_fu_4585_p2                 | -   |        | add_ln30_82 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_81      | dmul | maxdsp  | 4       |
+|    add_ln30_83_fu_4599_p2                 | -   |        | add_ln30_83 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_82      | dmul | maxdsp  | 4       |
+|    add_ln30_84_fu_4613_p2                 | -   |        | add_ln30_84 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_83      | dmul | maxdsp  | 4       |
+|    add_ln30_85_fu_4627_p2                 | -   |        | add_ln30_85 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_84      | dmul | maxdsp  | 4       |
+|    add_ln30_86_fu_4641_p2                 | -   |        | add_ln30_86 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_85      | dmul | maxdsp  | 4       |
+|    add_ln30_87_fu_4655_p2                 | -   |        | add_ln30_87 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_86      | dmul | maxdsp  | 4       |
+|    add_ln30_88_fu_4669_p2                 | -   |        | add_ln30_88 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_87      | dmul | maxdsp  | 4       |
+|    add_ln30_89_fu_4683_p2                 | -   |        | add_ln30_89 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_88      | dmul | maxdsp  | 4       |
+|    add_ln30_90_fu_4697_p2                 | -   |        | add_ln30_90 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_89      | dmul | maxdsp  | 4       |
+|    add_ln30_91_fu_4711_p2                 | -   |        | add_ln30_91 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_90      | dmul | maxdsp  | 4       |
+|    add_ln30_92_fu_4725_p2                 | -   |        | add_ln30_92 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_91      | dmul | maxdsp  | 4       |
+|    add_ln30_93_fu_4739_p2                 | -   |        | add_ln30_93 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_92      | dmul | maxdsp  | 4       |
+|    add_ln30_94_fu_4753_p2                 | -   |        | add_ln30_94 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_93      | dmul | maxdsp  | 4       |
+|    add_ln30_95_fu_4767_p2                 | -   |        | add_ln30_95 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_94      | dmul | maxdsp  | 4       |
+|    add_ln30_96_fu_4781_p2                 | -   |        | add_ln30_96 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_95      | dmul | maxdsp  | 4       |
+|    add_ln30_97_fu_4795_p2                 | -   |        | add_ln30_97 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_96      | dmul | maxdsp  | 4       |
+|    add_ln30_98_fu_4809_p2                 | -   |        | add_ln30_98 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_97      | dmul | maxdsp  | 4       |
+|    add_ln30_99_fu_4813_p2                 | -   |        | add_ln30_99 | add  | fabric  | 0       |
+|    dmul_64ns_64ns_64_5_max_dsp_1_U191     | 8   |        | mul_98      | dmul | maxdsp  | 4       |
+|    add_ln26_fu_3457_p2                    | -   |        | add_ln26    | add  | fabric  | 0       |
++-------------------------------------------+-----+--------+-------------+------+---------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
+  No bind storage info in design
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++-----------+------------------------------+-------------------------------------------------------------+
+| Type      | Options                      | Location                                                    |
++-----------+------------------------------+-------------------------------------------------------------+
+| interface | m_axi port=data bundle=gmem  | ../covariance/generate/covariance.cpp:2 in covariance, data |
+| interface | m_axi port=mean bundle=gmem1 | ../covariance/generate/covariance.cpp:3 in covariance, mean |
+| interface | m_axi port=cov bundle=gmem2  | ../covariance/generate/covariance.cpp:4 in covariance, cov  |
+| pipeline  | II=1                         | ../covariance/generate/covariance.cpp:8 in covariance       |
+| pipeline  | II=1                         | ../covariance/generate/covariance.cpp:18 in covariance      |
+| pipeline  | II=1                         | ../covariance/generate/covariance.cpp:27 in covariance      |
++-----------+------------------------------+-------------------------------------------------------------+
+
+

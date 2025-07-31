@@ -1,0 +1,271 @@
+
+
+================================================================
+== Synthesis Summary Report of 'bicg'
+================================================================
++ General Information: 
+    * Date:           Thu Mar 13 14:35:39 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        bicg
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcvu9p-flga2104-2-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+---------+------------+------------+-----+
+    |               Modules              | Issue|      | Latency |  Latency  | Iteration|         | Trip |          |      |         |            |            |     |
+    |               & Loops              | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined| BRAM |   DSP   |     FF     |     LUT    | URAM|
+    +------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+---------+------------+------------+-----+
+    |+ bicg                              |     -|  0.00|   169298|  8.465e+05|         -|   169299|     -|        no|     -|  5 (~0%)|  9522 (~0%)|  12188 (1%)|    -|
+    | + bicg_Pipeline_VITIS_LOOP_46_1    |     -|  0.00|      264|  1.320e+03|         -|      264|     -|        no|     -|        -|   469 (~0%)|   627 (~0%)|    -|
+    |  o VITIS_LOOP_46_1                 |    II|  3.65|      262|  1.310e+03|         9|        2|   128|       yes|     -|        -|           -|           -|    -|
+    | o VITIS_LOOP_4_1                   |     -|  3.65|    84096|  4.205e+05|      1314|        -|    64|        no|     -|        -|           -|           -|    -|
+    |  + bicg_Pipeline_VITIS_LOOP_7_2    |     -|  0.00|      647|  3.235e+03|         -|      647|     -|        no|     -|        -|   277 (~0%)|   245 (~0%)|    -|
+    |   o VITIS_LOOP_7_2                 |    II|  3.65|      645|  3.225e+03|        16|       10|    64|       yes|     -|        -|           -|           -|    -|
+    |  + bicg_Pipeline_VITIS_LOOP_7_21   |     -|  0.00|      647|  3.235e+03|         -|      647|     -|        no|     -|        -|   277 (~0%)|   245 (~0%)|    -|
+    |   o VITIS_LOOP_7_2                 |    II|  3.65|      645|  3.225e+03|        16|       10|    64|       yes|     -|        -|           -|           -|    -|
+    | o VITIS_LOOP_15_1                  |     -|  3.65|    84928|  4.246e+05|      1327|        -|    64|        no|     -|        -|           -|           -|    -|
+    |  + bicg_Pipeline_VITIS_LOOP_18_2   |     -|  0.00|      654|  3.270e+03|         -|      654|     -|        no|     -|        -|   416 (~0%)|   567 (~0%)|    -|
+    |   o VITIS_LOOP_18_2                |    II|  3.65|      652|  3.260e+03|        23|       10|    64|       yes|     -|        -|           -|           -|    -|
+    |  + bicg_Pipeline_VITIS_LOOP_18_22  |     -|  0.00|      654|  3.270e+03|         -|      654|     -|        no|     -|        -|   416 (~0%)|   567 (~0%)|    -|
+    |   o VITIS_LOOP_18_2                |    II|  3.65|      652|  3.260e+03|        23|       10|    64|       yes|     -|        -|           -|           -|    -|
+    +------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+---------+------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* M_AXI
++----------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| Interface      | Data Width | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   |
+|                | (SW->HW)   |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |
++----------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| m_axi_gmem_0   | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_0_0 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_0_1 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_1   | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_1_0 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_1_1 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
++----------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+
+* S_AXILITE Interfaces
++---------------+------------+---------------+--------+----------+
+| Interface     | Data Width | Address Width | Offset | Register |
++---------------+------------+---------------+--------+----------+
+| s_axi_control | 32         | 8             | 16     | 0        |
++---------------+------------+---------------+--------+----------+
+
+* S_AXILITE Registers
++---------------+-----------+--------+-------+--------+------------------------+
+| Interface     | Register  | Offset | Width | Access | Description            |
++---------------+-----------+--------+-------+--------+------------------------+
+| s_axi_control | A_0_0_1   | 0x10   | 32    | W      | Data signal of A_0_0   |
+| s_axi_control | A_0_0_2   | 0x14   | 32    | W      | Data signal of A_0_0   |
+| s_axi_control | A_0_1_1   | 0x1c   | 32    | W      | Data signal of A_0_1   |
+| s_axi_control | A_0_1_2   | 0x20   | 32    | W      | Data signal of A_0_1   |
+| s_axi_control | A_1_0_1   | 0x28   | 32    | W      | Data signal of A_1_0   |
+| s_axi_control | A_1_0_2   | 0x2c   | 32    | W      | Data signal of A_1_0   |
+| s_axi_control | A_1_1_1   | 0x34   | 32    | W      | Data signal of A_1_1   |
+| s_axi_control | A_1_1_2   | 0x38   | 32    | W      | Data signal of A_1_1   |
+| s_axi_control | p_0_1     | 0x40   | 32    | W      | Data signal of p_0     |
+| s_axi_control | p_0_2     | 0x44   | 32    | W      | Data signal of p_0     |
+| s_axi_control | p_1_1     | 0x4c   | 32    | W      | Data signal of p_1     |
+| s_axi_control | p_1_2     | 0x50   | 32    | W      | Data signal of p_1     |
+| s_axi_control | r_0_1     | 0x58   | 32    | W      | Data signal of r_0     |
+| s_axi_control | r_0_2     | 0x5c   | 32    | W      | Data signal of r_0     |
+| s_axi_control | r_1_1     | 0x64   | 32    | W      | Data signal of r_1     |
+| s_axi_control | r_1_2     | 0x68   | 32    | W      | Data signal of r_1     |
+| s_axi_control | s_out_0_1 | 0x70   | 32    | W      | Data signal of s_out_0 |
+| s_axi_control | s_out_0_2 | 0x74   | 32    | W      | Data signal of s_out_0 |
+| s_axi_control | s_out_1_1 | 0x7c   | 32    | W      | Data signal of s_out_1 |
+| s_axi_control | s_out_1_2 | 0x80   | 32    | W      | Data signal of s_out_1 |
+| s_axi_control | q_out_0_1 | 0x88   | 32    | W      | Data signal of q_out_0 |
+| s_axi_control | q_out_0_2 | 0x8c   | 32    | W      | Data signal of q_out_0 |
+| s_axi_control | q_out_1_1 | 0x94   | 32    | W      | Data signal of q_out_1 |
+| s_axi_control | q_out_1_2 | 0x98   | 32    | W      | Data signal of q_out_1 |
++---------------+-----------+--------+-------+--------+------------------------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst_n  | reset      | ap_rst_n                          |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| A        | in        | float*   |
+| p        | inout     | float*   |
+| r        | inout     | float*   |
+| s_out    | inout     | float*   |
+| q_out    | inout     | float*   |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+----------------+-----------+----------+
+| Argument | HW Interface   | HW Type   | HW Usage |
++----------+----------------+-----------+----------+
+| A        | m_axi_gmem_0_0 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_0_1 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_1_0 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_1_1 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| p        | m_axi_gmem_0   | interface |          |
+| p        | s_axi_control  | interface | offset   |
+| p        | m_axi_gmem_1   | interface |          |
+| p        | s_axi_control  | interface | offset   |
+| r        | m_axi_gmem_0   | interface |          |
+| r        | s_axi_control  | interface | offset   |
+| r        | m_axi_gmem_1   | interface |          |
+| r        | s_axi_control  | interface | offset   |
+| s_out    | m_axi_gmem_0   | interface |          |
+| s_out    | s_axi_control  | interface | offset   |
+| s_out    | m_axi_gmem_1   | interface |          |
+| s_out    | s_axi_control  | interface | offset   |
+| q_out    | m_axi_gmem_0   | interface |          |
+| q_out    | s_axi_control  | interface | offset   |
+| q_out    | m_axi_gmem_1   | interface |          |
+| q_out    | s_axi_control  | interface | offset   |
++----------+----------------+-----------+----------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+* Inferred Burst Summary
++----------------+-----------------+-----------+--------+-------+-----------------------------------------------------------------------------------------+
+| HW Interface   | Loop            | Direction | Length | Width | Location                                                                                |
++----------------+-----------------+-----------+--------+-------+-----------------------------------------------------------------------------------------+
+| m_axi_gmem_0_0 | VITIS_LOOP_4_1  | read      | 4096   | 32    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:4:21  |
+| m_axi_gmem_0_1 | VITIS_LOOP_4_1  | read      | 4096   | 32    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:4:21  |
+| m_axi_gmem_1_0 | VITIS_LOOP_4_1  | read      | 4096   | 32    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:4:21  |
+| m_axi_gmem_1_1 | VITIS_LOOP_4_1  | read      | 4096   | 32    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:4:21  |
+| m_axi_gmem_0   | VITIS_LOOP_7_2  | read      | 64     | 32    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:7:25  |
+| m_axi_gmem_1   | VITIS_LOOP_7_2  | read      | 64     | 32    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:7:25  |
+| m_axi_gmem_0   | VITIS_LOOP_18_2 | read      | 64     | 32    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:18:26 |
+| m_axi_gmem_1   | VITIS_LOOP_18_2 | read      | 64     | 32    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:18:26 |
++----------------+-----------------+-----------+--------+-------+-----------------------------------------------------------------------------------------+
+
+* Inferred Bursts and Widening Missed
++----------------+----------+-----------------+---------------------------------------------------------------------------------------------------------+------------+-----------------------------------------------------------------------------------------+
+| HW Interface   | Variable | Loop            | Problem                                                                                                 | Resolution | Location                                                                                |
++----------------+----------+-----------------+---------------------------------------------------------------------------------------------------------+------------+-----------------------------------------------------------------------------------------+
+| m_axi_gmem_0   | r_0      | VITIS_LOOP_4_1  | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:4:21  |
+| m_axi_gmem_0   | r_0      | VITIS_LOOP_4_1  | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:4:21  |
+| m_axi_gmem_1   | r_1      | VITIS_LOOP_4_1  | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:4:21  |
+| m_axi_gmem_1   | r_1      | VITIS_LOOP_4_1  | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:4:21  |
+| m_axi_gmem_0_0 | A_0_0    | VITIS_LOOP_18_2 | Stride is incompatible                                                                                  | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:18:26 |
+| m_axi_gmem_1_0 | A_1_0    | VITIS_LOOP_18_2 | Stride is incompatible                                                                                  | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:18:26 |
+| m_axi_gmem_0_1 | A_0_1    | VITIS_LOOP_18_2 | Stride is incompatible                                                                                  | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:18:26 |
+| m_axi_gmem_1_1 | A_1_1    | VITIS_LOOP_18_2 | Stride is incompatible                                                                                  | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:18:26 |
+| m_axi_gmem_0   | p_0      | VITIS_LOOP_15_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:15:22 |
+| m_axi_gmem_0   | p_0      | VITIS_LOOP_15_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:15:22 |
+| m_axi_gmem_1   | p_1      | VITIS_LOOP_15_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:15:22 |
+| m_axi_gmem_1   | p_1      | VITIS_LOOP_15_1 | Could not analyze pattern                                                                               | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:15:22 |
+| m_axi_gmem_1   | q_out_1  | VITIS_LOOP_46_1 | Access store is in the conditional branch                                                               | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:46:22 |
+| m_axi_gmem_1   | s_out_1  | VITIS_LOOP_46_1 | Access store is in the conditional branch                                                               | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:46:22 |
+| m_axi_gmem_0   | q_out_0  | VITIS_LOOP_46_1 | Access store is in the conditional branch                                                               | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:46:22 |
+| m_axi_gmem_0   | s_out_0  | VITIS_LOOP_46_1 | Access store is in the conditional branch                                                               | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:46:22 |
+| m_axi_gmem_0   | p_0      | VITIS_LOOP_18_2 | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:18:26 |
+| m_axi_gmem_1   | p_1      | VITIS_LOOP_18_2 | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:18:26 |
+| m_axi_gmem_0   | p_0      | VITIS_LOOP_18_2 | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:18:26 |
+| m_axi_gmem_1   | p_1      | VITIS_LOOP_18_2 | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:18:26 |
+| m_axi_gmem_1_0 | A_1_0    | VITIS_LOOP_7_2  | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:7:25  |
+| m_axi_gmem_0   | r_0      | VITIS_LOOP_7_2  | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:7:25  |
+| m_axi_gmem_1_1 | A_1_1    | VITIS_LOOP_7_2  | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:7:25  |
+| m_axi_gmem_1   | r_1      | VITIS_LOOP_7_2  | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:7:25  |
+| m_axi_gmem_0_0 | A_0_0    | VITIS_LOOP_7_2  | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:7:25  |
+| m_axi_gmem_0   | r_0      | VITIS_LOOP_7_2  | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:7:25  |
+| m_axi_gmem_0_1 | A_0_1    | VITIS_LOOP_7_2  | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:7:25  |
+| m_axi_gmem_1   | r_1      | VITIS_LOOP_7_2  | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/bicg/generate/bicg/bicg.cpp:7:25  |
++----------------+----------+-----------------+---------------------------------------------------------------------------------------------------------+------------+-----------------------------------------------------------------------------------------+
+
+    * Resolution URL: www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=XXX-YYY.html (replace XXX-YYY with column value)
+
+================================================================
+== Bind Op Report
+================================================================
++-----------------------------------+-----+--------+------------+-----+--------+---------+
+| Name                              | DSP | Pragma | Variable   | Op  | Impl   | Latency |
++-----------------------------------+-----+--------+------------+-----+--------+---------+
+| + bicg                            | 5   |        |            |     |        |         |
+|   add_ln4_1_fu_607_p2             | -   |        | add_ln4_1  | add | fabric | 0       |
+|   add_ln4_fu_688_p2               | -   |        | add_ln4    | add | fabric | 0       |
+|   add_ln15_fu_710_p2              | -   |        | add_ln15   | add | fabric | 0       |
+|  + bicg_Pipeline_VITIS_LOOP_7_2   | 0   |        |            |     |        |         |
+|    add_ln7_fu_196_p2              | -   |        | add_ln7    | add | fabric | 0       |
+|  + bicg_Pipeline_VITIS_LOOP_7_21  | 0   |        |            |     |        |         |
+|    add_ln7_fu_196_p2              | -   |        | add_ln7    | add | fabric | 0       |
+|  + bicg_Pipeline_VITIS_LOOP_46_1  | 0   |        |            |     |        |         |
+|    add_ln46_fu_278_p2             | -   |        | add_ln46   | add | fabric | 0       |
+|    add_ln48_fu_318_p2             | -   |        | add_ln48   | add | fabric | 0       |
+|    add_ln48_1_fu_324_p2           | -   |        | add_ln48_1 | add | fabric | 0       |
+|    add_ln49_fu_330_p2             | -   |        | add_ln49   | add | fabric | 0       |
+|    add_ln49_1_fu_396_p2           | -   |        | add_ln49_1 | add | fabric | 0       |
+|  + bicg_Pipeline_VITIS_LOOP_18_2  | 0   |        |            |     |        |         |
+|    add_ln18_1_fu_219_p2           | -   |        | add_ln18_1 | add | fabric | 0       |
+|    add_ln18_fu_308_p2             | -   |        | add_ln18   | add | fabric | 0       |
+|  + bicg_Pipeline_VITIS_LOOP_18_22 | 0   |        |            |     |        |         |
+|    add_ln18_fu_219_p2             | -   |        | add_ln18   | add | fabric | 0       |
+|    add_ln18_1_fu_308_p2           | -   |        | add_ln18_1 | add | fabric | 0       |
++-----------------------------------+-----+--------+------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++--------------+------+------+--------+----------+---------+------+---------+
+| Name         | BRAM | URAM | Pragma | Variable | Storage | Impl | Latency |
++--------------+------+------+--------+----------+---------+------+---------+
+| + bicg       | 0    | 0    |        |          |         |      |         |
+|   temp_q_U   | -    | -    |        | temp_q   | ram_1p  | auto | 1       |
+|   temp_q_1_U | -    | -    |        | temp_q_1 | ram_1p  | auto | 1       |
+|   temp_s_U   | -    | -    |        | temp_s   | ram_1p  | auto | 1       |
+|   temp_s_1_U | -    | -    |        | temp_s_1 | ram_1p  | auto | 1       |
++--------------+------+------+--------+----------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++-----------------+-------------------------------------------+---------------------------------------------------+
+| Type            | Options                                   | Location                                          |
++-----------------+-------------------------------------------+---------------------------------------------------+
+| unroll          | factor=2                                  | ../bicg/generate/bicg/bicg.cpp:5 in compute_q     |
+| unroll          | factor=2                                  | ../bicg/generate/bicg/bicg.cpp:8 in compute_q     |
+| unroll          | factor=2                                  | ../bicg/generate/bicg/bicg.cpp:16 in compute_s    |
+| unroll          | factor=2                                  | ../bicg/generate/bicg/bicg.cpp:19 in compute_s    |
+| interface       | m_axi port=A offset=slave bundle=gmem     | ../bicg/generate/bicg/bicg.cpp:26 in bicg, A      |
+| interface       | m_axi port=p offset=slave bundle=gmem     | ../bicg/generate/bicg/bicg.cpp:27 in bicg, p      |
+| interface       | m_axi port=r offset=slave bundle=gmem     | ../bicg/generate/bicg/bicg.cpp:28 in bicg, r      |
+| interface       | m_axi port=s_out offset=slave bundle=gmem | ../bicg/generate/bicg/bicg.cpp:29 in bicg, s_out  |
+| interface       | m_axi port=q_out offset=slave bundle=gmem | ../bicg/generate/bicg/bicg.cpp:30 in bicg, q_out  |
+| array_partition | variable=A cyclic factor=2 dim=1          | ../bicg/generate/bicg/bicg.cpp:32 in bicg, A      |
+| array_partition | variable=A cyclic factor=2 dim=2          | ../bicg/generate/bicg/bicg.cpp:33 in bicg, A      |
+| array_partition | variable=p cyclic factor=2                | ../bicg/generate/bicg/bicg.cpp:34 in bicg, p      |
+| array_partition | variable=r cyclic factor=2                | ../bicg/generate/bicg/bicg.cpp:35 in bicg, r      |
+| array_partition | variable=s_out cyclic factor=2            | ../bicg/generate/bicg/bicg.cpp:36 in bicg, s_out  |
+| array_partition | variable=q_out cyclic factor=2            | ../bicg/generate/bicg/bicg.cpp:37 in bicg, q_out  |
+| array_partition | variable=temp_q cyclic factor=2           | ../bicg/generate/bicg/bicg.cpp:40 in bicg, temp_q |
+| array_partition | variable=temp_s cyclic factor=2           | ../bicg/generate/bicg/bicg.cpp:41 in bicg, temp_s |
+| pipeline        | II=1                                      | ../bicg/generate/bicg/bicg.cpp:47 in bicg         |
++-----------------+-------------------------------------------+---------------------------------------------------+
+
+

@@ -1,0 +1,168 @@
+
+
+================================================================
+== Synthesis Summary Report of 'atax'
+================================================================
++ General Information: 
+    * Date:           Sun Mar 16 12:53:24 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        atax
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +----------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----------+------------+------------+-----+
+    |              Modules             | Issue|      | Latency |  Latency  | Iteration|         | Trip |          |      |          |            |            |     |
+    |              & Loops             | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined| BRAM |    DSP   |     FF     |     LUT    | URAM|
+    +----------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----------+------------+------------+-----+
+    |+ atax                            |     -|  0.48|      283|  1.415e+03|         -|      284|     -|        no|     -|   96 (1%)|  2640 (~0%)|  2705 (~0%)|    -|
+    | + atax_Pipeline_VITIS_LOOP_4_1   |     -|  0.48|      132|    660.000|         -|      132|     -|        no|     -|  48 (~0%)|   767 (~0%)|  1180 (~0%)|    -|
+    |  o VITIS_LOOP_4_1                |    II|  3.65|      130|    650.000|        11|        8|    16|       yes|     -|         -|           -|           -|    -|
+    | + atax_Pipeline_VITIS_LOOP_13_1  |     -|  0.48|      132|    660.000|         -|      132|     -|        no|     -|  48 (~0%)|   795 (~0%)|  1110 (~0%)|    -|
+    |  o VITIS_LOOP_13_1               |    II|  3.65|      130|    650.000|        11|        8|    16|       yes|     -|         -|           -|           -|    -|
+    +----------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----------+------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_MEMORY
++----------------+----------+
+| Interface      | Bitwidth |
++----------------+----------+
+| A_address0     | 8        |
+| A_address1     | 8        |
+| A_q0           | 32       |
+| A_q1           | 32       |
+| x_address0     | 4        |
+| x_address1     | 4        |
+| x_q0           | 32       |
+| x_q1           | 32       |
+| y_out_address0 | 4        |
+| y_out_d0       | 32       |
++----------------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| A        | in        | int*     |
+| x        | in        | int*     |
+| y_out    | out       | int*     |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+----------------+---------+----------+
+| Argument | HW Interface   | HW Type | HW Usage |
++----------+----------------+---------+----------+
+| A        | A_address0     | port    | offset   |
+| A        | A_ce0          | port    |          |
+| A        | A_q0           | port    |          |
+| A        | A_address1     | port    | offset   |
+| A        | A_ce1          | port    |          |
+| A        | A_q1           | port    |          |
+| x        | x_address0     | port    | offset   |
+| x        | x_ce0          | port    |          |
+| x        | x_q0           | port    |          |
+| x        | x_address1     | port    | offset   |
+| x        | x_ce1          | port    |          |
+| x        | x_q1           | port    |          |
+| y_out    | y_out_address0 | port    | offset   |
+| y_out    | y_out_ce0      | port    |          |
+| y_out    | y_out_we0      | port    |          |
+| y_out    | y_out_d0       | port    |          |
++----------+----------------+---------+----------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++----------------------------------+-----+--------+-------------+-----+--------+---------+
+| Name                             | DSP | Pragma | Variable    | Op  | Impl   | Latency |
++----------------------------------+-----+--------+-------------+-----+--------+---------+
+| + atax                           | 96  |        |             |     |        |         |
+|  + atax_Pipeline_VITIS_LOOP_4_1  | 48  |        |             |     |        |         |
+|    add_ln4_fu_380_p2             | -   |        | add_ln4     | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U3         | 3   |        | mul_ln7     | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U4         | 3   |        | mul_ln7_1   | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U5         | 3   |        | mul_ln7_2   | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U6         | 3   |        | mul_ln7_3   | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U7         | 3   |        | mul_ln7_4   | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U8         | 3   |        | mul_ln7_5   | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U9         | 3   |        | mul_ln7_6   | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U10        | 3   |        | mul_ln7_7   | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U11        | 3   |        | mul_ln7_8   | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U12        | 3   |        | mul_ln7_9   | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U13        | 3   |        | mul_ln7_10  | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U14        | 3   |        | mul_ln7_11  | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U15        | 3   |        | mul_ln7_12  | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U16        | 3   |        | mul_ln7_13  | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U1         | 3   |        | mul_ln7_14  | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U2         | 3   |        | mul_ln7_15  | mul | auto   | 0       |
+|    add_ln7_1_fu_563_p2           | -   |        | add_ln7_1   | add | fabric | 0       |
+|    add_ln7_4_fu_637_p2           | -   |        | add_ln7_4   | add | fabric | 0       |
+|    add_ln7_7_fu_657_p2           | -   |        | add_ln7_7   | add | fabric | 0       |
+|    add_ln7_8_fu_671_p2           | -   |        | add_ln7_8   | add | fabric | 0       |
+|    add_ln7_11_fu_495_p2          | -   |        | add_ln7_11  | add | fabric | 0       |
+|  + atax_Pipeline_VITIS_LOOP_13_1 | 48  |        |             |     |        |         |
+|    add_ln13_fu_362_p2            | -   |        | add_ln13    | add | fabric | 0       |
+|    add_ln16_15_fu_450_p2         | -   |        | add_ln16_15 | add | fabric | 0       |
+|    add_ln16_16_fu_516_p2         | -   |        | add_ln16_16 | add | fabric | 0       |
+|    add_ln16_17_fu_563_p2         | -   |        | add_ln16_17 | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U38        | 3   |        | mul_ln16    | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U39        | 3   |        | mul_ln16_1  | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U40        | 3   |        | mul_ln16_2  | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U41        | 3   |        | mul_ln16_3  | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U42        | 3   |        | mul_ln16_4  | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U43        | 3   |        | mul_ln16_5  | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U44        | 3   |        | mul_ln16_6  | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U45        | 3   |        | mul_ln16_7  | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U46        | 3   |        | mul_ln16_8  | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U47        | 3   |        | mul_ln16_9  | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U48        | 3   |        | mul_ln16_10 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U49        | 3   |        | mul_ln16_11 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U50        | 3   |        | mul_ln16_12 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U51        | 3   |        | mul_ln16_13 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U36        | 3   |        | mul_ln16_14 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U37        | 3   |        | mul_ln16_15 | mul | auto   | 0       |
+|    add_ln16_1_fu_541_p2          | -   |        | add_ln16_1  | add | fabric | 0       |
+|    add_ln16_4_fu_613_p2          | -   |        | add_ln16_4  | add | fabric | 0       |
+|    add_ln16_7_fu_633_p2          | -   |        | add_ln16_7  | add | fabric | 0       |
+|    add_ln16_8_fu_647_p2          | -   |        | add_ln16_8  | add | fabric | 0       |
+|    add_ln16_11_fu_471_p2         | -   |        | add_ln16_11 | add | fabric | 0       |
++----------------------------------+-----+--------+-------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++--------+------+------+--------+----------+---------+------+---------+
+| Name   | BRAM | URAM | Pragma | Variable | Storage | Impl | Latency |
++--------+------+------+--------+----------+---------+------+---------+
+| + atax | 0    | 0    |        |          |         |      |         |
+|   y_U  | -    | -    |        | y        | ram_s2p | auto | 1       |
++--------+------+------+--------+----------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+  No pragmas found
+

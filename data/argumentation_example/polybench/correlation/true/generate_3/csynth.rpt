@@ -1,0 +1,831 @@
+
+
+================================================================
+== Synthesis Summary Report of 'correlation'
+================================================================
++ General Information: 
+    * Date:           Mon May  5 06:20:08 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        correlation
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +---------------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+------+----------+------------+-------------+-----+
+    |                      Modules                      |  Issue |       | Latency |  Latency  | Iteration|         | Trip |          |      |          |            |             |     |
+    |                      & Loops                      |  Type  | Slack | (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined| BRAM |    DSP   |     FF     |     LUT     | URAM|
+    +---------------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+------+----------+------------+-------------+-----+
+    |+ correlation                                      |  Timing|  -0.32|   755873|  3.779e+06|         -|   755874|     -|        no|     -|  11 (~0%)|  68114 (2%)|   41563 (3%)|    -|
+    | + correlation_Pipeline_NORM_LOOP_VITIS_LOOP_41_3  |       -|   0.00|    24042|  1.202e+05|         -|    24042|     -|        no|     -|         -|   952 (~0%)|    782 (~0%)|    -|
+    |  o NORM_LOOP_VITIS_LOOP_41_3                      |      II|   3.65|    24040|  1.202e+05|        44|        3|  8000|       yes|     -|         -|           -|            -|    -|
+    | o MEAN_LOOP                                       |       -|   3.65|    26880|  1.344e+05|       336|        -|    80|        no|     -|         -|           -|            -|    -|
+    |  + correlation_Pipeline_VITIS_LOOP_17_1           |  Timing|  -0.19|      311|  1.555e+03|         -|      311|     -|        no|     -|         -|   601 (~0%)|   1023 (~0%)|    -|
+    |   o VITIS_LOOP_17_1                               |      II|   3.65|      309|  1.545e+03|        13|        3|   100|       yes|     -|         -|           -|            -|    -|
+    | o STDDEV_LOOP                                     |       -|   3.65|    37920|  1.896e+05|       474|        -|    80|        no|     -|         -|           -|            -|    -|
+    |  + correlation_Pipeline_VITIS_LOOP_29_2           |       -|   0.00|      421|  2.105e+03|         -|      421|     -|        no|     -|         -|   404 (~0%)|    307 (~0%)|    -|
+    |   o VITIS_LOOP_29_2                               |       -|   3.65|      419|  2.095e+03|        24|        4|   100|       yes|     -|         -|           -|            -|    -|
+    | o CORR_LOOP                                       |       -|   3.65|   666997|  3.335e+06|      8443|        -|    79|        no|     -|         -|           -|            -|    -|
+    |  + correlation_Pipeline_VITIS_LOOP_52_4           |  Timing|  -0.32|     8326|  4.163e+04|         -|     8326|     -|        no|     -|         -|  31341 (1%)|  12126 (~0%)|    -|
+    |   o VITIS_LOOP_52_4                               |      II|   3.65|     8324|  4.162e+04|       525|      100|    79|       yes|     -|         -|           -|            -|    -|
+    +---------------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+------+----------+------------+-------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* M_AXI
++------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| Interface  | Data Width | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   |
+|            | (SW->HW)   |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |
++------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| m_axi_gmem | 64 -> 64   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
++------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+
+* S_AXILITE Interfaces
++---------------+------------+---------------+--------+----------+
+| Interface     | Data Width | Address Width | Offset | Register |
++---------------+------------+---------------+--------+----------+
+| s_axi_control | 32         | 6             | 16     | 0        |
++---------------+------------+---------------+--------+----------+
+
+* S_AXILITE Registers
++---------------+----------+--------+-------+--------+-----------------------+
+| Interface     | Register | Offset | Width | Access | Description           |
++---------------+----------+--------+-------+--------+-----------------------+
+| s_axi_control | data_1   | 0x10   | 32    | W      | Data signal of data   |
+| s_axi_control | data_2   | 0x14   | 32    | W      | Data signal of data   |
+| s_axi_control | corr_1   | 0x1c   | 32    | W      | Data signal of corr   |
+| s_axi_control | corr_2   | 0x20   | 32    | W      | Data signal of corr   |
+| s_axi_control | mean_1   | 0x28   | 32    | W      | Data signal of mean   |
+| s_axi_control | mean_2   | 0x2c   | 32    | W      | Data signal of mean   |
+| s_axi_control | stddev_1 | 0x34   | 32    | W      | Data signal of stddev |
+| s_axi_control | stddev_2 | 0x38   | 32    | W      | Data signal of stddev |
++---------------+----------+--------+-------+--------+-----------------------+
+
+* Other Ports
++-----------+---------+----------+
+| Interface | Mode    | Bitwidth |
++-----------+---------+----------+
+| float_n   | ap_none | 64       |
++-----------+---------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst_n  | reset      | ap_rst_n                          |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| float_n  | in        | double   |
+| data     | inout     | double*  |
+| corr     | inout     | double*  |
+| mean     | inout     | double*  |
+| stddev   | inout     | double*  |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+---------------+-----------+----------+------------------------------------+
+| Argument | HW Interface  | HW Type   | HW Usage | HW Info                            |
++----------+---------------+-----------+----------+------------------------------------+
+| float_n  | float_n       | port      |          |                                    |
+| data     | m_axi_gmem    | interface |          |                                    |
+| data     | s_axi_control | register  | offset   | name=data_1 offset=0x10 range=32   |
+| data     | s_axi_control | register  | offset   | name=data_2 offset=0x14 range=32   |
+| corr     | m_axi_gmem    | interface |          |                                    |
+| corr     | s_axi_control | register  | offset   | name=corr_1 offset=0x1c range=32   |
+| corr     | s_axi_control | register  | offset   | name=corr_2 offset=0x20 range=32   |
+| mean     | m_axi_gmem    | interface |          |                                    |
+| mean     | s_axi_control | register  | offset   | name=mean_1 offset=0x28 range=32   |
+| mean     | s_axi_control | register  | offset   | name=mean_2 offset=0x2c range=32   |
+| stddev   | m_axi_gmem    | interface |          |                                    |
+| stddev   | s_axi_control | register  | offset   | name=stddev_1 offset=0x34 range=32 |
+| stddev   | s_axi_control | register  | offset   | name=stddev_2 offset=0x38 range=32 |
++----------+---------------+-----------+----------+------------------------------------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+* Inferred Burst Summary
++--------------+-------------+-----------+--------+-------+-------------------------------------------------------------------------------------------------+
+| HW Interface | Loop        | Direction | Length | Width | Location                                                                                        |
++--------------+-------------+-----------+--------+-------+-------------------------------------------------------------------------------------------------+
+| m_axi_gmem   | MEAN_LOOP   | write     | 80     | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:14:5 |
+| m_axi_gmem   | STDDEV_LOOP | write     | 80     | 64    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:26:5 |
++--------------+-------------+-----------+--------+-------+-------------------------------------------------------------------------------------------------+
+
+* Inferred Bursts and Widening Missed
++--------------+----------+-----------------+----------------------------------------------------------------------------------------------------------+------------+--------------------------------------------------------------------------------------------------+
+| HW Interface | Variable | Loop            | Problem                                                                                                  | Resolution | Location                                                                                         |
++--------------+----------+-----------------+----------------------------------------------------------------------------------------------------------+------------+--------------------------------------------------------------------------------------------------+
+| m_axi_gmem   | data     | VITIS_LOOP_17_1 | Stride is incompatible                                                                                   | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:17:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_29_2 | Stride is incompatible                                                                                   | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:29:26 |
+| m_axi_gmem   | data     |                 | Access is clobbered by store                                                                             | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:43:16 |
+| m_axi_gmem   | data     |                 | Access is clobbered by load                                                                              | 214-231    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:43:13 |
+| m_axi_gmem   | mean     | NORM_LOOP       | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:40:5  |
+| m_axi_gmem   | stddev   | NORM_LOOP       | Could not analyze pattern                                                                                | 214-229    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:40:5  |
+| m_axi_gmem   | corr     | VITIS_LOOP_52_4 | Stride is incompatible                                                                                   | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | corr     | CORR_LOOP       | Stride is incompatible                                                                                   | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:49:5  |
+| m_axi_gmem   | corr     | CORR_LOOP       | Stride is incompatible                                                                                   | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:49:5  |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | data     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | corr     | VITIS_LOOP_52_4 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   | mean     | VITIS_LOOP_41_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:41:26 |
+| m_axi_gmem   | stddev   | VITIS_LOOP_41_3 | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:41:26 |
+| m_axi_gmem   | stddev   | STDDEV_LOOP     | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:26:5  |
+| m_axi_gmem   | mean     | STDDEV_LOOP     | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:26:5  |
+| m_axi_gmem   | mean     | MEAN_LOOP       | Could not widen since type double size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:14:5  |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:26:5  |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:41:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:41:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential reads to the same bundle in the same region.                   | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
+| m_axi_gmem   |          |                 | Could not burst due to multiple potential writes to the same bundle in the same region.                  | 214-224    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/correlation/generate/correlation.cpp:52:26 |
++--------------+----------+-----------------+----------------------------------------------------------------------------------------------------------+------------+--------------------------------------------------------------------------------------------------+
+
+    * Resolution URL: www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=XXX-YYY.html (replace XXX-YYY with column value)
+
+================================================================
+== Bind Op Report
+================================================================
++---------------------------------------------------+-----+--------+--------------+-------+--------+---------+
+| Name                                              | DSP | Pragma | Variable     | Op    | Impl   | Latency |
++---------------------------------------------------+-----+--------+--------------+-------+--------+---------+
+| + correlation                                     | 11  |        |              |       |        |         |
+|   add_ln14_fu_1978_p2                             | -   |        | add_ln14     | add   | fabric | 0       |
+|   add_ln19_fu_1996_p2                             | -   |        | add_ln19     | add   | fabric | 0       |
+|   ddiv_64ns_64ns_64_22_no_dsp_1_U226              | -   |        | div          | ddiv  | fabric | 21      |
+|   add_ln26_fu_2053_p2                             | -   |        | add_ln26     | add   | fabric | 0       |
+|   dmul_64ns_64ns_64_5_max_dsp_1_U230              | -   |        | empty_129    | add   | fabric | 0       |
+|   add_ln31_fu_2109_p2                             | -   |        | add_ln31     | add   | fabric | 0       |
+|   ddiv_64ns_64ns_64_22_no_dsp_1_U226              | -   |        | div1         | ddiv  | fabric | 21      |
+|   dsqrt_64ns_64ns_64_17_no_dsp_1_U228             | -   |        | tmp          | dsqrt | fabric | 16      |
+|   dsqrt_64ns_64ns_64_17_no_dsp_1_U228             | -   |        | sqrt_float_n | dsqrt | fabric | 16      |
+|   add_ln57_fu_2189_p2                             | -   |        | add_ln57     | add   | fabric | 0       |
+|   add_ln57_1_fu_2194_p2                           | -   |        | add_ln57_1   | add   | fabric | 0       |
+|   add_ln57_2_fu_2199_p2                           | -   |        | add_ln57_2   | add   | fabric | 0       |
+|   add_ln57_3_fu_2204_p2                           | -   |        | add_ln57_3   | add   | fabric | 0       |
+|   add_ln57_4_fu_2209_p2                           | -   |        | add_ln57_4   | add   | fabric | 0       |
+|   add_ln57_5_fu_2214_p2                           | -   |        | add_ln57_5   | add   | fabric | 0       |
+|   add_ln57_6_fu_2219_p2                           | -   |        | add_ln57_6   | add   | fabric | 0       |
+|   add_ln57_7_fu_2224_p2                           | -   |        | add_ln57_7   | add   | fabric | 0       |
+|   add_ln57_8_fu_2229_p2                           | -   |        | add_ln57_8   | add   | fabric | 0       |
+|   add_ln57_9_fu_2234_p2                           | -   |        | add_ln57_9   | add   | fabric | 0       |
+|   add_ln57_10_fu_2239_p2                          | -   |        | add_ln57_10  | add   | fabric | 0       |
+|   add_ln57_11_fu_2244_p2                          | -   |        | add_ln57_11  | add   | fabric | 0       |
+|   add_ln57_12_fu_2249_p2                          | -   |        | add_ln57_12  | add   | fabric | 0       |
+|   add_ln57_13_fu_2254_p2                          | -   |        | add_ln57_13  | add   | fabric | 0       |
+|   add_ln57_14_fu_2259_p2                          | -   |        | add_ln57_14  | add   | fabric | 0       |
+|   add_ln57_15_fu_2264_p2                          | -   |        | add_ln57_15  | add   | fabric | 0       |
+|   add_ln57_16_fu_2269_p2                          | -   |        | add_ln57_16  | add   | fabric | 0       |
+|   add_ln57_17_fu_2274_p2                          | -   |        | add_ln57_17  | add   | fabric | 0       |
+|   add_ln57_18_fu_2279_p2                          | -   |        | add_ln57_18  | add   | fabric | 0       |
+|   add_ln57_19_fu_2284_p2                          | -   |        | add_ln57_19  | add   | fabric | 0       |
+|   add_ln57_20_fu_2289_p2                          | -   |        | add_ln57_20  | add   | fabric | 0       |
+|   add_ln57_21_fu_2294_p2                          | -   |        | add_ln57_21  | add   | fabric | 0       |
+|   add_ln57_22_fu_2299_p2                          | -   |        | add_ln57_22  | add   | fabric | 0       |
+|   add_ln57_23_fu_2304_p2                          | -   |        | add_ln57_23  | add   | fabric | 0       |
+|   add_ln57_24_fu_2309_p2                          | -   |        | add_ln57_24  | add   | fabric | 0       |
+|   add_ln57_25_fu_2314_p2                          | -   |        | add_ln57_25  | add   | fabric | 0       |
+|   add_ln57_26_fu_2319_p2                          | -   |        | add_ln57_26  | add   | fabric | 0       |
+|   add_ln57_27_fu_2324_p2                          | -   |        | add_ln57_27  | add   | fabric | 0       |
+|   add_ln57_28_fu_2329_p2                          | -   |        | add_ln57_28  | add   | fabric | 0       |
+|   add_ln57_29_fu_2334_p2                          | -   |        | add_ln57_29  | add   | fabric | 0       |
+|   add_ln57_30_fu_2339_p2                          | -   |        | add_ln57_30  | add   | fabric | 0       |
+|   add_ln57_31_fu_2344_p2                          | -   |        | add_ln57_31  | add   | fabric | 0       |
+|   add_ln57_32_fu_2349_p2                          | -   |        | add_ln57_32  | add   | fabric | 0       |
+|   add_ln57_33_fu_2354_p2                          | -   |        | add_ln57_33  | add   | fabric | 0       |
+|   add_ln57_34_fu_2359_p2                          | -   |        | add_ln57_34  | add   | fabric | 0       |
+|   add_ln57_35_fu_2364_p2                          | -   |        | add_ln57_35  | add   | fabric | 0       |
+|   add_ln57_36_fu_2369_p2                          | -   |        | add_ln57_36  | add   | fabric | 0       |
+|   add_ln57_37_fu_2374_p2                          | -   |        | add_ln57_37  | add   | fabric | 0       |
+|   add_ln57_38_fu_2379_p2                          | -   |        | add_ln57_38  | add   | fabric | 0       |
+|   add_ln57_39_fu_2384_p2                          | -   |        | add_ln57_39  | add   | fabric | 0       |
+|   add_ln57_40_fu_2389_p2                          | -   |        | add_ln57_40  | add   | fabric | 0       |
+|   add_ln57_41_fu_2394_p2                          | -   |        | add_ln57_41  | add   | fabric | 0       |
+|   add_ln57_42_fu_2399_p2                          | -   |        | add_ln57_42  | add   | fabric | 0       |
+|   add_ln57_43_fu_2404_p2                          | -   |        | add_ln57_43  | add   | fabric | 0       |
+|   add_ln57_44_fu_2409_p2                          | -   |        | add_ln57_44  | add   | fabric | 0       |
+|   add_ln57_45_fu_2414_p2                          | -   |        | add_ln57_45  | add   | fabric | 0       |
+|   add_ln57_46_fu_2419_p2                          | -   |        | add_ln57_46  | add   | fabric | 0       |
+|   add_ln57_47_fu_2424_p2                          | -   |        | add_ln57_47  | add   | fabric | 0       |
+|   add_ln57_48_fu_2429_p2                          | -   |        | add_ln57_48  | add   | fabric | 0       |
+|   add_ln57_49_fu_2434_p2                          | -   |        | add_ln57_49  | add   | fabric | 0       |
+|   add_ln57_50_fu_2439_p2                          | -   |        | add_ln57_50  | add   | fabric | 0       |
+|   add_ln57_51_fu_2444_p2                          | -   |        | add_ln57_51  | add   | fabric | 0       |
+|   add_ln57_52_fu_2449_p2                          | -   |        | add_ln57_52  | add   | fabric | 0       |
+|   add_ln57_53_fu_2454_p2                          | -   |        | add_ln57_53  | add   | fabric | 0       |
+|   add_ln57_54_fu_2459_p2                          | -   |        | add_ln57_54  | add   | fabric | 0       |
+|   add_ln57_55_fu_2464_p2                          | -   |        | add_ln57_55  | add   | fabric | 0       |
+|   add_ln57_56_fu_2469_p2                          | -   |        | add_ln57_56  | add   | fabric | 0       |
+|   add_ln57_57_fu_2474_p2                          | -   |        | add_ln57_57  | add   | fabric | 0       |
+|   add_ln57_58_fu_2479_p2                          | -   |        | add_ln57_58  | add   | fabric | 0       |
+|   add_ln57_59_fu_2484_p2                          | -   |        | add_ln57_59  | add   | fabric | 0       |
+|   add_ln57_60_fu_2489_p2                          | -   |        | add_ln57_60  | add   | fabric | 0       |
+|   add_ln57_61_fu_2494_p2                          | -   |        | add_ln57_61  | add   | fabric | 0       |
+|   add_ln57_62_fu_2499_p2                          | -   |        | add_ln57_62  | add   | fabric | 0       |
+|   add_ln57_63_fu_2504_p2                          | -   |        | add_ln57_63  | add   | fabric | 0       |
+|   add_ln57_64_fu_2509_p2                          | -   |        | add_ln57_64  | add   | fabric | 0       |
+|   add_ln57_65_fu_2514_p2                          | -   |        | add_ln57_65  | add   | fabric | 0       |
+|   add_ln57_66_fu_2519_p2                          | -   |        | add_ln57_66  | add   | fabric | 0       |
+|   add_ln57_67_fu_2524_p2                          | -   |        | add_ln57_67  | add   | fabric | 0       |
+|   add_ln57_68_fu_2529_p2                          | -   |        | add_ln57_68  | add   | fabric | 0       |
+|   add_ln57_69_fu_2534_p2                          | -   |        | add_ln57_69  | add   | fabric | 0       |
+|   add_ln57_70_fu_2539_p2                          | -   |        | add_ln57_70  | add   | fabric | 0       |
+|   add_ln57_71_fu_2544_p2                          | -   |        | add_ln57_71  | add   | fabric | 0       |
+|   add_ln57_72_fu_2549_p2                          | -   |        | add_ln57_72  | add   | fabric | 0       |
+|   add_ln57_73_fu_2554_p2                          | -   |        | add_ln57_73  | add   | fabric | 0       |
+|   add_ln57_74_fu_2559_p2                          | -   |        | add_ln57_74  | add   | fabric | 0       |
+|   add_ln57_75_fu_2564_p2                          | -   |        | add_ln57_75  | add   | fabric | 0       |
+|   add_ln57_76_fu_2569_p2                          | -   |        | add_ln57_76  | add   | fabric | 0       |
+|   add_ln57_77_fu_2574_p2                          | -   |        | add_ln57_77  | add   | fabric | 0       |
+|   add_ln57_78_fu_2579_p2                          | -   |        | add_ln57_78  | add   | fabric | 0       |
+|   add_ln57_79_fu_2584_p2                          | -   |        | add_ln57_79  | add   | fabric | 0       |
+|   add_ln57_80_fu_2589_p2                          | -   |        | add_ln57_80  | add   | fabric | 0       |
+|   add_ln57_81_fu_2594_p2                          | -   |        | add_ln57_81  | add   | fabric | 0       |
+|   add_ln57_82_fu_2599_p2                          | -   |        | add_ln57_82  | add   | fabric | 0       |
+|   add_ln57_83_fu_2604_p2                          | -   |        | add_ln57_83  | add   | fabric | 0       |
+|   add_ln57_84_fu_2609_p2                          | -   |        | add_ln57_84  | add   | fabric | 0       |
+|   add_ln57_85_fu_2614_p2                          | -   |        | add_ln57_85  | add   | fabric | 0       |
+|   add_ln57_86_fu_2619_p2                          | -   |        | add_ln57_86  | add   | fabric | 0       |
+|   add_ln57_87_fu_2624_p2                          | -   |        | add_ln57_87  | add   | fabric | 0       |
+|   add_ln57_88_fu_2629_p2                          | -   |        | add_ln57_88  | add   | fabric | 0       |
+|   add_ln57_89_fu_2634_p2                          | -   |        | add_ln57_89  | add   | fabric | 0       |
+|   add_ln57_90_fu_2639_p2                          | -   |        | add_ln57_90  | add   | fabric | 0       |
+|   add_ln57_91_fu_2644_p2                          | -   |        | add_ln57_91  | add   | fabric | 0       |
+|   add_ln57_92_fu_2649_p2                          | -   |        | add_ln57_92  | add   | fabric | 0       |
+|   add_ln57_93_fu_2654_p2                          | -   |        | add_ln57_93  | add   | fabric | 0       |
+|   add_ln57_94_fu_2659_p2                          | -   |        | add_ln57_94  | add   | fabric | 0       |
+|   add_ln57_95_fu_2664_p2                          | -   |        | add_ln57_95  | add   | fabric | 0       |
+|   add_ln57_96_fu_2669_p2                          | -   |        | add_ln57_96  | add   | fabric | 0       |
+|   add_ln57_97_fu_2674_p2                          | -   |        | add_ln57_97  | add   | fabric | 0       |
+|   add_ln57_98_fu_2679_p2                          | -   |        | add_ln57_98  | add   | fabric | 0       |
+|   add_ln52_2_fu_2693_p2                           | -   |        | add_ln52_2   | add   | fabric | 0       |
+|   add_ln52_1_fu_2705_p2                           | -   |        | add_ln52_1   | add   | fabric | 0       |
+|   add_ln57_99_fu_6530_p2                          | -   |        | add_ln57_99  | add   | fabric | 0       |
+|   add_ln57_100_fu_6539_p2                         | -   |        | add_ln57_100 | add   | fabric | 0       |
+|   add_ln57_101_fu_6544_p2                         | -   |        | add_ln57_101 | add   | fabric | 0       |
+|   add_ln57_102_fu_6492_p2                         | -   |        | add_ln57_102 | add   | fabric | 0       |
+|   add_ln57_103_fu_6454_p2                         | -   |        | add_ln57_103 | add   | fabric | 0       |
+|   add_ln57_104_fu_6416_p2                         | -   |        | add_ln57_104 | add   | fabric | 0       |
+|   add_ln57_105_fu_6378_p2                         | -   |        | add_ln57_105 | add   | fabric | 0       |
+|   add_ln57_106_fu_6340_p2                         | -   |        | add_ln57_106 | add   | fabric | 0       |
+|   add_ln57_107_fu_6302_p2                         | -   |        | add_ln57_107 | add   | fabric | 0       |
+|   add_ln57_108_fu_6264_p2                         | -   |        | add_ln57_108 | add   | fabric | 0       |
+|   add_ln57_109_fu_6226_p2                         | -   |        | add_ln57_109 | add   | fabric | 0       |
+|   add_ln57_110_fu_6188_p2                         | -   |        | add_ln57_110 | add   | fabric | 0       |
+|   add_ln57_111_fu_6150_p2                         | -   |        | add_ln57_111 | add   | fabric | 0       |
+|   add_ln57_112_fu_6112_p2                         | -   |        | add_ln57_112 | add   | fabric | 0       |
+|   add_ln57_113_fu_6074_p2                         | -   |        | add_ln57_113 | add   | fabric | 0       |
+|   add_ln57_114_fu_6036_p2                         | -   |        | add_ln57_114 | add   | fabric | 0       |
+|   add_ln57_115_fu_5998_p2                         | -   |        | add_ln57_115 | add   | fabric | 0       |
+|   add_ln57_116_fu_5960_p2                         | -   |        | add_ln57_116 | add   | fabric | 0       |
+|   add_ln57_117_fu_5922_p2                         | -   |        | add_ln57_117 | add   | fabric | 0       |
+|   add_ln57_118_fu_5884_p2                         | -   |        | add_ln57_118 | add   | fabric | 0       |
+|   add_ln57_119_fu_5846_p2                         | -   |        | add_ln57_119 | add   | fabric | 0       |
+|   add_ln57_120_fu_5808_p2                         | -   |        | add_ln57_120 | add   | fabric | 0       |
+|   add_ln57_121_fu_5770_p2                         | -   |        | add_ln57_121 | add   | fabric | 0       |
+|   add_ln57_122_fu_5732_p2                         | -   |        | add_ln57_122 | add   | fabric | 0       |
+|   add_ln57_123_fu_5694_p2                         | -   |        | add_ln57_123 | add   | fabric | 0       |
+|   add_ln57_124_fu_5656_p2                         | -   |        | add_ln57_124 | add   | fabric | 0       |
+|   add_ln57_125_fu_5618_p2                         | -   |        | add_ln57_125 | add   | fabric | 0       |
+|   add_ln57_126_fu_5580_p2                         | -   |        | add_ln57_126 | add   | fabric | 0       |
+|   add_ln57_127_fu_5542_p2                         | -   |        | add_ln57_127 | add   | fabric | 0       |
+|   add_ln57_128_fu_5504_p2                         | -   |        | add_ln57_128 | add   | fabric | 0       |
+|   add_ln57_129_fu_5466_p2                         | -   |        | add_ln57_129 | add   | fabric | 0       |
+|   add_ln57_130_fu_5428_p2                         | -   |        | add_ln57_130 | add   | fabric | 0       |
+|   add_ln57_131_fu_5390_p2                         | -   |        | add_ln57_131 | add   | fabric | 0       |
+|   add_ln57_132_fu_5352_p2                         | -   |        | add_ln57_132 | add   | fabric | 0       |
+|   add_ln57_133_fu_5314_p2                         | -   |        | add_ln57_133 | add   | fabric | 0       |
+|   add_ln57_134_fu_5276_p2                         | -   |        | add_ln57_134 | add   | fabric | 0       |
+|   add_ln57_135_fu_5238_p2                         | -   |        | add_ln57_135 | add   | fabric | 0       |
+|   add_ln57_136_fu_5200_p2                         | -   |        | add_ln57_136 | add   | fabric | 0       |
+|   add_ln57_137_fu_5162_p2                         | -   |        | add_ln57_137 | add   | fabric | 0       |
+|   add_ln57_138_fu_5124_p2                         | -   |        | add_ln57_138 | add   | fabric | 0       |
+|   add_ln57_139_fu_5086_p2                         | -   |        | add_ln57_139 | add   | fabric | 0       |
+|   add_ln57_140_fu_5048_p2                         | -   |        | add_ln57_140 | add   | fabric | 0       |
+|   add_ln57_141_fu_5010_p2                         | -   |        | add_ln57_141 | add   | fabric | 0       |
+|   add_ln57_142_fu_4972_p2                         | -   |        | add_ln57_142 | add   | fabric | 0       |
+|   add_ln57_143_fu_4934_p2                         | -   |        | add_ln57_143 | add   | fabric | 0       |
+|   add_ln57_144_fu_4896_p2                         | -   |        | add_ln57_144 | add   | fabric | 0       |
+|   add_ln57_145_fu_4858_p2                         | -   |        | add_ln57_145 | add   | fabric | 0       |
+|   add_ln57_146_fu_4820_p2                         | -   |        | add_ln57_146 | add   | fabric | 0       |
+|   add_ln57_147_fu_4782_p2                         | -   |        | add_ln57_147 | add   | fabric | 0       |
+|   add_ln57_148_fu_4744_p2                         | -   |        | add_ln57_148 | add   | fabric | 0       |
+|   add_ln57_149_fu_4706_p2                         | -   |        | add_ln57_149 | add   | fabric | 0       |
+|   add_ln57_150_fu_4668_p2                         | -   |        | add_ln57_150 | add   | fabric | 0       |
+|   add_ln57_151_fu_4630_p2                         | -   |        | add_ln57_151 | add   | fabric | 0       |
+|   add_ln57_152_fu_4592_p2                         | -   |        | add_ln57_152 | add   | fabric | 0       |
+|   add_ln57_153_fu_4554_p2                         | -   |        | add_ln57_153 | add   | fabric | 0       |
+|   add_ln57_154_fu_4516_p2                         | -   |        | add_ln57_154 | add   | fabric | 0       |
+|   add_ln57_155_fu_4478_p2                         | -   |        | add_ln57_155 | add   | fabric | 0       |
+|   add_ln57_156_fu_4440_p2                         | -   |        | add_ln57_156 | add   | fabric | 0       |
+|   add_ln57_157_fu_4402_p2                         | -   |        | add_ln57_157 | add   | fabric | 0       |
+|   add_ln57_158_fu_4364_p2                         | -   |        | add_ln57_158 | add   | fabric | 0       |
+|   add_ln57_159_fu_4326_p2                         | -   |        | add_ln57_159 | add   | fabric | 0       |
+|   add_ln57_160_fu_4288_p2                         | -   |        | add_ln57_160 | add   | fabric | 0       |
+|   add_ln57_161_fu_4250_p2                         | -   |        | add_ln57_161 | add   | fabric | 0       |
+|   add_ln57_162_fu_4212_p2                         | -   |        | add_ln57_162 | add   | fabric | 0       |
+|   add_ln57_163_fu_4174_p2                         | -   |        | add_ln57_163 | add   | fabric | 0       |
+|   add_ln57_164_fu_4136_p2                         | -   |        | add_ln57_164 | add   | fabric | 0       |
+|   add_ln57_165_fu_4098_p2                         | -   |        | add_ln57_165 | add   | fabric | 0       |
+|   add_ln57_166_fu_4060_p2                         | -   |        | add_ln57_166 | add   | fabric | 0       |
+|   add_ln57_167_fu_4022_p2                         | -   |        | add_ln57_167 | add   | fabric | 0       |
+|   add_ln57_168_fu_3984_p2                         | -   |        | add_ln57_168 | add   | fabric | 0       |
+|   add_ln57_169_fu_3946_p2                         | -   |        | add_ln57_169 | add   | fabric | 0       |
+|   add_ln57_170_fu_3908_p2                         | -   |        | add_ln57_170 | add   | fabric | 0       |
+|   add_ln57_171_fu_3870_p2                         | -   |        | add_ln57_171 | add   | fabric | 0       |
+|   add_ln57_172_fu_3832_p2                         | -   |        | add_ln57_172 | add   | fabric | 0       |
+|   add_ln57_173_fu_3794_p2                         | -   |        | add_ln57_173 | add   | fabric | 0       |
+|   add_ln57_174_fu_3756_p2                         | -   |        | add_ln57_174 | add   | fabric | 0       |
+|   add_ln57_175_fu_3718_p2                         | -   |        | add_ln57_175 | add   | fabric | 0       |
+|   add_ln57_176_fu_3680_p2                         | -   |        | add_ln57_176 | add   | fabric | 0       |
+|   add_ln57_177_fu_3642_p2                         | -   |        | add_ln57_177 | add   | fabric | 0       |
+|   add_ln57_178_fu_3604_p2                         | -   |        | add_ln57_178 | add   | fabric | 0       |
+|   add_ln57_179_fu_3250_p2                         | -   |        | add_ln57_179 | add   | fabric | 0       |
+|   add_ln57_180_fu_3255_p2                         | -   |        | add_ln57_180 | add   | fabric | 0       |
+|   add_ln57_181_fu_3260_p2                         | -   |        | add_ln57_181 | add   | fabric | 0       |
+|   add_ln57_182_fu_3265_p2                         | -   |        | add_ln57_182 | add   | fabric | 0       |
+|   add_ln57_183_fu_3270_p2                         | -   |        | add_ln57_183 | add   | fabric | 0       |
+|   add_ln57_184_fu_3275_p2                         | -   |        | add_ln57_184 | add   | fabric | 0       |
+|   add_ln57_185_fu_3280_p2                         | -   |        | add_ln57_185 | add   | fabric | 0       |
+|   add_ln57_186_fu_3285_p2                         | -   |        | add_ln57_186 | add   | fabric | 0       |
+|   add_ln57_187_fu_3290_p2                         | -   |        | add_ln57_187 | add   | fabric | 0       |
+|   add_ln57_188_fu_3295_p2                         | -   |        | add_ln57_188 | add   | fabric | 0       |
+|   add_ln57_189_fu_3300_p2                         | -   |        | add_ln57_189 | add   | fabric | 0       |
+|   add_ln57_190_fu_3305_p2                         | -   |        | add_ln57_190 | add   | fabric | 0       |
+|   add_ln57_191_fu_3310_p2                         | -   |        | add_ln57_191 | add   | fabric | 0       |
+|   add_ln57_192_fu_3315_p2                         | -   |        | add_ln57_192 | add   | fabric | 0       |
+|   add_ln57_193_fu_3320_p2                         | -   |        | add_ln57_193 | add   | fabric | 0       |
+|   add_ln57_194_fu_3325_p2                         | -   |        | add_ln57_194 | add   | fabric | 0       |
+|   add_ln57_195_fu_3330_p2                         | -   |        | add_ln57_195 | add   | fabric | 0       |
+|   add_ln57_196_fu_3335_p2                         | -   |        | add_ln57_196 | add   | fabric | 0       |
+|   add_ln57_197_fu_3340_p2                         | -   |        | add_ln57_197 | add   | fabric | 0       |
+|   add_ln57_198_fu_3345_p2                         | -   |        | add_ln57_198 | add   | fabric | 0       |
+|   add_ln57_199_fu_3350_p2                         | -   |        | add_ln57_199 | add   | fabric | 0       |
+|   add_ln57_200_fu_3355_p2                         | -   |        | add_ln57_200 | add   | fabric | 0       |
+|   add_ln57_201_fu_2723_p2                         | -   |        | add_ln57_201 | add   | fabric | 0       |
+|   empty_134_fu_2769_p2                            | -   |        | empty_134    | add   | fabric | 0       |
+|   empty_136_fu_2793_p2                            | -   |        | empty_136    | add   | fabric | 0       |
+|   empty_138_fu_2817_p2                            | -   |        | empty_138    | add   | fabric | 0       |
+|   empty_140_fu_2841_p2                            | -   |        | empty_140    | add   | fabric | 0       |
+|   empty_142_fu_2865_p2                            | -   |        | empty_142    | add   | fabric | 0       |
+|   empty_144_fu_2889_p2                            | -   |        | empty_144    | add   | fabric | 0       |
+|   empty_146_fu_2913_p2                            | -   |        | empty_146    | add   | fabric | 0       |
+|   empty_148_fu_2937_p2                            | -   |        | empty_148    | add   | fabric | 0       |
+|   empty_150_fu_2961_p2                            | -   |        | empty_150    | add   | fabric | 0       |
+|   empty_152_fu_2985_p2                            | -   |        | empty_152    | add   | fabric | 0       |
+|   empty_154_fu_3009_p2                            | -   |        | empty_154    | add   | fabric | 0       |
+|   empty_156_fu_3033_p2                            | -   |        | empty_156    | add   | fabric | 0       |
+|   empty_158_fu_3057_p2                            | -   |        | empty_158    | add   | fabric | 0       |
+|   empty_160_fu_3081_p2                            | -   |        | empty_160    | add   | fabric | 0       |
+|   empty_162_fu_3105_p2                            | -   |        | empty_162    | add   | fabric | 0       |
+|   empty_164_fu_3129_p2                            | -   |        | empty_164    | add   | fabric | 0       |
+|   empty_166_fu_3153_p2                            | -   |        | empty_166    | add   | fabric | 0       |
+|   empty_168_fu_3177_p2                            | -   |        | empty_168    | add   | fabric | 0       |
+|   empty_170_fu_3201_p2                            | -   |        | empty_170    | add   | fabric | 0       |
+|   empty_172_fu_3225_p2                            | -   |        | empty_172    | add   | fabric | 0       |
+|   empty_174_fu_3370_p2                            | -   |        | empty_174    | add   | fabric | 0       |
+|   empty_176_fu_3618_p2                            | -   |        | empty_176    | add   | fabric | 0       |
+|   empty_178_fu_3656_p2                            | -   |        | empty_178    | add   | fabric | 0       |
+|   empty_180_fu_3694_p2                            | -   |        | empty_180    | add   | fabric | 0       |
+|   empty_182_fu_3732_p2                            | -   |        | empty_182    | add   | fabric | 0       |
+|   empty_184_fu_3770_p2                            | -   |        | empty_184    | add   | fabric | 0       |
+|   empty_186_fu_3808_p2                            | -   |        | empty_186    | add   | fabric | 0       |
+|   empty_188_fu_3846_p2                            | -   |        | empty_188    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_190    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_192    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_194    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_196    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_198    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_200    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_202    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_204    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_206    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_208    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_210    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_212    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_214    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_216    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_218    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_220    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_222    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_224    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_226    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_228    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_230    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_232    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_234    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_236    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_238    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_240    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_242    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_244    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_246    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_248    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_250    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_252    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_254    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_256    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_258    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_260    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_262    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_264    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_266    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_268    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_270    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_272    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_274    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_276    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_278    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_280    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_282    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_284    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_286    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_288    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_290    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_292    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_294    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_296    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_298    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_300    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_302    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_304    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_306    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_308    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_310    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_312    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_314    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_316    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_318    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_320    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_322    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_324    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_326    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_328    | add   | fabric | 0       |
+|   dadddsub_64ns_64ns_64_5_full_dsp_1_U229         | -   |        | empty_330    | add   | fabric | 0       |
+|   add_ln59_fu_6592_p2                             | -   |        | add_ln59     | add   | fabric | 0       |
+|   add_ln51_fu_6614_p2                             | -   |        | add_ln51     | add   | fabric | 0       |
+|   add_ln52_fu_2738_p2                             | -   |        | add_ln52     | add   | fabric | 0       |
+|  + correlation_Pipeline_VITIS_LOOP_17_1           | 0   |        |              |       |        |         |
+|    add_ln17_fu_124_p2                             | -   |        | add_ln17     | add   | fabric | 0       |
+|    add_ln19_2_fu_150_p2                           | -   |        | add_ln19_2   | add   | fabric | 0       |
+|    add_ln19_1_fu_160_p2                           | -   |        | add_ln19_1   | add   | fabric | 0       |
+|    dadd_64ns_64ns_64_4_no_dsp_1_U1                | -   |        | sum_1        | dadd  | fabric | 3       |
+|  + correlation_Pipeline_VITIS_LOOP_29_2           | 0   |        |              |       |        |         |
+|    add_ln29_fu_138_p2                             | -   |        | add_ln29     | add   | fabric | 0       |
+|    add_ln31_2_fu_164_p2                           | -   |        | add_ln31_2   | add   | fabric | 0       |
+|    add_ln31_1_fu_174_p2                           | -   |        | add_ln31_1   | add   | fabric | 0       |
+|  + correlation_Pipeline_NORM_LOOP_VITIS_LOOP_41_3 | 0   |        |              |       |        |         |
+|    add_ln43_fu_235_p2                             | -   |        | add_ln43     | add   | fabric | 0       |
+|    add_ln40_fu_247_p2                             | -   |        | add_ln40     | add   | fabric | 0       |
+|    add_ln40_1_fu_270_p2                           | -   |        | add_ln40_1   | add   | fabric | 0       |
+|    add_ln43_5_fu_296_p2                           | -   |        | add_ln43_5   | add   | fabric | 0       |
+|    add_ln43_2_fu_390_p2                           | -   |        | add_ln43_2   | add   | fabric | 0       |
+|    add_ln43_3_fu_395_p2                           | -   |        | add_ln43_3   | add   | fabric | 0       |
+|    add_ln41_fu_356_p2                             | -   |        | add_ln41     | add   | fabric | 0       |
+|  + correlation_Pipeline_VITIS_LOOP_52_4           | 0   |        |              |       |        |         |
+|    add_ln52_fu_3423_p2                            | -   |        | add_ln52     | add   | fabric | 0       |
+|    add_ln57_fu_3429_p2                            | -   |        | add_ln57     | add   | fabric | 0       |
+|    add_ln57_1_fu_3489_p2                          | -   |        | add_ln57_1   | add   | fabric | 0       |
+|    add_ln57_2_fu_3499_p2                          | -   |        | add_ln57_2   | add   | fabric | 0       |
+|    add_ln57_3_fu_3509_p2                          | -   |        | add_ln57_3   | add   | fabric | 0       |
+|    add_ln57_4_fu_3519_p2                          | -   |        | add_ln57_4   | add   | fabric | 0       |
+|    add_ln57_5_fu_3529_p2                          | -   |        | add_ln57_5   | add   | fabric | 0       |
+|    add_ln57_6_fu_3539_p2                          | -   |        | add_ln57_6   | add   | fabric | 0       |
+|    add_ln57_7_fu_3549_p2                          | -   |        | add_ln57_7   | add   | fabric | 0       |
+|    add_ln57_8_fu_3559_p2                          | -   |        | add_ln57_8   | add   | fabric | 0       |
+|    add_ln57_9_fu_3573_p2                          | -   |        | add_ln57_9   | add   | fabric | 0       |
+|    add_ln57_10_fu_3587_p2                         | -   |        | add_ln57_10  | add   | fabric | 0       |
+|    add_ln57_11_fu_3601_p2                         | -   |        | add_ln57_11  | add   | fabric | 0       |
+|    add_ln57_12_fu_3615_p2                         | -   |        | add_ln57_12  | add   | fabric | 0       |
+|    add_ln57_13_fu_3629_p2                         | -   |        | add_ln57_13  | add   | fabric | 0       |
+|    add_ln57_14_fu_3643_p2                         | -   |        | add_ln57_14  | add   | fabric | 0       |
+|    add_ln57_15_fu_3657_p2                         | -   |        | add_ln57_15  | add   | fabric | 0       |
+|    add_ln57_16_fu_3671_p2                         | -   |        | add_ln57_16  | add   | fabric | 0       |
+|    add_ln57_17_fu_3685_p2                         | -   |        | add_ln57_17  | add   | fabric | 0       |
+|    add_ln57_18_fu_3699_p2                         | -   |        | add_ln57_18  | add   | fabric | 0       |
+|    add_ln57_19_fu_3713_p2                         | -   |        | add_ln57_19  | add   | fabric | 0       |
+|    add_ln57_20_fu_3727_p2                         | -   |        | add_ln57_20  | add   | fabric | 0       |
+|    add_ln57_21_fu_3741_p2                         | -   |        | add_ln57_21  | add   | fabric | 0       |
+|    add_ln57_22_fu_3755_p2                         | -   |        | add_ln57_22  | add   | fabric | 0       |
+|    add_ln57_23_fu_3769_p2                         | -   |        | add_ln57_23  | add   | fabric | 0       |
+|    add_ln57_24_fu_3783_p2                         | -   |        | add_ln57_24  | add   | fabric | 0       |
+|    add_ln57_25_fu_3797_p2                         | -   |        | add_ln57_25  | add   | fabric | 0       |
+|    add_ln57_26_fu_3811_p2                         | -   |        | add_ln57_26  | add   | fabric | 0       |
+|    add_ln57_27_fu_3825_p2                         | -   |        | add_ln57_27  | add   | fabric | 0       |
+|    add_ln57_28_fu_3839_p2                         | -   |        | add_ln57_28  | add   | fabric | 0       |
+|    add_ln57_29_fu_3853_p2                         | -   |        | add_ln57_29  | add   | fabric | 0       |
+|    add_ln57_30_fu_3867_p2                         | -   |        | add_ln57_30  | add   | fabric | 0       |
+|    add_ln57_31_fu_3881_p2                         | -   |        | add_ln57_31  | add   | fabric | 0       |
+|    add_ln57_32_fu_3895_p2                         | -   |        | add_ln57_32  | add   | fabric | 0       |
+|    add_ln57_33_fu_3909_p2                         | -   |        | add_ln57_33  | add   | fabric | 0       |
+|    add_ln57_34_fu_3923_p2                         | -   |        | add_ln57_34  | add   | fabric | 0       |
+|    add_ln57_35_fu_3937_p2                         | -   |        | add_ln57_35  | add   | fabric | 0       |
+|    add_ln57_36_fu_3951_p2                         | -   |        | add_ln57_36  | add   | fabric | 0       |
+|    add_ln57_37_fu_3965_p2                         | -   |        | add_ln57_37  | add   | fabric | 0       |
+|    add_ln57_38_fu_3979_p2                         | -   |        | add_ln57_38  | add   | fabric | 0       |
+|    add_ln57_39_fu_3993_p2                         | -   |        | add_ln57_39  | add   | fabric | 0       |
+|    add_ln57_40_fu_4007_p2                         | -   |        | add_ln57_40  | add   | fabric | 0       |
+|    add_ln57_41_fu_4021_p2                         | -   |        | add_ln57_41  | add   | fabric | 0       |
+|    add_ln57_42_fu_4035_p2                         | -   |        | add_ln57_42  | add   | fabric | 0       |
+|    add_ln57_43_fu_4049_p2                         | -   |        | add_ln57_43  | add   | fabric | 0       |
+|    add_ln57_44_fu_4063_p2                         | -   |        | add_ln57_44  | add   | fabric | 0       |
+|    add_ln57_45_fu_4077_p2                         | -   |        | add_ln57_45  | add   | fabric | 0       |
+|    add_ln57_46_fu_4091_p2                         | -   |        | add_ln57_46  | add   | fabric | 0       |
+|    add_ln57_47_fu_4105_p2                         | -   |        | add_ln57_47  | add   | fabric | 0       |
+|    add_ln57_48_fu_4119_p2                         | -   |        | add_ln57_48  | add   | fabric | 0       |
+|    add_ln57_49_fu_4133_p2                         | -   |        | add_ln57_49  | add   | fabric | 0       |
+|    add_ln57_50_fu_4147_p2                         | -   |        | add_ln57_50  | add   | fabric | 0       |
+|    add_ln57_51_fu_4161_p2                         | -   |        | add_ln57_51  | add   | fabric | 0       |
+|    add_ln57_52_fu_4175_p2                         | -   |        | add_ln57_52  | add   | fabric | 0       |
+|    add_ln57_53_fu_4189_p2                         | -   |        | add_ln57_53  | add   | fabric | 0       |
+|    add_ln57_54_fu_4203_p2                         | -   |        | add_ln57_54  | add   | fabric | 0       |
+|    add_ln57_55_fu_4217_p2                         | -   |        | add_ln57_55  | add   | fabric | 0       |
+|    add_ln57_56_fu_4231_p2                         | -   |        | add_ln57_56  | add   | fabric | 0       |
+|    add_ln57_57_fu_4245_p2                         | -   |        | add_ln57_57  | add   | fabric | 0       |
+|    add_ln57_58_fu_4259_p2                         | -   |        | add_ln57_58  | add   | fabric | 0       |
+|    add_ln57_59_fu_4273_p2                         | -   |        | add_ln57_59  | add   | fabric | 0       |
+|    add_ln57_60_fu_4287_p2                         | -   |        | add_ln57_60  | add   | fabric | 0       |
+|    add_ln57_61_fu_4301_p2                         | -   |        | add_ln57_61  | add   | fabric | 0       |
+|    add_ln57_62_fu_4315_p2                         | -   |        | add_ln57_62  | add   | fabric | 0       |
+|    add_ln57_63_fu_4329_p2                         | -   |        | add_ln57_63  | add   | fabric | 0       |
+|    add_ln57_64_fu_4343_p2                         | -   |        | add_ln57_64  | add   | fabric | 0       |
+|    add_ln57_65_fu_4357_p2                         | -   |        | add_ln57_65  | add   | fabric | 0       |
+|    add_ln57_66_fu_4371_p2                         | -   |        | add_ln57_66  | add   | fabric | 0       |
+|    add_ln57_67_fu_4385_p2                         | -   |        | add_ln57_67  | add   | fabric | 0       |
+|    add_ln57_68_fu_4399_p2                         | -   |        | add_ln57_68  | add   | fabric | 0       |
+|    add_ln57_69_fu_4413_p2                         | -   |        | add_ln57_69  | add   | fabric | 0       |
+|    add_ln57_70_fu_4427_p2                         | -   |        | add_ln57_70  | add   | fabric | 0       |
+|    add_ln57_71_fu_4441_p2                         | -   |        | add_ln57_71  | add   | fabric | 0       |
+|    add_ln57_72_fu_4455_p2                         | -   |        | add_ln57_72  | add   | fabric | 0       |
+|    add_ln57_73_fu_4469_p2                         | -   |        | add_ln57_73  | add   | fabric | 0       |
+|    add_ln57_74_fu_4483_p2                         | -   |        | add_ln57_74  | add   | fabric | 0       |
+|    add_ln57_75_fu_4497_p2                         | -   |        | add_ln57_75  | add   | fabric | 0       |
+|    add_ln57_76_fu_4511_p2                         | -   |        | add_ln57_76  | add   | fabric | 0       |
+|    add_ln57_77_fu_4525_p2                         | -   |        | add_ln57_77  | add   | fabric | 0       |
+|    add_ln57_78_fu_4539_p2                         | -   |        | add_ln57_78  | add   | fabric | 0       |
+|    add_ln57_79_fu_4553_p2                         | -   |        | add_ln57_79  | add   | fabric | 0       |
+|    add_ln57_80_fu_4567_p2                         | -   |        | add_ln57_80  | add   | fabric | 0       |
+|    add_ln57_81_fu_4581_p2                         | -   |        | add_ln57_81  | add   | fabric | 0       |
+|    add_ln57_82_fu_4595_p2                         | -   |        | add_ln57_82  | add   | fabric | 0       |
+|    add_ln57_83_fu_4609_p2                         | -   |        | add_ln57_83  | add   | fabric | 0       |
+|    add_ln57_84_fu_4623_p2                         | -   |        | add_ln57_84  | add   | fabric | 0       |
+|    add_ln57_85_fu_4637_p2                         | -   |        | add_ln57_85  | add   | fabric | 0       |
+|    add_ln57_86_fu_4651_p2                         | -   |        | add_ln57_86  | add   | fabric | 0       |
+|    add_ln57_87_fu_4665_p2                         | -   |        | add_ln57_87  | add   | fabric | 0       |
+|    add_ln57_88_fu_4679_p2                         | -   |        | add_ln57_88  | add   | fabric | 0       |
+|    add_ln57_89_fu_4693_p2                         | -   |        | add_ln57_89  | add   | fabric | 0       |
+|    add_ln57_90_fu_4707_p2                         | -   |        | add_ln57_90  | add   | fabric | 0       |
+|    add_ln57_91_fu_4721_p2                         | -   |        | add_ln57_91  | add   | fabric | 0       |
+|    add_ln57_92_fu_4735_p2                         | -   |        | add_ln57_92  | add   | fabric | 0       |
+|    add_ln57_93_fu_4749_p2                         | -   |        | add_ln57_93  | add   | fabric | 0       |
+|    add_ln57_94_fu_4763_p2                         | -   |        | add_ln57_94  | add   | fabric | 0       |
+|    add_ln57_95_fu_4777_p2                         | -   |        | add_ln57_95  | add   | fabric | 0       |
+|    add_ln57_96_fu_4791_p2                         | -   |        | add_ln57_96  | add   | fabric | 0       |
+|    add_ln57_97_fu_4805_p2                         | -   |        | add_ln57_97  | add   | fabric | 0       |
+|    add_ln57_98_fu_4819_p2                         | -   |        | add_ln57_98  | add   | fabric | 0       |
+|    add_ln57_99_fu_4833_p2                         | -   |        | add_ln57_99  | add   | fabric | 0       |
+|    add_ln59_2_fu_4837_p2                          | -   |        | add_ln59_2   | add   | fabric | 0       |
+|    add_ln52_1_fu_3467_p2                          | -   |        | add_ln52_1   | add   | fabric | 0       |
++---------------------------------------------------+-----+--------+--------------+-------+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
+  No bind storage info in design
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++--------------+----------------------------+------------------------------------------------------------------+
+| Type         | Options                    | Location                                                         |
++--------------+----------------------------+------------------------------------------------------------------+
+| interface    | m_axi port=data depth=8000 | ../correlation/generate/correlation.cpp:4 in correlation, data   |
+| interface    | m_axi port=corr depth=6400 | ../correlation/generate/correlation.cpp:5 in correlation, corr   |
+| interface    | m_axi port=mean depth=80   | ../correlation/generate/correlation.cpp:6 in correlation, mean   |
+| interface    | m_axi port=stddev depth=80 | ../correlation/generate/correlation.cpp:7 in correlation, stddev |
+| loop_flatten | off                        | ../correlation/generate/correlation.cpp:15 in correlation        |
+| pipeline     | II=2                       | ../correlation/generate/correlation.cpp:18 in correlation        |
+| loop_flatten | off                        | ../correlation/generate/correlation.cpp:27 in correlation        |
+| pipeline     | II=4                       | ../correlation/generate/correlation.cpp:30 in correlation        |
+| pipeline     | II=2                       | ../correlation/generate/correlation.cpp:42 in correlation        |
+| loop_flatten | off                        | ../correlation/generate/correlation.cpp:50 in correlation        |
+| pipeline     | II=4                       | ../correlation/generate/correlation.cpp:53 in correlation        |
+| unroll       | factor=4                   | ../correlation/generate/correlation.cpp:56 in correlation        |
++--------------+----------------------------+------------------------------------------------------------------+
+
+

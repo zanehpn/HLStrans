@@ -1,0 +1,845 @@
+
+
+================================================================
+== Synthesis Summary Report of 'atax'
+================================================================
++ General Information: 
+    * Date:           Sun Mar 16 13:46:35 2025
+    * Version:        2022.2.2 (Build 3779808 on Feb 17 2023)
+    * Project:        atax
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu55c-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +------------------------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----------+------------+--------------+-----+
+    |                              Modules                             | Issue|      | Latency |  Latency  | Iteration|         | Trip |          |      |          |            |              |     |
+    |                              & Loops                             | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined| BRAM |    DSP   |     FF     |      LUT     | URAM|
+    +------------------------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----------+------------+--------------+-----+
+    |+ atax                                                            |     -|  0.00|     2159|  1.080e+04|         -|     2160|     -|        no|     -|  48 (~0%)|  83331 (3%)|  153772 (11%)|    -|
+    | + atax_Pipeline_VITIS_LOOP_67_1                                  |     -|  0.00|       40|    200.000|         -|       40|     -|        no|     -|         -|   600 (~0%)|     887 (~0%)|    -|
+    |  o VITIS_LOOP_67_1                                               |     -|  3.65|       38|    190.000|         8|        1|    32|       yes|     -|         -|           -|             -|    -|
+    | + atax_Pipeline_VITIS_LOOP_9_1                                   |     -|  2.33|       34|    170.000|         -|       34|     -|        no|     -|         -|     8 (~0%)|      50 (~0%)|    -|
+    |  o VITIS_LOOP_9_1                                                |     -|  3.65|       32|    160.000|         1|        1|    32|       yes|     -|         -|           -|             -|    -|
+    | + atax_Pipeline_VITIS_LOOP_37_1_VITIS_LOOP_38_2_VITIS_LOOP_39_3  |     -|  0.00|     1924|  9.620e+03|         -|     1924|     -|        no|     -|  24 (~0%)|  7800 (~0%)|    32010 (2%)|    -|
+    |  o VITIS_LOOP_37_1_VITIS_LOOP_38_2_VITIS_LOOP_39_3               |    II|  3.65|     1922|  9.610e+03|        18|       15|   128|       yes|     -|         -|           -|             -|    -|
+    | o VITIS_LOOP_14_2                                                |     -|  3.65|      192|    960.000|        48|        -|     4|        no|     -|         -|           -|             -|    -|
+    |  + atax_Pipeline_VITIS_LOOP_15_3_VITIS_LOOP_16_4                 |     -|  0.00|       44|    220.000|         -|       44|     -|        no|     -|  24 (~0%)|  8107 (~0%)|    24310 (1%)|    -|
+    |   o VITIS_LOOP_15_3_VITIS_LOOP_16_4                              |     -|  3.65|       42|    210.000|        12|        1|    32|       yes|     -|         -|           -|             -|    -|
+    +------------------------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+------+----------+------------+--------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* M_AXI
++----------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| Interface      | Data Width | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   |
+|                | (SW->HW)   |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |
++----------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| m_axi_gmem_0   | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_0_0 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_0_1 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_0_2 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_0_3 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_0_4 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_0_5 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_0_6 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_0_7 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_1   | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_1_0 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_1_1 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_1_2 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_1_3 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_1_4 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_1_5 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_1_6 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_1_7 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_2   | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_2_0 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_2_1 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_2_2 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_2_3 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_2_4 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_2_5 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_2_6 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_2_7 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_3   | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_3_0 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_3_1 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_3_2 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_3_3 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_3_4 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_3_5 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_3_6 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_3_7 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_4   | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_4_0 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_4_1 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_4_2 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_4_3 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_4_4 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_4_5 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_4_6 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_4_7 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_5   | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_5_0 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_5_1 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_5_2 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_5_3 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_5_4 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_5_5 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_5_6 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_5_7 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_6   | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_6_0 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_6_1 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_6_2 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_6_3 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_6_4 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_6_5 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_6_6 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_6_7 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_7   | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_7_0 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_7_1 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_7_2 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_7_3 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_7_4 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_7_5 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_7_6 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem_7_7 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
++----------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+
+* S_AXILITE Interfaces
++---------------+------------+---------------+--------+----------+
+| Interface     | Data Width | Address Width | Offset | Register |
++---------------+------------+---------------+--------+----------+
+| s_axi_control | 32         | 10            | 16     | 0        |
++---------------+------------+---------------+--------+----------+
+
+* S_AXILITE Registers
++---------------+-----------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+| Interface     | Register  | Offset | Width | Access | Description                      | Bit Fields                                                           |
++---------------+-----------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+| s_axi_control | CTRL      | 0x00   | 32    | RW     | Control signals                  | 0=AP_START 1=AP_DONE 2=AP_IDLE 3=AP_READY 7=AUTO_RESTART 9=INTERRUPT |
+| s_axi_control | GIER      | 0x04   | 32    | RW     | Global Interrupt Enable Register | 0=Enable                                                             |
+| s_axi_control | IP_IER    | 0x08   | 32    | RW     | IP Interrupt Enable Register     | 0=CHAN0_INT_EN 1=CHAN1_INT_EN                                        |
+| s_axi_control | IP_ISR    | 0x0c   | 32    | RW     | IP Interrupt Status Register     | 0=CHAN0_INT_ST 1=CHAN1_INT_ST                                        |
+| s_axi_control | A_0_0_1   | 0x10   | 32    | W      | Data signal of A_0_0             |                                                                      |
+| s_axi_control | A_0_0_2   | 0x14   | 32    | W      | Data signal of A_0_0             |                                                                      |
+| s_axi_control | A_0_1_1   | 0x1c   | 32    | W      | Data signal of A_0_1             |                                                                      |
+| s_axi_control | A_0_1_2   | 0x20   | 32    | W      | Data signal of A_0_1             |                                                                      |
+| s_axi_control | A_0_2_1   | 0x28   | 32    | W      | Data signal of A_0_2             |                                                                      |
+| s_axi_control | A_0_2_2   | 0x2c   | 32    | W      | Data signal of A_0_2             |                                                                      |
+| s_axi_control | A_0_3_1   | 0x34   | 32    | W      | Data signal of A_0_3             |                                                                      |
+| s_axi_control | A_0_3_2   | 0x38   | 32    | W      | Data signal of A_0_3             |                                                                      |
+| s_axi_control | A_0_4_1   | 0x40   | 32    | W      | Data signal of A_0_4             |                                                                      |
+| s_axi_control | A_0_4_2   | 0x44   | 32    | W      | Data signal of A_0_4             |                                                                      |
+| s_axi_control | A_0_5_1   | 0x4c   | 32    | W      | Data signal of A_0_5             |                                                                      |
+| s_axi_control | A_0_5_2   | 0x50   | 32    | W      | Data signal of A_0_5             |                                                                      |
+| s_axi_control | A_0_6_1   | 0x58   | 32    | W      | Data signal of A_0_6             |                                                                      |
+| s_axi_control | A_0_6_2   | 0x5c   | 32    | W      | Data signal of A_0_6             |                                                                      |
+| s_axi_control | A_0_7_1   | 0x64   | 32    | W      | Data signal of A_0_7             |                                                                      |
+| s_axi_control | A_0_7_2   | 0x68   | 32    | W      | Data signal of A_0_7             |                                                                      |
+| s_axi_control | A_1_0_1   | 0x70   | 32    | W      | Data signal of A_1_0             |                                                                      |
+| s_axi_control | A_1_0_2   | 0x74   | 32    | W      | Data signal of A_1_0             |                                                                      |
+| s_axi_control | A_1_1_1   | 0x7c   | 32    | W      | Data signal of A_1_1             |                                                                      |
+| s_axi_control | A_1_1_2   | 0x80   | 32    | W      | Data signal of A_1_1             |                                                                      |
+| s_axi_control | A_1_2_1   | 0x88   | 32    | W      | Data signal of A_1_2             |                                                                      |
+| s_axi_control | A_1_2_2   | 0x8c   | 32    | W      | Data signal of A_1_2             |                                                                      |
+| s_axi_control | A_1_3_1   | 0x94   | 32    | W      | Data signal of A_1_3             |                                                                      |
+| s_axi_control | A_1_3_2   | 0x98   | 32    | W      | Data signal of A_1_3             |                                                                      |
+| s_axi_control | A_1_4_1   | 0xa0   | 32    | W      | Data signal of A_1_4             |                                                                      |
+| s_axi_control | A_1_4_2   | 0xa4   | 32    | W      | Data signal of A_1_4             |                                                                      |
+| s_axi_control | A_1_5_1   | 0xac   | 32    | W      | Data signal of A_1_5             |                                                                      |
+| s_axi_control | A_1_5_2   | 0xb0   | 32    | W      | Data signal of A_1_5             |                                                                      |
+| s_axi_control | A_1_6_1   | 0xb8   | 32    | W      | Data signal of A_1_6             |                                                                      |
+| s_axi_control | A_1_6_2   | 0xbc   | 32    | W      | Data signal of A_1_6             |                                                                      |
+| s_axi_control | A_1_7_1   | 0xc4   | 32    | W      | Data signal of A_1_7             |                                                                      |
+| s_axi_control | A_1_7_2   | 0xc8   | 32    | W      | Data signal of A_1_7             |                                                                      |
+| s_axi_control | A_2_0_1   | 0xd0   | 32    | W      | Data signal of A_2_0             |                                                                      |
+| s_axi_control | A_2_0_2   | 0xd4   | 32    | W      | Data signal of A_2_0             |                                                                      |
+| s_axi_control | A_2_1_1   | 0xdc   | 32    | W      | Data signal of A_2_1             |                                                                      |
+| s_axi_control | A_2_1_2   | 0xe0   | 32    | W      | Data signal of A_2_1             |                                                                      |
+| s_axi_control | A_2_2_1   | 0xe8   | 32    | W      | Data signal of A_2_2             |                                                                      |
+| s_axi_control | A_2_2_2   | 0xec   | 32    | W      | Data signal of A_2_2             |                                                                      |
+| s_axi_control | A_2_3_1   | 0xf4   | 32    | W      | Data signal of A_2_3             |                                                                      |
+| s_axi_control | A_2_3_2   | 0xf8   | 32    | W      | Data signal of A_2_3             |                                                                      |
+| s_axi_control | A_2_4_1   | 0x100  | 32    | W      | Data signal of A_2_4             |                                                                      |
+| s_axi_control | A_2_4_2   | 0x104  | 32    | W      | Data signal of A_2_4             |                                                                      |
+| s_axi_control | A_2_5_1   | 0x10c  | 32    | W      | Data signal of A_2_5             |                                                                      |
+| s_axi_control | A_2_5_2   | 0x110  | 32    | W      | Data signal of A_2_5             |                                                                      |
+| s_axi_control | A_2_6_1   | 0x118  | 32    | W      | Data signal of A_2_6             |                                                                      |
+| s_axi_control | A_2_6_2   | 0x11c  | 32    | W      | Data signal of A_2_6             |                                                                      |
+| s_axi_control | A_2_7_1   | 0x124  | 32    | W      | Data signal of A_2_7             |                                                                      |
+| s_axi_control | A_2_7_2   | 0x128  | 32    | W      | Data signal of A_2_7             |                                                                      |
+| s_axi_control | A_3_0_1   | 0x130  | 32    | W      | Data signal of A_3_0             |                                                                      |
+| s_axi_control | A_3_0_2   | 0x134  | 32    | W      | Data signal of A_3_0             |                                                                      |
+| s_axi_control | A_3_1_1   | 0x13c  | 32    | W      | Data signal of A_3_1             |                                                                      |
+| s_axi_control | A_3_1_2   | 0x140  | 32    | W      | Data signal of A_3_1             |                                                                      |
+| s_axi_control | A_3_2_1   | 0x148  | 32    | W      | Data signal of A_3_2             |                                                                      |
+| s_axi_control | A_3_2_2   | 0x14c  | 32    | W      | Data signal of A_3_2             |                                                                      |
+| s_axi_control | A_3_3_1   | 0x154  | 32    | W      | Data signal of A_3_3             |                                                                      |
+| s_axi_control | A_3_3_2   | 0x158  | 32    | W      | Data signal of A_3_3             |                                                                      |
+| s_axi_control | A_3_4_1   | 0x160  | 32    | W      | Data signal of A_3_4             |                                                                      |
+| s_axi_control | A_3_4_2   | 0x164  | 32    | W      | Data signal of A_3_4             |                                                                      |
+| s_axi_control | A_3_5_1   | 0x16c  | 32    | W      | Data signal of A_3_5             |                                                                      |
+| s_axi_control | A_3_5_2   | 0x170  | 32    | W      | Data signal of A_3_5             |                                                                      |
+| s_axi_control | A_3_6_1   | 0x178  | 32    | W      | Data signal of A_3_6             |                                                                      |
+| s_axi_control | A_3_6_2   | 0x17c  | 32    | W      | Data signal of A_3_6             |                                                                      |
+| s_axi_control | A_3_7_1   | 0x184  | 32    | W      | Data signal of A_3_7             |                                                                      |
+| s_axi_control | A_3_7_2   | 0x188  | 32    | W      | Data signal of A_3_7             |                                                                      |
+| s_axi_control | A_4_0_1   | 0x190  | 32    | W      | Data signal of A_4_0             |                                                                      |
+| s_axi_control | A_4_0_2   | 0x194  | 32    | W      | Data signal of A_4_0             |                                                                      |
+| s_axi_control | A_4_1_1   | 0x19c  | 32    | W      | Data signal of A_4_1             |                                                                      |
+| s_axi_control | A_4_1_2   | 0x1a0  | 32    | W      | Data signal of A_4_1             |                                                                      |
+| s_axi_control | A_4_2_1   | 0x1a8  | 32    | W      | Data signal of A_4_2             |                                                                      |
+| s_axi_control | A_4_2_2   | 0x1ac  | 32    | W      | Data signal of A_4_2             |                                                                      |
+| s_axi_control | A_4_3_1   | 0x1b4  | 32    | W      | Data signal of A_4_3             |                                                                      |
+| s_axi_control | A_4_3_2   | 0x1b8  | 32    | W      | Data signal of A_4_3             |                                                                      |
+| s_axi_control | A_4_4_1   | 0x1c0  | 32    | W      | Data signal of A_4_4             |                                                                      |
+| s_axi_control | A_4_4_2   | 0x1c4  | 32    | W      | Data signal of A_4_4             |                                                                      |
+| s_axi_control | A_4_5_1   | 0x1cc  | 32    | W      | Data signal of A_4_5             |                                                                      |
+| s_axi_control | A_4_5_2   | 0x1d0  | 32    | W      | Data signal of A_4_5             |                                                                      |
+| s_axi_control | A_4_6_1   | 0x1d8  | 32    | W      | Data signal of A_4_6             |                                                                      |
+| s_axi_control | A_4_6_2   | 0x1dc  | 32    | W      | Data signal of A_4_6             |                                                                      |
+| s_axi_control | A_4_7_1   | 0x1e4  | 32    | W      | Data signal of A_4_7             |                                                                      |
+| s_axi_control | A_4_7_2   | 0x1e8  | 32    | W      | Data signal of A_4_7             |                                                                      |
+| s_axi_control | A_5_0_1   | 0x1f0  | 32    | W      | Data signal of A_5_0             |                                                                      |
+| s_axi_control | A_5_0_2   | 0x1f4  | 32    | W      | Data signal of A_5_0             |                                                                      |
+| s_axi_control | A_5_1_1   | 0x1fc  | 32    | W      | Data signal of A_5_1             |                                                                      |
+| s_axi_control | A_5_1_2   | 0x200  | 32    | W      | Data signal of A_5_1             |                                                                      |
+| s_axi_control | A_5_2_1   | 0x208  | 32    | W      | Data signal of A_5_2             |                                                                      |
+| s_axi_control | A_5_2_2   | 0x20c  | 32    | W      | Data signal of A_5_2             |                                                                      |
+| s_axi_control | A_5_3_1   | 0x214  | 32    | W      | Data signal of A_5_3             |                                                                      |
+| s_axi_control | A_5_3_2   | 0x218  | 32    | W      | Data signal of A_5_3             |                                                                      |
+| s_axi_control | A_5_4_1   | 0x220  | 32    | W      | Data signal of A_5_4             |                                                                      |
+| s_axi_control | A_5_4_2   | 0x224  | 32    | W      | Data signal of A_5_4             |                                                                      |
+| s_axi_control | A_5_5_1   | 0x22c  | 32    | W      | Data signal of A_5_5             |                                                                      |
+| s_axi_control | A_5_5_2   | 0x230  | 32    | W      | Data signal of A_5_5             |                                                                      |
+| s_axi_control | A_5_6_1   | 0x238  | 32    | W      | Data signal of A_5_6             |                                                                      |
+| s_axi_control | A_5_6_2   | 0x23c  | 32    | W      | Data signal of A_5_6             |                                                                      |
+| s_axi_control | A_5_7_1   | 0x244  | 32    | W      | Data signal of A_5_7             |                                                                      |
+| s_axi_control | A_5_7_2   | 0x248  | 32    | W      | Data signal of A_5_7             |                                                                      |
+| s_axi_control | A_6_0_1   | 0x250  | 32    | W      | Data signal of A_6_0             |                                                                      |
+| s_axi_control | A_6_0_2   | 0x254  | 32    | W      | Data signal of A_6_0             |                                                                      |
+| s_axi_control | A_6_1_1   | 0x25c  | 32    | W      | Data signal of A_6_1             |                                                                      |
+| s_axi_control | A_6_1_2   | 0x260  | 32    | W      | Data signal of A_6_1             |                                                                      |
+| s_axi_control | A_6_2_1   | 0x268  | 32    | W      | Data signal of A_6_2             |                                                                      |
+| s_axi_control | A_6_2_2   | 0x26c  | 32    | W      | Data signal of A_6_2             |                                                                      |
+| s_axi_control | A_6_3_1   | 0x274  | 32    | W      | Data signal of A_6_3             |                                                                      |
+| s_axi_control | A_6_3_2   | 0x278  | 32    | W      | Data signal of A_6_3             |                                                                      |
+| s_axi_control | A_6_4_1   | 0x280  | 32    | W      | Data signal of A_6_4             |                                                                      |
+| s_axi_control | A_6_4_2   | 0x284  | 32    | W      | Data signal of A_6_4             |                                                                      |
+| s_axi_control | A_6_5_1   | 0x28c  | 32    | W      | Data signal of A_6_5             |                                                                      |
+| s_axi_control | A_6_5_2   | 0x290  | 32    | W      | Data signal of A_6_5             |                                                                      |
+| s_axi_control | A_6_6_1   | 0x298  | 32    | W      | Data signal of A_6_6             |                                                                      |
+| s_axi_control | A_6_6_2   | 0x29c  | 32    | W      | Data signal of A_6_6             |                                                                      |
+| s_axi_control | A_6_7_1   | 0x2a4  | 32    | W      | Data signal of A_6_7             |                                                                      |
+| s_axi_control | A_6_7_2   | 0x2a8  | 32    | W      | Data signal of A_6_7             |                                                                      |
+| s_axi_control | A_7_0_1   | 0x2b0  | 32    | W      | Data signal of A_7_0             |                                                                      |
+| s_axi_control | A_7_0_2   | 0x2b4  | 32    | W      | Data signal of A_7_0             |                                                                      |
+| s_axi_control | A_7_1_1   | 0x2bc  | 32    | W      | Data signal of A_7_1             |                                                                      |
+| s_axi_control | A_7_1_2   | 0x2c0  | 32    | W      | Data signal of A_7_1             |                                                                      |
+| s_axi_control | A_7_2_1   | 0x2c8  | 32    | W      | Data signal of A_7_2             |                                                                      |
+| s_axi_control | A_7_2_2   | 0x2cc  | 32    | W      | Data signal of A_7_2             |                                                                      |
+| s_axi_control | A_7_3_1   | 0x2d4  | 32    | W      | Data signal of A_7_3             |                                                                      |
+| s_axi_control | A_7_3_2   | 0x2d8  | 32    | W      | Data signal of A_7_3             |                                                                      |
+| s_axi_control | A_7_4_1   | 0x2e0  | 32    | W      | Data signal of A_7_4             |                                                                      |
+| s_axi_control | A_7_4_2   | 0x2e4  | 32    | W      | Data signal of A_7_4             |                                                                      |
+| s_axi_control | A_7_5_1   | 0x2ec  | 32    | W      | Data signal of A_7_5             |                                                                      |
+| s_axi_control | A_7_5_2   | 0x2f0  | 32    | W      | Data signal of A_7_5             |                                                                      |
+| s_axi_control | A_7_6_1   | 0x2f8  | 32    | W      | Data signal of A_7_6             |                                                                      |
+| s_axi_control | A_7_6_2   | 0x2fc  | 32    | W      | Data signal of A_7_6             |                                                                      |
+| s_axi_control | A_7_7_1   | 0x304  | 32    | W      | Data signal of A_7_7             |                                                                      |
+| s_axi_control | A_7_7_2   | 0x308  | 32    | W      | Data signal of A_7_7             |                                                                      |
+| s_axi_control | x_0_1     | 0x310  | 32    | W      | Data signal of x_0               |                                                                      |
+| s_axi_control | x_0_2     | 0x314  | 32    | W      | Data signal of x_0               |                                                                      |
+| s_axi_control | x_1_1     | 0x31c  | 32    | W      | Data signal of x_1               |                                                                      |
+| s_axi_control | x_1_2     | 0x320  | 32    | W      | Data signal of x_1               |                                                                      |
+| s_axi_control | x_2_1     | 0x328  | 32    | W      | Data signal of x_2               |                                                                      |
+| s_axi_control | x_2_2     | 0x32c  | 32    | W      | Data signal of x_2               |                                                                      |
+| s_axi_control | x_3_1     | 0x334  | 32    | W      | Data signal of x_3               |                                                                      |
+| s_axi_control | x_3_2     | 0x338  | 32    | W      | Data signal of x_3               |                                                                      |
+| s_axi_control | x_4_1     | 0x340  | 32    | W      | Data signal of x_4               |                                                                      |
+| s_axi_control | x_4_2     | 0x344  | 32    | W      | Data signal of x_4               |                                                                      |
+| s_axi_control | x_5_1     | 0x34c  | 32    | W      | Data signal of x_5               |                                                                      |
+| s_axi_control | x_5_2     | 0x350  | 32    | W      | Data signal of x_5               |                                                                      |
+| s_axi_control | x_6_1     | 0x358  | 32    | W      | Data signal of x_6               |                                                                      |
+| s_axi_control | x_6_2     | 0x35c  | 32    | W      | Data signal of x_6               |                                                                      |
+| s_axi_control | x_7_1     | 0x364  | 32    | W      | Data signal of x_7               |                                                                      |
+| s_axi_control | x_7_2     | 0x368  | 32    | W      | Data signal of x_7               |                                                                      |
+| s_axi_control | y_out_0_1 | 0x370  | 32    | W      | Data signal of y_out_0           |                                                                      |
+| s_axi_control | y_out_0_2 | 0x374  | 32    | W      | Data signal of y_out_0           |                                                                      |
+| s_axi_control | y_out_1_1 | 0x37c  | 32    | W      | Data signal of y_out_1           |                                                                      |
+| s_axi_control | y_out_1_2 | 0x380  | 32    | W      | Data signal of y_out_1           |                                                                      |
+| s_axi_control | y_out_2_1 | 0x388  | 32    | W      | Data signal of y_out_2           |                                                                      |
+| s_axi_control | y_out_2_2 | 0x38c  | 32    | W      | Data signal of y_out_2           |                                                                      |
+| s_axi_control | y_out_3_1 | 0x394  | 32    | W      | Data signal of y_out_3           |                                                                      |
+| s_axi_control | y_out_3_2 | 0x398  | 32    | W      | Data signal of y_out_3           |                                                                      |
+| s_axi_control | y_out_4_1 | 0x3a0  | 32    | W      | Data signal of y_out_4           |                                                                      |
+| s_axi_control | y_out_4_2 | 0x3a4  | 32    | W      | Data signal of y_out_4           |                                                                      |
+| s_axi_control | y_out_5_1 | 0x3ac  | 32    | W      | Data signal of y_out_5           |                                                                      |
+| s_axi_control | y_out_5_2 | 0x3b0  | 32    | W      | Data signal of y_out_5           |                                                                      |
+| s_axi_control | y_out_6_1 | 0x3b8  | 32    | W      | Data signal of y_out_6           |                                                                      |
+| s_axi_control | y_out_6_2 | 0x3bc  | 32    | W      | Data signal of y_out_6           |                                                                      |
+| s_axi_control | y_out_7_1 | 0x3c4  | 32    | W      | Data signal of y_out_7           |                                                                      |
+| s_axi_control | y_out_7_2 | 0x3c8  | 32    | W      | Data signal of y_out_7           |                                                                      |
++---------------+-----------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------+
+| Interface | Type       | Ports     |
++-----------+------------+-----------+
+| ap_clk    | clock      | ap_clk    |
+| ap_rst_n  | reset      | ap_rst_n  |
+| interrupt | interrupt  | interrupt |
+| ap_ctrl   | ap_ctrl_hs |           |
++-----------+------------+-----------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| A        | in        | int*     |
+| x        | inout     | int*     |
+| y_out    | inout     | int*     |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+----------------+-----------+----------+
+| Argument | HW Interface   | HW Type   | HW Usage |
++----------+----------------+-----------+----------+
+| A        | m_axi_gmem_0_0 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_0_1 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_0_2 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_0_3 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_0_4 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_0_5 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_0_6 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_0_7 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_1_0 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_1_1 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_1_2 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_1_3 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_1_4 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_1_5 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_1_6 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_1_7 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_2_0 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_2_1 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_2_2 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_2_3 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_2_4 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_2_5 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_2_6 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_2_7 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_3_0 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_3_1 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_3_2 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_3_3 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_3_4 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_3_5 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_3_6 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_3_7 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_4_0 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_4_1 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_4_2 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_4_3 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_4_4 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_4_5 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_4_6 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_4_7 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_5_0 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_5_1 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_5_2 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_5_3 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_5_4 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_5_5 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_5_6 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_5_7 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_6_0 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_6_1 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_6_2 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_6_3 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_6_4 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_6_5 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_6_6 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_6_7 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_7_0 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_7_1 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_7_2 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_7_3 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_7_4 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_7_5 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_7_6 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| A        | m_axi_gmem_7_7 | interface |          |
+| A        | s_axi_control  | interface | offset   |
+| x        | m_axi_gmem_0   | interface |          |
+| x        | s_axi_control  | interface | offset   |
+| x        | m_axi_gmem_1   | interface |          |
+| x        | s_axi_control  | interface | offset   |
+| x        | m_axi_gmem_2   | interface |          |
+| x        | s_axi_control  | interface | offset   |
+| x        | m_axi_gmem_3   | interface |          |
+| x        | s_axi_control  | interface | offset   |
+| x        | m_axi_gmem_4   | interface |          |
+| x        | s_axi_control  | interface | offset   |
+| x        | m_axi_gmem_5   | interface |          |
+| x        | s_axi_control  | interface | offset   |
+| x        | m_axi_gmem_6   | interface |          |
+| x        | s_axi_control  | interface | offset   |
+| x        | m_axi_gmem_7   | interface |          |
+| x        | s_axi_control  | interface | offset   |
+| y_out    | m_axi_gmem_0   | interface |          |
+| y_out    | s_axi_control  | interface | offset   |
+| y_out    | m_axi_gmem_1   | interface |          |
+| y_out    | s_axi_control  | interface | offset   |
+| y_out    | m_axi_gmem_2   | interface |          |
+| y_out    | s_axi_control  | interface | offset   |
+| y_out    | m_axi_gmem_3   | interface |          |
+| y_out    | s_axi_control  | interface | offset   |
+| y_out    | m_axi_gmem_4   | interface |          |
+| y_out    | s_axi_control  | interface | offset   |
+| y_out    | m_axi_gmem_5   | interface |          |
+| y_out    | s_axi_control  | interface | offset   |
+| y_out    | m_axi_gmem_6   | interface |          |
+| y_out    | s_axi_control  | interface | offset   |
+| y_out    | m_axi_gmem_7   | interface |          |
+| y_out    | s_axi_control  | interface | offset   |
++----------+----------------+-----------+----------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+* Inferred Bursts and Widening Missed
++----------------+----------+-----------------+-------------------------------------------+------------+------------------------------------------------------------------------------------+
+| HW Interface   | Variable | Loop            | Problem                                   | Resolution | Location                                                                           |
++----------------+----------+-----------------+-------------------------------------------+------------+------------------------------------------------------------------------------------+
+| m_axi_gmem_6   | y_out_6  | VITIS_LOOP_67_1 | Access store is in the conditional branch | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:67:19 |
+| m_axi_gmem_5   | y_out_5  | VITIS_LOOP_67_1 | Access store is in the conditional branch | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:67:19 |
+| m_axi_gmem_4   | y_out_4  | VITIS_LOOP_67_1 | Access store is in the conditional branch | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:67:19 |
+| m_axi_gmem_3   | y_out_3  | VITIS_LOOP_67_1 | Access store is in the conditional branch | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:67:19 |
+| m_axi_gmem_2   | y_out_2  | VITIS_LOOP_67_1 | Access store is in the conditional branch | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:67:19 |
+| m_axi_gmem_1   | y_out_1  | VITIS_LOOP_67_1 | Access store is in the conditional branch | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:67:19 |
+| m_axi_gmem_0   | y_out_0  | VITIS_LOOP_67_1 | Access store is in the conditional branch | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:67:19 |
+| m_axi_gmem_7   | y_out_7  | VITIS_LOOP_67_1 | Access store is in the conditional branch | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:67:19 |
+| m_axi_gmem_0_0 | A_0_0    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_1_0 | A_1_0    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_2_0 | A_2_0    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_3_0 | A_3_0    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_4_0 | A_4_0    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_5_0 | A_5_0    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_6_0 | A_6_0    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_7_0 | A_7_0    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_0   | x_0      | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_0_1 | A_0_1    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_1_1 | A_1_1    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_2_1 | A_2_1    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_3_1 | A_3_1    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_4_1 | A_4_1    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_5_1 | A_5_1    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_6_1 | A_6_1    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_7_1 | A_7_1    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_1   | x_1      | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_0_2 | A_0_2    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_1_2 | A_1_2    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_2_2 | A_2_2    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_3_2 | A_3_2    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_4_2 | A_4_2    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_5_2 | A_5_2    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_6_2 | A_6_2    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_7_2 | A_7_2    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_2   | x_2      | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_0_3 | A_0_3    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_1_3 | A_1_3    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_2_3 | A_2_3    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_3_3 | A_3_3    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_4_3 | A_4_3    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_5_3 | A_5_3    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_6_3 | A_6_3    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_7_3 | A_7_3    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_3   | x_3      | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_0_4 | A_0_4    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_1_4 | A_1_4    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_2_4 | A_2_4    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_3_4 | A_3_4    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_4_4 | A_4_4    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_5_4 | A_5_4    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_6_4 | A_6_4    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_7_4 | A_7_4    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_4   | x_4      | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_0_5 | A_0_5    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_1_5 | A_1_5    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_2_5 | A_2_5    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_3_5 | A_3_5    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_4_5 | A_4_5    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_5_5 | A_5_5    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_6_5 | A_6_5    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_7_5 | A_7_5    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_5   | x_5      | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_0_6 | A_0_6    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_1_6 | A_1_6    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_2_6 | A_2_6    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_3_6 | A_3_6    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_4_6 | A_4_6    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_5_6 | A_5_6    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_6_6 | A_6_6    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_7_6 | A_7_6    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_6   | x_6      | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_0_7 | A_0_7    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_1_7 | A_1_7    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_2_7 | A_2_7    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_3_7 | A_3_7    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_4_7 | A_4_7    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_5_7 | A_5_7    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_6_7 | A_6_7    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_7_7 | A_7_7    | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_7   | x_7      | VITIS_LOOP_16_4 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:16:38 |
+| m_axi_gmem_0   | y_out_0  | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_1   | y_out_1  | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_2   | y_out_2  | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_3   | y_out_3  | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_4   | y_out_4  | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_5   | y_out_5  | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_6   | y_out_6  | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_7   | y_out_7  | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_0_0 | A_0_0    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_0_1 | A_0_1    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_0_2 | A_0_2    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_0_3 | A_0_3    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_0_4 | A_0_4    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_0_5 | A_0_5    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_0_6 | A_0_6    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_0_7 | A_0_7    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_1_0 | A_1_0    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_1_1 | A_1_1    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_1_2 | A_1_2    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_1_3 | A_1_3    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_1_4 | A_1_4    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_1_5 | A_1_5    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_1_6 | A_1_6    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_1_7 | A_1_7    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_2_0 | A_2_0    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_2_1 | A_2_1    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_2_2 | A_2_2    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_2_3 | A_2_3    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_2_4 | A_2_4    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_2_5 | A_2_5    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_2_6 | A_2_6    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_2_7 | A_2_7    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_3_0 | A_3_0    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_3_1 | A_3_1    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_3_2 | A_3_2    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_3_3 | A_3_3    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_3_4 | A_3_4    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_3_5 | A_3_5    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_3_6 | A_3_6    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_3_7 | A_3_7    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_4_0 | A_4_0    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_4_1 | A_4_1    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_4_2 | A_4_2    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_4_3 | A_4_3    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_4_4 | A_4_4    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_4_5 | A_4_5    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_4_6 | A_4_6    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_4_7 | A_4_7    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_5_0 | A_5_0    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_5_1 | A_5_1    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_5_2 | A_5_2    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_5_3 | A_5_3    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_5_4 | A_5_4    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_5_5 | A_5_5    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_5_6 | A_5_6    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_5_7 | A_5_7    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_6_0 | A_6_0    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_6_1 | A_6_1    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_6_2 | A_6_2    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_6_3 | A_6_3    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_6_4 | A_6_4    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_6_5 | A_6_5    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_6_6 | A_6_6    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_6_7 | A_6_7    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_7_0 | A_7_0    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_7_1 | A_7_1    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_7_2 | A_7_2    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_7_3 | A_7_3    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_7_4 | A_7_4    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_7_5 | A_7_5    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_7_6 | A_7_6    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_7_7 | A_7_7    | VITIS_LOOP_39_3 | Stride is incompatible                    | 214-230    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_6   | y_out_6  | VITIS_LOOP_39_3 | Access store is in the conditional branch | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_5   | y_out_5  | VITIS_LOOP_39_3 | Access store is in the conditional branch | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_4   | y_out_4  | VITIS_LOOP_39_3 | Access store is in the conditional branch | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_3   | y_out_3  | VITIS_LOOP_39_3 | Access store is in the conditional branch | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_2   | y_out_2  | VITIS_LOOP_39_3 | Access store is in the conditional branch | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_1   | y_out_1  | VITIS_LOOP_39_3 | Access store is in the conditional branch | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_0   | y_out_0  | VITIS_LOOP_39_3 | Access store is in the conditional branch | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
+| m_axi_gmem_7   | y_out_7  | VITIS_LOOP_39_3 | Access store is in the conditional branch | 214-232    | /home/zqy/LLM4CHIP/dataset/pair_slow_fast/SYN_dataset/atax/generate/atax.cpp:39:38 |
++----------------+----------+-----------------+-------------------------------------------+------------+------------------------------------------------------------------------------------+
+
+    * Resolution URL: www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=XXX-YYY.html (replace XXX-YYY with column value)
+
+================================================================
+== Bind Op Report
+================================================================
++------------------------------------------------------------------+-----+--------+------------+-----+--------+---------+
+| Name                                                             | DSP | Pragma | Variable   | Op  | Impl   | Latency |
++------------------------------------------------------------------+-----+--------+------------+-----+--------+---------+
+| + atax                                                           | 48  |        |            |     |        |         |
+|   add_ln14_fu_1989_p2                                            | -   |        | add_ln14   | add | fabric | 0       |
+|  + atax_Pipeline_VITIS_LOOP_67_1                                 | 0   |        |            |     |        |         |
+|    add_ln67_fu_390_p2                                            | -   |        | add_ln67   | add | fabric | 0       |
+|    add_ln69_fu_418_p2                                            | -   |        | add_ln69   | add | fabric | 0       |
+|    add_ln69_1_fu_424_p2                                          | -   |        | add_ln69_1 | add | fabric | 0       |
+|    add_ln69_2_fu_430_p2                                          | -   |        | add_ln69_2 | add | fabric | 0       |
+|    add_ln69_3_fu_436_p2                                          | -   |        | add_ln69_3 | add | fabric | 0       |
+|    add_ln69_4_fu_442_p2                                          | -   |        | add_ln69_4 | add | fabric | 0       |
+|    add_ln69_5_fu_448_p2                                          | -   |        | add_ln69_5 | add | fabric | 0       |
+|    add_ln69_6_fu_454_p2                                          | -   |        | add_ln69_6 | add | fabric | 0       |
+|    add_ln69_7_fu_460_p2                                          | -   |        | add_ln69_7 | add | fabric | 0       |
+|  + atax_Pipeline_VITIS_LOOP_9_1                                  | 0   |        |            |     |        |         |
+|    add_ln9_fu_190_p2                                             | -   |        | add_ln9    | add | fabric | 0       |
+|  + atax_Pipeline_VITIS_LOOP_37_1_VITIS_LOOP_38_2_VITIS_LOOP_39_3 | 24  |        |            |     |        |         |
+|    add_ln37_fu_3539_p2                                           | -   |        | add_ln37   | add | fabric | 0       |
+|    add_ln37_9_fu_3562_p2                                         | -   |        | add_ln37_9 | add | fabric | 0       |
+|    add_ln37_1_fu_3594_p2                                         | -   |        | add_ln37_1 | add | fabric | 0       |
+|    add_ln37_2_fu_3614_p2                                         | -   |        | add_ln37_2 | add | fabric | 0       |
+|    add_ln37_3_fu_3634_p2                                         | -   |        | add_ln37_3 | add | fabric | 0       |
+|    add_ln37_4_fu_3654_p2                                         | -   |        | add_ln37_4 | add | fabric | 0       |
+|    add_ln37_5_fu_3674_p2                                         | -   |        | add_ln37_5 | add | fabric | 0       |
+|    add_ln37_6_fu_3694_p2                                         | -   |        | add_ln37_6 | add | fabric | 0       |
+|    add_ln37_7_fu_3714_p2                                         | -   |        | add_ln37_7 | add | fabric | 0       |
+|    add_ln37_8_fu_3734_p2                                         | -   |        | add_ln37_8 | add | fabric | 0       |
+|    p_mid11218_fu_3754_p2                                         | -   |        | p_mid11218 | add | fabric | 0       |
+|    p_mid11222_fu_3760_p2                                         | -   |        | p_mid11222 | add | fabric | 0       |
+|    p_mid11226_fu_3766_p2                                         | -   |        | p_mid11226 | add | fabric | 0       |
+|    p_mid11230_fu_3772_p2                                         | -   |        | p_mid11230 | add | fabric | 0       |
+|    p_mid11234_fu_3778_p2                                         | -   |        | p_mid11234 | add | fabric | 0       |
+|    p_mid11238_fu_3784_p2                                         | -   |        | p_mid11238 | add | fabric | 0       |
+|    p_mid11242_fu_3790_p2                                         | -   |        | p_mid11242 | add | fabric | 0       |
+|    p_mid11246_fu_3796_p2                                         | -   |        | p_mid11246 | add | fabric | 0       |
+|    p_mid11316_fu_3954_p2                                         | -   |        | p_mid11316 | add | fabric | 0       |
+|    p_mid11320_fu_3960_p2                                         | -   |        | p_mid11320 | add | fabric | 0       |
+|    p_mid11324_fu_3966_p2                                         | -   |        | p_mid11324 | add | fabric | 0       |
+|    p_mid11328_fu_3972_p2                                         | -   |        | p_mid11328 | add | fabric | 0       |
+|    p_mid11332_fu_3978_p2                                         | -   |        | p_mid11332 | add | fabric | 0       |
+|    p_mid11336_fu_3984_p2                                         | -   |        | p_mid11336 | add | fabric | 0       |
+|    p_mid11340_fu_3990_p2                                         | -   |        | p_mid11340 | add | fabric | 0       |
+|    p_mid11344_fu_3996_p2                                         | -   |        | p_mid11344 | add | fabric | 0       |
+|    p_mid11414_fu_4146_p2                                         | -   |        | p_mid11414 | add | fabric | 0       |
+|    p_mid11418_fu_4152_p2                                         | -   |        | p_mid11418 | add | fabric | 0       |
+|    p_mid11422_fu_4158_p2                                         | -   |        | p_mid11422 | add | fabric | 0       |
+|    p_mid11426_fu_4164_p2                                         | -   |        | p_mid11426 | add | fabric | 0       |
+|    p_mid11430_fu_4170_p2                                         | -   |        | p_mid11430 | add | fabric | 0       |
+|    p_mid11434_fu_4176_p2                                         | -   |        | p_mid11434 | add | fabric | 0       |
+|    p_mid11438_fu_4182_p2                                         | -   |        | p_mid11438 | add | fabric | 0       |
+|    p_mid11442_fu_4188_p2                                         | -   |        | p_mid11442 | add | fabric | 0       |
+|    p_mid11512_fu_4338_p2                                         | -   |        | p_mid11512 | add | fabric | 0       |
+|    p_mid11516_fu_4344_p2                                         | -   |        | p_mid11516 | add | fabric | 0       |
+|    p_mid11520_fu_4350_p2                                         | -   |        | p_mid11520 | add | fabric | 0       |
+|    p_mid11524_fu_4356_p2                                         | -   |        | p_mid11524 | add | fabric | 0       |
+|    p_mid11528_fu_4362_p2                                         | -   |        | p_mid11528 | add | fabric | 0       |
+|    p_mid11532_fu_4368_p2                                         | -   |        | p_mid11532 | add | fabric | 0       |
+|    p_mid11536_fu_4374_p2                                         | -   |        | p_mid11536 | add | fabric | 0       |
+|    p_mid11540_fu_4380_p2                                         | -   |        | p_mid11540 | add | fabric | 0       |
+|    p_mid11610_fu_4530_p2                                         | -   |        | p_mid11610 | add | fabric | 0       |
+|    p_mid11614_fu_4536_p2                                         | -   |        | p_mid11614 | add | fabric | 0       |
+|    p_mid11618_fu_4542_p2                                         | -   |        | p_mid11618 | add | fabric | 0       |
+|    p_mid11622_fu_4548_p2                                         | -   |        | p_mid11622 | add | fabric | 0       |
+|    p_mid11626_fu_4554_p2                                         | -   |        | p_mid11626 | add | fabric | 0       |
+|    p_mid11630_fu_4560_p2                                         | -   |        | p_mid11630 | add | fabric | 0       |
+|    p_mid11634_fu_4566_p2                                         | -   |        | p_mid11634 | add | fabric | 0       |
+|    p_mid11638_fu_4572_p2                                         | -   |        | p_mid11638 | add | fabric | 0       |
+|    p_mid11708_fu_4722_p2                                         | -   |        | p_mid11708 | add | fabric | 0       |
+|    p_mid11712_fu_4728_p2                                         | -   |        | p_mid11712 | add | fabric | 0       |
+|    p_mid11716_fu_4734_p2                                         | -   |        | p_mid11716 | add | fabric | 0       |
+|    p_mid11720_fu_4740_p2                                         | -   |        | p_mid11720 | add | fabric | 0       |
+|    p_mid11724_fu_4746_p2                                         | -   |        | p_mid11724 | add | fabric | 0       |
+|    p_mid11728_fu_4752_p2                                         | -   |        | p_mid11728 | add | fabric | 0       |
+|    p_mid11732_fu_4758_p2                                         | -   |        | p_mid11732 | add | fabric | 0       |
+|    p_mid11736_fu_4764_p2                                         | -   |        | p_mid11736 | add | fabric | 0       |
+|    p_mid11806_fu_4914_p2                                         | -   |        | p_mid11806 | add | fabric | 0       |
+|    p_mid11810_fu_4920_p2                                         | -   |        | p_mid11810 | add | fabric | 0       |
+|    p_mid11814_fu_4926_p2                                         | -   |        | p_mid11814 | add | fabric | 0       |
+|    p_mid11818_fu_4932_p2                                         | -   |        | p_mid11818 | add | fabric | 0       |
+|    p_mid11822_fu_4938_p2                                         | -   |        | p_mid11822 | add | fabric | 0       |
+|    p_mid11826_fu_4944_p2                                         | -   |        | p_mid11826 | add | fabric | 0       |
+|    p_mid11830_fu_4950_p2                                         | -   |        | p_mid11830 | add | fabric | 0       |
+|    p_mid11834_fu_4956_p2                                         | -   |        | p_mid11834 | add | fabric | 0       |
+|    p_mid11904_fu_5106_p2                                         | -   |        | p_mid11904 | add | fabric | 0       |
+|    p_mid11908_fu_5112_p2                                         | -   |        | p_mid11908 | add | fabric | 0       |
+|    p_mid11912_fu_5118_p2                                         | -   |        | p_mid11912 | add | fabric | 0       |
+|    p_mid11916_fu_5124_p2                                         | -   |        | p_mid11916 | add | fabric | 0       |
+|    p_mid11920_fu_5130_p2                                         | -   |        | p_mid11920 | add | fabric | 0       |
+|    p_mid11924_fu_5136_p2                                         | -   |        | p_mid11924 | add | fabric | 0       |
+|    p_mid11928_fu_5142_p2                                         | -   |        | p_mid11928 | add | fabric | 0       |
+|    p_mid11932_fu_5148_p2                                         | -   |        | p_mid11932 | add | fabric | 0       |
+|    add_ln38_fu_5324_p2                                           | -   |        | add_ln38   | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U221                                       | 3   |        | mul_ln45   | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U222                                       | 3   |        | mul_ln45_1 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U223                                       | 3   |        | mul_ln45_2 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U224                                       | 3   |        | mul_ln45_3 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U225                                       | 3   |        | mul_ln45_4 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U226                                       | 3   |        | mul_ln45_5 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U227                                       | 3   |        | mul_ln45_6 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U228                                       | 3   |        | mul_ln45_7 | mul | auto   | 0       |
+|    add_ln45_fu_8192_p2                                           | -   |        | add_ln45   | add | fabric | 0       |
+|    add_ln45_1_fu_8196_p2                                         | -   |        | add_ln45_1 | add | fabric | 0       |
+|    add_ln39_fu_8004_p2                                           | -   |        | add_ln39   | add | fabric | 0       |
+|    add_ln38_1_fu_8009_p2                                         | -   |        | add_ln38_1 | add | fabric | 0       |
+|  + atax_Pipeline_VITIS_LOOP_15_3_VITIS_LOOP_16_4                 | 24  |        |            |     |        |         |
+|    empty_fu_2077_p2                                              | -   |        | empty      | add | fabric | 0       |
+|    empty_237_fu_2083_p2                                          | -   |        | empty_237  | add | fabric | 0       |
+|    empty_238_fu_2089_p2                                          | -   |        | empty_238  | add | fabric | 0       |
+|    empty_239_fu_2095_p2                                          | -   |        | empty_239  | add | fabric | 0       |
+|    empty_240_fu_2101_p2                                          | -   |        | empty_240  | add | fabric | 0       |
+|    empty_241_fu_2107_p2                                          | -   |        | empty_241  | add | fabric | 0       |
+|    empty_242_fu_2113_p2                                          | -   |        | empty_242  | add | fabric | 0       |
+|    empty_243_fu_2119_p2                                          | -   |        | empty_243  | add | fabric | 0       |
+|    add_ln15_fu_3619_p2                                           | -   |        | add_ln15   | add | fabric | 0       |
+|    add_ln15_1_fu_3642_p2                                         | -   |        | add_ln15_1 | add | fabric | 0       |
+|    p_mid1258_fu_3662_p2                                          | -   |        | p_mid1258  | add | fabric | 0       |
+|    p_mid1260_fu_3668_p2                                          | -   |        | p_mid1260  | add | fabric | 0       |
+|    p_mid1262_fu_3674_p2                                          | -   |        | p_mid1262  | add | fabric | 0       |
+|    p_mid1264_fu_3680_p2                                          | -   |        | p_mid1264  | add | fabric | 0       |
+|    p_mid1266_fu_3686_p2                                          | -   |        | p_mid1266  | add | fabric | 0       |
+|    p_mid1268_fu_3692_p2                                          | -   |        | p_mid1268  | add | fabric | 0       |
+|    p_mid1270_fu_3698_p2                                          | -   |        | p_mid1270  | add | fabric | 0       |
+|    p_mid1272_fu_3704_p2                                          | -   |        | p_mid1272  | add | fabric | 0       |
+|    mul_32s_32s_32_1_1_U41                                        | 3   |        | mul_ln22   | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U42                                        | 3   |        | mul_ln22_1 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U43                                        | 3   |        | mul_ln22_2 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U44                                        | 3   |        | mul_ln22_3 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U45                                        | 3   |        | mul_ln22_4 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U46                                        | 3   |        | mul_ln22_5 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U47                                        | 3   |        | mul_ln22_6 | mul | auto   | 0       |
+|    mul_32s_32s_32_1_1_U48                                        | 3   |        | mul_ln22_7 | mul | auto   | 0       |
+|    add_ln22_fu_6708_p2                                           | -   |        | add_ln22   | add | fabric | 0       |
+|    add_ln22_1_fu_6712_p2                                         | -   |        | add_ln22_1 | add | fabric | 0       |
+|    add_ln16_fu_6506_p2                                           | -   |        | add_ln16   | add | fabric | 0       |
++------------------------------------------------------------------+-----+--------+------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++------------+------+------+--------+----------+---------+------+---------+
+| Name       | BRAM | URAM | Pragma | Variable | Storage | Impl | Latency |
++------------+------+------+--------+----------+---------+------+---------+
+| + atax     | 0    | 0    |        |          |         |      |         |
+|   temp_U   | -    | -    |        | temp     | ram_1p  | auto | 1       |
+|   temp_1_U | -    | -    |        | temp_1   | ram_1p  | auto | 1       |
+|   temp_2_U | -    | -    |        | temp_2   | ram_1p  | auto | 1       |
+|   temp_3_U | -    | -    |        | temp_3   | ram_1p  | auto | 1       |
+|   temp_4_U | -    | -    |        | temp_4   | ram_1p  | auto | 1       |
+|   temp_5_U | -    | -    |        | temp_5   | ram_1p  | auto | 1       |
+|   temp_6_U | -    | -    |        | temp_6   | ram_1p  | auto | 1       |
+|   temp_7_U | -    | -    |        | temp_7   | ram_1p  | auto | 1       |
++------------+------+------+--------+----------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++-----------------+-------------------------------------------+--------------------------------------------------------------+
+| Type            | Options                                   | Location                                                     |
++-----------------+-------------------------------------------+--------------------------------------------------------------+
+| inline          |                                           | ../atax/generate/atax.cpp:4 in compute_ax_tiled              |
+| array_partition | variable=A cyclic factor=8 dim=2          | ../atax/generate/atax.cpp:5 in compute_ax_tiled, A           |
+| array_partition | variable=x cyclic factor=8 dim=1          | ../atax/generate/atax.cpp:6 in compute_ax_tiled, x           |
+| array_partition | variable=temp cyclic factor=8 dim=1       | ../atax/generate/atax.cpp:7 in compute_ax_tiled, temp        |
+| pipeline        | II=1                                      | ../atax/generate/atax.cpp:10 in compute_ax_tiled             |
+| pipeline        | II=1                                      | ../atax/generate/atax.cpp:19 in compute_ax_tiled             |
+| inline          |                                           | ../atax/generate/atax.cpp:32 in compute_at_temp_tiled        |
+| array_partition | variable=A cyclic factor=8 dim=1          | ../atax/generate/atax.cpp:33 in compute_at_temp_tiled, A     |
+| array_partition | variable=temp cyclic factor=8 dim=1       | ../atax/generate/atax.cpp:34 in compute_at_temp_tiled, temp  |
+| array_partition | variable=y_out cyclic factor=8 dim=1      | ../atax/generate/atax.cpp:35 in compute_at_temp_tiled, y_out |
+| pipeline        | II=1                                      | ../atax/generate/atax.cpp:42 in compute_at_temp_tiled        |
+| interface       | m_axi port=A offset=slave bundle=gmem     | ../atax/generate/atax.cpp:55 in atax, A                      |
+| interface       | m_axi port=x offset=slave bundle=gmem     | ../atax/generate/atax.cpp:56 in atax, x                      |
+| interface       | m_axi port=y_out offset=slave bundle=gmem | ../atax/generate/atax.cpp:57 in atax, y_out                  |
+| interface       | s_axilite port=A bundle=control           | ../atax/generate/atax.cpp:58 in atax, A                      |
+| interface       | s_axilite port=x bundle=control           | ../atax/generate/atax.cpp:59 in atax, x                      |
+| interface       | s_axilite port=y_out bundle=control       | ../atax/generate/atax.cpp:60 in atax, y_out                  |
+| interface       | s_axilite port=return bundle=control      | ../atax/generate/atax.cpp:61 in atax, return                 |
+| array_partition | variable=temp cyclic factor=8 dim=1       | ../atax/generate/atax.cpp:64 in atax, temp                   |
+| pipeline        | II=1                                      | ../atax/generate/atax.cpp:68 in atax                         |
++-----------------+-------------------------------------------+--------------------------------------------------------------+
+
+
