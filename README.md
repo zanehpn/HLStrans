@@ -4,7 +4,14 @@ HLStrans, a first Dataset for LLM-Driven C-to-HLS Hardware Code Synthesis for [H
 
 ![](./data/datagen.png)
 
+In this project, the directory structure is organized as follows:
 
+   * DSE_flow and MCTS_flow: Dataset augmentation workflows
+   * eval_models: Model evaluation scripts and utilities
+   * lib_functions: Core library functions and helpers
+   * model_sft: Model fine‑tuning and training pipelines
+   * demo_case: Example cases demonstrating data augmentation
+   * program_source: Source data and scripts used to build our datasets
 ## Prerequisites
 
 This project was tested on Xilinx Alveo U55C and Vitis HLS 2022.1 suite. The tools are needed: 
@@ -107,7 +114,7 @@ The script in eval_models adopt zero-shot, chain-of-thought, and retrieval-based
 
 ## Training
 
-After downloading the HLStrans dataset, place it under the data/ directory, then launch the preprocessing script:
+After downloading the HLStrans dataset, place it under the data/ directory, then launch the preprocessing script. First, the removal script remove_testcase_from_dataset will strip out test cases. Next, fine‑tune your LLM on the cleaned dataset. If you’d like to evaluate on different data, simply pick one of the programs in program_source/ at random and use that as your test set.
 
 ```shell
 python3 data/remove_testcase_from_dataset.py
@@ -119,3 +126,82 @@ llamafactory-cli train model_sft/c2hls_7b.yaml
 
 ## Acknowledgements
 - [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory) 🔗
+# rebuttal
+1. fintue
+   
+| Setting | Model         | Acceleration (Opt) | Acceleration (Min) | Acceleration (Avg) | Acceleration (Max) | Function Correct       | Synthesis Correct |
+| :------ | :------------ | :----------------- | :----------------- | :----------------- | :----------------- | :---------------------- | :---------------- |
+| Best@1  | Qwen Coder 3B | 11.8%              | 0.1×               | 2.2× (+0.1)        | 8.5× (+0.8)        | 41.2% (+5.9%)           | 35.3%             |
+| Best@1  | Qwen Coder 7B | 17.6%              | 0.5× (+0.1)        | 3.2× (+0.4)        | 18.9× (+1.7)       | 41.2% (+5.9%)           | 29.4%             |
+| Best@5  | Qwen Coder 3B | 29.4%（+5.9%）      | 0.8× (+0.2)        | 3.1× (+0.2)        | 9.7× (+0.8)        | 47.0% (+5.9%)           | 35.3%             |
+| Best@5  | Qwen Coder 7B | 29.4%              | 0.9× (+0.1)        | 3.6× (+0.5)        | 22.0× (+0.6)       | 52.9% (+11.8%)          | 41.2%             |
+
+
+2.
+| Method                                | Setting | Model         | Opt   | Min  | Avg  | Max   | Function correct | Synthesis correct |
+| :------------------------------------ | :------ | :------------ | :---- | :--- | :--- | :---- | :--------------- | :---------------- |
+| **Finetune and Zero-Shot Prompting**  | Best\@1 | Qwen coder 3B | 11.8% | 0.1× | 2.1× | 7.7×  | 35.3%            | 35.3%             |
+|                                       | Best\@1 | Qwen coder 7B | 17.6% | 0.4× | 2.8× | 17.2× | 41.1%            | 29.4%             |
+| **Retrieval Prompting**               | Best\@1 | Qwen coder 3B | 11.8% | 0.7× | 1.0× | 3.4×  | 29.4%            | 11.8%             |
+|                                       | Best\@1 | Qwen coder 7B | 17.6% | 0.3× | 2.1× | 5.2×  | 52.9%            | 35.3%             |
+| **Finetune with Retrieval Prompting** | Best\@1 | Qwen coder 3B | 11.8% | 0.5× | 3.4× | 7.7×  | 41.1%            | 35.3%             |
+|                                       | Best\@1 | Qwen coder 7B | 17.6% | 0.9× | 3.9× | 21.1× | 52.9%            | 41.1%             |
+
+3. Nl to HLS
+| Method        | Model          | Acceleration (Opt) | Acceleration (Min) | Acceleration (Avg) | Acceleration (Max) | Function correct | Synthesis correct |
+| :------------ | :------------- | :----------------: | :----------------: | :----------------: | :----------------: | :--------------- | :---------------- |
+| **Zero-shot** | Deepseek-R1    |        17.6%       |        0.3×        |        2.8×        |        24.6×       | 47.1%            | 29.4%             |
+|               | GPT-4o         |        17.6%       |        0.5×        |        1.6×        |        10.9×       | 35.3%            | 29.4%             |
+|               | Qwen Coder 32B |        5.9%        |        0.8×        |        1.3×        |        1.5×        | 41.2%            | 11.8%             |
+|               | Qwen Coder 7B  |         0%         |        0.66×       |        0.9×        |        1.0×        | 38.8%            | 11.8%             |
+|               | Qwen Coder 3B  |         0%         |        0.75×       |        0.8×        |        1.0×        | 38.8%            | 11.8%             |
+| **CoT**       | Deepseek-R1    |        17.6%       |        0.9×        |        4.3×        |        41.0×       | 52.9%            | 29.4%             |
+|               | GPT-4o         |        29.4%       |        0.5×        |        1.3×        |        4.0×        | 52.9%            | 35.3%             |
+|               | Qwen Coder 32B |        11.8%       |        0.1×        |        2.4×        |        24.6×       | **58.8%**        | 17.6%             |
+|               | Qwen Coder 7B  |        17.6%       |        0.04×       |        1.2×        |        2.0×        | 52.9%            | 35.3%             |
+|               | Qwen Coder 3B  |        5.9%        |        0.8×        |        1.1×        |        1.8×        | 47.1%            | 29.4%             |
+| **Retrieval** | Deepseek-R1    |      **41.2%**     |        0.9×        |      **7.2×**      |      **57.0×**     | 47.1%            | **47.1%**         |
+| **Prompting** | GPT-4o         |      **41.2%**     |        0.9×        |        4.7×        |        24.6×       | **58.8%**        | 35.3%             |
+|               | Qwen Coder 32B |        29.4%       |        0.7×        |        4.9×        |        24.6×       | 47.1%            | 35.3%             |
+|               | Qwen Coder 7B  |        17.6%       |        0.3×        |        2.1×        |        5.1×        | 52.9%            | 35.3%             |
+|               | Qwen Coder 3B  |        11.7%       |        0.7×        |        1.0×        |        3.4×        | 29.4%            | 11.8%             |
+
+4. mcts runtime
+| Metric                 | 8 iterations | 16 iterations | 32 iterations | 48 iterations | 64 iterations |
+|----------------------  |--------------|---------------|---------------|---------------|---------------|
+| **Best accelerations** |      6.59    |       20.2    |    54.7       |     56.7      |       58.9    |
+| **Runtime**            |    1.41      |     2.52      |       4.05    |      6.21     |       8.32    | 
+   
+| Metric                      |  adi | atax | bicg | correlation | covariance | doitgen | fdtd\_2d | gesummv |
+| :-------------------------- | :--: | :--: | :--: | :---------: | :--------: | :-----: | :------: | :-----: |
+| Number of effective samples |  11  |  26  |  21  |      7      |      7     |    17   |     6    |    17   |
+| Runtime (hours)             | 3.92 | 4.64 | 3.64 |     4.85    |    3.21    |   4.53  |   3.47   |   4.11  |
+
+| Metric                          | Brute-Force DFS | Our MCTS |
+| :------------------------------ | --------------: | -------: |
+| **Best Accelerations**          |        40.3     |    54.7  |
+| **Number of Effective Samples** |        69       |    112   |
+
+5. framework evaluations 
+
+
+| Application   | Baseline | HLSPilot \[7] GPT-4o | Ours GPT-4o | Ours Deepseek-R1 |
+| :------------ | -------: | -------------------: | ----------: | ---------------: |
+| cfd\_flux     |       13 |                 6.71 |        4.57 |             1.61 |
+| hotspot       |   1879.1 |                712.7 |       300.5 |             22.3 |
+| kmeans        |   2243.2 |                 65.9 |        17.9 |             15.7 |
+| knn           |     17.0 |                  2.8 |        0.83 |             0.82 |
+| dilate        |     48.8 |                 16.0 |        0.75 |             1.64 |
+| gicov         |    107.0 |                 93.0 |        82.3 |             30.7 |
+| mgvf          |   8047.5 |               3212.0 |      1231.0 |            446.0 |
+| lud           |    226.4 |                112.0 |        81.2 |             52.6 |
+| nw            |    206.4 |                145.0 |        73.0 |             13.0 |
+| pathfinder    |      7.8 |                  5.9 |        1.09 |             1.51 |
+| srad          |     35.7 |                  9.4 |         6.4 |              6.6 |
+| streamcluster |  16173.0 |               9388.0 |      8162.3 |           3966.0 |
+
+|     Dataset Ratio | 25% | 50% | 75% | 100% | Average |
+| ----------------: | --: | --: | --: | ---: | ------: |
+| **Accelerations** |15.21|6.71 | 2.32|  1.51| 5.21    |
+
+
