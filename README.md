@@ -12,6 +12,7 @@ In this project, the directory structure is organized as follows:
    * model_sft: Model fine‑tuning and training pipelines
    * demo_case: Example cases demonstrating data augmentation
    * program_source: Source data and scripts used to build our datasets
+   * data: include some generated datasets by MCTS flow for polybench benchmarks. argumentation_example/polybench/xxx/true are the generated datasets. 
 ## Prerequisites
 
 This project was tested on Xilinx Alveo U55C and Vitis HLS 2022.1 suite. The tools are needed: 
