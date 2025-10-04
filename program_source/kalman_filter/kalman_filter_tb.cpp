@@ -1,105 +1,139 @@
+// contents of kalman_filter_tb.cpp
+
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
 #include <cmath>
-#include <iomanip>
+#include <cassert>
 
-#include "ap_fixed.h"
-#include "ap_int.h"
+// Include the source to make this testbench standalone
+#include "kalman_filter.cpp"
 
-// —— 与 kernel 保持一致的类型定义 —— 
+// Helper to print a few samples from arrays
+void print_samples(const float* arr, const char* name, int n = N) {
+    std::cout << name << " samples:\n";
+    for (int i = 0; i < 5; ++i) {
+        std::cout << "  " << name << "[" << i << "] = " << arr[i] << "\n";
+    }
+    std::cout << "  ...\n";
+    for (int i = n - 5; i < n; ++i) {
+        std::cout << "  " << name << "[" << i << "] = " << arr[i] << "\n";
+    }
+}
 
-#define BATCH_SIZE_1         262144
-#define INTERNAL_BATCH_SIZE  4096
-#define INTERNAL_BATCHES     64
-
-#define DEC_BITS 6
-#define INT_BITS 13
-typedef ap_fixed<INT_BITS + DEC_BITS, INT_BITS, AP_RND> DTYPE;
-
-#define WIDTH                256
-#define FLOAT_BITS           (sizeof(float)*8)
-#define FLOATS_PER_ELEMENT   (WIDTH/FLOAT_BITS)
-#define N_WORDS              (BATCH_SIZE_1 / FLOATS_PER_ELEMENT)
-
-typedef ap_uint<WIDTH> INTERFACE_WIDTH;
-
-typedef union {
-    int   raw_val;
-    float float_val;
-} raw_float;
-
-// HLS kernel 原型
-extern "C" {
-    void krnl_KALMAN(
-        INTERFACE_WIDTH in[N_WORDS],
-        INTERFACE_WIDTH out[N_WORDS]
-    );
+// Deterministic pseudo-noise for tests
+inline float noise_fn(int k, float amplitude) {
+    return amplitude * std::sin(0.1f * static_cast<float>(k));
 }
 
 int main() {
-    std::srand((unsigned)std::time(nullptr));
+    // Common arrays used in tests
+    float z[N];
+    float x[N];
+    float P[N];
 
-    // 主机侧缓冲
-    INTERFACE_WIDTH in_buff[N_WORDS];
-    INTERFACE_WIDTH out_buff[N_WORDS];
-    DTYPE golden[BATCH_SIZE_1];
+    // Test Case 1: Constant state, H=1 (identity measurement), A=1 (constant model)
+    // Expectation: The filter should converge to the true state ~1.0 with small covariance.
+    {
+        std::cout << "Test Case 1: Constant state, A=1, H=1\n";
+        const float true_state = 1.0f;
+        const float A = 1.0f;
+        const float H = 1.0f;
+        const float Q = 1e-4f;  // small process noise
+        const float R = 1e-2f;  // moderate measurement noise
+        const float x0 = 0.0f;  // initial guess far from true state
+        const float P0 = 1.0f;  // initial uncertainty
 
-    // —— 1) 随机生成输入并打包 —— 
-    int idx = 0;
-    for (int w = 0; w < N_WORDS; ++w) {
-        INTERFACE_WIDTH word = 0;
-        for (int j = 0; j < FLOATS_PER_ELEMENT; ++j) {
-            float r = ((float)std::rand() / RAND_MAX) * 10.0f - 5.0f;  // [-5,5]
-            // 保存黄金值（以 DTYPE）
-            golden[idx] = (DTYPE)r;
-            // 打包到 word
-            raw_float u;
-            u.float_val = r;
-            int hi = (j+1)*FLOAT_BITS - 1;
-            int lo = j*FLOAT_BITS;
-            word.range(hi, lo) = u.raw_val;
-            ++idx;
+        for (int k = 0; k < N; ++k) {
+            z[k] = H * true_state + noise_fn(k, 0.05f);  // deterministic noise
         }
-        in_buff[w] = word;
+
+        kalman_filter(z, x, P, A, H, Q, R, x0, P0);
+
+        print_samples(x, "x");
+        print_samples(P, "P");
+
+        // Assert final estimate is close to true_state
+        float err = std::fabs(x[N - 1] - true_state);
+        std::cout << "  Final x[N-1] = " << x[N - 1] << ", error = " << err << "\n";
+        assert(err < 0.1f);
+
+        // Assert covariance decreased from initial
+        std::cout << "  Final P[N-1] = " << P[N - 1] << ", initial P0 = " << P0 << "\n";
+        assert(P[N - 1] < P0);
+
+        // Assert covariance is non-negative
+        for (int k = 0; k < N; ++k) {
+            assert(P[k] >= 0.0f);
+        }
+        std::cout << "Test Case 1 PASSED\n\n";
     }
 
-    // —— 2) 调用 Kernel —— 
-    krnl_KALMAN(in_buff, out_buff);
+    // Test Case 2: Measurement scaling H=2, A=1, constant true state
+    // Expectation: Filter correctly handles measurement scaling, converging near true state ~2.0.
+    {
+        std::cout << "Test Case 2: Constant state, A=1, H=2\n";
+        const float true_state = 2.0f;
+        const float A = 1.0f;
+        const float H = 2.0f;   // measurement is twice the state
+        const float Q = 5e-4f;  // small process noise
+        const float R = 2e-2f;  // measurement noise covariance
+        const float x0 = 0.0f;
+        const float P0 = 1.0f;
 
-    // —— 3) 解包输出到 actual[] —— 
-    DTYPE actual[BATCH_SIZE_1];
-    idx = 0;
-    for (int w = 0; w < N_WORDS; ++w) {
-        INTERFACE_WIDTH word = out_buff[w];
-        for (int j = 0; j < FLOATS_PER_ELEMENT; ++j) {
-            raw_float u;
-            int hi = (j+1)*FLOAT_BITS - 1;
-            int lo = j*FLOAT_BITS;
-            u.raw_val = word.range(hi, lo).to_int();
-            actual[idx++] = (DTYPE)u.float_val;
+        for (int k = 0; k < N; ++k) {
+            z[k] = H * true_state + noise_fn(k, 0.05f);
         }
+
+        kalman_filter(z, x, P, A, H, Q, R, x0, P0);
+
+        print_samples(x, "x");
+        print_samples(P, "P");
+
+        float err = std::fabs(x[N - 1] - true_state);
+        std::cout << "  Final x[N-1] = " << x[N - 1] << ", error = " << err << "\n";
+        assert(err < 0.15f);
+
+        std::cout << "  Final P[N-1] = " << P[N - 1] << "\n";
+        for (int k = 0; k < N; ++k) {
+            assert(P[k] >= 0.0f);
+        }
+        std::cout << "Test Case 2 PASSED\n\n";
     }
 
-    // —— 4) 校验并打印 PASS/FAIL —— 
-    const DTYPE eps = (DTYPE)1e-3;
-    for (int i = 0; i < BATCH_SIZE_1; ++i) {
-        DTYPE diff = actual[i] - golden[i];
-        // 先取绝对值
-        DTYPE abs_diff = (diff < (DTYPE)(0.0)) ? -diff : diff;
-        if (abs_diff > eps) {
-            std::cout << "TEST FAIL at index " << i
-                      << "  expected=" << (float)golden[i]
-                      << "  got="      << (float)actual[i]
-                      << std::endl;
-            return 1;
+    // Test Case 3: Decaying system A=0.9, H=1
+    // True state decays exponentially from 5.0 to ~0. Expectation: Filter tracks the decay and ends near 0.
+    {
+        std::cout << "Test Case 3: Decaying state, A=0.9, H=1\n";
+        const float A = 0.9f;
+        const float H = 1.0f;
+        const float Q = 1e-5f;  // very small process noise
+        const float R = 1e-2f;  // measurement noise covariance
+        const float x0 = 0.0f;
+        const float P0 = 1.0f;
+
+        float true_x = 5.0f;
+        // Generate measurements from the decaying true state plus noise
+        for (int k = 0; k < N; ++k) {
+            if (k > 0) true_x *= A;
+            z[k] = H * true_x + noise_fn(k, 0.02f);
         }
+
+        kalman_filter(z, x, P, A, H, Q, R, x0, P0);
+
+        print_samples(x, "x");
+        print_samples(P, "P");
+
+        float final_est = x[N - 1];
+        std::cout << "  Final x[N-1] = " << final_est << "\n";
+        // As true_x decays to near 0, expect final estimate close to 0
+        assert(std::fabs(final_est) < 0.1f);
+
+        // Ensure covariance remains sane
+        for (int k = 0; k < N; ++k) {
+            assert(P[k] >= 0.0f);
+        }
+        std::cout << "Test Case 3 PASSED\n\n";
     }
 
-    std::cout << "TEST PASS" << std::endl;
-    return 0;
-
-
-    std::cout << "TEST PASS" << std::endl;
+    std::cout << "All tests passed.\n";
     return 0;
 }

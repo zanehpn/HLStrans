@@ -1,0 +1,200 @@
+// Converted from Gsm_LPC_Analysis_origin.c to .cpp by convert_and_transform_with_deepseek.py
+
+// ---- file: lpc.c ----
+
+  if (smax == 0)
+    scalauto = 0;
+  else
+    scalauto = 4 - gsm_norm ((longword) smax << 16);
+  {
+    sp = s;
+    sl = *sp;
+
+#define STEP(k)	 L_ACF[k] += ((longword)sl * sp[ -(k) ]);
+
+#define NEXTI	 sl = *++sp
+    for (k = 8; k >= 0; k--)
+
+      L_ACF[k] = 0;
+
+    STEP (0);
+    NEXTI;
+    STEP (0);
+    STEP (1);
+    NEXTI;
+    STEP (0);
+    STEP (1);
+    STEP (2);
+    NEXTI;
+    STEP (0);
+    STEP (1);
+    STEP (2);
+    STEP (3);
+    NEXTI;
+    STEP (0);
+    STEP (1);
+    STEP (2);
+    STEP (3);
+    STEP (4);
+    NEXTI;
+    STEP (0);
+    STEP (1);
+    STEP (2);
+    STEP (3);
+    STEP (4);
+    STEP (5);
+    NEXTI;
+    STEP (0);
+    STEP (1);
+    STEP (2);
+    STEP (3);
+    STEP (4);
+    STEP (5);
+    STEP (6);
+    NEXTI;
+    STEP (0);
+    STEP (1);
+    STEP (2);
+    STEP (3);
+    STEP (4);
+    STEP (5);
+    STEP (6);
+    STEP (7);
+
+    autocol_lp2: for (i = 8; i <= 159; i++)
+      {
+
+	NEXTI;
+
+	STEP (0);
+	STEP (1);
+	STEP (2);
+	STEP (3);
+	STEP (4);
+	STEP (5);
+	STEP (6);
+	STEP (7);
+	STEP (8);
+      }
+
+    autocol_lp3: for (k = 8; k >= 0; k--)
+
+      L_ACF[k] <<= 1;
+
+  }
+
+void
+Reflection_coefficients (longword * L_ACF
+
+  Reflc_lp2: for (i = 1; i <= 7; i++)
+
+    K[i] = ACF[i];
+  Reflc_lp3: for (i = 0; i <= 8; i++)
+
+    P[i] = ACF[i];
+
+      if (n == 8)
+	      return;
+
+void
+Transformation_to_Log_Area_Ratios (register word * r
+
+void
+Quantization_and_coding (register word * LAR /* [0..7]       IN/OUT  */ )
+{
+  register word temp;
+
+  /*  This procedure needs four tables; the following equations
+   *  give the optimum scaling for the constants:
+   *
+   *  A[0..7] = integer( real_A[0..7] * 1024 )
+   *  B[0..7] = integer( real_B[0..7] *  512 )
+   *  MAC[0..7] = maximum of the LARc[0..7]
+   *  MIC[0..7] = minimum of the LARc[0..7]
+   */
+
+#	undef STEP
+#	define	STEP( A, B, MAC, MIC )		\
+		temp = GSM_MULT( A,   *LAR );	\
+		temp = GSM_ADD(  temp,   B );	\
+		temp = GSM_ADD(  temp, 256 );	\
+		temp = SASR(     temp,   9 );	\
+		*LAR  =  temp>MAC ? MAC - MIC : (temp<MIC ? 0 : temp - MIC); \
+		LAR++;
+
+  STEP (20480, 0, 31, -32);
+  STEP (20480, 0, 31, -32);
+  STEP (20480, 2048, 15, -16);
+  STEP (20480, -2560, 15, -16);
+
+  STEP (13964, 94, 7, -8);
+  STEP (15360, -1792, 7, -8);
+  STEP (8534, -341, 3, -4);
+  STEP (9036, -1144, 3, -4);
+
+#	undef	STEP
+}
+
+void
+Gsm_LPC_Analysis (word s[160] /* 0..159 signals       IN/OUT  */ ,
+		  word LARc[8] /* 0..7   LARc's        OUT     */ )
+{
+  longword L_ACF[9];
+
+  Autocorrelation (s, L_ACF);
+  Reflection_coefficients (L_ACF, LARc);
+  Transformation_to_Log_Area_Ratios (LARc);
+  Quantization_and_coding (LARc);
+}
+
+// ---- file: private.h ----
+/*
++--------------------------------------------------------------------------+
+| CHStone : a suite of benchmark programs for C-based High-Level Synthesis |
+| ======================================================================== |
+|                                                                          |
+| * Collected and Modified : Y. Hara, H. Tomiyama, S. Honda,               |
+|                            H. Takada and K. Ishii                        |
+|                            Nagoya University, Japan                      |
+|                                                                          |
+| * Remark :                                                               |
+|    1. This source code is modified to unify the formats of the benchmark |
+|       programs in CHStone.                                               |
+|    2. Test vectors are added for CHStone.                                |
+|    3. If "main_result" is 0 at the end of the program, the program is    |
+|       correctly executed.                                                |
+|    4. Please follow the copyright of each benchmark program.             |
++--------------------------------------------------------------------------+
+*/
+/*
+ * Copyright 1992 by Jutta Degener and Carsten Bormann, Technische
+ * Universitaet Berlin.  See the accompanying file "COPYRIGHT" for
+ * details.  THERE IS ABSOLUTELY NO WARRANTY FOR THIS SOFTWARE.
+ */
+
+/*$Header: /home/kbs/jutta/src/gsm/gsm-1.0/inc/RCS/private.h,v 1.4 1994/11/28 20:25:03 jutta Exp $*/
+
+#ifndef	PRIVATE_H
+#define	PRIVATE_H
+
+typedef short word;		/* 16 bit signed int    */
+typedef long longword;		/* 32 bit signed int    */
+
+#define	MIN_WORD	((-32767)-1)
+#define	MAX_WORD	( 32767)
+
+#define	SASR(x, by)	((x) >> (by))
+
+#define GSM_MULT_R(a, b)	gsm_mult_r(a, b)
+#define GSM_MULT(a, b)		gsm_mult(a, b)
+#define GSM_ADD(a, b)		gsm_add(a, b)
+#define GSM_ABS(a)		gsm_abs(a)
+
+word gsm_div (word num, word denum);
+word gsm_add (word a, word b);
+word gsm_mult (word a, word b);
+word gsm_abs (word a);
+word gsm_norm (longword a);
+word gsm_mult_r (word a, word b);
+
+#endif /* PRIVATE_H */
